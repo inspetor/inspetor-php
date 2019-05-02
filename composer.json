@@ -1,0 +1,20 @@
+{
+    "name": "inspetor/inspetor-php",
+    "description": "Composer for Antifraud Inspetor PHP library installation.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Theo Sato",
+            "email": "theo@useinspetor.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=7.1.3",
+        "snowplow/snowplow-tracker": "0.2.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "5.7.*"
+    }
+}
