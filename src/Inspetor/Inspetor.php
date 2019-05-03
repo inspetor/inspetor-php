@@ -5,10 +5,6 @@ namespace Ingresse\Inspetor;
 use Snowplow\Tracker\Tracker;
 use Snowplow\Tracker\Subject;
 use Snowplow\Tracker\Emitters\SyncEmitter;
-use Ingresse\Middleware\Service\RequestContext;
-use Ingresse\Domain\Entity\Sale;
-use Ingresse\Domain\Entity\User;
-use Ingresse\Store\Order\Order;
 use JsonSerializable;
 
 class Inspetor
@@ -38,13 +34,19 @@ class Inspetor
      */
     public function __construct(array $config)
     {
+        $default_config = include('config.php');
+
         $this->config = $config;
+        if (!($this->config['trackerName']) || !($this->config['trackerName'])) {
+            throw new Exception('\'trackerName\' and \'appId\' are required fields.');
+        }
+
         $this->emitter = new SyncEmitter(
-            $this->config['collectorHost'],
-            $this->config['protocol'],
-            $this->config['emitMethod'],
-            $this->config['bufferSize'],
-            $this->config['debugMode']
+            $this->config['collectorHost'] ?? $default_config['collectorHost'],
+            $this->config['protocol'] ?? $default_config['protocol'],
+            $this->config['emitMethod'] ?? $default_config['emitMethod'],
+            $this->config['bufferSize'] ?? $default_config['bufferSize'],
+            $this->config['debugMode'] ?? $default_config['debugMode']
         );
         $this->subject = new Subject();
         $this->tracker = new Tracker(
@@ -52,8 +54,24 @@ class Inspetor
             $this->subject,
             $this->config['trackerName'],
             $this->config['appId'],
-            $this->config['encode64']
+            $this->config['encode64'] ?? $default_config['encode64']
         );
+    }
+
+    /**
+     * @param array $userId
+     */
+    public function setActiveUser(string $userid)
+    {
+        $this->subject->setUserId($userId);
+    }
+
+    /**
+     * @param array $userId
+     */
+    public function unsetActiveUser(string $userid)
+    {
+        $this->subject->setUserId("");
     }
 
     /**
@@ -103,10 +121,10 @@ class Inspetor
     }
 
     /**
-     * @param Ingresse\Store\Order\Order $order
-     * @param string                     $action
+     * @param object $order
+     * @param string $action
      */
-    public function trackOrderAction(Order $order, $action)
+    public function trackOrderAction($order, $action)
     {
         $this->trackUnstructuredEvent(
             $this->config['ingresseOrderSchema'],
@@ -117,10 +135,10 @@ class Inspetor
     }
 
     /**
-     * @param Ingresse\Domain\Entity\Sale $sale
-     * @param string                      $action
+     * @param object $sale
+     * @param string $action
      */
-    public function trackSaleAction(Sale $sale, $action)
+    public function trackSaleAction($sale, $action)
     {
         $this->trackUnstructuredEvent(
             $this->config['ingresseSaleSchema'],
@@ -131,10 +149,10 @@ class Inspetor
     }
 
     /**
-     * @param Ingresse\Domain\Entity\User $user
-     * @param string                      $action
+     * @param object $user
+     * @param string $action
      */
-    public function trackUserAction(User $user, $action)
+    public function trackUserAction($user, $action)
     {
         $this->trackUnstructuredEvent(
             $this->config['ingresseAccountSchema'],
