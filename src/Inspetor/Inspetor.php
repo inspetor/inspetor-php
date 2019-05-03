@@ -1,6 +1,6 @@
 <?php
 
-namespace Ingresse\Inspetor;
+namespace Inspetor;
 
 use Snowplow\Tracker\Tracker;
 use Snowplow\Tracker\Subject;
