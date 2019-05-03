@@ -37,7 +37,7 @@ class Inspetor
         $default_config = include('config.php');
 
         $this->config = $config;
-        if (!($this->config['trackerName']) || !($this->config['trackerName'])) {
+        if (!($this->config['trackerName']) || !($this->config['appId'])) {
             throw new Exception('\'trackerName\' and \'appId\' are required fields.');
         }
 
