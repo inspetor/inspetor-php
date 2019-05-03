@@ -1,13 +1,13 @@
 <?php
 
-namespace Inspetor;
+namespace Inspetor\Inspetor;
 
 use Snowplow\Tracker\Tracker;
 use Snowplow\Tracker\Subject;
 use Snowplow\Tracker\Emitters\SyncEmitter;
 use JsonSerializable;
 
-class Inspetor
+class InspetorClient
 {
     /**
      * @var array
@@ -34,8 +34,8 @@ class Inspetor
      */
     public function __construct(array $config)
     {
-        $default_config = include('config.php');
-
+        $default_config = include('config.php')['inspetor_config'];
+        var_dump($default_config);
         $this->config = $config;
         if (!($this->config['trackerName']) || !($this->config['appId'])) {
             throw new Exception('\'trackerName\' and \'appId\' are required fields.');
