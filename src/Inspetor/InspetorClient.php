@@ -12,7 +12,7 @@ class InspetorClient
     /**
      * @var array
      */
-    private $config;
+    private $default_config;
 
     /**
      * @var Snowplow\Tracker\Emitters\SyncEmitter;
@@ -34,44 +34,47 @@ class InspetorClient
      */
     public function __construct(array $config)
     {
-        $default_config = include('config.php')['inspetor_config'];
-        var_dump($default_config);
-        $this->config = $config;
-        if (!($this->config['trackerName']) || !($this->config['appId'])) {
-            throw new Exception('\'trackerName\' and \'appId\' are required fields.');
-        }
+        $company_config = $this->setup($config);
 
         $this->emitter = new SyncEmitter(
-            $this->config['collectorHost'] ?? $default_config['collectorHost'],
-            $this->config['protocol'] ?? $default_config['protocol'],
-            $this->config['emitMethod'] ?? $default_config['emitMethod'],
-            $this->config['bufferSize'] ?? $default_config['bufferSize'],
-            $this->config['debugMode'] ?? $default_config['debugMode']
+            $company_config['collectorHost'],
+            $company_config['protocol'],
+            $company_config['emitMethod'],
+            $company_config['bufferSize'],
+            $company_config['debugMode']
         );
         $this->subject = new Subject();
         $this->tracker = new Tracker(
             $this->emitter,
             $this->subject,
-            $this->config['trackerName'],
-            $this->config['appId'],
-            $this->config['encode64'] ?? $default_config['encode64']
+            $company_config['trackerName'],
+            $company_config['appId'],
+            $company_config['encode64']
         );
     }
-
-    /**
-     * @param array $userId
+    
+    /** 
+     * @param array  $config Config from main application
+     * @return array
      */
-    public function setActiveUser(string $userid)
-    {
-        $this->subject->setUserId($userId);
-    }
+    private function setup($config) {
+        $this->default_config = include('config.php');
+        $this->default_config = $this->default_config['inspetor_config'];
 
-    /**
-     * @param array $userId
-     */
-    public function unsetActiveUser(string $userid)
-    {
-        $this->subject->setUserId("");
+        if (!($config['trackerName']) || !($config['appId'])) {
+            throw new Exception('\'trackerName\' and \'appId\' are required fields.');
+        }
+
+        $keys = ['collectorHost', 'protocol', 'emitMethod', 'bufferSize', 'debugMode', 'encode64'];
+        foreach ($keys as $item) {
+            if(!array_key_exists($item, $config)) { 
+                $config = $config + array($item => $this->default_config[$item]);
+            } else {
+                $config[$item] = $config[$item] ?? $this->default_config[$item];
+            }
+        }
+
+        return $config;
     }
 
     /**
@@ -104,20 +107,34 @@ class InspetorClient
     }
 
     /**
-     * Public for testing
-     *
      * @param string $schema Iglu identifier of custom event schema
      */
-    public function reportNonserializableCall($schema)
+    private function reportNonserializableCall($schema)
     {
         $this->tracker->trackUnstructEvent(
             array(
-                "schema" => $this->config['ingresseSerializationError'],
+                "schema" => $this->default_config['ingresseSerializationError'],
                 "data" => (['intendedSchemaId' => $schema])
             ),
             array(),
             $this->getNormalizedTimestamp()
         );
+    }
+
+    /**
+     * @param array $userId
+     */
+    public function setActiveUser(string $userid)
+    {
+        $this->subject->setUserId($userId);
+    }
+
+    /**
+     * @param array $userId
+     */
+    public function unsetActiveUser(string $userid)
+    {
+        $this->subject->setUserId("");
     }
 
     /**
@@ -127,9 +144,9 @@ class InspetorClient
     public function trackOrderAction($order, $action)
     {
         $this->trackUnstructuredEvent(
-            $this->config['ingresseOrderSchema'],
+            $this->default_config['ingresseOrderSchema'],
             $order,
-            $this->config['ingresseOrderContext'],
+            $this->default_config['ingresseOrderContext'],
             $action
         );
     }
@@ -141,9 +158,9 @@ class InspetorClient
     public function trackSaleAction($sale, $action)
     {
         $this->trackUnstructuredEvent(
-            $this->config['ingresseSaleSchema'],
+            $this->default_config['ingresseSaleSchema'],
             $sale,
-            $this->config['ingresseSaleContext'],
+            $this->default_config['ingresseSaleContext'],
             $action
         );
     }
@@ -155,9 +172,9 @@ class InspetorClient
     public function trackUserAction($user, $action)
     {
         $this->trackUnstructuredEvent(
-            $this->config['ingresseAccountSchema'],
+            $this->default_config['ingresseAccountSchema'],
             $user,
-            $this->config['ingresseUserContext'],
+            $this->default_config['ingresseUserContext'],
             $action
         );
     }

@@ -17,6 +17,7 @@ return [
         'account_modification_datetime',
         'account_modification_ip_address'
     ],
+    
     'sale' => [
         'sale_id',
         'event_id',
@@ -74,5 +75,15 @@ return [
         'order_refund',
         'order_sale',
         'order_instructions'
+    ],
+
+    'transfer' => [
+        'account_id',
+        'recipient',
+        'ticket_id'
+    ],
+
+    'login_logout' => [
+        'account_id'
     ]
 ];
