@@ -2,7 +2,7 @@
 
 namespace Ingresse\Test\Inspetor;
 
-class NonSerializableTestClass {
+class NonSerializableTest {
     public function doNothing() {
         return 'test';
     }

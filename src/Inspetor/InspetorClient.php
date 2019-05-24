@@ -2,10 +2,11 @@
 
 namespace Inspetor\Inspetor;
 
+use Inspetor\Inspetor\Exception\TrackerException;
+use JsonSerializable;
 use Snowplow\Tracker\Tracker;
 use Snowplow\Tracker\Subject;
 use Snowplow\Tracker\Emitters\SyncEmitter;
-use JsonSerializable;
 
 class InspetorClient
 {
@@ -34,7 +35,17 @@ class InspetorClient
      */
     public function __construct(array $config)
     {
-        $company_config = $this->setup($config);
+        if(!$this->verifyTracker()) {
+            $this->setupTracker($config);
+        }
+    }
+
+    /** 
+     * @param array  $config Config from main application
+     * @return array
+     */
+    private function setupTracker($config) {
+        $company_config = $this->setupConfig($config);
 
         $this->emitter = new SyncEmitter(
             $company_config['collectorHost'],
@@ -52,17 +63,18 @@ class InspetorClient
             $company_config['encode64']
         );
     }
-    
-    /** 
+
+    /**
      * @param array  $config Config from main application
      * @return array
+     * @throws TrackerException
      */
-    private function setup($config) {
+    private function setupConfig($config) {
         $this->default_config = include('config.php');
         $this->default_config = $this->default_config['inspetor_config'];
 
         if (!($config['trackerName']) || !($config['appId'])) {
-            throw new Exception('\'trackerName\' and \'appId\' are required fields.');
+            throw new TrackerException(9001);
         }
 
         $keys = ['collectorHost', 'protocol', 'emitMethod', 'bufferSize', 'debugMode', 'encode64'];
@@ -75,6 +87,17 @@ class InspetorClient
         }
 
         return $config;
+    }
+
+    /**
+     * @return boolean
+     */
+    private function verifyTracker() {
+        if ($this->tracker) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -122,18 +145,25 @@ class InspetorClient
     }
 
     /**
-     * @param array $userId
+     * @param array $userData
      */
-    public function setActiveUser(string $userid)
+    private function setActiveUser(string $userData)
     {
-        $this->subject->setUserId($userId);
+        if(!verifyTracker()){
+            throw new TrackerException(9002);
+        }
+
+        $this->subject->setUserId($userData);
     }
 
     /**
-     * @param array $userId
      */
-    public function unsetActiveUser(string $userid)
+    private function unsetActiveUser()
     {
+        if(!verifyTracker()){
+            throw new TrackerException(9002);
+        }
+
         $this->subject->setUserId("");
     }
 
@@ -141,8 +171,12 @@ class InspetorClient
      * @param object $order
      * @param string $action
      */
-    public function trackOrderAction($order, $action)
+    private function trackOrderAction($order, $action)
     {
+        if(!verifyTracker()){
+            throw new TrackerException(9002);
+        }
+
         $this->trackUnstructuredEvent(
             $this->default_config['ingresseOrderSchema'],
             $order,
@@ -155,8 +189,12 @@ class InspetorClient
      * @param object $sale
      * @param string $action
      */
-    public function trackSaleAction($sale, $action)
+    private function trackSaleAction($sale, $action)
     {
+        if(!verifyTracker()){
+            throw new TrackerException(9002);
+        }
+
         $this->trackUnstructuredEvent(
             $this->default_config['ingresseSaleSchema'],
             $sale,
@@ -169,8 +207,12 @@ class InspetorClient
      * @param object $user
      * @param string $action
      */
-    public function trackUserAction($user, $action)
+    private function trackUserAction($user, $action)
     {
+        if(!verifyTracker()){
+            throw new TrackerException(9002);
+        }
+
         $this->trackUnstructuredEvent(
             $this->default_config['ingresseAccountSchema'],
             $user,
@@ -179,20 +221,64 @@ class InspetorClient
         );
     }
 
-    public function flush()
+    /**
+     * @param object $user
+     * @param string $action
+     */
+    private function trackTicketTransfer($transferData, $action)
     {
-        if ($this->tracker) {
-            $this->tracker->flushEmitters();
+        if(!verifyTracker()){
+            throw new TrackerException(9002);
         }
+
+        $this->trackUnstructuredEvent(
+            $this->default_config['ingresseTransferSchema'],
+            $user,
+            $this->default_config['ingresseTransferContext'],
+            $action
+        );
+    }
+
+
+    /**
+     * @param object $user
+     * @param string $action
+     */
+    private function trackUserAuthentication($user, $action)
+    {
+        if(!verifyTracker()){
+            throw new TrackerException(9002);
+        }
+
+        $this->trackUnstructuredEvent(
+            $this->default_config['ingresseAuthSchema'],
+            $user,
+            $this->default_config['ingresseAuthContext'],
+            $action
+        );
+
+        if ($action = "user_login") {
+            $this->setActiveUser($user);
+        } else {
+            $this->unsetActiveUser();
+        }
+    }
+
+    private function flush()
+    {
+        if(!verifyTracker()){
+            throw new TrackerException(9002);
+        }
+        $this->tracker->flushEmitters();
         return;
     }
 
-    public function getNormalizedTimestamp()
+    private function getNormalizedTimestamp()
     {
         return time()*1000;
     }
 
-    public function __destruct()
+    private function __destruct()
     {
         $this->flush();
     }
