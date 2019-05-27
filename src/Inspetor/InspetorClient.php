@@ -219,9 +219,11 @@ class InspetorClient implements InspetorService
      */
     private function trackUnstructuredEvent($schema, $data, $context, $action)
     {
-        if (!($data instanceof JsonSerializable)) {
-            $this->reportNonserializableCall($schema);
-            return;
+        if (!(is_array($data))) {
+            if (!($data instanceof JsonSerializable)) {
+                $this->reportNonserializableCall($schema);
+                return;
+            }
         }
         $this->tracker->trackUnstructEvent(
             array(
