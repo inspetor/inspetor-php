@@ -224,22 +224,38 @@ class InspetorClient implements InspetorService
                 $this->reportNonserializableCall($schema);
                 return;
             }
-        }
-        $this->tracker->trackUnstructEvent(
-            array(
-                "schema" => $schema,
-                "data" => ($data->jsonSerialize())
-            ),
-            array(
+            $this->tracker->trackUnstructEvent(
                 array(
-                    "schema" => $context,
-                    "data" => array(
-                        "action" => $action
+                    "schema" => $schema,
+                    "data" => ($data->jsonSerialize())
+                ),
+                array(
+                    array(
+                        "schema" => $context,
+                        "data" => array(
+                            "action" => $action
+                        )
                     )
-                )
-            ),
-            $this->getNormalizedTimestamp()
-        );
+                ),
+                $this->getNormalizedTimestamp()
+            );
+        } else {
+            $this->tracker->trackUnstructEvent(
+                array(
+                    "schema" => $schema,
+                    "data" => $data
+                ),
+                array(
+                    array(
+                        "schema" => $context,
+                        "data" => array(
+                            "action" => $action
+                        )
+                    )
+                ),
+                $this->getNormalizedTimestamp()
+            );
+        }
     }
 
     /**
