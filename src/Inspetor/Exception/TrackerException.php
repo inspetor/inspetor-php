@@ -18,14 +18,20 @@ class TrackerException extends ExceptionAbstract
     /**
      * Header of message
      */
-    const HEADER = "TRACKER EXCEPTION";
+    const HEADER = "INSPETOR EXCEPTION";
 
     /**
      * @var array
      */
     protected static $messages = array(
-        1  => "AppId and trackerName are required parameters.",
-        2  => "Tracker not found."
+        1 => "AppId and trackerName are required parameters.",
+        2 => "Tracker not found.",
+        3 => "Invalid Context! Authentication valid contexts:  \"user_login\", \"user_logout\".",
+        4 => "Invalid Context! User valid contexts: \"user_create\", \"user_update\", \"user_delete\".",
+        5 => "Invalid Context! Order valid contexts: ",
+        6 => "Invalid Context! Sale valid contexts: ",
+        7 => "Invalid Context! Tranfer valid contexts: ",
+        8 => "Invalid Context! Event valid contexts: "
     );
 
     /**
