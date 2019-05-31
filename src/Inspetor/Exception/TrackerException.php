@@ -1,6 +1,6 @@
 <?php
 
-namespace Inspetor\Inspetor\Exception;
+namespace Inspetor\Exception;
 
 class TrackerException extends ExceptionAbstract
 {

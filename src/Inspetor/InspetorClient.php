@@ -36,11 +36,6 @@ class InspetorClient implements InspetorService
     private $tracker;
 
     /**
-     * @var boolean;
-     */
-    private $logged;
-
-    /**
      * @param array $config
      */
     public function __construct(array $config)
@@ -87,21 +82,21 @@ class InspetorClient implements InspetorService
     public function trackOrderAction(
         $order_transaction_id,
         $order_sale_id,
-        $order_sale_status,
-        $order_user_id,
-        $order_user_ip,
-        $order_company_id,
-        $order_event_id,
-        $order_event_date_id,
-        $order_tickets,
-        $order_total_price,
-        $order_date,
-        $order_days_until_event,
-        $order_fraud_payload,
-        $order_refund_reason,
-        $order_refund_operator,
-        $order_refund_cashier,
-        $order_refund_date,
+        $order_sale_status = null,
+        $order_user_id = null,
+        $order_user_ip = null,
+        $order_company_id = null,
+        $order_event_id = null,
+        $order_event_date_id = null,
+        $order_tickets = null,
+        $order_total_price = null,
+        $order_date = null,
+        $order_days_until_event = null,
+        $order_fraud_payload = null,
+        $order_refund_reason = null,
+        $order_refund_operator = null,
+        $order_refund_cashier = null,
+        $order_refund_date = null,
         $action
     ) {
         $this->verifyTracker();
@@ -161,20 +156,20 @@ class InspetorClient implements InspetorService
     public function trackSaleAction (
         $sale_transaction_id,
         $sale_id,
-        $sale_event_id,
-        $sale_total,
-        $sale_status,
-        $sale_installments,
-        $sale_payment_option,
-        $sale_cc_first_six,
-        $sale_cc_last_four,
-        $sale_cc_holder_name,
-        $sale_cc_holder_cpf,
-        $sale_cc_billing_city,
-        $sale_cc_billing_state,
-        $sale_cc_billing_zip_code,
-        $sale_creation_date,
-        $sale_modification_date,
+        $sale_event_id = null,
+        $sale_total = null,
+        $sale_status = null,
+        $sale_installments = null,
+        $sale_payment_option = null,
+        $sale_cc_first_six = null,
+        $sale_cc_last_four = null,
+        $sale_cc_holder_name = null,
+        $sale_cc_holder_cpf = null,
+        $sale_cc_billing_city = null,
+        $sale_cc_billing_state = null,
+        $sale_cc_billing_zip_code = null,
+        $sale_creation_date = null,
+        $sale_modification_date = null,
         $action
     ) {
         $this->verifyTracker();
@@ -227,16 +222,16 @@ class InspetorClient implements InspetorService
      */
     public function trackUserAction(
         $user_id,
-        $user_company_id,
-        $user_email,
-        $user_name,
-        $user_document,
-        $user_ddi,
-        $user_phone,
-        $user_state,
-        $user_city,
-        $user_zip,
-        $user_creation_date,
+        $user_company_id = null,
+        $user_email = null,
+        $user_name = null,
+        $user_document = null,
+        $user_ddi = null,
+        $user_phone = null,
+        $user_state = null,
+        $user_city = null,
+        $user_zip = null,
+        $user_creation_date = null,
         $action
     ) {
         $this->verifyTracker();
@@ -283,13 +278,13 @@ class InspetorClient implements InspetorService
     public function trackTicketTransfer(
         $transfer_id,
         $transfer_sale_id,
-        $transfer_sale_ticket_id,
-        $transfer_sender_id,
-        $transfer_receiver_id,
-        $transfer_event_id,
-        $transfer_event_date_id,
-        $transfer_status,
-        $transfer_date,
+        $transfer_sale_ticket_id = null,
+        $transfer_sender_id = null,
+        $transfer_receiver_id = null,
+        $transfer_event_id = null,
+        $transfer_event_date_id = null,
+        $transfer_status = null,
+        $transfer_date = null,
         $action
     ) {
         $this->verifyTracker();
@@ -328,9 +323,9 @@ class InspetorClient implements InspetorService
      */
     public function trackUserAuthentication(
         $auth_user_id,
-        $auth_user_email,
-        $auth_company_id,
-        $auth_company_name,
+        $auth_user_email = null,
+        $auth_company_id = null,
+        $auth_company_name = null,
         $action
     ) {
         $this->verifyTracker();
@@ -365,9 +360,7 @@ class InspetorClient implements InspetorService
      */
     public function trackPasswordRecovery($userData, $action)
     {
-        if(!$this->verifyTracker()){
-            throw new TrackerException(9002);
-        }
+        $this->verifyTracker();
 
         $this->tracker->trackUnstructEvent(
             array(
