@@ -16,6 +16,11 @@ class InspetorClient implements InspetorService
     private $default_config;
 
     /**
+     * @var array
+     */
+    private $company_config;
+
+    /**
      * @var Snowplow\Tracker\Emitters\SyncEmitter;
      */
     private $emitter;
@@ -40,14 +45,11 @@ class InspetorClient implements InspetorService
      */
     public function __construct(array $config)
     {
+        $this->company_config = $config;
         $this->default_config = include('config.php');
-        $this->required_fields = include('required_fields.php');
         $this->default_config = $this->default_config['inspetor_config'];
-        $this->logged = false;
 
-        if(!$this->verifyTracker()) {
-            $this->setupTracker($config);
-        }
+        $this->verifyTracker();
     }
 
     /**
@@ -58,7 +60,7 @@ class InspetorClient implements InspetorService
             return true;
         }
 
-        return false;
+        setupTracker($this->company_config);
     }
 
     /**
@@ -103,7 +105,7 @@ class InspetorClient implements InspetorService
         $action
     ) {
         if(!$this->verifyTracker()){
-            throw new TrackerException(9002);
+            $this->setupTracker();
         }
 
         $this->tracker->trackUnstructEvent(
@@ -316,7 +318,7 @@ class InspetorClient implements InspetorService
                 ]
             ),
             array(
-                "schema" => $this->default_config['ingresseTrasferContext'],
+                "schema" => $this->default_config['ingresseTransferContext'],
                 "data" => array(
                     "action" => $action
                 )

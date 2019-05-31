@@ -5,11 +5,6 @@ namespace Inspetor\Inspetor;
 interface InspetorService
 {
     /**
-     * @return boolean
-     */
-    public function verifyTracker();
-    
-    /**
      * @param mixed  $order_transaction_id
      * @param mixed  $order_sale_id
      * @param mixed  $order_sale_status
