@@ -60,7 +60,7 @@ class InspetorClient implements InspetorService
             return true;
         }
 
-        setupTracker($this->company_config);
+        $this->setupTracker();
     }
 
     /**
@@ -104,9 +104,7 @@ class InspetorClient implements InspetorService
         $order_refund_date,
         $action
     ) {
-        if(!$this->verifyTracker()){
-            $this->setupTracker();
-        }
+        $this->verifyTracker();
 
         $this->tracker->trackUnstructEvent(
             array(
@@ -179,9 +177,7 @@ class InspetorClient implements InspetorService
         $sale_modification_date,
         $action
     ) {
-        if(!$this->verifyTracker()){
-            throw new TrackerException(9002);
-        }
+        $this->verifyTracker();
 
         $this->tracker->trackUnstructEvent(
             array(
@@ -243,9 +239,7 @@ class InspetorClient implements InspetorService
         $user_creation_date,
         $action
     ) {
-        if(!$this->verifyTracker()){
-            throw new TrackerException(9002);
-        }
+        $this->verifyTracker();
 
         $this->tracker->trackUnstructEvent(
             array(
@@ -298,9 +292,7 @@ class InspetorClient implements InspetorService
         $transfer_date,
         $action
     ) {
-        if(!$this->verifyTracker()){
-            throw new TrackerException(9002);
-        }
+        $this->verifyTracker();
 
         $this->tracker->trackUnstructEvent(
             array(
@@ -341,24 +333,12 @@ class InspetorClient implements InspetorService
         $auth_company_name,
         $action
     ) {
-        if(!$this->verifyTracker()){
-            throw new TrackerException(9002);
-        }
+        $this->verifyTracker();
 
         if($action != "user_login" && $action != "user_logout"){
             throw new TrackerException(9002); 
         }
 
-        if ($action = "user_login") {
-            $result = $this->setActiveUser($auth_user_id);
-        } else {
-            $result = $this->unsetActiveUser();
-        }
-
-        if(!$result) {
-            return;
-        }
-        
         $this->tracker->trackUnstructEvent(
             array(
                 "schema" => $this->default_config['ingresseAuthSchema'],
@@ -413,9 +393,7 @@ class InspetorClient implements InspetorService
 
     public function flush()
     {
-        if(!$this->verifyTracker()){
-            throw new TrackerException(9002);
-        }
+        $this->verifyTracker();
         $this->tracker->flushEmitters();
         return;
     }
@@ -424,8 +402,8 @@ class InspetorClient implements InspetorService
      * @param array  $config Config from main application
      * @return array
      */
-    private function setupTracker($config) {
-        $company_config = $this->setupConfig($config);
+    private function setupTracker() {
+        $company_config = $this->setupConfig($this->company_config);
 
         $this->emitter = new SyncEmitter(
             $company_config['collectorHost'],
@@ -472,58 +450,6 @@ class InspetorClient implements InspetorService
         }
 
         return $config;
-    }
-
-    /**
-     * @param string $schema Iglu identifier of custom event schema
-     */
-    private function reportNonserializableCall($schema)
-    {
-        $this->tracker->trackUnstructEvent(
-            array(
-                "schema" => $this->default_config['ingresseSerializationError'],
-                "data" => (['intendedSchemaId' => $schema])
-            ),
-            array(),
-            $this->getNormalizedTimestamp()
-        );
-    }
-
-    /**
-     * @param integer $userData
-     */
-    private function setActiveUser($userData)
-    {
-        if(!$this->verifyTracker()){
-            throw new TrackerException(9002);
-        } 
-
-        if ($this->logged) {
-            return false;
-        }
-
-        $this->logged = true;
-        $this->subject->setUserId($userData);
-
-        return true;
-    }
-
-    /**
-     */
-    private function unsetActiveUser()
-    {
-        if(!$this->verifyTracker()){
-            throw new TrackerException(9002);
-        }
-
-        if (!$this->logged) {
-            return false;
-        }
-
-        $this->logged = false;
-        $this->subject->setUserId("");
-
-        return true;
     }
 
     /**

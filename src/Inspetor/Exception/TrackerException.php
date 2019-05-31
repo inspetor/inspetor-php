@@ -28,10 +28,10 @@ class TrackerException extends ExceptionAbstract
         2 => "Tracker not found.",
         3 => "Invalid Context! Authentication valid contexts:  \"user_login\", \"user_logout\".",
         4 => "Invalid Context! User valid contexts: \"user_create\", \"user_update\", \"user_delete\".",
-        5 => "Invalid Context! Order valid contexts: ",
-        6 => "Invalid Context! Sale valid contexts: ",
-        7 => "Invalid Context! Tranfer valid contexts: ",
-        8 => "Invalid Context! Event valid contexts: "
+        5 => "Invalid Context! Order valid contexts: \"new_order\", \"order_refund\".",
+        6 => "Invalid Context! Sale valid contexts: \"sale_payment\", \"sale_cancelled\", \"sale_declined\", \"sale_refund\".",
+        7 => "Invalid Context! Tranfer valid contexts: \"transfer_create\", \"transfer_update\".",
+        8 => "Invalid Context! Password request valid contexts: \"password_reset\", \"password_recovery\".",
     );
 
     /**
