@@ -59,29 +59,27 @@ class InspetorClient implements InspetorService
     }
 
     /**
-     * @param mixed  $order_transaction_id
-     * @param mixed  $order_sale_id
-     * @param mixed  $order_sale_status
-     * @param mixed  $order_user_id
-     * @param mixed  $order_user_ip
-     * @param mixed  $order_company_id
-     * @param mixed  $order_event_id
-     * @param mixed  $order_event_date_id
-     * @param mixed  $order_tickets
-     * @param mixed  $order_total_price
-     * @param mixed  $order_date
-     * @param mixed  $order_days_until_event
-     * @param mixed  $order_fraud_payload
-     * @param mixed  $order_refund_reason
-     * @param mixed  $order_refund_operator
-     * @param mixed  $order_refund_cashier
-     * @param mixed  $order_refund_date
-     * @param mixed  $order
+     * @param string $order_transaction_id
+     * @param string $order_timestamp
+     * @param string $order_sale_id
+     * @param string $order_sale_status
+     * @param string $order_user_id
+     * @param string $order_user_ip
+     * @param string $order_company_id
+     * @param string $order_event_id
+     * @param string $order_event_date_id
+     * @param string $order_tickets
+     * @param string $order_total_price
+     * @param string $order_refund_reason
+     * @param string $order_refund_operator
+     * @param string $order_refund_cashier
+     * @param string $order_refund_date
      * @param string $action
      */
     public function trackOrderAction(
         $order_transaction_id,
-        $order_sale_id,
+        $order_timestamp,
+        $order_sale_id = null,
         $order_sale_status = null,
         $order_user_id = null,
         $order_user_ip = null,
@@ -90,9 +88,6 @@ class InspetorClient implements InspetorService
         $order_event_date_id = null,
         $order_tickets = null,
         $order_total_price = null,
-        $order_date = null,
-        $order_days_until_event = null,
-        $order_fraud_payload = null,
         $order_refund_reason = null,
         $order_refund_operator = null,
         $order_refund_cashier = null,
@@ -101,13 +96,22 @@ class InspetorClient implements InspetorService
     ) {
         $this->verifyTracker();
 
+        $valid_actions = [
+            "new_order",
+            "order_refund"
+        ];
+
+        if (!in_array($action, $valid_actions)) {
+            throw new TrackerException(9004);
+        }
+
         $this->tracker->trackUnstructEvent(
             array(
-                "schema" => $this->default_config['ingresseOrderSchema'],
+                "schema" => $this->default_config['inspetorOrderSchema'],
                 "data" => [
-                    "order_transaction_id"   => $order_transaction_id, 
+                    "order_transaction_id"   => $order_transaction_id,
                     "order_sale_id"          => $order_sale_id,
-                    "order_sale_status"      => $order_sale_status, 
+                    "order_sale_status"      => $order_sale_status,
                     "order_user_id"          => $order_user_id,
                     "order_user_ip"          => $order_user_ip,
                     "order_company_id"       => $order_company_id,
@@ -115,17 +119,15 @@ class InspetorClient implements InspetorService
                     "order_event_date_id"    => $order_event_date_id,
                     "order_tickets"          => $order_tickets,
                     "order_total_price"      => $order_total_price,
-                    "order_date"             => $order_date,
-                    "order_days_until_event" => $order_days_until_event,
-                    "order_fraud_payload"    => $order_fraud_payload,
+                    "order_timestamp"        => $order_timestamp,
                     "order_refund_reason"    => $order_refund_reason,
                     "order_refund_operator"  => $order_refund_operator,
                     "order_refund_cashier"   => $order_refund_cashier,
-                    "order_refund_date"      => $order_refund_date
+                    "order_refund_date"      => $order_refund_date,
                 ]
             ),
             array(
-                "schema" => $this->default_config['ingresseOrderContext'],
+                "schema" => $this->default_config['inspetorContext'],
                 "data" => array(
                     "action" => $action
                 )
@@ -135,69 +137,73 @@ class InspetorClient implements InspetorService
     }
 
     /**
-     * @param mixed  $sale_transaction_id
-     * @param mixed  $sale_id
-     * @param mixed  $sale_event_id
-     * @param mixed  $sale_total
-     * @param mixed  $sale_status
-     * @param mixed  $sale_installments
-     * @param mixed  $sale_payment_option
-     * @param mixed  $sale_cc_first_six
-     * @param mixed  $sale_cc_last_four
-     * @param mixed  $sale_cc_holder_name
-     * @param mixed  $sale_cc_holder_cpf
-     * @param mixed  $sale_cc_billing_city
-     * @param mixed  $sale_cc_billing_state
-     * @param mixed  $sale_cc_billing_zip_code
-     * @param mixed  $sale_creation_date
-     * @param mixed  $sale_modification_date
+     * @param string $transaction_id
+     * @param string $transaction_account_id
+     * @param string $transaction_event_id
+     * @param string $transaction_event_date_id
+     * @param string $transaction_value
+     * @param string $transaction_status
+     * @param string $transaction_installments
+     * @param string $transaction_payment_method
+     * @param array  $transaction_payment_info
+     * @param array  $transaction_tickets_id
+     * @param string $transaction_create_timestamp
+     * @param string $transaction_update_timestamp
      * @param string $action
      */
     public function trackSaleAction (
-        $sale_transaction_id,
-        $sale_id,
-        $sale_event_id = null,
-        $sale_total = null,
-        $sale_status = null,
-        $sale_installments = null,
-        $sale_payment_option = null,
-        $sale_cc_first_six = null,
-        $sale_cc_last_four = null,
-        $sale_cc_holder_name = null,
-        $sale_cc_holder_cpf = null,
-        $sale_cc_billing_city = null,
-        $sale_cc_billing_state = null,
-        $sale_cc_billing_zip_code = null,
-        $sale_creation_date = null,
-        $sale_modification_date = null,
+        $transaction_id,
+        $transaction_account_id,
+        $transaction_event_id,
+        $transaction_event_date_id,
+        $transaction_value,
+        $transaction_status,
+        $transaction_installments,
+        $transaction_payment_method,
+        $transaction_payment_info,
+        $transaction_tickets_id,
+        $transaction_update_timestamp,
+        $transaction_create_timestamp = null,
         $action
     ) {
         $this->verifyTracker();
 
+        $valid_actions = [
+            "transaction_payment",
+            "transaction_cancelled",
+            "transaction_declined",
+            "transaction_refund"
+        ];
+
+        if (!in_array($action, $valid_actions)) {
+            throw new TrackerException(9005);
+        }
+
+        if ($transaction_payment_method == "credit_card") {
+            $transaction_payment_info = $this->prepareCreditCardDataHashed($transaction_payment_info);
+        } else {
+            $transaction_payment_info = base64_encode($transaction_payment_info);
+        }
+
         $this->tracker->trackUnstructEvent(
             array(
-                "schema" => $this->default_config['ingresseSaleSchema'],
+                "schema" => $this->default_config['inspetorSaleSchema'],
                 "data" => [
-                    "sale_transaction_id"      => $sale_transaction_id, 
-                    "sale_id"                  => $sale_id,            
-                    "sale_event_id"            => $sale_event_id,       
-                    "sale_total"               => $sale_total,         
-                    "sale_status"              => $sale_status,        
-                    "sale_installments"        => $sale_installments,  
-                    "sale_payment_option"      => $sale_payment_option,
-                    "sale_cc_first_six"        => $sale_cc_first_six,
-                    "sale_cc_last_four"        => $sale_cc_last_four,
-                    "sale_cc_holder_name"      => $sale_cc_holder_name,
-                    "sale_cc_holder_cpf"       => $sale_cc_holder_cpf,
-                    "sale_cc_billing_city"     => $sale_cc_billing_city,
-                    "sale_cc_billing_state"    => $sale_cc_billing_state,
-                    "sale_cc_billing_zip_code" => $sale_cc_billing_zip_code,
-                    "sale_creation_date"       => $sale_creation_date,
-                    "sale_modification_date"   => $sale_modification_date
+                    "transaction_id"                  => $transaction_id,
+                    "transaction_account_id"          => $transaction_account_id,
+                    "transaction_event_id"            => $transaction_event_id,
+                    "transaction_value"               => $transaction_value,
+                    "transaction_status"              => $transaction_status,
+                    "transaction_installments"        => $transaction_installments,
+                    "transaction_payment_method"      => $transaction_payment_method,
+                    "transaction_payment_info_hash"   => $transaction_payment_info,
+                    "transaction_tickets_id"          => $transaction_tickets_id,
+                    "transaction_create_timestamp"    => $transaction_create_timestamp,
+                    "transaction_update_timestamp"    => $transaction_update_timestamp
                 ]
             ),
             array(
-                "schema" => $this->default_config['ingresseSaleContext'],
+                "schema" => $this->default_config['inspetorContext'],
                 "data" => array(
                     "action" => $action
                 )
@@ -207,54 +213,76 @@ class InspetorClient implements InspetorService
     }
 
     /**
-     * @param mixed  $user_id
-     * @param mixed  $user_company_id
-     * @param mixed  $user_email
-     * @param mixed  $user_name
-     * @param mixed  $user_document
-     * @param mixed  $user_ddi
-     * @param mixed  $user_phone
-     * @param mixed  $user_state
-     * @param mixed  $user_city
-     * @param mixed  $user_zip
-     * @param mixed  $user_creation_date
+     * @param string $account_id
+     * @param string $account_update_timestamp
+     * @param string $account_company_id
+     * @param string $account_email
+     * @param string $account_name
+     * @param string $account_document
+     * @param string $account_credit_card_info
+     * @param string $account_phone
+     * @param string $account_address
+     * @param string $account_billing_address
+     * @param string $account_create_timestamp
      * @param string $action
      */
-    public function trackUserAction(
-        $user_id,
-        $user_company_id = null,
-        $user_email = null,
-        $user_name = null,
-        $user_document = null,
-        $user_ddi = null,
-        $user_phone = null,
-        $user_state = null,
-        $user_city = null,
-        $user_zip = null,
-        $user_creation_date = null,
+    public function trackAccountAction(
+        $account_id,
+        $account_update_timestamp,
+        $account_company_id = null,
+        $account_email,
+        $account_name = null,
+        $account_document = null,
+        $account_credit_card_info = null,
+        $account_phone = null,
+        $account_address = null,
+        $account_billing_address = null,
+        $account_create_timestamp = null,
         $action
     ) {
         $this->verifyTracker();
 
+        $valid_actions = [
+            "account_create",
+            "account_update",
+            "account_delete"
+        ];
+
+        if (!in_array($action, $valid_actions)) {
+            throw new TrackerException(9003);
+        }
+
+        if ($account_address) {
+            $account_address = $this->prepareAddressDataHashed($account_address);
+        }
+
+        if ($account_billing_address) {
+            $account_billing_address = $this->prepareAddressDataHashed($account_billing_addresss);
+        }
+
+        if ($account_credit_card_info) {
+            $account_credit_card_info = $this->prepareCreditCardDataHashed($account_credit_card_info);
+        }
+
         $this->tracker->trackUnstructEvent(
             array(
-                "schema" => $this->default_config['ingresseUserSchema'],
+                "schema" => $this->default_config['inspetorAccountSchema'],
                 "data" => [
-                    "user_id"            => $user_id, 
-                    "user_company_id"    => $user_company_id,            
-                    "user_email"         => $user_email, 
-                    "user_name"          => $user_name, 
-                    "user_document"      => $user_document, 
-                    "user_ddi"           => $user_ddi, 
-                    "user_phone"         => $user_phone, 
-                    "user_state"         => $user_state, 
-                    "user_city"          => $user_city, 
-                    "user_zip"           => $user_zip, 
-                    "user_creation_date" => $user_creation_date
+                    "account_id"                    => $account_id,
+                    "account_company_id"            => $account_company_id,
+                    "account_email_hash"            => base64_encode($account_email),
+                    "account_name_hash"             => base64_encode($account_name),
+                    "account_document_hash"         => base64_encode($account_document),
+                    "account_phone_number_hash"     => base64_encode($account_phone),
+                    "account_address_hash"          => $account_address,
+                    "account_billing_address_hash"  => $account_billing_address,
+                    "account_credit_card_info_hash" => $account_credit_card_info,
+                    "account_create_timestamp"      => $account_create_timestamp,
+                    "account_update_timestamp"      => $account_update_timestamp,
                 ]
             ),
             array(
-                "schema" => $this->default_config['ingresseUserContext'],
+                "schema" => $this->default_config['inspetorContext'],
                 "data" => array(
                     "action" => $action
                 )
@@ -264,48 +292,61 @@ class InspetorClient implements InspetorService
     }
 
     /**
-     * @param mixed  $transfer_id
-     * @param mixed  $transfer_sale_id
-     * @param mixed  $transfer_sale_ticket_id
-     * @param mixed  $transfer_sender_id
-     * @param mixed  $transfer_receiver_id
-     * @param mixed  $transfer_event_id
-     * @param mixed  $transfer_event_date_id
-     * @param mixed  $transfer_status
-     * @param mixed  $transfer_date
+     * @param string $transfer_id
+     * @param string $transfer_sale_id
+     * @param string $transfer_sale_ticket_id
+     * @param string $transfer_sender_id
+     * @param string $transfer_receiver_email
+     * @param string $transfer_event_id
+     * @param string $transfer_event_date_id
+     * @param string $transfer_status
+     * @param string $transfer_update_timestamp
+     * @param string $transfer_create_timestamp
      * @param string $action
      */
     public function trackTicketTransfer(
         $transfer_id,
-        $transfer_sale_id,
-        $transfer_sale_ticket_id = null,
-        $transfer_sender_id = null,
-        $transfer_receiver_id = null,
-        $transfer_event_id = null,
-        $transfer_event_date_id = null,
-        $transfer_status = null,
-        $transfer_date = null,
+        $transfer_transaction_id,
+        $transfer_sale_ticket_id,
+        $transfer_sender_id,
+        $transfer_receiver_email,
+        $transfer_event_id,
+        $transfer_event_date_id,
+        $transfer_status,
+        $transfer_update_timestamp,
+        $transfer_create_timestamp = null,
         $action
     ) {
         $this->verifyTracker();
 
+        $valid_actions = [
+            "transfer_create",
+            "transfer_update"
+        ];
+
+        if (!in_array($action, $valid_actions)) {
+            throw new TrackerException(9006);
+        }
+
         $this->tracker->trackUnstructEvent(
             array(
-                "schema" => $this->default_config['ingresseTransferSchema'],
+                "schema" => $this->default_config['inspetorTransferSchema'],
                 "data" => [
-                    "transfer_id"             => $transfer_id,
-                    "transfer_sale_id"        => $transfer_sale_id,
-                    "transfer_sale_ticket_id" => $transfer_sale_ticket_id,
-                    "transfer_sender_id"      => $transfer_sender_id,
-                    "transfer_receiver_id"    => $transfer_receiver_id,
-                    "transfer_event_id"       => $transfer_event_id,
-                    "transfer_event_date_id"  => $transfer_event_date_id,
-                    "transfer_status"         => $transfer_status,
-                    "transfer_date"           => $transfer_date
+                    "transfer_id"                  => $transfer_id,
+                    "transfer_sale_id"             => $transfer_sale_id,
+                    "transfer_transaction_id"      => $transfer_transaction_id,
+                    "transfer_sender_id"           => $transfer_sender_id,
+                    "transfer_receiver_email_hash" => base64_encode($transfer_receiver_email),
+                    "transfer_event_id"            => $transfer_event_id,
+                    "transfer_event_date_id"       => $transfer_event_date_id,
+                    "transfer_status"              => $transfer_status,
+                    "transfer_timestamp"           => $transfer_timestamp,
+                    "transfer_update_timestamp"    => $transfer_update_timestamp,
+                    "transfer_create_timestamp"    => $transfer_create_timestamp
                 ]
             ),
             array(
-                "schema" => $this->default_config['ingresseTransferContext'],
+                "schema" => $this->default_config['inspetorContext'],
                 "data" => array(
                     "action" => $action
                 )
@@ -315,14 +356,16 @@ class InspetorClient implements InspetorService
     }
 
     /**
-     * @param mixed  $auth_user_id
-     * @param mixed  $auth_user_email
-     * @param mixed  $auth_company_id
-     * @param mixed  $auth_company_name
+     * @param string $auth_user_id
+     * @param string $auth_timestamp
+     * @param string $auth_user_email
+     * @param string $auth_company_id
+     * @param string $auth_company_name
      * @param string $action
      */
     public function trackUserAuthentication(
         $auth_user_id,
+        $auth_timestamp,
         $auth_user_email = null,
         $auth_company_id = null,
         $auth_company_name = null,
@@ -330,22 +373,28 @@ class InspetorClient implements InspetorService
     ) {
         $this->verifyTracker();
 
-        if($action != "user_login" && $action != "user_logout"){
-            throw new TrackerException(9002); 
+        $valid_actions = [
+            "user_login",
+            "user_logout"
+        ];
+
+        if (!in_array($action, $valid_actions)) {
+            throw new TrackerException(9002);
         }
 
         $this->tracker->trackUnstructEvent(
             array(
-                "schema" => $this->default_config['ingresseAuthSchema'],
+                "schema" => $this->default_config['inspetorAuthSchema'],
                 "data" => [
-                    "auth_user_id"      => $auth_user_id,
-                    "auth_user_email"   => $auth_user_email,
-                    "auth_company_id"   => $auth_company_id,
-                    "auth_company_name" => $auth_company_name
+                    "auth_user_id"         => $auth_user_id,
+                    "auth_user_email_hash" => base64_encode($auth_user_email),
+                    "auth_company_id"      => $auth_company_id,
+                    "auth_company_name"    => $auth_company_name,
+                    "auth_timestamp"       => $auth_timestamp
                 ]
             ),
             array(
-                "schema" => $this->default_config['ingresseAuthContext'],
+                "schema" => $this->default_config['inspetorContext'],
                 "data" => array(
                     "action" => $action
                 )
@@ -355,22 +404,36 @@ class InspetorClient implements InspetorService
     }
 
     /**
-     * @param mixed  $user
+     * @param string pass_recovery_email
+     * @param string pass_recovery_timestamp
      * @param string $action
      */
-    public function trackPasswordRecovery($userData, $action)
-    {
+    public function trackPasswordRecovery(
+        $pass_recovery_email,
+        $pass_recovery_timestamp,
+        $action
+    ) {
         $this->verifyTracker();
+
+        $valid_actions = [
+            "password_reset",
+            "password_recovery"
+        ];
+
+        if (!in_array($action, $valid_actions)) {
+            throw new TrackerException(9007);
+        }
 
         $this->tracker->trackUnstructEvent(
             array(
-                "schema" => $this->default_config['ingressePassRecoverySchema'],
+                "schema" => $this->default_config['inspetorPassRecoverySchema'],
                 "data" => [
-                    "pass_recovery_email" => $userData,
+                    "pass_recovery_email_hash" => base64_encode($pass_recovery_email),
+                    "pass_recovery_timestamp"  => $pass_recovery_timestamp
                 ]
             ),
             array(
-                "schema" => $this->default_config['ingressePassRecoveryContext'],
+                "schema" => $this->default_config['inspetorContext'],
                 "data" => array(
                     "action" => $action
                 )
@@ -435,7 +498,7 @@ class InspetorClient implements InspetorService
         ];
 
         foreach ($keys as $item) {
-            if(!array_key_exists($item, $config)) { 
+            if(!array_key_exists($item, $config)) {
                 $config = $config + array($item => $this->default_config[$item]);
             } else {
                 $config[$item] = $config[$item] ?? $this->default_config[$item];
@@ -451,5 +514,31 @@ class InspetorClient implements InspetorService
     private function getNormalizedTimestamp()
     {
         return time()*1000;
+    }
+
+    /**
+     * @param array
+     * @return array
+     */
+    private function prepareAddressDataHashed($address) {
+        return [
+            "street_address_hash" => base64_encode($address["street_address"]),
+            "city_hash"           => base64_encode($address["city"]),
+            "state_hash"          => base64_encode($address["state"]),
+            "zip_hash"            => base64_encode($address["zip"])
+        ];
+    }
+
+    /**
+     * @param array
+     * @return array
+     */
+    private function prepareCreditCardDataHashed($creditcard) {
+        return [
+            "cc_first_six_hash"   => base64_encode($creditcard["cc_first_six"]),
+            "cc_last_four_hash"   => base64_encode($creditcard["cc_last_four"]),
+            "cc_holder_name_hash" => base64_encode($creditcard["cc_holder_name"]),
+            "cc_holder_cpf_hash"  => base64_encode($creditcard["cc_holder_cpf"])
+        ];
     }
 }

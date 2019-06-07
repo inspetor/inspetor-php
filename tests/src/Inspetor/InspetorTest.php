@@ -9,34 +9,34 @@ use PHPUnit\Framework\TestCase;
 
 class InspetorTest extends TestCase
 {
-    /**
-     * @var array
-     */
-    protected $config;
+//     /**
+//      * @var array
+//      */
+//     protected $config;
 
-    public function setUp() {
-        $this->config = array(
-            'collectorHost' => 'testdomain.com',
-            'protocol' => 'https',
-            'emitMethod' => 'POST',
-            'bufferSize' => 50,
-            'trackerName' => null,
-            'appId' => null,
-            'encode64' => true,
-            'debugMode' => false,
-            'ingresseAccountSchema' => 'iglu:com.inspetor/ingresse_account/jsonschema/1-0-0',
-            'ingresseOrderSchema' => 'iglu:com.inspetor/ingresse_order/jsonschema/1-0-9',
-            'ingresseSaleSchema' => 'iglu:com.inspetor/ingresse_sale/jsonschema/1-0-7',
-            'ingresseOrderContext' => 'iglu:com.inspetor/ingresse_order_context/jsonschema/1-0-0',
-            'ingresseSerializationError' => 'iglu:com.inspetor/ingresse_serialization_error/jsonschema/1-0-0'
-        );
-    }
-}
-    /**
-     * @covers Inspetor\InspetorClient
-     * @expectedException \Exception\TrackerException
-     */
-//     public function testTrackerSetupMissingParameter() {
+//     public function setUp() {
+//         $this->default_config = array(
+//             'collectorHost' => 'testdomain.com',
+//             'protocol' => 'https',
+//             'emitMethod' => 'POST',
+//             'bufferSize' => 50,
+//             'trackerName' => null,
+//             'appId' => null,
+//             'encode64' => true,
+//             'debugMode' => false,
+//             'ingresseAccountSchema' => 'iglu:com.inspetor/ingresse_account/jsonschema/1-0-0',
+//             'ingresseOrderSchema' => 'iglu:com.inspetor/ingresse_order/jsonschema/1-0-9',
+//             'ingresseSaleSchema' => 'iglu:com.inspetor/ingresse_sale/jsonschema/1-0-7',
+//             'ingresseOrderContext' => 'iglu:com.inspetor/ingresse_order_context/jsonschema/1-0-0',
+//             'ingresseSerializationError' => 'iglu:com.inspetor/ingresse_serialization_error/jsonschema/1-0-0'
+//         );
+//     }
+
+//     /**
+//      * @covers Inspetor\InspetorClient
+//      * @expectedException \Exception\TrackerException
+//      */
+//     public function testSetupConfigMissingParameter() {
 //         $client = $this->createMock(
 //             'Inspetor\InspetorClient'
 //         );
@@ -46,4 +46,4 @@ class InspetorTest extends TestCase
 //             ->with(array("appId" => 1))
 //             ->will($this->throwException(new TrackerException()));
 //     }
-// }
+}
