@@ -11,7 +11,6 @@ interface InspetorService
      * @param string $order_sale_status
      * @param string $order_user_id
      * @param string $order_user_ip
-     * @param string $order_company_id
      * @param string $order_event_id
      * @param string $order_event_date_id
      * @param string $order_tickets
@@ -29,7 +28,6 @@ interface InspetorService
         $order_sale_status,
         $order_user_id,
         $order_user_ip,
-        $order_company_id,
         $order_event_id,
         $order_event_date_id,
         $order_tickets,

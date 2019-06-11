@@ -65,7 +65,6 @@ class InspetorClient implements InspetorService
      * @param string $order_sale_status
      * @param string $order_user_id
      * @param string $order_user_ip
-     * @param string $order_company_id
      * @param string $order_event_id
      * @param string $order_event_date_id
      * @param string $order_tickets
@@ -83,7 +82,6 @@ class InspetorClient implements InspetorService
         $order_sale_status = null,
         $order_user_id = null,
         $order_user_ip = null,
-        $order_company_id = null,
         $order_event_id = null,
         $order_event_date_id = null,
         $order_tickets = null,
@@ -266,7 +264,7 @@ class InspetorClient implements InspetorService
 
         $this->tracker->trackUnstructEvent(
             array(
-                "schema" => $this->default_config['inspetorAccountSchema'],
+                "schema" => $this->default_config['ingresseAccountSchema'],
                 "data" => [
                     "account_id"                    => $account_id,
                     "account_company_id"            => $account_company_id,

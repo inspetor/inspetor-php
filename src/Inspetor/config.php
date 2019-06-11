@@ -10,7 +10,6 @@ return [
         'appId'                       => null,
         'encode64'                    => true,
         'debugMode'                   => false,
-
         'inspetorOrderSchema'         => 'iglu:com.inspetor/inspetor_order/jsonschema/1-0-0',
         'inspetorAuthSchema'          => 'iglu:com.inspetor/inspetor_auth/jsonschema/1-0-0',
         'inspetorPassRecoverySchema'  => 'iglu:com.inspetor/inspetor_pass_recovery/jsonschema/1-0-0',
