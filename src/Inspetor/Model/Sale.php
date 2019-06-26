@@ -40,7 +40,8 @@ class Sale implements JsonSerializable {
     private $total_value;
     var $status;
     var $is_fraud;
-    var $timestamp;
+    var $creation_timestamp;
+    var $update_timestamp;
     var $items;
     var $payment;
 
@@ -60,7 +61,10 @@ class Sale implements JsonSerializable {
         if ($this->is_fraud == null || $this->is_fraud == "") {
             throw new Exception("Is Fraud property can't be null");
         }
-        if ($this->timestamp == null || $this->timestamp == "") {
+        if ($this->creation_timestamp == null || $this->creation_timestamp == "") {
+            throw new Exception("Timestamp can't be null");
+        }
+        if ($this->update_timestamp == null || $this->update_timestamp == "") {
             throw new Exception("Timestamp can't be null");
         }
         if ($this->items == null || $this->items == "" || empty($this->items)) {
@@ -70,7 +74,7 @@ class Sale implements JsonSerializable {
             throw new Exception("Payment can't be null");
         }
 
-        $this->getTotalValue();
+        $this->setTotalValue();
     }
 
     private function validateStatus() {
@@ -87,7 +91,7 @@ class Sale implements JsonSerializable {
         }
     }
 
-    private function getTotalValue() {
+    private function setTotalValue() {
         foreach ($this->items as $item) {
             try {
                 $this->total_value += floatval($item->getPrice(true));
@@ -95,6 +99,14 @@ class Sale implements JsonSerializable {
                 throw new Exception("Price values in the items are not valid ones");
             }
         }
+    }
+
+    private function getItemsJson() {
+        $all_items = [];
+        foreach ($this->getItems() as $item) {
+            array_push($all_items, $item->jsonSerialize());
+        }
+        return $all_items;
     }
 
     /**
@@ -161,7 +173,18 @@ class Sale implements JsonSerializable {
             $this->account_id = $account_id;
         }
 		return $this;
-	}
+    }
+    
+    /**
+	 * Get the value of total_value
+	 * 
+	 * @param   boolean $debug  If set as true will decode the value
+	 *
+	 * @return  mixed
+	 */
+	public function getTotalValue() {
+		return $this->total_value;
+    }
 
 	/**
 	 * Get the value of status
@@ -218,8 +241,8 @@ class Sale implements JsonSerializable {
 	 *
 	 * @return  mixed
 	 */
-	public function getTimestamp() {
-		return $this->timestamp;
+	public function getCreationTimestamp() {
+		return $this->creation_timestamp;
     }
 
 	/**
@@ -230,8 +253,32 @@ class Sale implements JsonSerializable {
 	 * 
 	 * @return  self
 	 */
-	public function setTimestamp($timestamp) {
-        $this->timestamp = $timestamp;
+	public function setCreationTimestamp($creation_timestamp) {
+        $this->creation_timestamp = $creation_timestamp;
+		return $this;
+    }
+    
+    /**
+	 * Get the value of update_timestamp
+	 * 
+	 * @param   boolean $debug  If set as true will decode the value
+	 *
+	 * @return  mixed
+	 */
+	public function getUpdateTimestamp() {
+		return $this->update_timestamp;
+    }
+
+	/**
+	 * Set the value of update_timestamp
+	 *
+	 * @param   mixed  $update_timestamp  
+	 * @param   boolean $is_editable  If set as true will encode the value
+	 * 
+	 * @return  self
+	 */
+	public function setUpdateTimestamp($update_timestamp) {
+        $this->update_timestamp = $update_timestamp;
 		return $this;
 	}
 
@@ -295,11 +342,12 @@ class Sale implements JsonSerializable {
         $array = [
             "sale_id" => $this->getId(),
             "sale_account_id" => $this->getAccountId(),
-            "sale_total_value" => $this->total_value,
+            "sale_total_value" => $this->getTotalValue(),
             "sale_status" => $this->getStatus(),
             "sale_is_fraud" => $this->getIsFraud(),
-            "sale_timestamp" => $this->getTimestamp(),
-            "sale_items" => $this->getItems()->jsonSerialize(),
+            "sale_creation_timestamp" => $this->getCreationTimestamp(),
+            "sale_update_timestamp" => $this->getUpdateTimestamp(),
+            "sale_items" => $this->getItemsJson(),
             "sale_payement_instance" => $this->getPayment()->jsonSerialize()
         ];
 

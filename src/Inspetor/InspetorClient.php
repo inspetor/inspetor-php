@@ -78,6 +78,8 @@ class InspetorClient implements InspetorService {
             "sale_update_status"
         ];
 
+        $sale_data->isValid();
+
         if (!in_array($action, $valid_actions)) {
             throw new TrackerException(9005);
         }
@@ -110,6 +112,8 @@ class InspetorClient implements InspetorService {
             "account_delete"
         ];
 
+        $account_data->isValid();
+
         if (!in_array($action, $valid_actions)) {
             throw new TrackerException(9003);
         }
@@ -140,6 +144,8 @@ class InspetorClient implements InspetorService {
             "transfer_create",
             "transfer_update_status"
         ];
+
+        $transfer_data->isValid();
 
         if (!in_array($action, $valid_actions)) {
             throw new TrackerException(9006);
@@ -172,6 +178,8 @@ class InspetorClient implements InspetorService {
             "account_logout"
         ];
 
+        $auth_data->isValid();
+
         if (!in_array($action, $valid_actions)) {
             throw new TrackerException(9002);
         }
@@ -202,6 +210,8 @@ class InspetorClient implements InspetorService {
             "password_reset",
             "password_recovery"
         ];
+
+        $pass_recovery_data->isValid();
 
         if (!in_array($action, $valid_actions)) {
             throw new TrackerException(9007);

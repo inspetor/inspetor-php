@@ -51,9 +51,6 @@ class Account implements JsonSerializable {
         if ($this->email == null || $this->email == "") {
             throw new Exception("The id can't be null");
         }
-        if ($this->document == null || $this->document == "") {
-            throw new Exception("The id can't be null");
-        }
         if ($this->update_timestamp == null || $this->update_timestamp == "") {
             throw new Exception("The update timestamp can't be null");
         }

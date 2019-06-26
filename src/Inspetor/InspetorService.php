@@ -71,19 +71,6 @@ interface InspetorService {
      */
     public function trackEventAction($event_data, $action);
     /**
-     * Operation trackOrderAction
-     *
-     * Send order data to Inspetor
-     *
-     * @param  \Inspetor\Client\Model\Order $order_data order_data (required)
-     * @param  string $action action (required)
-     *
-     * @throws \Inspetor\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return void
-     */
-    public function trackOrderAction($order_data, $action); 
-    /**
      * Operation trackPassRecovery
      *
      * Send pass recovery data to Inspetor
@@ -121,7 +108,7 @@ interface InspetorService {
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function trackTransactionAction($transaction_data, $action);
+    public function trackSaleAction($transaction_data, $action);
     /**
      * Operation trackUserAuthentication
      *

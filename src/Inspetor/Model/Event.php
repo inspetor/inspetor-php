@@ -37,7 +37,8 @@ class Event implements JsonSerializable {
     var $update_timestamp;
     var $sessions;
     var $status;
-    private $status_other;
+	private $status_other;
+	var $seating_options;
     var $categories;
     var $address;
     var $url;
@@ -70,8 +71,10 @@ class Event implements JsonSerializable {
 
         if ($this->status != null || $this->status != "") {
             $this->validateStatus();
-        }
-
+		}
+		if ($this->seating_options == null  || $this->seating_options == "" || empty($this->seating_options)) {
+            throw new Exception("Sessions can't be null neither an empty array");
+		}
         if ($this->categories == null || $this->categories == "") {
             throw new Exception("Categories can't be null");
         }
@@ -396,7 +399,38 @@ class Event implements JsonSerializable {
             $this->admins_id = $admins_id;
         }
 		return $this;
+	}
+	
+	/**
+	 * Get the value of seating_options
+	 * 
+	 * @param   boolean $debug  If set as true will decode the value
+	 *
+	 * @return  mixed
+	 */
+	public function getSeatingOptions($debug = false) {
+        if ($debug) {
+            return base64_decode($this->seating_options);
+        }
+		return $this->seating_options;
     }
+
+	/**
+	 * Set the value of seating_options
+	 *
+	 * @param   mixed  $seating_options  
+	 * @param   boolean $is_editable  If set as true will encode the value
+	 * 
+	 * @return  self
+	 */
+	public function setSeatingOptions($seating_options, $is_editable = true) {
+        if ($is_editable) {
+            $this->seating_options = base64_encode($seating_options);
+        } else {
+            $this->seating_options = $seating_options;
+        }
+		return $this;
+	}
     
     /**
      * JSONSERIALIZE
@@ -415,7 +449,8 @@ class Event implements JsonSerializable {
             "event_update_timestamp" => $this->getUpdateTimestamp(),
             "event_sessions" => $this->getSessions()->jsonSerialize(),
             "event_status" => $this->getStatus(),
-            "event_status_other" => $this->status_other,
+			"event_status_other" => $this->status_other,
+			"event_seating_options" => $this->getSeatingOptions(),
             "event_categories" => $this->getCategories()->jsonSerialize(),
             "event_address" => $this->getAddress()->jsonSerialize(),
             "event_url" => $this->getUrl(),

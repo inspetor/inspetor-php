@@ -60,7 +60,17 @@ class Payment implements JsonSerializable {
 
         if (!in_array($this->method, $all_methods)) {
             throw new Exception("Method is not a valid one");
+        }             
+        $this->validateCreditCardInfo();
+    }
+
+    private function validateCreditCardInfo() {
+        if ($this->getMethod() == self::CREDIT_CARD) {
+            if (!$this->getCreditCard()) {
+                throw new Exception("Credit card can't be null when method is credit_card");
+            }
         }
+        return true;
     }
 
     /**
@@ -156,8 +166,6 @@ class Payment implements JsonSerializable {
 	/**
 	 * Get the value of credit_card
 	 * 
-	 * @param   boolean $debug  If set as true will decode the value
-	 *
 	 * @return  mixed
 	 */
 	public function getCreditCard() {
@@ -168,7 +176,6 @@ class Payment implements JsonSerializable {
 	 * Set the value of credit_card
 	 *
 	 * @param   mixed  $credit_card  
-	 * @param   boolean $is_editable  If set as true will encode the value
 	 * 
 	 * @return  self
 	 */
