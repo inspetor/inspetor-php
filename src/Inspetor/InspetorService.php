@@ -31,19 +31,19 @@ use Inspetor\Client\ApiException;
 use Inspetor\Client\Configuration;
 
 /**
- * InspetorApi Class Doc Comment
+ * InspetorServer Interface Doc Comment
  *
  * @category Class
  * @package  Inspetor\Client
  * @author   Inspetor Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
-class InspetorApi {
+interface InspetorService {
 
     /**
      * @return Configuration
      */
-    public function getConfig()
+    public function getConfig();
     /**
      * Operation trackAccountAction
      *
@@ -56,7 +56,7 @@ class InspetorApi {
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function trackAccountAction($account_data, $action)
+    public function trackAccountAction($account_data, $action);
     /**
      * Operation trackEventAction
      *
@@ -69,7 +69,7 @@ class InspetorApi {
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function trackEventAction($event_data, $action)
+    public function trackEventAction($event_data, $action);
     /**
      * Operation trackOrderAction
      *
@@ -82,7 +82,7 @@ class InspetorApi {
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function trackOrderAction($order_data, $action)
+    public function trackOrderAction($order_data, $action); 
     /**
      * Operation trackPassRecovery
      *
@@ -95,7 +95,7 @@ class InspetorApi {
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function trackPassRecovery($pass_recovery_data, $action)
+    public function trackPassRecovery($pass_recovery_data, $action);
     /**
      * Operation trackTicketTransfer
      *
@@ -108,7 +108,7 @@ class InspetorApi {
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function trackTicketTransfer($ticket_transfer_data, $action)
+    public function trackTicketTransfer($ticket_transfer_data, $action);
     /**
      * Operation trackTransactionAction
      *
@@ -121,7 +121,7 @@ class InspetorApi {
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function trackTransactionAction($transaction_data, $action)
+    public function trackTransactionAction($transaction_data, $action);
     /**
      * Operation trackUserAuthentication
      *
@@ -134,5 +134,5 @@ class InspetorApi {
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function trackUserAuthentication($auth_data, $action)
+    public function trackUserAuthentication($auth_data, $action);
 }
