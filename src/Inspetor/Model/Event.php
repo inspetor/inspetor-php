@@ -25,6 +25,10 @@ use Inspetor\Model\Category;
 
 class Event implements JsonSerializable {
 
+	const CREATE_ACTION = "event_create";
+	const UPDATE_ACTION = "event_update";
+	const DELETE_ACTION = "event_delete";
+
     const STATUS_DRAFT = "draft";
     const STATUS_PRIVATE = "private";
 	const STATUS_PUBLISHED = "published";
@@ -146,7 +150,7 @@ class Event implements JsonSerializable {
 		if (!$this->seating_options || empty($this->seating_options)) {
             throw new Exception("Sessions can't be null neither an empty array");
 		}
-        if ($this->categories || empty($this->categories)) {
+        if (!$this->categories || empty($this->categories)) {
             throw new Exception("Categories can't be null");
         }
 

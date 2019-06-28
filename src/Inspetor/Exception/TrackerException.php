@@ -33,6 +33,7 @@ class TrackerException extends ExceptionAbstract
         5 => "Invalid Context! Sale valid contexts: \"sale_create\", \"sale_update_status\".",
         6 => "Invalid Context! Tranfer valid contexts: \"transfer_create\", \"transfer_update_status\".",
         7 => "Invalid Context! Password request valid contexts: \"password_reset\", \"password_recovery\".",
+        8 => "Invalid Context! Event request valid contexts: \"event_create\", \"event_update\", \"event_delete\".",
     );
 
     /**

@@ -67,10 +67,13 @@ class InspetorClient implements InspetorService {
     }
 
     /**
+     * trackSaleAction
+     *
      * @param Sale $sale_data
      * @param string $action
+     * @return void
      */
-    public function trackSaleAction (Sale $sale_data, $action) {
+    public function trackSaleAction(Sale $sale_data, string $action) {
         $this->verifyTracker();
 
         $valid_actions = [
@@ -100,10 +103,13 @@ class InspetorClient implements InspetorService {
     }
 
     /**
+     * trackAccountAction
+     *
      * @param Account $account_data
      * @param string $action
+     * @return void
      */
-    public function trackAccountAction(Account $account_data, $action) {
+    public function trackAccountAction(Account $account_data, string $action) {
         $this->verifyTracker();
 
         $valid_actions = [
@@ -134,10 +140,51 @@ class InspetorClient implements InspetorService {
     }
 
     /**
+     * trackEventAction
+     *
+     * @param Event $event_data
+     * @param string $action
+     * @return void
+     */
+    public function trackEventAction(Event $event_data, string $action) {
+        $this->verifyTracker();
+
+        $valid_actions = [
+            "event_create",
+            "event_update",
+            "event_delete"
+        ];
+
+        $event_data->isValid();
+
+        if (!in_array($action, $valid_actions)) {
+            throw new TrackerException(9008);
+        }
+
+        $this->tracker->trackUnstructEvent(
+            array(
+                "schema" => $this->default_config['inspetorEventSchema'],
+                "data" => $event_data->jsonSerialize()
+            ),
+            array(
+                "schema" => $this->default_config['inspetorContext'],
+                "data" => array(
+                    "action" => $action
+                )
+                ),
+                $this->getNormalizedTimestamp()
+        );
+    }
+
+
+    /**
+     * trackTicketTransfer
+     *
      * @param Transfer $transfer_data
      * @param string $action
+     * @return void
      */
-    public function trackTicketTransfer(Transfer $transfer_data, $action) {
+    public function trackTicketTransfer(Transfer $transfer_data, string $action) {
         $this->verifyTracker();
 
         $valid_actions = [
@@ -167,10 +214,13 @@ class InspetorClient implements InspetorService {
     }
 
     /**
+     * trackUserAutgenticationAction
+     *
      * @param Auth $auth_data
      * @param string $action
+     * @return void
      */
-    public function trackUserAuthentication(Auth $auth_data, $action) {
+    public function trackUserAuthenticationAction(Auth $auth_data, string $action) {
         $this->verifyTracker();
 
         $valid_actions = [
@@ -200,10 +250,13 @@ class InspetorClient implements InspetorService {
     }
 
     /**
+     * trackPasswordRecoveryAction
+     *
      * @param PassRecovery $pass_recovery_data
      * @param string $action
+     * @return void
      */
-    public function trackPasswordRecovery(PassRecovery $pass_recovery_data, $action) {
+    public function trackPasswordRecoveryAction(PassRecovery $pass_recovery_data, string $action) {
         $this->verifyTracker();
 
         $valid_actions = [
