@@ -7,7 +7,6 @@ use Inspetor\Inspetor\Exception\TrackerException;
 use Inspetor\Inspetor\Model\Account;
 use Inspetor\Inspetor\Model\Auth;
 use Inspetor\Inspetor\Model\Event;
-use Inspetor\Inspetor\Model\Item;
 use Inspetor\Inspetor\Model\PassRecovery;
 use Inspetor\Inspetor\Model\Sale;
 use Inspetor\Inspetor\Model\Transfer;
@@ -69,219 +68,177 @@ class InspetorClient implements InspetorService {
     /**
      * trackSaleAction
      *
-     * @param Sale $sale_data
+     * @param Sale $data
      * @param string $action
      * @return void
      */
-    public function trackSaleAction(Sale $sale_data, string $action) {
+    public function trackSaleAction(Sale $data, string $action) {
         $this->verifyTracker();
 
         $valid_actions = [
-            "sale_create",
-            "sale_update_status"
+            Sale::SALE_CREATE_ACTION,
+            Sale::SALE_UPDATE_STATUS_ACTION
         ];
 
-        $sale_data->isValid();
+        $data->isValid();
 
         if (!in_array($action, $valid_actions)) {
             throw new TrackerException(9005);
         }
 
-        $this->tracker->trackUnstructEvent(
-            array(
-                "schema" => $this->default_config['inspetorSaleSchema'],
-                "data" => $sale_data->jsonSerialize()
-            ),
-            array(
-                "schema" => $this->default_config['inspetorContext'],
-                "data" => array(
-                    "action" => $action
-                )
-            ),
-            $this->getNormalizedTimestamp()
+        $this->trackUnstructEvent(
+            $this->default_config['inspetorSaleSchema'],
+            $data,
+            $this->default_config['inspetorContext'],
+            $action
         );
     }
 
     /**
      * trackAccountAction
      *
-     * @param Account $account_data
+     * @param Account $data
      * @param string $action
      * @return void
      */
-    public function trackAccountAction(Account $account_data, string $action) {
+    public function trackAccountAction(Account $data, string $action) {
         $this->verifyTracker();
 
         $valid_actions = [
-            "account_create",
-            "account_update",
-            "account_delete"
+            Account::ACCOUNT_CREATE_ACTION,
+            Account::ACCOUNT_UPDATE_ACTION,
+            Account::ACCOUNT_DELETE_ACTION
         ];
 
-        $account_data->isValid();
+        $data->isValid();
 
         if (!in_array($action, $valid_actions)) {
             throw new TrackerException(9003);
         }
-        
-        $this->tracker->trackUnstructEvent(
-            array(
-                "schema" => $this->default_config['ingresseAccountSchema'],
-                "data" => $account_data->jsonSerialize()
-            ),
-            array(
-                "schema" => $this->default_config['inspetorContext'],
-                "data" => array(
-                    "action" => $action
-                )
-            ),
-            $this->getNormalizedTimestamp()
+
+        $this->trackUnstructEvent(
+            $this->default_config['inspetorAccountSchema'],
+            $data,
+            $this->default_config['inspetorContext'],
+            $action
         );
     }
 
     /**
      * trackEventAction
      *
-     * @param Event $event_data
+     * @param Event $data
      * @param string $action
      * @return void
      */
-    public function trackEventAction(Event $event_data, string $action) {
+    public function trackEventAction(Event $data, string $action) {
         $this->verifyTracker();
 
         $valid_actions = [
-            "event_create",
-            "event_update",
-            "event_delete"
+            Event::CREATE_ACTION,
+            Event::UPDATE_ACTION,
+            Event::DELETE_ACTION
         ];
 
-        $event_data->isValid();
+        $data->isValid();
 
         if (!in_array($action, $valid_actions)) {
             throw new TrackerException(9008);
         }
 
-        $this->tracker->trackUnstructEvent(
-            array(
-                "schema" => $this->default_config['inspetorEventSchema'],
-                "data" => $event_data->jsonSerialize()
-            ),
-            array(
-                "schema" => $this->default_config['inspetorContext'],
-                "data" => array(
-                    "action" => $action
-                )
-                ),
-                $this->getNormalizedTimestamp()
+        $this->trackUnstructEvent(
+            $this->default_config['inspetorEventSchema'],
+            $data,
+            $this->default_config['inspetorContext'],
+            $action
         );
     }
 
 
     /**
-     * trackTicketTransfer
+     * trackItemTransferAction
      *
-     * @param Transfer $transfer_data
+     * @param Transfer $data
      * @param string $action
      * @return void
      */
-    public function trackTicketTransfer(Transfer $transfer_data, string $action) {
+    public function trackItemTransferAction(Transfer $data, string $action) {
         $this->verifyTracker();
 
         $valid_actions = [
-            "transfer_create",
-            "transfer_update_status"
+            Transfer::TRANSFER_CREATE_ACTION,
+            Transfer::TRANSFER_UPDATE_STATUS_ACTION
         ];
 
-        $transfer_data->isValid();
+        $data->isValid();
 
         if (!in_array($action, $valid_actions)) {
             throw new TrackerException(9006);
         }
 
-        $this->tracker->trackUnstructEvent(
-            array(
-                "schema" => $this->default_config['inspetorTransferSchema'],
-                "data" => $transfer_data->jsonSeialize()
-            ),
-            array(
-                "schema" => $this->default_config['inspetorContext'],
-                "data" => array(
-                    "action" => $action
-                )
-            ),
-            $this->getNormalizedTimestamp()
+        $this->trackUnstructEvent(
+            $this->default_config['inspetorTransferSchema'],
+            $data,
+            $this->default_config['inspetorContext'],
+            $action
         );
     }
 
     /**
-     * trackUserAutgenticationAction
+     * trackUserAuthAction
      *
-     * @param Auth $auth_data
+     * @param Auth $data
      * @param string $action
      * @return void
      */
-    public function trackUserAuthenticationAction(Auth $auth_data, string $action) {
+    public function trackUserAuthAction(Auth $data, string $action) {
         $this->verifyTracker();
 
         $valid_actions = [
-            "account_login",
-            "account_logout"
+            Auth::ACCOUNT_LOGIN_ACTION,
+            Auth::ACCOUNT_LOGOUT_ACTION
         ];
 
-        $auth_data->isValid();
+        $data->isValid();
 
         if (!in_array($action, $valid_actions)) {
             throw new TrackerException(9002);
         }
 
-        $this->tracker->trackUnstructEvent(
-            array(
-                "schema" => $this->default_config['inspetorAuthSchema'],
-                "data" => $auth_data->jsonSerialize()
-            ),
-            array(
-                "schema" => $this->default_config['inspetorContext'],
-                "data" => array(
-                    "action" => $action
-                )
-            ),
-            $this->getNormalizedTimestamp()
+        $this->trackUnstructEvent(
+            $this->default_config['inspetorAuthSchema'],
+            $data,
+            $this->default_config['inspetorContext'],
+            $action
         );
     }
 
     /**
      * trackPasswordRecoveryAction
      *
-     * @param PassRecovery $pass_recovery_data
+     * @param PassRecovery $data
      * @param string $action
      * @return void
      */
-    public function trackPasswordRecoveryAction(PassRecovery $pass_recovery_data, string $action) {
+    public function trackPasswordRecoveryAction(PassRecovery $data, string $action) {
         $this->verifyTracker();
 
         $valid_actions = [
-            "password_reset",
-            "password_recovery"
+            PassRecovery::PASSWORD_RESET_ACTION,
+            PassRecovery::PASSWORD_RECOVERY_ACTION
         ];
 
-        $pass_recovery_data->isValid();
+        $data->isValid();
 
         if (!in_array($action, $valid_actions)) {
             throw new TrackerException(9007);
         }
 
-        $this->tracker->trackUnstructEvent(
-            array(
-                "schema" => $this->default_config['inspetorPassRecoverySchema'],
-                "data" => $pass_recovery_data->jsonSerialize()
-            ),
-            array(
-                "schema" => $this->default_config['inspetorContext'],
-                "data" => array(
-                    "action" => $action
-                )
-            ),
-            $this->getNormalizedTimestamp()
+        $this->trackUnstructEvent(
+            $this->default_config['inspetorPassRecoverySchema'],
+            $data,
+            $this->default_config['inspetorContext'],
+            $action
         );
     }
 
@@ -357,5 +314,51 @@ class InspetorClient implements InspetorService {
     private function getNormalizedTimestamp()
     {
         return time()*1000;
+    }
+
+    /**
+     * @param string $schema  Iglu identifier of custom event schema
+     * @param object $data    Should implement JsonSerializable
+     * @param string $context Iglu identifier of custom event context
+     * @param string $action  Define context function
+     */
+    private function trackUnstructuredEvent($schema, $data, $context, $action)
+    {
+        if (!($data instanceof JsonSerializable)) {
+            $this->reportNonserializableCall($schema);
+            return;
+        }
+        $this->tracker->trackUnstructEvent(
+            array(
+                "schema" => $schema,
+                "data" => ($data->jsonSerialize())
+            ),
+            array(
+                array(
+                    "schema" => $context,
+                    "data" => array(
+                        "action" => $action
+                    )
+                )
+            ),
+            $this->getNormalizedTimestamp()
+        );
+    }
+
+    /**
+     * Public for testing
+     *
+     * @param string $schema Iglu identifier of custom event schema
+     */
+    public function reportNonserializableCall($schema)
+    {
+        $this->tracker->trackUnstructEvent(
+            array(
+                "schema" => $this->config['ingresseSerializationError'],
+                "data" => (['intendedSchemaId' => $schema])
+            ),
+            array(),
+            $this->getNormalizedTimestamp()
+        );
     }
 }

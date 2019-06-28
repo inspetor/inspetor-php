@@ -24,7 +24,7 @@ use Inspetor\Exception\AuthException;
 
 class Auth implements JsonSerializable {
 
-    const ACCOUNT_LOGIN_ACTION = "account_login";
+    const ACCOUNT_LOGIN_ACTION  = "account_login";
     const ACCOUNT_LOGOUT_ACTION = "account_logout";
 
     /**

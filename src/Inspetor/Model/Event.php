@@ -30,10 +30,10 @@ class Event implements JsonSerializable {
 	const UPDATE_ACTION = "event_update";
 	const DELETE_ACTION = "event_delete";
 
-    const STATUS_DRAFT = "draft";
-    const STATUS_PRIVATE = "private";
-	const STATUS_PUBLISHED = "published";
-	const STATUS_OTHER = "other";
+    const DRAFT_STATUS     = "draft";
+    const PRIVATE_STATUS   = "private";
+	const PUBLISHED_STATUS = "published";
+	const OTHER_STATUS     = "other";
 
     /**
      * PROPERTIES

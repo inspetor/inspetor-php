@@ -24,7 +24,7 @@ use Inspetor\Exception\PassRecoveryException;
 
 class PassRecovery implements JsonSerializable {
 
-    const PASSWORD_RESET_ACTION = "password_reset";
+    const PASSWORD_RESET_ACTION    = "password_reset";
     const PASSWORD_RECOVERY_ACTION = "password_recovery";
 
     /**

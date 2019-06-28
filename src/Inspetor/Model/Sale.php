@@ -26,13 +26,13 @@ use Inspetor\Model\Payment;
 
 class Sale implements JsonSerializable {
 
-    const SALE_CREATE_ACTION = "sale_create";
+    const SALE_CREATE_ACTION        = "sale_create";
     const SALE_UPDATE_STATUS_ACTION = "sale_update_status";
 
-    const ACCEPTED_STATUS = "accepted";
-    const DECLINED_STATUS = "declined";
-    const PENDING_STATUS = "pending";
-    const REFUNDED_STATUS = "refunded";
+    const ACCEPTED_STATUS        = "accepted";
+    const DECLINED_STATUS        = "declined";
+    const PENDING_STATUS         = "pending";
+    const REFUNDED_STATUS        = "refunded";
     const MANUAL_ANALYSIS_STATUS = "manual_analysis";
 
     /**

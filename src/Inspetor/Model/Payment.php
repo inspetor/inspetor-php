@@ -25,8 +25,8 @@ use Inspetor\Model\CreditCard;
 
 class Payment implements JsonSerializable {
 
-    const CREDIT_CARD = "credit_card";
-    const BOLETO = "boleto";
+    const CREDIT_CARD  = "credit_card";
+    const BOLETO       = "boleto";
     const OTHER_METHOD = "other";
 
     /**

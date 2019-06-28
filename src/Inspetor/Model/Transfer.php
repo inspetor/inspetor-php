@@ -24,12 +24,12 @@ use Inspetor\Exception\TransferException;
 
 class Transfer implements JsonSerializable {
 
-    const TRANSFER_CREATE_ACTION = "transfer_create";
+    const TRANSFER_CREATE_ACTION        = "transfer_create";
     const TRANSFER_UPDATE_STATUS_ACTION = "transfer_update_status";
 
     const ACCEPTED_STATUS = "accepted";
     const REJECTED_STATUS = "rejected";
-    const PENDING_STATUS = "pending";
+    const PENDING_STATUS  = "pending";
 
     /**
      * PROPERTIES
