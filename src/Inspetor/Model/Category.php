@@ -17,6 +17,8 @@
 
 namespace Inspetor\Model;
 
+use Inspetor\Exception\CategoryException;
+
 class Category implements JsonSerializable {
 
     /**
@@ -50,19 +52,19 @@ class Category implements JsonSerializable {
      */
     public function isValid() {
         if (!$this->id) {
-            throw new Exception("Id can't be null");
+            throw new CategoryException(7301);
         }
 
         if (!$this->name) {
-            throw new Exception("Name can't be null");
+            throw new CategoryException(7302);
         }
 
         if (!$this->slug) {
-            throw new Exception("Slung can't be null");
+            throw new CategoryException(7303);
         }
 
         if (!$this->is_public) {
-            throw new Exception("Is_public can't be null");
+            throw new CategoryException(7304);
         }
     }
 

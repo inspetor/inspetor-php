@@ -20,14 +20,16 @@
 
 namespace Inspetor\Model;
 
+use Inspetor\Exception\TransferException;
+
 class Transfer implements JsonSerializable {
 
     const TRANSFER_CREATE_ACTION = "transfer_create";
     const TRANSFER_UPDATE_STATUS_ACTION = "transfer_update_status";
 
-    const ACCEPTED = "accepted";
-    const REJECTED = "rejected";
-    const PENDING = "pending";
+    const ACCEPTED_STATUS = "accepted";
+    const REJECTED_STATUS = "rejected";
+    const PENDING_STATUS = "pending";
 
     /**
      * PROPERTIES
@@ -51,19 +53,19 @@ class Transfer implements JsonSerializable {
      */
     public function isValid () {
         if (!$this->id == null) {
-            throw new Exception("Id can't be null");
+            throw new TransferException(8001);
         }
         if (!$this->timestamp) {
-            throw new Exception("Timestamp can't be null");
+            throw new TransferException(8002);
         }
         if (!$this->item_id) {
-            throw new Exception("Item id can't be null");
+            throw new TransferException(8003);
         }
         if (!$this->sender_account_id) {
-            throw new Exception("Sender account id can't be null");
+            throw new TransferException(8004);
         }
         if (!$this->receiver_email) {
-            throw new Exception("Receiver email can't be null");
+            throw new TransferException(8005);
         }
         $this->validateStatus();
     }
@@ -81,7 +83,7 @@ class Transfer implements JsonSerializable {
         ];
 
         if (!in_array($this->status, $all_status)) {
-            throw new Exception("Status is not a valid one");
+            throw new TransferException(8006);
         }
     }
 

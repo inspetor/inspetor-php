@@ -20,6 +20,7 @@
 
 namespace Inspetor\Model;
 
+use Inspetor\Exception\SaleException;
 use Inspetor\Model\Item;
 use Inspetor\Model\Payment;
 
@@ -90,37 +91,37 @@ class Sale implements JsonSerializable {
      */
     public function isValid() {
         if (!$this->id) {
-            throw new Exception("Id can't be null");
+            throw new SaleException(7901);
         }
 
 		if (!$this->account_id) {
-            throw new Exception("Account id can't be null");
+            throw new SaleException(7902);
         }
 
 		if (!$this->status) {
-            throw new Exception("Id can't be null");
+            throw new SaleException(7903);
         }
 
         $this->validateStatus();
 
 		if (!$this->is_fraud) {
-            throw new Exception("Is Fraud property can't be null");
+            throw new SaleException(7904);
         }
 
 		if (!$this->creation_timestamp) {
-            throw new Exception("Timestamp can't be null");
+            throw new SaleException(7905);
         }
 
 		if (!$this->update_timestamp) {
-            throw new Exception("Timestamp can't be null");
+            throw new SaleException(7906);
         }
 
 		if (!$this->items || empty($this->items)) {
-            throw new Exception("Items can't be null neither an empty array");
+            throw new SaleException(7907);
         }
 
 		if (!$this->payment) {
-            throw new Exception("Payment can't be null");
+            throw new SaleException(7908);
         }
 
         $this->setTotalValue();
@@ -141,7 +142,7 @@ class Sale implements JsonSerializable {
         ];
 
         if (!in_array($this->status, $all_status)) {
-            throw new Exception("Status is not a valid one");
+            throw new SaleException(7909);
         }
     }
 
@@ -153,9 +154,9 @@ class Sale implements JsonSerializable {
     private function setTotalValue() {
         foreach ($this->items as $item) {
             try {
-                $this->total_value += floatval($item->getPrice(true));
+                $this->total_value += floatval($item->getPrice());
             } catch (Exception $e) {
-                throw new Exception("Price values in the items are not valid ones");
+                throw new SaleException(7910);
             }
         }
     }

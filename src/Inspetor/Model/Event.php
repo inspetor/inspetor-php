@@ -20,6 +20,7 @@
 
 namespace Inspetor\Model;
 
+use Inspetor\Exception\EventException;
 use Inspetor\Model\Address;
 use Inspetor\Model\Category;
 
@@ -120,44 +121,45 @@ class Event implements JsonSerializable {
      */
     public function isValid() {
         if (!$this->id) {
-            throw new Exception("Id can't be null");
+            throw new EventException(7501);
         }
 
 		if (!$this->creation_timestamp) {
-            throw new Exception("Creation timestamp can't be null");
+            throw new EventException(7502);
 		}
 
 		if (!$this->name) {
-            throw new Exception("Name can't be null");
+            throw new EventException(7503);
         }
 
         if (!$this->update_timestamp) {
-            throw new Exception("Update timestamp can't be null");
+            throw new EventException(7504);
 		}
 
         if (!$this->producer_id) {
-            throw new Exception("Producer id can't be null");
+            throw new EventException(7505);
 		}
 
 		if (!$this->address) {
-            throw new Exception("Address can't be null");
+            throw new EventException(7506);
 		}
 
 		if (!$this->sessions || empty($this->sessions)) {
-            throw new Exception("Sessions can't be null neither an empty array");
+            throw new EventException(7507);
 		}
 
 		if (!$this->seating_options || empty($this->seating_options)) {
-            throw new Exception("Sessions can't be null neither an empty array");
+            throw new EventException(7508);
 		}
         if (!$this->categories || empty($this->categories)) {
-            throw new Exception("Categories can't be null");
+            throw new EventException(7509);
         }
 
 		if (!$this->status) {
-			$this->validateStatus();
+			throw new EventException(7510);
 		}
 
+		$this->validateStatus();
     }
 
 	/**

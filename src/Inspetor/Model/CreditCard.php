@@ -20,6 +20,8 @@
 
 namespace Inspetor\Model;
 
+use Inspetor\Exception\CreditCardException;
+
 class CreditCard implements JsonSerializable {
 
     /**
@@ -58,19 +60,19 @@ class CreditCard implements JsonSerializable {
      */
     public function isValid() {
         if (!$this->first_six_digits) {
-            throw new Exception("The first six digits can't be null");
+            throw new CreditCardException(7401);
         }
 
         if (!$this->last_four_digits) {
-            throw new Exception("The last four digits can't be null");
+            throw new CreditCardException(7402);
         }
 
         if (!$this->holder_name) {
-            throw new Exception("The holder name can't be null");
+            throw new CreditCardException(7403);
         }
 
         if (!$this->holder_cpf) {
-            throw new Exception("The holder cpf can't be null");
+            throw new CreditCardException(7404);
         }
     }
 

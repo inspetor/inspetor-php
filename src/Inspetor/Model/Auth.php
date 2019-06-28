@@ -20,6 +20,8 @@
 */
 namespace Inspetor\Model;
 
+use Inspetor\Exception\AuthException;
+
 class Auth implements JsonSerializable {
 
     const ACCOUNT_LOGIN_ACTION = "account_login";
@@ -62,11 +64,11 @@ class Auth implements JsonSerializable {
      */
     public function isValid() {
         if (!$this->account_id) {
-            throw new Exception("Account_id can't be null");
+            throw new AuthException(7201);
         }
 
         if (!$this->timestamp) {
-            throw new Exception("Timestamp can't be null");
+            throw new AuthException(7202);
         }
     }
 

@@ -4,12 +4,12 @@ namespace Inspetor\Inspetor\Exception\ModelException;
 
 use Inspetor\Inspetor\Exception\ExceptionAbstract;
 
-class AccountException extends ExceptionAbstract {
+class SaleException extends ExceptionAbstract {
 
     /**
      * Category of Exception
      */
-    const CATEGORY = 7000;
+    const CATEGORY = 7900;
 
     /**
      * Description of Exception
@@ -25,8 +25,16 @@ class AccountException extends ExceptionAbstract {
      * @var array
      */
     protected static $messages = array(
-        1 => "id is a required property. It can't be null.",
-        2 => "update_timestamp is a required property. It can't be null.",
+        1  => "id is a required property. It can't be null.",
+        2  => "account_id is a required property. It can't be null.",
+        3  => "status is a required property. It can't be null.",
+        4  => "is_fraud is a required property. It can't be null.",
+        5  => "creation_timestamp is a required property. It can't be null.",
+        6  => "update_timestamp is a required property. It can't be null.",
+        7  => "items is a required property. It can't be null neither an empty array.",
+        8  => "payment is a required property. It can't be null.",
+        9  => "The status is not a valid one.",
+        10 => "One or more items have invalid price."
     );
 
     /**

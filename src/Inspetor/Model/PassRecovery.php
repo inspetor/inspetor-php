@@ -20,6 +20,8 @@
 
 namespace Inspetor\Model;
 
+use Inspetor\Exception\PassRecoveryException;
+
 class PassRecovery implements JsonSerializable {
 
     const PASSWORD_RESET_ACTION = "password_reset";
@@ -51,10 +53,10 @@ class PassRecovery implements JsonSerializable {
      */
     public function isValid() {
         if (!$this->recovery_email) {
-            throw new Exception("Recovery email can't be null");
+            throw new PassRecoveryException(7701);
         }
         if (!$this->timestamp) {
-            throw new Exception("Timestamp can't be null");
+            throw new PassRecoveryException(7702);
         }
     }
 

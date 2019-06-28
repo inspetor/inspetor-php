@@ -20,6 +20,8 @@
 
 namespace Inspetor\Model;
 
+use Inspetor\Exception\AddressException;
+
 class Address implements JsonSerializable {
 
     /**
@@ -73,27 +75,27 @@ class Address implements JsonSerializable {
      */
     public function isValid() {
         if (!$this->street) {
-            throw new Exception("Street can't be null");
+            throw new AddressException(7101);
         }
 
         if (!$this->number) {
-            throw new Exception("Number can't be null");
+            throw new AddressException(7102);
         }
 
         if (!$this->zip_code) {
-            throw new Exception("Zip Code can't be null");
+            throw new AddressException(7103);
         }
 
         if (!$this->city) {
-            throw new Exception("City can't be null");
+            throw new AddressException(7104);
         }
 
         if (!$this->state) {
-            throw new Exception("State can't be null");
+            throw new AddressException(7105);
         }
 
         if (!$this->country) {
-            throw new Exception("Country can't be null");
+            throw new AddressException(7106);
         }
     }
 
@@ -352,14 +354,14 @@ class Address implements JsonSerializable {
     */
     public function jsonSerialize() {
         $array = [
-            "address_street" => $this->getStreet(),
-            "address_number" => $this->getNumber(),
-            "address_zip_code" => $this->getZipCode(),
-            "address_city" => $this->getCity(),
-            "address_state" => $this->getState(),
-            "address_country" => $this->getCountry(),
-            "address_latitude" => $this->getLatitude(),
-            "address_longitude" =>  $this->getLongitude()
+            "address_street"    => $this->getStreet(),
+            "address_number"    => $this->getNumber(),
+            "address_zip_code"  => $this->getZipCode(),
+            "address_city"      => $this->getCity(),
+            "address_state"     => $this->getState(),
+            "address_country"   => $this->getCountry(),
+            "address_latitude"  => $this->getLatitude(),
+            "address_longitude" => $this->getLongitude()
         ];
 
         return $array;

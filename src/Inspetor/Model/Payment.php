@@ -20,6 +20,7 @@
 
 namespace Inspetor\Model;
 
+use Inspetor\Exception\PaymentException;
 use Inspetor\Model\CreditCard;
 
 class Payment implements JsonSerializable {
@@ -64,13 +65,13 @@ class Payment implements JsonSerializable {
      */
     public function isValid() {
         if (!$this->id) {
-            throw new Exception("Id can't be null");
+            throw new PaymentException(7801);
         }
         if (!$this->method) {
-            throw new Exception("Method can't be null");
+            throw new PaymentException(7802);
         }
         if (!$this->installments || empty($this->installments)) {
-            throw new Exception("Installments can't be null");
+            throw new PaymentException(7803);
         }
     }
 
@@ -87,7 +88,7 @@ class Payment implements JsonSerializable {
         ];
 
         if (!in_array($this->method, $all_methods)) {
-            throw new Exception("Method is not a valid one");
+            throw new PaymentException(7800);
         }
         $this->validateCreditCardInfo();
     }
@@ -100,7 +101,7 @@ class Payment implements JsonSerializable {
     private function validateCreditCardInfo() {
         if ($this->getMethod() == self::CREDIT_CARD) {
             if (!$this->getCreditCard()) {
-                throw new Exception("Credit card can't be null when method is credit_card");
+                throw new PaymentException(7800);
             }
         }
         return true;

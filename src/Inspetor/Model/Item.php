@@ -20,6 +20,8 @@
 
 namespace Inspetor\Model;
 
+use Inspetor\Exception\ItemException;
+
 class Item implements JsonSerializable {
 
     /**
@@ -63,19 +65,19 @@ class Item implements JsonSerializable {
      */
     public function isValid() {
         if (!$this->id) {
-            throw new Exception("Id can't be null");
+            throw new ItemException(7601);
         }
         if (!$this->event_id) {
-            throw new Exception("Event id can't be null");
+            throw new ItemException(7602);
         }
         if (!$this->session_id) {
-            throw new Exception("Session id can't be null");
+            throw new ItemException(7603);
         }
         if (!$this->price) {
-            throw new Exception("Price can't be null");
+            throw new ItemException(7604);
         }
         if (!$this->seating_option) {
-            throw new Exception("Seating Option can't be null");
+            throw new ItemException(7605);
         }
     }
 
@@ -179,14 +181,9 @@ class Item implements JsonSerializable {
 	/**
 	 * Get the value of price
 	 *
-	 * @param boolean $debug  If set as true will decode the value
-	 *
 	 * @return string
 	 */
-	public function getPrice($debug = false) {
-        if ($debug) {
-            return base64_decode($this->price);
-        }
+	public function getPrice() {
 		return $this->price;
     }
 
@@ -198,12 +195,15 @@ class Item implements JsonSerializable {
 	 *
 	 * @return self
 	 */
-	public function setPrice($price, $is_editable = true) {
-        if ($is_editable) {
-            $this->price = base64_encode($price);
-        } else {
-            $this->price = $price;
-        }
+	public function setPrice($price) {
+		$price = $this->convertToValidPrice($price);
+
+		if (!$price) {
+            throw new ItemException(7606);
+		}
+
+		$this->price = $price;
+
 		return $this;
 	}
 
@@ -258,6 +258,38 @@ class Item implements JsonSerializable {
         return $array;
     }
 
+	/**
+	 * Convert $price string to valid value
+	 *
+	 * @param string $price
+	 *
+	 * @return
+	 */
+	private function convertToValidPrice($price) {
+		$price = str_replace(['-', ',', '$', ' '], '', $price);
+		if(!is_numeric($price)) {
+			$price = null;
+		} else {
+			if(strpos($price, '.') !== false) {
+				$dollarExplode = explode('.', $price);
+				$dollar = $dollarExplode[0];
+				$cents = $dollarExplode[1];
+				if(strlen($cents) === 0) {
+					$cents = '00';
+				} elseif(strlen($cents) === 1) {
+					$cents = $cents.'0';
+				} elseif(strlen($cents) > 2) {
+					$cents = substr($cents, 0, 2);
+				}
+				$price = $dollar.'.'.$cents;
+			} else {
+				$cents = '00';
+				$price = $price.'.'.$cents;
+			}
+		}
+
+		return $price;
+	}
 }
 
 ?>

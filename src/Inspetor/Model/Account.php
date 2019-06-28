@@ -20,6 +20,7 @@
 
 namespace Inspetor\Model;
 
+use Inspetor\Exception\AccountException;
 use Inspetor\Model\Address;
 
 class Account implements JsonSerializable {
@@ -84,15 +85,15 @@ class Account implements JsonSerializable {
      */
     public function isValid() {
         if (!$this->id) {
-            throw new Exception("The id can't be null");
+            throw new AccountException(7001);
         }
 
         if (!$this->email) {
-            throw new Exception("The id can't be null");
+            throw new AccountException(7002);
         }
 
         if (!$this->update_timestamp) {
-            throw new Exception("The update timestamp can't be null");
+            throw new AccountException(7003);
         }
     }
 

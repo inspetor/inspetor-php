@@ -4,12 +4,12 @@ namespace Inspetor\Inspetor\Exception\ModelException;
 
 use Inspetor\Inspetor\Exception\ExceptionAbstract;
 
-class AccountException extends ExceptionAbstract {
+class CategoryException extends ExceptionAbstract {
 
     /**
      * Category of Exception
      */
-    const CATEGORY = 7000;
+    const CATEGORY = 7300;
 
     /**
      * Description of Exception
@@ -19,14 +19,16 @@ class AccountException extends ExceptionAbstract {
     /**
      * Header of message
      */
-    const HEADER = "INSPETOR EXCEPTION - ACCOUNT";
+    const HEADER = "INSPETOR EXCEPTION - CATEGORY";
 
     /**
      * @var array
      */
     protected static $messages = array(
         1 => "id is a required property. It can't be null.",
-        2 => "update_timestamp is a required property. It can't be null.",
+        2 => "name is a required property. It can't be null.",
+        3 => "slung is a required property. It can't be null.",
+        4 => "is_public is a required property. It can't be null."
     );
 
     /**

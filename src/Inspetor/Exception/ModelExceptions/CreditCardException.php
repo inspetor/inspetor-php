@@ -4,12 +4,12 @@ namespace Inspetor\Inspetor\Exception\ModelException;
 
 use Inspetor\Inspetor\Exception\ExceptionAbstract;
 
-class AccountException extends ExceptionAbstract {
+class CreditCardException extends ExceptionAbstract {
 
     /**
      * Category of Exception
      */
-    const CATEGORY = 7000;
+    const CATEGORY = 7400;
 
     /**
      * Description of Exception
@@ -19,14 +19,16 @@ class AccountException extends ExceptionAbstract {
     /**
      * Header of message
      */
-    const HEADER = "INSPETOR EXCEPTION - ACCOUNT";
+    const HEADER = "INSPETOR EXCEPTION - CREDIT CARD";
 
     /**
      * @var array
      */
     protected static $messages = array(
-        1 => "id is a required property. It can't be null.",
-        2 => "update_timestamp is a required property. It can't be null.",
+        1 => "first_six_digits is a required property. It can't be null.",
+        2 => "last_four_digits is a required property. It can't be null.",
+        3 => "holder_name is a required property. It can't be null.",
+        4 => "holder_cpf is a required property. It can't be null."
     );
 
     /**
