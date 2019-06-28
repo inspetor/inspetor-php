@@ -20,6 +20,8 @@
 
 namespace Inspetor\Model;
 
+use Inspetor\Model\CreditCard;
+
 class Payment implements JsonSerializable {
 
     const CREDIT_CARD = "credit_card";
@@ -30,27 +32,53 @@ class Payment implements JsonSerializable {
      * PROPERTIES
      */
 
-    var $id;
-    var $method;
-    var $installments;
-    var $credit_card;
+    /**
+     * @param string
+     */
+    private $id;
+
+    /**
+     * @param string
+     */
+    private $method;
+
+    /**
+     * @param array
+     */
+    private $installments;
+
+    /**
+     * @param Inspetor\Model\CreditCard $credit_card
+     */
+    private $credit_card;
+
 
     /**
      * ISVALID
      */
 
+	/**
+     * Validate Payment instance
+     *
+     * @return void
+     */
     public function isValid() {
-        if ($this->id == null || $this->id == "") {
+        if (!$this->id) {
             throw new Exception("Id can't be null");
         }
-        if ($this->method == null || $this->method == "") {
+        if (!$this->method) {
             throw new Exception("Method can't be null");
         }
-        if ($this->installments == null || $this->installments == "") {
+        if (!$this->installments || empty($this->installments)) {
             throw new Exception("Installments can't be null");
         }
     }
 
+    /**
+	 * Validate method of the payment
+	 *
+	 * @return void
+	 */
     private function validateMethod() {
         $all_methods = [
             self::BOLETO,
@@ -60,10 +88,15 @@ class Payment implements JsonSerializable {
 
         if (!in_array($this->method, $all_methods)) {
             throw new Exception("Method is not a valid one");
-        }             
+        }
         $this->validateCreditCardInfo();
     }
 
+    /**
+	 * Validate credit card info
+	 *
+	 * @return boolean
+	 */
     private function validateCreditCardInfo() {
         if ($this->getMethod() == self::CREDIT_CARD) {
             if (!$this->getCreditCard()) {
@@ -76,13 +109,13 @@ class Payment implements JsonSerializable {
     /**
      * GETTERS AND SETTERS
      */
-    
+
 	/**
 	 * Get the value of id
-	 * 
-	 * @param   boolean $debug  If set as true will decode the value
 	 *
-	 * @return  mixed
+	 * @param boolean $debug  If set as true will decode the value
+	 *
+	 * @return string
 	 */
 	public function getId($debug = false) {
         if ($debug) {
@@ -94,10 +127,10 @@ class Payment implements JsonSerializable {
 	/**
 	 * Set the value of id
 	 *
-	 * @param   mixed  $id  
-	 * @param   boolean $is_editable  If set as true will encode the value
-	 * 
-	 * @return  self
+	 * @param string  $id
+	 * @param boolean $is_editable  If set as true will encode the value
+	 *
+	 * @return self
 	 */
 	public function setId($id, $is_editable = false) {
         if ($is_editable) {
@@ -110,10 +143,10 @@ class Payment implements JsonSerializable {
 
 	/**
 	 * Get the value of method
-	 * 
-	 * @param   boolean $debug  If set as true will decode the value
 	 *
-	 * @return  mixed
+	 * @param boolean $debug  If set as true will decode the value
+	 *
+	 * @return string
 	 */
 	public function getMethod() {
 		return $this->method;
@@ -122,10 +155,10 @@ class Payment implements JsonSerializable {
 	/**
 	 * Set the value of method
 	 *
-	 * @param   mixed  $method  
-	 * @param   boolean $is_editable  If set as true will encode the value
-	 * 
-	 * @return  self
+	 * @param string  $method
+	 * @param boolean $is_editable  If set as true will encode the value
+	 *
+	 * @return self
 	 */
 	public function setMethod($method) {
         $this->method = $method;
@@ -134,10 +167,10 @@ class Payment implements JsonSerializable {
 
 	/**
 	 * Get the value of installments
-	 * 
-	 * @param   boolean $debug  If set as true will decode the value
 	 *
-	 * @return  mixed
+	 * @param boolean $debug  If set as true will decode the value
+	 *
+	 * @return string
 	 */
 	public function getInstallments($debug = false) {
         if ($debug) {
@@ -149,10 +182,10 @@ class Payment implements JsonSerializable {
 	/**
 	 * Set the value of installments
 	 *
-	 * @param   mixed  $installments  
-	 * @param   boolean $is_editable  If set as true will encode the value
-	 * 
-	 * @return  self
+	 * @param string  $installments
+	 * @param boolean $is_editable  If set as true will encode the value
+	 *
+	 * @return self
 	 */
 	public function setInstallments($installments, $is_editable = true) {
         if ($is_editable) {
@@ -165,8 +198,8 @@ class Payment implements JsonSerializable {
 
 	/**
 	 * Get the value of credit_card
-	 * 
-	 * @return  mixed
+	 *
+	 * @return Inspetor\Model\CreditCard
 	 */
 	public function getCreditCard() {
 		return $this->credit_card;
@@ -175,15 +208,15 @@ class Payment implements JsonSerializable {
 	/**
 	 * Set the value of credit_card
 	 *
-	 * @param   mixed  $credit_card  
-	 * 
-	 * @return  self
+	 * @param Inspetor\Model\CreditCard $credit_card
+	 *
+	 * @return self
 	 */
 	public function setCreditCard($credit_card) {
         $this->credit_card = $credit_card;
 		return $this;
     }
-    
+
     /**
      * JSONSERIALIZE
     */
@@ -194,9 +227,9 @@ class Payment implements JsonSerializable {
     */
     public function jsonSerialize() {
         $array = [
-            "payment_instance_id" => $this->getId(),
-            "payment_instance_method" => $this->getMethod(),
-            "payment_instance_installments" => $this->getInstallments(),
+            "payment_instance_id"               => $this->getId(),
+            "payment_instance_method"           => $this->getMethod(),
+            "payment_instance_installments"     => $this->getInstallments(),
             "payment_instance_credit_card_info" => $this->getCreditCard()
         ];
 

@@ -27,41 +27,45 @@ class Auth implements JsonSerializable {
 
     /**
      * PROPERTIES
-    */
+     */
 
     /**
       * Id of the account that is making the action
       *
-      * @var int
+      * @param string
     */
-    var $account_id;
+    private $account_id;
+
     /**
       * Email of the account that is making the action
       *
-      * @var string
-    */
-    var $account_email;
+      * @param string
+      */
+    private $account_email;
+
     /**
       * Time and date when the action is occured.
       * The format needs to be in DD-MM-YYYY HH:MI:SS
       *
-      * @var string
+      * @param string
     */
-    var $timestamp;
+    private $timestamp;
 
     /**
-     * ISVALID 
+     * ISVALID
     */
 
     /**
-     * Check if the object is valid. If it's not it will throw an exception. 
-    */
+     * Validate Auth instance
+     *
+     * @return void
+     */
     public function isValid() {
-        if ($this->account_id == null || $this->account_id == "") {
+        if (!$this->account_id) {
             throw new Exception("Account_id can't be null");
         }
 
-        if ($this->timestamp == null || $this->timestamp == "") {
+        if (!$this->timestamp) {
             throw new Exception("Timestamp can't be null");
         }
     }
@@ -72,9 +76,11 @@ class Auth implements JsonSerializable {
 
     /**
      * Get the value of account_id
-     * 
-     * @param boolean $debug If is set to 'true' will return the the data decoded
-    */ 
+     *
+     * @param boolean $debug
+     *
+     * @return string
+    */
     public function getAccountId($debug=false) {
         if ($debug) {
             return base64_decode($this->account_id);
@@ -85,8 +91,11 @@ class Auth implements JsonSerializable {
     /**
      * Set the value of account_id
      *
-     * @return  self
-    */ 
+     * @param string  $account_id
+     * @param boolean $is_editable
+     *
+     * @return self
+    */
     public function setAccountId($account_id, $is_editable = false) {
         if ($is_editable) {
             $this->account_id = base64_encode($account_id);
@@ -98,9 +107,11 @@ class Auth implements JsonSerializable {
 
     /**
      * Get the value of account_email
-     * 
-     * @param boolean $debug If is set to 'true' will return the the data decoded
-    */ 
+     *
+     * @param boolean $debug
+     *
+     * @return string
+    */
     public function getAccountEmail($debug = false) {
         if ($debug) {
             return base64_decode($this->account_email);
@@ -111,9 +122,11 @@ class Auth implements JsonSerializable {
     /**
      * Set the value of account_email
      *
-     * @param boolean $is_editable If is set to 'true' will encode the data
-     * @return  self
-    */ 
+     * @param string  $account_email
+     * @param boolean $is_editable
+     *
+     * @return self
+    */
     public function setAccountEmail($account_email, $is_editable = true) {
         if ($is_editable) {
             $this->account_email = base64_encode($account_email);
@@ -125,9 +138,9 @@ class Auth implements JsonSerializable {
 
     /**
      * Get the value of timestamp
-     * 
-     * @param boolean $debug If is set to 'true' will return the the data decoded
-     */ 
+     *
+     * @return string
+     */
     public function getTimestamp() {
         return $this->timestamp;
     }
@@ -135,9 +148,8 @@ class Auth implements JsonSerializable {
     /**
      * Set the value of timestamp
      *
-     * @param boolean $is_editable If is set to 'true' will encode the data
-     * @return  self
-    */ 
+     * @return self
+    */
     public function setTimestamp($timestamp) {
         $this->timestamp = $timestamp;
         return $this;
@@ -153,9 +165,9 @@ class Auth implements JsonSerializable {
     */
     public function jsonSerialize() {
         $array = [
-            "auth_account_id" => $this->getAccountId(),
+            "auth_account_id"    => $this->getAccountId(),
             "auth_account_email" => $this->getAccountEmail(),
-            "auth_timestamp" => $this->getTimestamp()
+            "auth_timestamp"     => $this->getTimestamp()
         ];
 
         return $array;

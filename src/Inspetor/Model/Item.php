@@ -26,30 +26,55 @@ class Item implements JsonSerializable {
      * PROPERTIES
      */
 
-    var $id;
-    var $event_id;
-    var $session_id;
-    var $price;
-    var $seating_option;
+    /**
+	 * @param string
+	 */
+	private $id;
+
+    /**
+	 * @param string
+	 */
+	private $event_id;
+
+    /**
+	 * @param string
+	 */
+	private $session_id;
+
+    /**
+	 * @param string
+	 */
+	private $price;
+
+    /**
+	 * @param string
+	 */
+	private $seating_option;
+
 
     /**
      * ISVALID
      */
 
+	/**
+     * Validate Item instance
+     *
+     * @return void
+     */
     public function isValid() {
-        if ($this->id == null || $this->id == "") {
+        if (!$this->id) {
             throw new Exception("Id can't be null");
         }
-        if ($this->event_id == null || $this->event_id == "") {
+        if (!$this->event_id) {
             throw new Exception("Event id can't be null");
         }
-        if ($this->session_id == null || $this->session_id == "") {
+        if (!$this->session_id) {
             throw new Exception("Session id can't be null");
         }
-        if ($this->price == null || $this->price == "") {
+        if (!$this->price) {
             throw new Exception("Price can't be null");
         }
-        if ($this->seating_option == null || $this->seating_option == "") {
+        if (!$this->seating_option) {
             throw new Exception("Seating Option can't be null");
         }
     }
@@ -60,10 +85,10 @@ class Item implements JsonSerializable {
 
 	/**
 	 * Get the value of id
-	 * 
-	 * @param   boolean $debug  If set as true will decode the value
 	 *
-	 * @return  mixed
+	 * @param boolean $debug  If set as true will decode the value
+	 *
+	 * @return string
 	 */
 	public function getId($debug = false) {
         if ($debug) {
@@ -75,10 +100,10 @@ class Item implements JsonSerializable {
 	/**
 	 * Set the value of id
 	 *
-	 * @param   mixed  $id  
-	 * @param   boolean $is_editable  If set as true will encode the value
-	 * 
-	 * @return  self
+	 * @param mixed   $id
+	 * @param boolean $is_editable  If set as true will encode the value
+	 *
+	 * @return self
 	 */
 	public function setId($id, $is_editable = false) {
         if ($is_editable) {
@@ -91,10 +116,10 @@ class Item implements JsonSerializable {
 
 	/**
 	 * Get the value of event_id
-	 * 
-	 * @param   boolean $debug  If set as true will decode the value
 	 *
-	 * @return  mixed
+	 * @param boolean $debug  If set as true will decode the value
+	 *
+	 * @return string
 	 */
 	public function getEventId($debug = false) {
         if ($debug) {
@@ -106,10 +131,10 @@ class Item implements JsonSerializable {
 	/**
 	 * Set the value of event_id
 	 *
-	 * @param   mixed  $event_id  
-	 * @param   boolean $is_editable  If set as true will encode the value
-	 * 
-	 * @return  self
+	 * @param string  $event_id
+	 * @param boolean $is_editable  If set as true will encode the value
+	 *
+	 * @return self
 	 */
 	public function setEventId($event_id, $is_editable = false) {
         if ($is_editable) {
@@ -122,10 +147,10 @@ class Item implements JsonSerializable {
 
 	/**
 	 * Get the value of session_id
-	 * 
-	 * @param   boolean $debug  If set as true will decode the value
 	 *
-	 * @return  mixed
+	 * @param boolean $debug  If set as true will decode the value
+	 *
+	 * @return string
 	 */
 	public function getSessionId($debug = false) {
         if ($debug) {
@@ -137,10 +162,10 @@ class Item implements JsonSerializable {
 	/**
 	 * Set the value of session_id
 	 *
-	 * @param   mixed  $session_id  
-	 * @param   boolean $is_editable  If set as true will encode the value
-	 * 
-	 * @return  self
+	 * @param string  $session_id
+	 * @param boolean $is_editable  If set as true will encode the value
+	 *
+	 * @return self
 	 */
 	public function setSessionId($session_id, $is_editable = true) {
         if ($is_editable) {
@@ -153,10 +178,10 @@ class Item implements JsonSerializable {
 
 	/**
 	 * Get the value of price
-	 * 
-	 * @param   boolean $debug  If set as true will decode the value
 	 *
-	 * @return  mixed
+	 * @param boolean $debug  If set as true will decode the value
+	 *
+	 * @return string
 	 */
 	public function getPrice($debug = false) {
         if ($debug) {
@@ -168,10 +193,10 @@ class Item implements JsonSerializable {
 	/**
 	 * Set the value of price
 	 *
-	 * @param   mixed  $price  
-	 * @param   boolean $is_editable  If set as true will encode the value
-	 * 
-	 * @return  self
+	 * @param string  $price
+	 * @param boolean $is_editable  If set as true will encode the value
+	 *
+	 * @return self
 	 */
 	public function setPrice($price, $is_editable = true) {
         if ($is_editable) {
@@ -184,10 +209,10 @@ class Item implements JsonSerializable {
 
 	/**
 	 * Get the value of seating_option
-	 * 
-	 * @param   boolean $debug  If set as true will decode the value
 	 *
-	 * @return  mixed
+	 * @param boolean $debug  If set as true will decode the value
+	 *
+	 * @return string
 	 */
 	public function getSeatingOption($debug = false) {
         if ($debug) {
@@ -199,10 +224,10 @@ class Item implements JsonSerializable {
 	/**
 	 * Set the value of seating_option
 	 *
-	 * @param   mixed  $seating_option  
-	 * @param   boolean $is_editable  If set as true will encode the value
-	 * 
-	 * @return  self
+	 * @param string  $seating_option
+	 * @param boolean $is_editable  If set as true will encode the value
+	 *
+	 * @return self
 	 */
 	public function setSeatingOption($seating_option, $is_editable = true) {
         if ($is_editable) {
@@ -212,7 +237,7 @@ class Item implements JsonSerializable {
         }
 		return $this;
     }
-    
+
     /**
      * JSONSERIALIZE
     */

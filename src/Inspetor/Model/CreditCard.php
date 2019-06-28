@@ -25,29 +25,51 @@ class CreditCard implements JsonSerializable {
     /**
      * PROPERTIES
      */
-    var $first_six_digits;
-    var $last_four_digits;
-    var $holder_name;
-    var $holder_cpf;
+
+     /**
+     * @param string
+     */
+    private $first_six_digits;
+
+    /**
+     * @param string
+     */
+    private $last_four_digits;
+
+    /**
+     * @param string
+     */
+    private $holder_name;
+
+    /**
+     * @param string
+     */
+    private $holder_cpf;
+
 
     /**
      * ISVALID
      */
 
+    /**
+     * Validate CreditCard instance
+     *
+     * @return void
+     */
     public function isValid() {
-        if ($this->first_six_digits == null || $this->first_six_digits == "") {
+        if (!$this->first_six_digits) {
             throw new Exception("The first six digits can't be null");
         }
 
-        if ($this->last_four_digits == null || $this->last_four_digits == "") {
+        if (!$this->last_four_digits) {
             throw new Exception("The last four digits can't be null");
         }
 
-        if ($this->holder_name== null || $this->holder_name == "") {
+        if (!$this->holder_name) {
             throw new Exception("The holder name can't be null");
         }
 
-        if ($this->holder_cpf == null || $this->holder_cpf == "") {
+        if (!$this->holder_cpf) {
             throw new Exception("The holder cpf can't be null");
         }
     }
@@ -58,8 +80,12 @@ class CreditCard implements JsonSerializable {
 
 
     /**
-     * Get pROPERTIES
-     */ 
+     * Get the value of first_six_digits
+     *
+     * @param boolean $debug
+     *
+     * @return string
+     */
     public function getFirstSixDigits($debug = false) {
         if ($debug) {
             return base64_decode($this->first_six_digits);
@@ -68,10 +94,13 @@ class CreditCard implements JsonSerializable {
     }
 
     /**
-     * Set pROPERTIES
+     * Set the value of first_six_digits
+     *
+     * @param string  $first_six_digits
+     * @param boolean $is_editable
      *
      * @return  self
-     */ 
+     */
     public function setFirstSixDigits($first_six_digits, $is_editable = true) {
         if ($is_editable) {
             $this->first_six_digits = base64_encode($first_six_digits);
@@ -83,7 +112,11 @@ class CreditCard implements JsonSerializable {
 
     /**
      * Get the value of last_four_digits
-     */ 
+     *
+     * @param boolean $debug
+     *
+     * @return string
+     */
     public function getLastFourDigits($debug = false) {
         if ($debug) {
             return base64_decode($this->last_four_digits);
@@ -94,8 +127,11 @@ class CreditCard implements JsonSerializable {
     /**
      * Set the value of last_four_digits
      *
+     * @param string  $last_four_digits
+     * @param boolean $is_editable
+     *
      * @return  self
-     */ 
+     */
     public function setLastFourDigits($last_four_digits, $is_editable = true) {
         if ($is_editable) {
             $this->last_four_digits = base64_encode($last_four_digits);
@@ -107,7 +143,11 @@ class CreditCard implements JsonSerializable {
 
     /**
      * Get the value of holder_name
-     */ 
+     *
+     * @param boolean $debug
+     *
+     * @return string
+     */
     public function getHolderName($debug = false) {
         if ($debug) {
             return base64_decode($this->holder_name);
@@ -118,8 +158,11 @@ class CreditCard implements JsonSerializable {
     /**
      * Set the value of holder_name
      *
-     * @return  self
-     */ 
+     * @param string  $id
+     * @param boolean $is_editable
+     *
+     * @return self
+     */
     public function setHolderName($holder_name, $is_editable = true) {
         if ($is_editable) {
             $this->holder_name = base64_encode($holder_name);
@@ -131,7 +174,11 @@ class CreditCard implements JsonSerializable {
 
     /**
      * Get the value of holder_cpf
-     */ 
+     *
+     * @param boolean $debug
+     *
+     * @return string
+     */
     public function getHolderCpf($debug = false) {
         if ($debug) {
             return base64_decode($this->holder_cpf);
@@ -142,8 +189,11 @@ class CreditCard implements JsonSerializable {
     /**
      * Set the value of holder_cpf
      *
-     * @return  self
-     */ 
+     * @param string  $holder_cpf
+     * @param boolean $is_editable
+     *
+     * @return self
+     */
     public function setHolderCpf($holder_cpf, $is_editable = true) {
         if ($is_editable) {
             $this->holder_cpf = base64_encode($holder_cpf);
@@ -163,10 +213,10 @@ class CreditCard implements JsonSerializable {
     */
     public function jsonSerialize() {
         $array = [
-            "cc_first_six" => $this->getFirstSixDigits(),
-            "cc_last_four" => $this->getLastFourDigits(),
+            "cc_first_six"   => $this->getFirstSixDigits(),
+            "cc_last_four"   => $this->getLastFourDigits(),
             "cc_holder_name" => $this->getHolderName(),
-            "cc_holder_cpf" => $this->getHolderCpf()
+            "cc_holder_cpf"  => $this->getHolderCpf()
         ];
 
         return $array;

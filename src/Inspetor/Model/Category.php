@@ -22,25 +22,46 @@ class Category implements JsonSerializable {
     /**
      * PROPERTIES
      */
-    var $id;
-    var $name;
-    var $slug;
-    var $is_public;
 
+    /**
+     * @param string
+     */
+    private $id;
+
+     /**
+     * @param string
+     */
+    private $name;
+
+    /**
+     * @param string
+     */
+    private $slug;
+
+    /**
+     * @param boolean
+     */
+    private $is_public;
+
+    /**
+     * Validate Category instance
+     *
+     * @return void
+     */
     public function isValid() {
-        if ($this->id == null || $this->id == "") {
+        if (!$this->id) {
             throw new Exception("Id can't be null");
         }
 
-        if ($this->name == null || $this->name == "") {
+        if (!$this->name) {
             throw new Exception("Name can't be null");
         }
 
-        if ($this->slug == null || $this->slug == "") {
+        if (!$this->slug) {
             throw new Exception("Slung can't be null");
         }
 
-        if ($this->is_public == null || $this->is_public == "") {
+        if (!$this->is_public) {
             throw new Exception("Is_public can't be null");
         }
     }
@@ -51,7 +72,11 @@ class Category implements JsonSerializable {
 
     /**
      * Get the value of Id
-     */ 
+     *
+     * @param boolean $debug
+     *
+     * @return string
+     **/
     public function getId($debug = false) {
         if ($debug) {
             return base64_decode($this->id);
@@ -62,8 +87,11 @@ class Category implements JsonSerializable {
     /**
      * Set the value of id
      *
+     * @param string $id
+     * @param boolean $is_editable
+     *
      * @return  self
-     */ 
+     */
     public function setId($id, $is_editable = true) {
         if ($is_editable) {
             $this->id = base64_encode($id);
@@ -75,7 +103,11 @@ class Category implements JsonSerializable {
 
     /**
      * Get the value of name
-     */ 
+     *
+     * @param boolean $debug
+     *
+     * @return string
+     **/
     public function getName($debug = false) {
         if ($debug) {
             return base64_decode($this->name);
@@ -86,8 +118,11 @@ class Category implements JsonSerializable {
     /**
      * Set the value of name
      *
+     * @param string $name
+     * @param boolean $is_editable
+     *
      * @return  self
-     */ 
+     */
     public function setName($name, $is_editable = true) {
         if ($is_editable) {
             $this->name = base64_encode($name);
@@ -99,7 +134,11 @@ class Category implements JsonSerializable {
 
     /**
      * Get the value of slug
-     */ 
+     *
+     * @param boolean $debug
+     *
+     * @return string
+     **/
     public function getSlug($debug = false) {
         if ($debug) {
             return base64_decode($this->slug);
@@ -110,8 +149,11 @@ class Category implements JsonSerializable {
     /**
      * Set the value of slug
      *
+     * @param string $slug
+     * @param boolean $is_editable
+     *
      * @return  self
-     */ 
+     */
     public function setSlug($slug, $is_editable = true) {
         if ($is_editable) {
             $this->slug = base64_encode($slug);
@@ -123,7 +165,9 @@ class Category implements JsonSerializable {
 
     /**
      * Get the value of is_public
-     */ 
+     *
+     * @return boolean
+     **/
     public function getIsPublic() {
         return $this->is_public;
     }
@@ -131,8 +175,10 @@ class Category implements JsonSerializable {
     /**
      * Set the value of is_public
      *
+     * @param boolean $is_public
+     *
      * @return  self
-     */ 
+     */
     public function setIsPublic($is_public) {
         $this->is_public = $is_public;
         return $this;

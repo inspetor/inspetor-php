@@ -29,18 +29,31 @@ class PassRecovery implements JsonSerializable {
      * PROPERTIES
      */
 
-    var $recovery_email;
-    var $timestamp;
+    /**
+     * @param string
+     */
+    private $recovery_email;
+
+    /**
+     * @param string
+     */
+    private $timestamp;
+
 
     /**
      * ISVALID
      */
 
+    /**
+     * Validate PassRecovery instance
+     *
+     * @return void
+     */
     public function isValid() {
-        if ($this->recovery_email == null || $this->recovery_email == "") {
+        if (!$this->recovery_email) {
             throw new Exception("Recovery email can't be null");
         }
-        if ($this->timestamp == null || $this->timestamp == "") {
+        if (!$this->timestamp) {
             throw new Exception("Timestamp can't be null");
         }
     }
@@ -51,10 +64,10 @@ class PassRecovery implements JsonSerializable {
 
 	/**
 	 * Get the value of recovery_email
-	 * 
-	 * @param   boolean $debug  If set as true will decode the value
 	 *
-	 * @return  mixed
+	 * @param boolean $debug  If set as true will decode the value
+	 *
+	 * @return string
 	 */
 	public function getRecoveryEmail($debug = false) {
         if ($debug) {
@@ -66,9 +79,9 @@ class PassRecovery implements JsonSerializable {
 	/**
 	 * Set the value of recovery_email
 	 *
-	 * @param   mixed  $recovery_email  
-	 * @param   boolean $is_editable  If set as true will encode the value
-	 * 
+	 * @param string  $recovery_email
+	 * @param boolean $is_editable  If set as true will encode the value
+	 *
 	 * @return  self
 	 */
 	public function setRecoveryEmail($recovery_email, $is_editable = true) {
@@ -79,13 +92,13 @@ class PassRecovery implements JsonSerializable {
         }
 		return $this;
     }
-    
+
 	/**
 	 * Get the value of timestamp
-	 * 
-	 * @param   boolean $debug  If set as true will decode the value
 	 *
-	 * @return  mixed
+	 * @param boolean $debug  If set as true will decode the value
+	 *
+	 * @return string
 	 */
 	public function getTimestamp() {
 		return $this->timestamp;
@@ -94,16 +107,16 @@ class PassRecovery implements JsonSerializable {
 	/**
 	 * Set the value of timestamp
 	 *
-	 * @param   mixed  $timestamp  
-	 * @param   boolean $is_editable  If set as true will encode the value
-	 * 
+	 * @param string  $timestamp
+	 * @param boolean $is_editable  If set as true will encode the value
+	 *
 	 * @return  self
 	 */
 	public function setTimestamp($timestamp) {
         $this->timestamp = $timestamp;
 		return $this;
     }
-    
+
     /**
      * JSONSERIALIZE
     */

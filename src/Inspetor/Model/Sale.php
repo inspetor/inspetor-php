@@ -20,6 +20,9 @@
 
 namespace Inspetor\Model;
 
+use Inspetor\Model\Item;
+use Inspetor\Model\Payment;
+
 class Sale implements JsonSerializable {
 
     const SALE_CREATE_ACTION = "sale_create";
@@ -35,48 +38,99 @@ class Sale implements JsonSerializable {
      * PROPERTIES
      */
 
-    var $id;
-    var $account_id;
-    private $total_value;
-    var $status;
-    var $is_fraud;
-    var $creation_timestamp;
-    var $update_timestamp;
-    var $items;
-    var $payment;
+    /**
+	 * @param string
+	 */
+	private $id;
 
+    /**
+	 * @param string
+	 */
+	private $account_id;
+
+    /**
+	 * @param string
+	 */
+	private $total_value;
+
+    /**
+	 * @param string
+	 */
+	private $status;
+
+    /**
+	 * @param boolean
+	 */
+	private $is_fraud;
+
+    /**
+	 * @param string
+	 */
+	private $creation_timestamp;
+
+    /**
+	 * @param string
+	 */
+	private $update_timestamp;
+
+    /**
+	 * @param array
+	 */
+	private $items;
+
+    /**
+	 * @param Inspetor\Model\Payment
+	 */
+	private $payment;
+
+	/**
+     * Validate Sale instance
+     *
+     * @return void
+     */
     public function isValid() {
-        if ($this->id == null || $this->id == "") {
+        if (!$this->id) {
             throw new Exception("Id can't be null");
         }
-        if ($this->account_id == null || $this->account_id == "") {
+
+		if (!$this->account_id) {
             throw new Exception("Account id can't be null");
         }
-        if ($this->status == null || $this->status == "") {
+
+		if (!$this->status) {
             throw new Exception("Id can't be null");
         }
-        
+
         $this->validateStatus();
 
-        if ($this->is_fraud == null || $this->is_fraud == "") {
+		if (!$this->is_fraud) {
             throw new Exception("Is Fraud property can't be null");
         }
-        if ($this->creation_timestamp == null || $this->creation_timestamp == "") {
+
+		if (!$this->creation_timestamp) {
             throw new Exception("Timestamp can't be null");
         }
-        if ($this->update_timestamp == null || $this->update_timestamp == "") {
+
+		if (!$this->update_timestamp) {
             throw new Exception("Timestamp can't be null");
         }
-        if ($this->items == null || $this->items == "" || empty($this->items)) {
+
+		if (!$this->items || empty($this->items)) {
             throw new Exception("Items can't be null neither an empty array");
         }
-        if ($this->payment == null || $this->payment == "") {
+
+		if (!$this->payment) {
             throw new Exception("Payment can't be null");
         }
 
         $this->setTotalValue();
     }
 
+	/**
+	 * Validate status of the Sale
+	 *
+	 * @return void
+	 */
     private function validateStatus() {
         $all_status = [
             self::ACCEPTED,
@@ -91,6 +145,11 @@ class Sale implements JsonSerializable {
         }
     }
 
+	/**
+	 * Set total value of the sale
+	 *
+	 * @return void
+	 */
     private function setTotalValue() {
         foreach ($this->items as $item) {
             try {
@@ -101,6 +160,11 @@ class Sale implements JsonSerializable {
         }
     }
 
+	/**
+	 * Get the json of all items to storage
+	 *
+	 * @return void
+	 */
     private function getItemsJson() {
         $all_items = [];
         foreach ($this->getItems() as $item) {
@@ -115,10 +179,10 @@ class Sale implements JsonSerializable {
 
 	/**
 	 * Get the value of id
-	 * 
-	 * @param   boolean $debug  If set as true will decode the value
 	 *
-	 * @return  mixed
+	 * @param boolean $debug  If set as true will decode the value
+	 *
+	 * @return string
 	 */
 	public function getId($debug = false) {
         if ($debug) {
@@ -130,10 +194,10 @@ class Sale implements JsonSerializable {
 	/**
 	 * Set the value of id
 	 *
-	 * @param   mixed  $id  
-	 * @param   boolean $is_editable  If set as true will encode the value
-	 * 
-	 * @return  self
+	 * @param string  $id
+	 * @param boolean $is_editable  If set as true will encode the value
+	 *
+	 * @return self
 	 */
 	public function setId($id, $is_editable = true) {
         if ($is_editable) {
@@ -146,10 +210,10 @@ class Sale implements JsonSerializable {
 
 	/**
 	 * Get the value of account_id
-	 * 
-	 * @param   boolean $debug  If set as true will decode the value
 	 *
-	 * @return  mixed
+	 * @param boolean $debug  If set as true will decode the value
+	 *
+	 * @return string
 	 */
 	public function getAccountId($debug = false) {
         if ($debug) {
@@ -161,10 +225,10 @@ class Sale implements JsonSerializable {
 	/**
 	 * Set the value of account_id
 	 *
-	 * @param   mixed  $account_id  
-	 * @param   boolean $is_editable  If set as true will encode the value
-	 * 
-	 * @return  self
+	 * @param string  $account_id
+	 * @param boolean $is_editable  If set as true will encode the value
+	 *
+	 * @return self
 	 */
 	public function setAccountId($account_id, $is_editable = true) {
         if ($is_editable) {
@@ -174,13 +238,13 @@ class Sale implements JsonSerializable {
         }
 		return $this;
     }
-    
+
     /**
 	 * Get the value of total_value
-	 * 
-	 * @param   boolean $debug  If set as true will decode the value
 	 *
-	 * @return  mixed
+	 * @param boolean $debug  If set as true will decode the value
+	 *
+	 * @return string
 	 */
 	public function getTotalValue() {
 		return $this->total_value;
@@ -188,10 +252,10 @@ class Sale implements JsonSerializable {
 
 	/**
 	 * Get the value of status
-	 * 
-	 * @param   boolean $debug  If set as true will decode the value
 	 *
-	 * @return  mixed
+	 * @param boolean $debug  If set as true will decode the value
+	 *
+	 * @return string
 	 */
 	public function getStatus() {
 		return $this->status;
@@ -200,10 +264,10 @@ class Sale implements JsonSerializable {
 	/**
 	 * Set the value of status
 	 *
-	 * @param   mixed  $status  
-	 * @param   boolean $is_editable  If set as true will encode the value
-	 * 
-	 * @return  self
+	 * @param string  $status
+	 * @param boolean $is_editable  If set as true will encode the value
+	 *
+	 * @return self
 	 */
 	public function setStatus($status) {
         $this->status = $status;
@@ -212,10 +276,10 @@ class Sale implements JsonSerializable {
 
 	/**
 	 * Get the value of is_fraud
-	 * 
-	 * @param   boolean $debug  If set as true will decode the value
 	 *
-	 * @return  mixed
+	 * @param boolean $debug  If set as true will decode the value
+	 *
+	 * @return boolean
 	 */
 	public function getIsFraud() {
 		return $this->is_fraud;
@@ -224,10 +288,9 @@ class Sale implements JsonSerializable {
 	/**
 	 * Set the value of is_fraud
 	 *
-	 * @param   mixed  $is_fraud  
-	 * @param   boolean $is_editable  If set as true will encode the value
-	 * 
-	 * @return  self
+	 * @param boolean $is_fraud
+	 *
+	 * @return self
 	 */
 	public function setIsFraud($is_fraud) {
         $this->is_fraud = $is_fraud;
@@ -236,10 +299,8 @@ class Sale implements JsonSerializable {
 
 	/**
 	 * Get the value of timestamp
-	 * 
-	 * @param   boolean $debug  If set as true will decode the value
 	 *
-	 * @return  mixed
+	 * @return string
 	 */
 	public function getCreationTimestamp() {
 		return $this->creation_timestamp;
@@ -248,22 +309,21 @@ class Sale implements JsonSerializable {
 	/**
 	 * Set the value of timestamp
 	 *
-	 * @param   mixed  $timestamp  
-	 * @param   boolean $is_editable  If set as true will encode the value
-	 * 
-	 * @return  self
+	 * @param string  $timestamp
+	 *
+	 * @return self
 	 */
 	public function setCreationTimestamp($creation_timestamp) {
         $this->creation_timestamp = $creation_timestamp;
 		return $this;
     }
-    
+
     /**
 	 * Get the value of update_timestamp
-	 * 
-	 * @param   boolean $debug  If set as true will decode the value
 	 *
-	 * @return  mixed
+	 * @param boolean $debug  If set as true will decode the value
+	 *
+	 * @return string
 	 */
 	public function getUpdateTimestamp() {
 		return $this->update_timestamp;
@@ -272,10 +332,9 @@ class Sale implements JsonSerializable {
 	/**
 	 * Set the value of update_timestamp
 	 *
-	 * @param   mixed  $update_timestamp  
-	 * @param   boolean $is_editable  If set as true will encode the value
-	 * 
-	 * @return  self
+	 * @param string  $update_timestamp
+	 *
+	 * @return self
 	 */
 	public function setUpdateTimestamp($update_timestamp) {
         $this->update_timestamp = $update_timestamp;
@@ -284,10 +343,8 @@ class Sale implements JsonSerializable {
 
 	/**
 	 * Get the value of items
-	 * 
-	 * @param   boolean $debug  If set as true will decode the value
 	 *
-	 * @return  mixed
+	 * @return array
 	 */
 	public function getItems() {
 		return $this->items;
@@ -296,10 +353,9 @@ class Sale implements JsonSerializable {
 	/**
 	 * Set the value of items
 	 *
-	 * @param   mixed  $items  
-	 * @param   boolean $is_editable  If set as true will encode the value
-	 * 
-	 * @return  self
+	 * @param array $items
+	 *
+	 * @return self
 	 */
 	public function setItems($items) {
         $this->items = $items;
@@ -308,10 +364,8 @@ class Sale implements JsonSerializable {
 
 	/**
 	 * Get the value of payment
-	 * 
-	 * @param   boolean $debug  If set as true will decode the value
 	 *
-	 * @return  mixed
+	 * @return Inspetor\Model\Payment
 	 */
 	public function getPayment() {
 		return $this->payment;
@@ -320,16 +374,15 @@ class Sale implements JsonSerializable {
 	/**
 	 * Set the value of payment
 	 *
-	 * @param   mixed  $payment  
-	 * @param   boolean $is_editable  If set as true will encode the value
-	 * 
-	 * @return  self
+	 * @param Inspetor\Model\Payment $payment
+	 *
+	 * @return self
 	 */
 	public function setPayment($payment) {
         $this->payment = $payment;
 		return $this;
     }
-    
+
     /**
      * JSONSERIALIZE
     */
@@ -340,15 +393,15 @@ class Sale implements JsonSerializable {
     */
     public function jsonSerialize() {
         $array = [
-            "sale_id" => $this->getId(),
-            "sale_account_id" => $this->getAccountId(),
-            "sale_total_value" => $this->getTotalValue(),
-            "sale_status" => $this->getStatus(),
-            "sale_is_fraud" => $this->getIsFraud(),
+            "sale_id"                 => $this->getId(),
+            "sale_account_id"         => $this->getAccountId(),
+            "sale_total_value"        => $this->getTotalValue(),
+            "sale_status"             => $this->getStatus(),
+            "sale_is_fraud"           => $this->getIsFraud(),
             "sale_creation_timestamp" => $this->getCreationTimestamp(),
-            "sale_update_timestamp" => $this->getUpdateTimestamp(),
-            "sale_items" => $this->getItemsJson(),
-            "sale_payement_instance" => $this->getPayment()->jsonSerialize()
+            "sale_update_timestamp"   => $this->getUpdateTimestamp(),
+            "sale_items"              => $this->getItemsJson(),
+            "sale_payement_instance"  => $this->getPayment()->jsonSerialize()
         ];
 
         return $array;
