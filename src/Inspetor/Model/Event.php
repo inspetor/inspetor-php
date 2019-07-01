@@ -171,12 +171,12 @@ class Event extends AbstractModel implements JsonSerializable {
 	 */
     private function validateStatus() {
         $all_status = [
-            self::STATUS_DRAFT),
-            self::STATUS_PRIVATE),
-            self::STATUS_PUBLISHED),
+            self::STATUS_DRAFT,
+            self::STATUS_PRIVATE,
+            self::STATUS_PUBLISHED,
         ];
 
-        if (!in_array($this->status), $all_status)) {
+        if (!in_array($this->status, $all_status)) {
             $this->setOtherStatus(base64_encode($this->status));
             $this->setStatus(self::STATUS_OTHER);
         }
