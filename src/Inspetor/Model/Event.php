@@ -20,7 +20,7 @@
 
 namespace Inspetor\Model;
 
-use Inspetor\Exception\ModelException\EventException;
+use Inspetor\Exception\ModelExceptions\EventException;
 use Inspetor\Model\Address;
 use Inspetor\Model\Category;
 use JsonSerializable;

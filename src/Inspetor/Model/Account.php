@@ -352,15 +352,19 @@ class Account implements JsonSerializable {
     */
     public function jsonSerialize() {
         $array = [
-            "account_id"               => $this->getId(),
-            "account_name"             => $this->getName(),
-            "account_email"            => $this->getEmail(),
-            "account_document"         => $this->getDocument(),
-            "account_address"          => $this->getAddress()->jsonSerialize(),
-            "account_billing_address"  => $this->getBillingAddress()->jsonSerialize(),
-            "account_create_timestamp" => $this->getCreationTimestamp(),
-            "account_update_timestamp" => $this->getUpdateTimestamp(),
-            "account_phone_number"     => $this->getPhoneNumber()
+            "account_id"                 => $this->getId(),
+            "account_name"               => $this->getName(),
+            "account_email"              => $this->getEmail(),
+            "account_document"           => $this->getDocument(),
+            "account_address"            => $this->getAddress()
+                                            ? $this->getAddress()->jsonSerialize()
+                                            : null,
+            "account_billing_address"    => $this->getBillingAddress()
+                                            ?  $this->getBillingAddress()->jsonSerialize()
+                                            : null,
+            "account_creation_timestamp" => $this->getCreationTimestamp(),
+            "account_update_timestamp"   => $this->getUpdateTimestamp(),
+            "account_phone_number"       => $this->getPhoneNumber()
         ];
 
         return $array;

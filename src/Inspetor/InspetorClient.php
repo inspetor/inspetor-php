@@ -86,7 +86,7 @@ class InspetorClient implements InspetorService {
             throw new TrackerException(9005);
         }
 
-        $this->trackUnstructEvent(
+        $this->trackUnstructuredEvent(
             $this->default_config['inspetorSaleSchema'],
             $data,
             $this->default_config['inspetorContext'],
@@ -116,7 +116,7 @@ class InspetorClient implements InspetorService {
             throw new TrackerException(9003);
         }
 
-        $this->trackUnstructEvent(
+        $this->trackUnstructuredEvent(
             $this->default_config['inspetorAccountSchema'],
             $data,
             $this->default_config['inspetorContext'],
@@ -146,7 +146,7 @@ class InspetorClient implements InspetorService {
             throw new TrackerException(9008);
         }
 
-        $this->trackUnstructEvent(
+        $this->trackUnstructuredEvent(
             $this->default_config['inspetorEventSchema'],
             $data,
             $this->default_config['inspetorContext'],
@@ -176,7 +176,7 @@ class InspetorClient implements InspetorService {
             throw new TrackerException(9006);
         }
 
-        $this->trackUnstructEvent(
+        $this->trackUnstructuredEvent(
             $this->default_config['inspetorTransferSchema'],
             $data,
             $this->default_config['inspetorContext'],
@@ -205,7 +205,7 @@ class InspetorClient implements InspetorService {
             throw new TrackerException(9002);
         }
 
-        $this->trackUnstructEvent(
+        $this->trackUnstructuredEvent(
             $this->default_config['inspetorAuthSchema'],
             $data,
             $this->default_config['inspetorContext'],
@@ -234,7 +234,7 @@ class InspetorClient implements InspetorService {
             throw new TrackerException(9007);
         }
 
-        $this->trackUnstructEvent(
+        $this->trackUnstructuredEvent(
             $this->default_config['inspetorPassRecoverySchema'],
             $data,
             $this->default_config['inspetorContext'],
