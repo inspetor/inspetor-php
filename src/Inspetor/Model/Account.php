@@ -262,12 +262,14 @@ class Account extends AbstractModel implements JsonSerializable {
     /**
      * Set the value of update_timestamp
      *
-     * @param string $update_timestamp
+     * @param integer $update_timestamp
      *
      * @return self
      */
     public function setUpdateTimestamp($update_timestamp) {
-        $this->update_timestamp = $update_timestamp;
+        $this->update_timestamp = $this->inspetorDateFormatter(
+            $update_timestamp
+        );
         return $this;
     }
 
@@ -283,12 +285,14 @@ class Account extends AbstractModel implements JsonSerializable {
     /**
      * Set the value of creation_timestamp
      *
-     * @param string $update_timestamp
+     * @param integer $update_timestamp
      *
      * @return self
      */
     public function setCreationTimestamp($creation_timestamp) {
-        $this->create_function = $creation_timestamp;
+        $this->create_function = $this->inspetorDateFormatter(
+            $creation_timestamp
+        );
         return $this;
     }
 

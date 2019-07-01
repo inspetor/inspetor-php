@@ -128,8 +128,11 @@ class Transfer extends AbstractModel implements JsonSerializable {
 	 *
 	 * @return self
 	 */
+
 	public function setTimestamp($timestamp) {
-        $this->timestamp = $timestamp;
+        $this->timestamp = $this->inspetorDateFormatter(
+			$timestamp
+		);
 		return $this;
 	}
 

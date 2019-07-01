@@ -20,6 +20,8 @@
 
 namespace Inspetor\Model;
 
+use Inspetor\Exception\ModelException\AbstractException;
+
 class AbstractModel {
 
     /**
@@ -68,4 +70,24 @@ class AbstractModel {
         return $object;
     }
 
+    /**
+     * DateTime formatter to Inspetor requirements
+     *
+     * @param integer $time
+     *
+     * @return string
+    */
+    public function inspetorDateFormatter($time) {
+        if (!is_int($time)) {
+            if (!((string) (int) $time === $time)
+            && ($time <= PHP_INT_MAX)
+            && ($time >= ~PHP_INT_MAX)){
+                throw new AbsctractException(6901);
+            }
+        }
+        date_default_timezone_set('UTC');
+        $formatted = date(DATE_ATOM, $time);
+
+        return $formatted;
+    }
 }
