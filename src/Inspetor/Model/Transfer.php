@@ -21,9 +21,10 @@
 namespace Inspetor\Model;
 
 use Inspetor\Exception\ModelException\TransferException;
+use Inspetor\Model\AbstractModel;
 use JsonSerializable;
 
-class Transfer implements JsonSerializable {
+class Transfer extends AbstractModel implements JsonSerializable {
 
     const TRANSFER_CREATE_ACTION        = "transfer_create";
     const TRANSFER_UPDATE_STATUS_ACTION = "transfer_update_status";

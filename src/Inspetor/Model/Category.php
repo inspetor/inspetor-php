@@ -18,9 +18,10 @@
 namespace Inspetor\Model;
 
 use Inspetor\Exception\ModelException\CategoryException;
+use Inspetor\Model\AbstractModel;
 use JsonSerializable;
 
-class Category implements JsonSerializable {
+class Category extends AbstractModel implements JsonSerializable {
 
     /**
      * PROPERTIES

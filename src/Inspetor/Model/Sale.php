@@ -23,9 +23,10 @@ namespace Inspetor\Model;
 use Inspetor\Exception\ModelException\SaleException;
 use Inspetor\Model\Item;
 use Inspetor\Model\Payment;
+use Inspetor\Model\AbstractModel;
 use JsonSerializable;
 
-class Sale implements JsonSerializable {
+class Sale extends AbstractModel implements JsonSerializable {
 
     const SALE_CREATE_ACTION        = "sale_create";
     const SALE_UPDATE_STATUS_ACTION = "sale_update_status";
