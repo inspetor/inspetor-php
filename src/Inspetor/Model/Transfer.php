@@ -92,14 +92,10 @@ class Transfer extends AbstractModel implements JsonSerializable {
 	/**
 	 * Get the value of id
 	 *
-	 * @param boolean $debug  If set as true will decode the value
 	 *
 	 * @return string
 	 */
-	public function getId($debug = false) {
-        if ($debug) {
-            return base64_decode($this->id);
-        }
+	public function getId() {
 		return $this->id;
     }
 
@@ -107,23 +103,17 @@ class Transfer extends AbstractModel implements JsonSerializable {
 	 * Set the value of id
 	 *
 	 * @param string  $id
-	 * @param boolean $is_editable  If set as true will encode the value
 	 *
 	 * @return self
 	 */
-	public function setId($id, $is_editable = false) {
-        if ($is_editable) {
-            $this->id = base64_encode($id);
-        } else {
-            $this->id = $id;
-        }
+	public function setId($id) {
+        $this->id = $id;
 		return $this;
 	}
 
 	/**
 	 * Get the value of timestamp
 	 *
-	 * @param boolean $debug  If set as true will decode the value
 	 *
 	 * @return string
 	 */
@@ -135,11 +125,10 @@ class Transfer extends AbstractModel implements JsonSerializable {
 	 * Set the value of timestamp
 	 *
 	 * @param string  $timestamp
-	 * @param boolean $is_editable  If set as true will encode the value
 	 *
 	 * @return self
 	 */
-	public function setTimestamp($timestamp, $is_editable = true) {
+	public function setTimestamp($timestamp) {
         $this->timestamp = $timestamp;
 		return $this;
 	}
@@ -147,14 +136,10 @@ class Transfer extends AbstractModel implements JsonSerializable {
 	/**
 	 * Get the value of item_id
 	 *
-	 * @param boolean $debug  If set as true will decode the value
 	 *
 	 * @return string
 	 */
-	public function getItemId($debug = false) {
-        if ($debug) {
-            return base64_decode($this->item_id);
-        }
+	public function getItemId() {
 		return $this->item_id;
     }
 
@@ -162,30 +147,21 @@ class Transfer extends AbstractModel implements JsonSerializable {
 	 * Set the value of item_id
 	 *
 	 * @param string  $item_id
-	 * @param boolean $is_editable  If set as true will encode the value
 	 *
 	 * @return self
 	 */
-	public function setItemId($item_id, $is_editable = false) {
-        if ($is_editable) {
-            $this->item_id = base64_encode($item_id);
-        } else {
-            $this->item_id = $item_id;
-        }
+	public function setItemId($item_id) {
+        $this->item_id = $item_id;
 		return $this;
 	}
 
 	/**
 	 * Get the value of sender_account_id
 	 *
-	 * @param boolean $debug  If set as true will decode the value
 	 *
 	 * @return string
 	 */
-	public function getSenderAccountId($debug = false) {
-        if ($debug) {
-            return base64_decode($this->sender_account_id);
-        }
+	public function getSenderAccountId() {
 		return $this->sender_account_id;
     }
 
@@ -193,30 +169,21 @@ class Transfer extends AbstractModel implements JsonSerializable {
 	 * Set the value of sender_account_id
 	 *
 	 * @param string  $sender_account_id
-	 * @param boolean $is_editable  If set as true will encode the value
 	 *
 	 * @return self
 	 */
-	public function setSenderAccountId($sender_account_id, $is_editable = false) {
-        if ($is_editable) {
-            $this->sender_account_id = base64_encode($sender_account_id);
-        } else {
-            $this->sender_account_id = $sender_account_id;
-        }
+	public function setSenderAccountId($sender_account_id) {
+        $this->sender_account_id = $sender_account_id;
 		return $this;
 	}
 
 	/**
 	 * Get the value of receiver_email
 	 *
-	 * @param boolean $debug  If set as true will decode the value
 	 *
 	 * @return string
 	 */
 	public function getReceiverEmail($debug = false) {
-        if ($debug) {
-            return base64_decode($this->receiver_email);
-        }
 		return $this->receiver_email;
     }
 
@@ -224,16 +191,11 @@ class Transfer extends AbstractModel implements JsonSerializable {
 	 * Set the value of receiver_email
 	 *
 	 * @param string  $receiver_email
-	 * @param boolean $is_editable  If set as true will encode the value
 	 *
 	 * @return self
 	 */
-	public function setReceiverEmail($receiver_email, $is_editable = true) {
-        if ($is_editable) {
-            $this->receiver_email = base64_encode($receiver_email);
-        } else {
-            $this->receiver_email = $receiver_email;
-        }
+	public function setReceiverEmail($receiver_email) {
+        $this->receiver_email = $receiver_email;
 		return $this;
 	}
 
@@ -252,11 +214,10 @@ class Transfer extends AbstractModel implements JsonSerializable {
 	 * Set the value of status
 	 *
 	 * @param string  $status
-	 * @param boolean $is_editable  If set as true will encode the value
 	 *
 	 * @return self
 	 */
-	public function setStatus($status, $is_editable = true) {
+	public function setStatus($status) {
         $this->status = $status;
 		return $this;
     }
@@ -271,12 +232,12 @@ class Transfer extends AbstractModel implements JsonSerializable {
     */
     public function jsonSerialize() {
         $array = [
-            "transfer_id"                => $this->getId(),
-            "transfer_timestamp"         => $this->getTimestamp(),
-            "transfer_item_id"           => $this->getItemId(),
-            "transfer_sender_account_id" => $this->getSenderAccountId(),
-            "transfer_receiver_email"    => $this->getReceiverEmail(),
-            "transfer_status"            => $this->getStatus()
+            "transfer_id"                => $this->encodeData($this->getId()),
+            "transfer_timestamp"         => $this->encodeData($this->getTimestamp()),
+            "transfer_item_id"           => $this->encodeData($this->getItemId()),
+            "transfer_sender_account_id" => $this->encodeData($this->getSenderAccountId()),
+            "transfer_receiver_email"    => $this->encodeData($this->getReceiverEmail()),
+            "transfer_status"            => $this->encodeData($this->getStatus())
         ];
 
         return $array;
