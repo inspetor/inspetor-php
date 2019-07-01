@@ -35,7 +35,7 @@ class AbstractModel {
         }
         return $encoded_array;
     }
-    
+
     /**
      * encodeData
      *
@@ -47,6 +47,19 @@ class AbstractModel {
             return base64_encode($data);
         }
         return $data;
+    }
+
+    /**
+     * encodeObject
+     *
+     * @param mixed $object
+     * @return string
+     */
+    protected function encodeObject($object) {
+        if ($object) {
+            return $object->JsonSerialize();
+        }
+        return $object;
     }
 
 }
