@@ -20,8 +20,9 @@
 
 namespace Inspetor\Model;
 
-use Inspetor\Exception\PaymentException;
+use Inspetor\Exception\ModelException\PaymentException;
 use Inspetor\Model\CreditCard;
+use JsonSerializable;
 
 class Payment implements JsonSerializable {
 

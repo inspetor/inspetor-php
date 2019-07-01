@@ -1,15 +1,15 @@
 <?php
 
-namespace Inspetor\Inspetor;
+namespace Inspetor;
 
-use Inspetor\Inspetor\Exception\TrackerException;
+use Inspetor\Exception\TrackerException;
 
-use Inspetor\Inspetor\Model\Account;
-use Inspetor\Inspetor\Model\Auth;
-use Inspetor\Inspetor\Model\Event;
-use Inspetor\Inspetor\Model\PassRecovery;
-use Inspetor\Inspetor\Model\Sale;
-use Inspetor\Inspetor\Model\Transfer;
+use Inspetor\Model\Account;
+use Inspetor\Model\Auth;
+use Inspetor\Model\Event;
+use Inspetor\Model\PassRecovery;
+use Inspetor\Model\Sale;
+use Inspetor\Model\Transfer;
 
 use JsonSerializable;
 use Snowplow\Tracker\Tracker;
@@ -68,7 +68,7 @@ class InspetorClient implements InspetorService {
     /**
      * trackSaleAction
      *
-     * @param Sale $data
+     * @param Inspetor\Model\Sale $data
      * @param string $action
      * @return void
      */
@@ -97,7 +97,7 @@ class InspetorClient implements InspetorService {
     /**
      * trackAccountAction
      *
-     * @param Account $data
+     * @param Inspetor\Model\Account $data
      * @param string $action
      * @return void
      */
@@ -127,7 +127,7 @@ class InspetorClient implements InspetorService {
     /**
      * trackEventAction
      *
-     * @param Event $data
+     * @param Inspetor\Model\Event $data
      * @param string $action
      * @return void
      */
@@ -158,7 +158,7 @@ class InspetorClient implements InspetorService {
     /**
      * trackItemTransferAction
      *
-     * @param Transfer $data
+     * @param Inspetor\Model\Transfer $data
      * @param string $action
      * @return void
      */
@@ -185,13 +185,13 @@ class InspetorClient implements InspetorService {
     }
 
     /**
-     * trackUserAuthAction
+     * trackAccountAuthAction
      *
-     * @param Auth $data
+     * @param Inspetor\Model\Auth $data
      * @param string $action
      * @return void
      */
-    public function trackUserAuthAction(Auth $data, string $action) {
+    public function trackAccountAuthAction(Auth $data, string $action) {
         $this->verifyTracker();
 
         $valid_actions = [
@@ -216,7 +216,7 @@ class InspetorClient implements InspetorService {
     /**
      * trackPasswordRecoveryAction
      *
-     * @param PassRecovery $data
+     * @param Inspetor\Model\PassRecovery $data
      * @param string $action
      * @return void
      */

@@ -1,15 +1,15 @@
 <?php
 
-namespace Inspetor\Inspetor\Exception\ModelException;
+namespace Inspetor\Exception\ModelException;
 
-use Inspetor\Inspetor\Exception\ExceptionAbstract;
+use Inspetor\Exception\ExceptionAbstract;
 
-class PassRecoveryException extends ExceptionAbstract {
+class AccountException extends ExceptionAbstract {
 
     /**
      * Category of Exception
      */
-    const CATEGORY = 7700;
+    const CATEGORY = 7000;
 
     /**
      * Description of Exception
@@ -19,14 +19,14 @@ class PassRecoveryException extends ExceptionAbstract {
     /**
      * Header of message
      */
-    const HEADER = "INSPETOR EXCEPTION - PASSRECOVERY";
+    const HEADER = "INSPETOR EXCEPTION - ACCOUNT";
 
     /**
      * @var array
      */
     protected static $messages = array(
-        1 => "recovery_email is a required property. It can't be null.",
-        2 => "timestamp is a required property. It can't be null."
+        1 => "id is a required property. It can't be null.",
+        2 => "update_timestamp is a required property. It can't be null.",
     );
 
     /**

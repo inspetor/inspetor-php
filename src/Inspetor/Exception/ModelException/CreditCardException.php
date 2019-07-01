@@ -1,15 +1,15 @@
 <?php
 
-namespace Inspetor\Inspetor\Exception\ModelException;
+namespace Inspetor\Exception\ModelException;
 
-use Inspetor\Inspetor\Exception\ExceptionAbstract;
+use Inspetor\Exception\ExceptionAbstract;
 
-class AddressException extends ExceptionAbstract {
+class CreditCardException extends ExceptionAbstract {
 
     /**
      * Category of Exception
      */
-    const CATEGORY = 7100;
+    const CATEGORY = 7400;
 
     /**
      * Description of Exception
@@ -19,18 +19,16 @@ class AddressException extends ExceptionAbstract {
     /**
      * Header of message
      */
-    const HEADER = "INSPETOR EXCEPTION - ADDRESS";
+    const HEADER = "INSPETOR EXCEPTION - CREDIT CARD";
 
     /**
      * @var array
      */
     protected static $messages = array(
-        1 => "street is a required property. It can't be null.",
-        2 => "number is a required property. It can't be null.",
-        3 => "zip_code is a required property. It can't be null.",
-        4 => "city is a required property. It can't be null.",
-        5 => "state is a required property. It can't be null.",
-        6 => "country is a required property. It can't be null.",
+        1 => "first_six_digits is a required property. It can't be null.",
+        2 => "last_four_digits is a required property. It can't be null.",
+        3 => "holder_name is a required property. It can't be null.",
+        4 => "holder_cpf is a required property. It can't be null."
     );
 
     /**

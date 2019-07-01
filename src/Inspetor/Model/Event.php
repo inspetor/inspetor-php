@@ -20,9 +20,10 @@
 
 namespace Inspetor\Model;
 
-use Inspetor\Exception\EventException;
+use Inspetor\Exception\ModelException\EventException;
 use Inspetor\Model\Address;
 use Inspetor\Model\Category;
+use JsonSerializable;
 
 class Event implements JsonSerializable {
 

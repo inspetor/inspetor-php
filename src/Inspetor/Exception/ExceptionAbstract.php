@@ -1,6 +1,6 @@
 <?php
 
-namespace Inspetor\Inspetor\Exception;
+namespace Inspetor\Exception;
 
 abstract class ExceptionAbstract extends \Phalcon\Exception
 {

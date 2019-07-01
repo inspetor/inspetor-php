@@ -1,15 +1,15 @@
 <?php
 
-namespace Inspetor\Inspetor\Exception\ModelException;
+namespace Inspetor\Exception\ModelException;
 
-use Inspetor\Inspetor\Exception\ExceptionAbstract;
+use Inspetor\Exception\ExceptionAbstract;
 
-class PaymentException extends ExceptionAbstract {
+class TransferException extends ExceptionAbstract {
 
     /**
      * Category of Exception
      */
-    const CATEGORY = 7800;
+    const CATEGORY = 8000;
 
     /**
      * Description of Exception
@@ -26,10 +26,11 @@ class PaymentException extends ExceptionAbstract {
      */
     protected static $messages = array(
         1 => "id is a required property. It can't be null.",
-        2 => "method is a required property. It can't be null.",
-        3 => "installments is a required property. It can't be null.",
-        4 => "This payment method is not a valid one.",
-        5 => "Credit card can't be null when method is credit_card."
+        2 => "timestamp is a required property. It can't be null.",
+        3 => "item_id is a required property. It can't be null.",
+        4 => "sender_account_id is a required property. It can't be null.",
+        5 => "receiver_email is a required property. It can't be null.",
+        6 => "That's an invalid status."
     );
 
     /**

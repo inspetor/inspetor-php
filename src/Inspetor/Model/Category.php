@@ -17,7 +17,8 @@
 
 namespace Inspetor\Model;
 
-use Inspetor\Exception\CategoryException;
+use Inspetor\Exception\ModelException\CategoryException;
+use JsonSerializable;
 
 class Category implements JsonSerializable {
 

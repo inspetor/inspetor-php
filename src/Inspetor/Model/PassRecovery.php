@@ -20,7 +20,8 @@
 
 namespace Inspetor\Model;
 
-use Inspetor\Exception\PassRecoveryException;
+use Inspetor\Exception\ModelException\PassRecoveryException;
+use JsonSerializable;
 
 class PassRecovery implements JsonSerializable {
 

@@ -20,7 +20,8 @@
 */
 namespace Inspetor\Model;
 
-use Inspetor\Exception\AuthException;
+use Inspetor\Exception\ModelException\AuthException;
+use JsonSerializable;
 
 class Auth implements JsonSerializable {
 

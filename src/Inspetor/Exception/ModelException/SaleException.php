@@ -1,8 +1,8 @@
 <?php
 
-namespace Inspetor\Inspetor\Exception\ModelException;
+namespace Inspetor\Exception\ModelException;
 
-use Inspetor\Inspetor\Exception\ExceptionAbstract;
+use Inspetor\Exception\ExceptionAbstract;
 
 class SaleException extends ExceptionAbstract {
 

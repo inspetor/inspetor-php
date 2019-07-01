@@ -1,15 +1,15 @@
 <?php
 
-namespace Inspetor\Inspetor\Exception\ModelException;
+namespace Inspetor\Exception\ModelException;
 
-use Inspetor\Inspetor\Exception\ExceptionAbstract;
+use Inspetor\Exception\ExceptionAbstract;
 
-class TransferException extends ExceptionAbstract {
+class CategoryException extends ExceptionAbstract {
 
     /**
      * Category of Exception
      */
-    const CATEGORY = 8000;
+    const CATEGORY = 7300;
 
     /**
      * Description of Exception
@@ -19,18 +19,16 @@ class TransferException extends ExceptionAbstract {
     /**
      * Header of message
      */
-    const HEADER = "INSPETOR EXCEPTION - ACCOUNT";
+    const HEADER = "INSPETOR EXCEPTION - CATEGORY";
 
     /**
      * @var array
      */
     protected static $messages = array(
         1 => "id is a required property. It can't be null.",
-        2 => "timestamp is a required property. It can't be null.",
-        3 => "item_id is a required property. It can't be null.",
-        4 => "sender_account_id is a required property. It can't be null.",
-        5 => "receiver_email is a required property. It can't be null.",
-        6 => "That's an invalid status."
+        2 => "name is a required property. It can't be null.",
+        3 => "slung is a required property. It can't be null.",
+        4 => "is_public is a required property. It can't be null."
     );
 
     /**

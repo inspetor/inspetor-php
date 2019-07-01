@@ -20,7 +20,8 @@
 
 namespace Inspetor\Model;
 
-use Inspetor\Exception\TransferException;
+use Inspetor\Exception\ModelException\TransferException;
+use JsonSerializable;
 
 class Transfer implements JsonSerializable {
 

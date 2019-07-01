@@ -20,8 +20,9 @@
 
 namespace Inspetor\Model;
 
-use Inspetor\Exception\AccountException;
+use Inspetor\Exception\ModelException\AccountException;
 use Inspetor\Model\Address;
+use JsonSerializable;
 
 class Account implements JsonSerializable {
 

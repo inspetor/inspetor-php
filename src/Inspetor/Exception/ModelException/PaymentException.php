@@ -1,15 +1,15 @@
 <?php
 
-namespace Inspetor\Inspetor\Exception\ModelException;
+namespace Inspetor\Exception\ModelException;
 
-use Inspetor\Inspetor\Exception\ExceptionAbstract;
+use Inspetor\Exception\ExceptionAbstract;
 
-class CategoryException extends ExceptionAbstract {
+class PaymentException extends ExceptionAbstract {
 
     /**
      * Category of Exception
      */
-    const CATEGORY = 7300;
+    const CATEGORY = 7800;
 
     /**
      * Description of Exception
@@ -19,16 +19,17 @@ class CategoryException extends ExceptionAbstract {
     /**
      * Header of message
      */
-    const HEADER = "INSPETOR EXCEPTION - CATEGORY";
+    const HEADER = "INSPETOR EXCEPTION - ACCOUNT";
 
     /**
      * @var array
      */
     protected static $messages = array(
         1 => "id is a required property. It can't be null.",
-        2 => "name is a required property. It can't be null.",
-        3 => "slung is a required property. It can't be null.",
-        4 => "is_public is a required property. It can't be null."
+        2 => "method is a required property. It can't be null.",
+        3 => "installments is a required property. It can't be null.",
+        4 => "This payment method is not a valid one.",
+        5 => "Credit card can't be null when method is credit_card."
     );
 
     /**

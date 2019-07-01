@@ -20,7 +20,8 @@
 
 namespace Inspetor\Model;
 
-use Inspetor\Exception\ItemException;
+use Inspetor\Exception\ModelException\ItemException;
+use JsonSerializable;
 
 class Item implements JsonSerializable {
 

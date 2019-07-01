@@ -20,9 +20,10 @@
 
 namespace Inspetor\Model;
 
-use Inspetor\Exception\SaleException;
+use Inspetor\Exception\ModelException\SaleException;
 use Inspetor\Model\Item;
 use Inspetor\Model\Payment;
+use JsonSerializable;
 
 class Sale implements JsonSerializable {
 

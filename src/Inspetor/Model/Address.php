@@ -20,7 +20,8 @@
 
 namespace Inspetor\Model;
 
-use Inspetor\Exception\AddressException;
+use Inspetor\Exception\ModelException\AddressException;
+use JsonSerializable;
 
 class Address implements JsonSerializable {
 
