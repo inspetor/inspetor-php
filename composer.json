@@ -12,7 +12,7 @@
     "minimum-stability": "dev",
     "autoload": {
         "psr-4": {
-            "Inspetor\\": "src/"
+            "Inspetor\\": "src/Inspetor"
         }
     },
     "autoload-dev": {
