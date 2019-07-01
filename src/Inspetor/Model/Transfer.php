@@ -183,7 +183,7 @@ class Transfer extends AbstractModel implements JsonSerializable {
 	 *
 	 * @return string
 	 */
-	public function getReceiverEmail($debug = false) {
+	public function getReceiverEmail() {
 		return $this->receiver_email;
     }
 
@@ -201,9 +201,7 @@ class Transfer extends AbstractModel implements JsonSerializable {
 
 	/**
 	 * Get the value of status
-	 *
-	 * @param boolean $debug  If set as true will decode the value
-	 *
+	 *	 
 	 * @return string
 	 */
 	public function getStatus() {

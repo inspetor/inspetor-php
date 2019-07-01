@@ -233,7 +233,7 @@ class Address extends AbstractModel implements JsonSerializable {
      *
      *
      */
-    public function getLatitude($debug = false) {
+    public function getLatitude() {
         return $this->latitude;
     }
 

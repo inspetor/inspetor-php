@@ -97,7 +97,6 @@ class CreditCard extends AbstractModel implements JsonSerializable {
      * Set the value of first_six_digits
      *
      * @param string  $first_six_digits
-     * @param boolean $is_editable
      *
      * @return  self
      */
