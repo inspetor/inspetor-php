@@ -163,19 +163,6 @@ class Sale extends AbstractModel implements JsonSerializable {
         }
     }
 
-	/**
-	 * Get the json of all items to storage
-	 *
-	 * @return void
-	 */
-    private function getItemsJson() {
-        $all_items = [];
-        foreach ($this->getItems() as $item) {
-            array_push($all_items, $item->jsonSerialize());
-        }
-        return $all_items;
-    }
-
     /**
      * GETTERS AND SETTERS
      */
@@ -183,14 +170,10 @@ class Sale extends AbstractModel implements JsonSerializable {
 	/**
 	 * Get the value of id
 	 *
-	 * @param boolean $debug  If set as true will decode the value
 	 *
 	 * @return string
 	 */
-	public function getId($debug = false) {
-        if ($debug) {
-            return base64_decode($this->id);
-        }
+	public function getId() {
 		return $this->id;
     }
 
@@ -198,30 +181,21 @@ class Sale extends AbstractModel implements JsonSerializable {
 	 * Set the value of id
 	 *
 	 * @param string  $id
-	 * @param boolean $is_editable  If set as true will encode the value
 	 *
 	 * @return self
 	 */
-	public function setId($id, $is_editable = true) {
-        if ($is_editable) {
-            $this->id = base64_encode($id);
-        } else {
-            $this->id = $id;
-        }
+	public function setId($id) {
+        $this->id = $id;
 		return $this;
 	}
 
 	/**
 	 * Get the value of account_id
 	 *
-	 * @param boolean $debug  If set as true will decode the value
 	 *
 	 * @return string
 	 */
-	public function getAccountId($debug = false) {
-        if ($debug) {
-            return base64_decode($this->account_id);
-        }
+	public function getAccountId() {
 		return $this->account_id;
     }
 
@@ -229,23 +203,17 @@ class Sale extends AbstractModel implements JsonSerializable {
 	 * Set the value of account_id
 	 *
 	 * @param string  $account_id
-	 * @param boolean $is_editable  If set as true will encode the value
 	 *
 	 * @return self
 	 */
-	public function setAccountId($account_id, $is_editable = true) {
-        if ($is_editable) {
-            $this->account_id = base64_encode($account_id);
-        } else {
-            $this->account_id = $account_id;
-        }
+	public function setAccountId($account_id) {
+        $this->account_id = $account_id;
 		return $this;
     }
 
     /**
 	 * Get the value of total_value
 	 *
-	 * @param boolean $debug  If set as true will decode the value
 	 *
 	 * @return string
 	 */
@@ -256,7 +224,6 @@ class Sale extends AbstractModel implements JsonSerializable {
 	/**
 	 * Get the value of status
 	 *
-	 * @param boolean $debug  If set as true will decode the value
 	 *
 	 * @return string
 	 */
@@ -268,7 +235,6 @@ class Sale extends AbstractModel implements JsonSerializable {
 	 * Set the value of status
 	 *
 	 * @param string  $status
-	 * @param boolean $is_editable  If set as true will encode the value
 	 *
 	 * @return self
 	 */
@@ -280,7 +246,6 @@ class Sale extends AbstractModel implements JsonSerializable {
 	/**
 	 * Get the value of is_fraud
 	 *
-	 * @param boolean $debug  If set as true will decode the value
 	 *
 	 * @return boolean
 	 */
@@ -324,7 +289,6 @@ class Sale extends AbstractModel implements JsonSerializable {
     /**
 	 * Get the value of update_timestamp
 	 *
-	 * @param boolean $debug  If set as true will decode the value
 	 *
 	 * @return string
 	 */
@@ -396,15 +360,15 @@ class Sale extends AbstractModel implements JsonSerializable {
     */
     public function jsonSerialize() {
         $array = [
-            "sale_id"                 => $this->getId(),
-            "sale_account_id"         => $this->getAccountId(),
-            "sale_total_value"        => $this->getTotalValue(),
-            "sale_status"             => $this->getStatus(),
-            "sale_is_fraud"           => $this->getIsFraud(),
-            "sale_creation_timestamp" => $this->getCreationTimestamp(),
-            "sale_update_timestamp"   => $this->getUpdateTimestamp(),
-            "sale_items"              => $this->getItemsJson(),
-            "sale_payement_instance"  => $this->getPayment()->jsonSerialize()
+			"sale_account_id"         => $this->encodeData($this->getAccountId()),
+            "sale_id"                 => $this->encodeData($this->getId()),
+            "sale_total_value"        => $this->encodeData($this->getTotalValue()),
+            "sale_status"             => $this->encodeData($this->getStatus()),
+            "sale_is_fraud"           => $this->encodeData($this->getIsFraud()),
+            "sale_creation_timestamp" => $this->encodeData($this->getCreationTimestamp()),
+            "sale_update_timestamp"   => $this->encodeData($this->getUpdateTimestamp()),
+            "sale_items"              => $this->encodeArray($this->getItems(), true),
+            "sale_payement_instance"  => $this->encodeObject($this->getPayment())
         ];
 
         return $array;
