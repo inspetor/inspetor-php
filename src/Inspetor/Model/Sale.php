@@ -317,7 +317,9 @@ class Sale extends AbstractModel implements JsonSerializable {
 	 * @return self
 	 */
 	public function setCreationTimestamp($creation_timestamp) {
-        $this->creation_timestamp = $creation_timestamp;
+        $this->creation_timestamp = $this->inspetorDateFormatter(
+			$creation_timestamp
+		);
 		return $this;
     }
 
@@ -340,7 +342,9 @@ class Sale extends AbstractModel implements JsonSerializable {
 	 * @return self
 	 */
 	public function setUpdateTimestamp($update_timestamp) {
-        $this->update_timestamp = $update_timestamp;
+        $this->update_timestamp = $this->inspetorDateFormatter(
+			$update_timestamp
+		);
 		return $this;
 	}
 
