@@ -34,9 +34,9 @@ class AbstractModel {
         $encoded_array = [];
         foreach($array as $item) {
             if ($is_object) {
-                array_push($encoded_array, $this->encodeData($item));
-            } else {
                 array_push($encoded_array, $this->encodeObject($item));
+            } else {
+                array_push($encoded_array, $this->encodeData($item));
             }
         }
         return $encoded_array;
