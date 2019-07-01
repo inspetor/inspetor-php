@@ -86,14 +86,10 @@ class CreditCard extends AbstractModel implements JsonSerializable {
     /**
      * Get the value of first_six_digits
      *
-     * @param boolean $debug
      *
      * @return string
      */
-    public function getFirstSixDigits($debug = false) {
-        if ($debug) {
-            return base64_decode($this->first_six_digits);
-        }
+    public function getFirstSixDigits() {
         return $this->first_six_digits;
     }
 
@@ -105,26 +101,17 @@ class CreditCard extends AbstractModel implements JsonSerializable {
      *
      * @return  self
      */
-    public function setFirstSixDigits($first_six_digits, $is_editable = true) {
-        if ($is_editable) {
-            $this->first_six_digits = base64_encode($first_six_digits);
-        } else {
-            $this->first_six_digits = $first_six_digits;
-        }
+    public function setFirstSixDigits($first_six_digits) {
+        $this->first_six_digits = $first_six_digits;
         return $this;
     }
 
     /**
      * Get the value of last_four_digits
      *
-     * @param boolean $debug
-     *
      * @return string
      */
-    public function getLastFourDigits($debug = false) {
-        if ($debug) {
-            return base64_decode($this->last_four_digits);
-        }
+    public function getLastFourDigits() {
         return $this->last_four_digits;
     }
 
@@ -132,30 +119,20 @@ class CreditCard extends AbstractModel implements JsonSerializable {
      * Set the value of last_four_digits
      *
      * @param string  $last_four_digits
-     * @param boolean $is_editable
      *
      * @return  self
      */
-    public function setLastFourDigits($last_four_digits, $is_editable = true) {
-        if ($is_editable) {
-            $this->last_four_digits = base64_encode($last_four_digits);
-        } else {
-            $this->last_four_digits = $last_four_digits;
-        }
+    public function setLastFourDigits($last_four_digits) {
+        $this->last_four_digits = $last_four_digits;
         return $this;
     }
 
     /**
      * Get the value of holder_name
      *
-     * @param boolean $debug
-     *
      * @return string
      */
-    public function getHolderName($debug = false) {
-        if ($debug) {
-            return base64_decode($this->holder_name);
-        }
+    public function getHolderName() {
         return $this->holder_name;
     }
 
@@ -163,30 +140,20 @@ class CreditCard extends AbstractModel implements JsonSerializable {
      * Set the value of holder_name
      *
      * @param string  $id
-     * @param boolean $is_editable
      *
      * @return self
      */
-    public function setHolderName($holder_name, $is_editable = true) {
-        if ($is_editable) {
-            $this->holder_name = base64_encode($holder_name);
-        } else {
-            $this->holder_name = $holder_name;
-        }
+    public function setHolderName($holder_name) {
+        $this->holder_name = $holder_name;
         return $this;
     }
 
     /**
      * Get the value of holder_cpf
      *
-     * @param boolean $debug
-     *
      * @return string
      */
-    public function getHolderCpf($debug = false) {
-        if ($debug) {
-            return base64_decode($this->holder_cpf);
-        }
+    public function getHolderCpf() {
         return $this->holder_cpf;
     }
 
@@ -194,16 +161,11 @@ class CreditCard extends AbstractModel implements JsonSerializable {
      * Set the value of holder_cpf
      *
      * @param string  $holder_cpf
-     * @param boolean $is_editable
      *
      * @return self
      */
-    public function setHolderCpf($holder_cpf, $is_editable = true) {
-        if ($is_editable) {
-            $this->holder_cpf = base64_encode($holder_cpf);
-        } else {
-            $this->holder_cpf = $holder_cpf;
-        }
+    public function setHolderCpf($holder_cpf) {
+        $this->holder_cpf = $holder_cpf;
         return $this;
     }
 
@@ -217,10 +179,10 @@ class CreditCard extends AbstractModel implements JsonSerializable {
     */
     public function jsonSerialize() {
         $array = [
-            "cc_first_six"   => $this->getFirstSixDigits(),
-            "cc_last_four"   => $this->getLastFourDigits(),
-            "cc_holder_name" => $this->getHolderName(),
-            "cc_holder_cpf"  => $this->getHolderCpf()
+            "cc_first_six"   => $this->encodeData($this->getFirstSixDigits()),
+            "cc_last_four"   => $this->encodeData($this->getLastFourDigits()),
+            "cc_holder_name" => $this->encodeData($this->getHolderName()),
+            "cc_holder_cpf"  => $this->encodeData($this->getHolderCpf())
         ];
 
         return $array;
