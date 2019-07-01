@@ -28,12 +28,18 @@ class AbstractModel {
      * encodeArray
      *
      * @param array $array
+     * @param boolean $is_object
+     * 
      * @return array
      */
-    protected function encodeArray(array $array) {
+    protected function encodeArray(array $array, boolean $is_object) {
         $encoded_array = [];
         foreach($array as $item) {
-            array_push($encoded_array, base64_encode($item));
+            if ($is_object) {
+                array_push($encoded_array, $this->encodeObject($item));
+            } else {
+                array_push($encoded_array, $this->encodeData($item));
+            }
         }
         return $encoded_array;
     }
@@ -49,6 +55,19 @@ class AbstractModel {
             return base64_encode($data);
         }
         return $data;
+    }
+
+    /**
+     * encodeObject
+     *
+     * @param mixed $object
+     * @return string
+     */
+    protected function encodeObject($object) {
+        if ($object) {
+            return $object->jsonSerialize();
+        }
+        return $object;
     }
 
     /**

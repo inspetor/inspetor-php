@@ -77,14 +77,10 @@ class Category extends AbstractModel implements JsonSerializable {
     /**
      * Get the value of Id
      *
-     * @param boolean $debug
      *
      * @return string
      **/
-    public function getId($debug = false) {
-        if ($debug) {
-            return base64_decode($this->id);
-        }
+    public function getId() {
         return $this->id;
     }
 
@@ -92,30 +88,20 @@ class Category extends AbstractModel implements JsonSerializable {
      * Set the value of id
      *
      * @param string $id
-     * @param boolean $is_editable
-     *
+     * 
      * @return  self
      */
-    public function setId($id, $is_editable = true) {
-        if ($is_editable) {
-            $this->id = base64_encode($id);
-        } else {
-            $this->id = $id;
-        }
+    public function setId($id) {
+        $this->id = $id;
         return $this;
     }
 
     /**
      * Get the value of name
-     *
-     * @param boolean $debug
-     *
+     * 
      * @return string
      **/
-    public function getName($debug = false) {
-        if ($debug) {
-            return base64_decode($this->name);
-        }
+    public function getName() {
         return $this->name;
     }
 
@@ -123,30 +109,20 @@ class Category extends AbstractModel implements JsonSerializable {
      * Set the value of name
      *
      * @param string $name
-     * @param boolean $is_editable
      *
      * @return  self
      */
-    public function setName($name, $is_editable = true) {
-        if ($is_editable) {
-            $this->name = base64_encode($name);
-        } else {
-            $this->name = $name;
-        }
+    public function setName($name) {
+        $this->name = $name;
         return $this;
     }
 
     /**
      * Get the value of slug
      *
-     * @param boolean $debug
-     *
      * @return string
      **/
-    public function getSlug($debug = false) {
-        if ($debug) {
-            return base64_decode($this->slug);
-        }
+    public function getSlug() {
         return $this->slug;
     }
 
@@ -154,16 +130,11 @@ class Category extends AbstractModel implements JsonSerializable {
      * Set the value of slug
      *
      * @param string $slug
-     * @param boolean $is_editable
      *
      * @return  self
      */
-    public function setSlug($slug, $is_editable = true) {
-        if ($is_editable) {
-            $this->slug = base64_encode($slug);
-        } else {
-            $this->slug = $slug;
-        }
+    public function setSlug($slug) {
+        $this->slug = $slug;
         return $this;
     }
 
@@ -198,10 +169,10 @@ class Category extends AbstractModel implements JsonSerializable {
     */
     public function jsonSerialize() {
         $array = [
-            "category_id" => $this->getId(),
-            "category_name"=> $this->getName(),
-            "category_slug" => $this->getSlug(),
-            'category_is_public' => $this->getIsPublic()
+            "category_id"        => $this->encodeData($this->getId()),
+            "category_name"      => $this->encodeData($this->getName()),
+            "category_slug"      => $this->encodeData($this->getSlug()),
+            'category_is_public' => $this->encodeData($this->getIsPublic())
         ];
 
         return $array;

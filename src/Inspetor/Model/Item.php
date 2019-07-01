@@ -90,14 +90,10 @@ class Item extends AbstractModel implements JsonSerializable {
 	/**
 	 * Get the value of id
 	 *
-	 * @param boolean $debug  If set as true will decode the value
 	 *
 	 * @return string
 	 */
-	public function getId($debug = false) {
-        if ($debug) {
-            return base64_decode($this->id);
-        }
+	public function getId() {
 		return $this->id;
     }
 
@@ -105,30 +101,20 @@ class Item extends AbstractModel implements JsonSerializable {
 	 * Set the value of id
 	 *
 	 * @param mixed   $id
-	 * @param boolean $is_editable  If set as true will encode the value
 	 *
 	 * @return self
 	 */
-	public function setId($id, $is_editable = false) {
-        if ($is_editable) {
-            $this->id = base64_encode($id);
-        } else {
-            $this->id = $id;
-        }
+	public function setId($id) {
+        $this->id = $id;
 		return $this;
 	}
 
 	/**
 	 * Get the value of event_id
 	 *
-	 * @param boolean $debug  If set as true will decode the value
-	 *
 	 * @return string
 	 */
-	public function getEventId($debug = false) {
-        if ($debug) {
-            return base64_decode($this->event_id);
-        }
+	public function getEventId() {
 		return $this->event_id;
     }
 
@@ -136,30 +122,21 @@ class Item extends AbstractModel implements JsonSerializable {
 	 * Set the value of event_id
 	 *
 	 * @param string  $event_id
-	 * @param boolean $is_editable  If set as true will encode the value
 	 *
 	 * @return self
 	 */
-	public function setEventId($event_id, $is_editable = false) {
-        if ($is_editable) {
-            $this->event_id = base64_encode($event_id);
-        } else {
-            $this->event_id = $event_id;
-        }
+	public function setEventId($event_id) {
+        $this->event_id = $event_id;
 		return $this;
 	}
 
 	/**
 	 * Get the value of session_id
 	 *
-	 * @param boolean $debug  If set as true will decode the value
 	 *
 	 * @return string
 	 */
-	public function getSessionId($debug = false) {
-        if ($debug) {
-            return base64_decode($this->session_id);
-        }
+	public function getSessionId() {
 		return $this->session_id;
     }
 
@@ -167,16 +144,11 @@ class Item extends AbstractModel implements JsonSerializable {
 	 * Set the value of session_id
 	 *
 	 * @param string  $session_id
-	 * @param boolean $is_editable  If set as true will encode the value
 	 *
 	 * @return self
 	 */
-	public function setSessionId($session_id, $is_editable = true) {
-        if ($is_editable) {
-            $this->session_id = base64_encode($session_id);
-        } else {
-            $this->session_id = $session_id;
-        }
+	public function setSessionId($session_id) {
+        $this->session_id = $session_id;
 		return $this;
 	}
 
@@ -193,7 +165,6 @@ class Item extends AbstractModel implements JsonSerializable {
 	 * Set the value of price
 	 *
 	 * @param string  $price
-	 * @param boolean $is_editable  If set as true will encode the value
 	 *
 	 * @return self
 	 */
@@ -212,14 +183,10 @@ class Item extends AbstractModel implements JsonSerializable {
 	/**
 	 * Get the value of seating_option
 	 *
-	 * @param boolean $debug  If set as true will decode the value
 	 *
 	 * @return string
 	 */
-	public function getSeatingOption($debug = false) {
-        if ($debug) {
-            return base64_decode($this->seating_option);
-        }
+	public function getSeatingOption() {
 		return $this->seating_option;
     }
 
@@ -227,16 +194,11 @@ class Item extends AbstractModel implements JsonSerializable {
 	 * Set the value of seating_option
 	 *
 	 * @param string  $seating_option
-	 * @param boolean $is_editable  If set as true will encode the value
 	 *
 	 * @return self
 	 */
-	public function setSeatingOption($seating_option, $is_editable = true) {
-        if ($is_editable) {
-            $this->seating_option = base64_encode($seating_option);
-        } else {
-            $this->seating_option = $seating_option;
-        }
+	public function setSeatingOption($seating_option) {
+        $this->seating_option = $seating_option;
 		return $this;
     }
 
@@ -250,11 +212,11 @@ class Item extends AbstractModel implements JsonSerializable {
     */
     public function jsonSerialize() {
         $array = [
-            "item_id" => $this->getId(),
-            "item_event_id" => $this->getEventId(),
-            "item_session_id" => $this->getSessionId(),
-            "item_price" => $this->getPrice(),
-            "item_seating_option" => $this->getSeatingOption()
+            "item_id"             => $this->encodeData($this->getId()),
+            "item_event_id"       => $this->encodeData($this->getEventId()),
+            "item_session_id"     => $this->encodeData($this->getSessionId()),
+            "item_price"          => $this->encodeData($this->getPrice()),
+            "item_seating_option" => $this->encodeData($this->getSeatingOption())
         ];
 
         return $array;

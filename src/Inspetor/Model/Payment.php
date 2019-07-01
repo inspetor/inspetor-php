@@ -116,14 +116,10 @@ class Payment extends AbstractModel implements JsonSerializable {
 	/**
 	 * Get the value of id
 	 *
-	 * @param boolean $debug  If set as true will decode the value
 	 *
 	 * @return string
 	 */
-	public function getId($debug = false) {
-        if ($debug) {
-            return base64_decode($this->id);
-        }
+	public function getId() {
 		return $this->id;
     }
 
@@ -131,23 +127,17 @@ class Payment extends AbstractModel implements JsonSerializable {
 	 * Set the value of id
 	 *
 	 * @param string  $id
-	 * @param boolean $is_editable  If set as true will encode the value
 	 *
 	 * @return self
 	 */
-	public function setId($id, $is_editable = false) {
-        if ($is_editable) {
-            $this->id = base64_encode($id);
-        } else {
-            $this->id = $id;
-        }
+	public function setId($id) {
+        $this->id = $id;
 		return $this;
 	}
 
 	/**
 	 * Get the value of method
 	 *
-	 * @param boolean $debug  If set as true will decode the value
 	 *
 	 * @return string
 	 */
@@ -159,7 +149,6 @@ class Payment extends AbstractModel implements JsonSerializable {
 	 * Set the value of method
 	 *
 	 * @param string  $method
-	 * @param boolean $is_editable  If set as true will encode the value
 	 *
 	 * @return self
 	 */
@@ -171,14 +160,10 @@ class Payment extends AbstractModel implements JsonSerializable {
 	/**
 	 * Get the value of installments
 	 *
-	 * @param boolean $debug  If set as true will decode the value
 	 *
 	 * @return string
 	 */
-	public function getInstallments($debug = false) {
-        if ($debug) {
-            return base64_decode($this->installments);
-        }
+	public function getInstallments() {
 		return $this->installments;
     }
 
@@ -186,16 +171,11 @@ class Payment extends AbstractModel implements JsonSerializable {
 	 * Set the value of installments
 	 *
 	 * @param string  $installments
-	 * @param boolean $is_editable  If set as true will encode the value
 	 *
 	 * @return self
 	 */
-	public function setInstallments($installments, $is_editable = true) {
-        if ($is_editable) {
-            $this->installments = base64_encode($installments);
-        } else {
-            $this->installments = $installments;
-        }
+	public function setInstallments($installments) {
+        $this->installments = $installments;
 		return $this;
 	}
 
@@ -230,10 +210,10 @@ class Payment extends AbstractModel implements JsonSerializable {
     */
     public function jsonSerialize() {
         $array = [
-            "payment_instance_id"               => $this->getId(),
-            "payment_instance_method"           => $this->getMethod(),
-            "payment_instance_installments"     => $this->getInstallments(),
-            "payment_instance_credit_card_info" => $this->getCreditCard()
+            "payment_instance_id"               => $this->encodeData($this->getId()),
+            "payment_instance_method"           => $this->encodeData($this->getMethod()),
+            "payment_instance_installments"     => $this->encodeData($this->getInstallments()),
+            "payment_instance_credit_card_info" => $this->encodeObject($this->getCreditCard())
         ];
 
         return $array;

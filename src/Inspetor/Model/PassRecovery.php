@@ -69,14 +69,10 @@ class PassRecovery extends AbstractModel implements JsonSerializable {
 	/**
 	 * Get the value of recovery_email
 	 *
-	 * @param boolean $debug  If set as true will decode the value
 	 *
 	 * @return string
 	 */
-	public function getRecoveryEmail($debug = false) {
-        if ($debug) {
-            return base64_decode($this->recovery_email);
-        }
+	public function getRecoveryEmail() {
 		return $this->recovery_email;
     }
 
@@ -84,24 +80,17 @@ class PassRecovery extends AbstractModel implements JsonSerializable {
 	 * Set the value of recovery_email
 	 *
 	 * @param string  $recovery_email
-	 * @param boolean $is_editable  If set as true will encode the value
 	 *
 	 * @return  self
 	 */
-	public function setRecoveryEmail($recovery_email, $is_editable = true) {
-        if ($is_editable) {
-            $this->recovery_email = base64_encode($recovery_email);
-        } else {
-            $this->recovery_email = $recovery_email;
-        }
+	public function setRecoveryEmail($recovery_email) {
+        $this->recovery_email = $recovery_email;
 		return $this;
     }
 
 	/**
 	 * Get the value of timestamp
-	 *
-	 * @param boolean $debug  If set as true will decode the value
-	 *
+	 *	 
 	 * @return string
 	 */
 	public function getTimestamp() {
@@ -112,7 +101,6 @@ class PassRecovery extends AbstractModel implements JsonSerializable {
 	 * Set the value of timestamp
 	 *
 	 * @param string  $timestamp
-	 * @param boolean $is_editable  If set as true will encode the value
 	 *
 	 * @return  self
 	 */
@@ -133,8 +121,8 @@ class PassRecovery extends AbstractModel implements JsonSerializable {
     */
     public function jsonSerialize() {
         $array = [
-            "pass_recovery_email" => $this->getRecoveryEmail(),
-            "pass_recovery_timestamp" => $this->getTimestamp()
+            "pass_recovery_email"     => $this->encodeData($this->getRecoveryEmail()),
+            "pass_recovery_timestamp" => $this->encodeData($this->getTimestamp())
         ];
 
         return $array;
