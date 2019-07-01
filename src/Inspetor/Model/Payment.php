@@ -22,9 +22,10 @@ namespace Inspetor\Model;
 
 use Inspetor\Exception\ModelException\PaymentException;
 use Inspetor\Model\CreditCard;
+use Inspetor\Model\AbstractModel;
 use JsonSerializable;
 
-class Payment implements JsonSerializable {
+class Payment extends AbstractModel implements JsonSerializable {
 
     const CREDIT_CARD  = "credit_card";
     const BOLETO       = "boleto";

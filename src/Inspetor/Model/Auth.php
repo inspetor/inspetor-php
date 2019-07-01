@@ -21,9 +21,10 @@
 namespace Inspetor\Model;
 
 use Inspetor\Exception\ModelException\AuthException;
+use Inspetor\Model\AbstractModel;
 use JsonSerializable;
 
-class Auth implements JsonSerializable {
+class Auth extends AbstractModel implements JsonSerializable {
 
     const ACCOUNT_LOGIN_ACTION  = "account_login";
     const ACCOUNT_LOGOUT_ACTION = "account_logout";

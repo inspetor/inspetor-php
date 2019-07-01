@@ -22,9 +22,10 @@ namespace Inspetor\Model;
 
 use Inspetor\Exception\ModelException\AccountException;
 use Inspetor\Model\Address;
+use Inspetor\Model\AbstractModel;
 use JsonSerializable;
 
-class Account implements JsonSerializable {
+class Account extends AbstractModel implements JsonSerializable {
 
     const ACCOUNT_CREATE_ACTION = "account_create";
     const ACCOUNT_UPDATE_ACTION = "account_update";

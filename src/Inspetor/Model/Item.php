@@ -21,9 +21,10 @@
 namespace Inspetor\Model;
 
 use Inspetor\Exception\ModelException\ItemException;
+use Inspetor\Model\AbstractModel;
 use JsonSerializable;
 
-class Item implements JsonSerializable {
+class Item extends AbstractModel implements JsonSerializable {
 
     /**
      * PROPERTIES

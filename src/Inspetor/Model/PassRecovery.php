@@ -21,9 +21,10 @@
 namespace Inspetor\Model;
 
 use Inspetor\Exception\ModelException\PassRecoveryException;
+use Inspetor\Model\AbstractModel;
 use JsonSerializable;
 
-class PassRecovery implements JsonSerializable {
+class PassRecovery extends AbstractModel implements JsonSerializable {
 
     const PASSWORD_RESET_ACTION    = "password_reset";
     const PASSWORD_RECOVERY_ACTION = "password_recovery";

@@ -21,9 +21,10 @@
 namespace Inspetor\Model;
 
 use Inspetor\Exception\ModelException\CreditCardException;
+use Inspetor\Model\AbstractModel;
 use JsonSerializable;
 
-class CreditCard implements JsonSerializable {
+class CreditCard extends AbstractModel implements JsonSerializable {
 
     /**
      * PROPERTIES

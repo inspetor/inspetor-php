@@ -23,9 +23,10 @@ namespace Inspetor\Model;
 use Inspetor\Exception\ModelExceptions\EventException;
 use Inspetor\Model\Address;
 use Inspetor\Model\Category;
+use Inspetor\Model\AbstractModel;
 use JsonSerializable;
 
-class Event implements JsonSerializable {
+class Event extends AbstractModel implements JsonSerializable {
 
 	const CREATE_ACTION = "event_create";
 	const UPDATE_ACTION = "event_update";

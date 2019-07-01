@@ -21,9 +21,10 @@
 namespace Inspetor\Model;
 
 use Inspetor\Exception\ModelException\AddressException;
+use Inspetor\Model\AbstractModel;
 use JsonSerializable;
 
-class Address implements JsonSerializable {
+class Address extends AbstractModel implements JsonSerializable {
 
     /**
      * PROPERTIES
