@@ -2,7 +2,9 @@
 
 namespace Inspetor\Exception;
 
-abstract class ExceptionAbstract extends \Phalcon\Exception
+use Exception;
+
+abstract class ExceptionAbstract extends Exception
 {
 
     /**
