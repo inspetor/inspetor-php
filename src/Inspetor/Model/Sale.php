@@ -136,11 +136,11 @@ class Sale extends AbstractModel implements JsonSerializable {
 	 */
     private function validateStatus() {
         $all_status = [
-            self::ACCEPTED,
-            self::DECLINED,
-            self::PENDING,
-            self::REFUNDED,
-            self::MANUAL_ANALYSIS,
+            self::ACCEPTED_STATUS,
+            self::DECLINED_STATUS,
+            self::PENDING_STATUS,
+            self::REFUNDED_STATUS,
+            self::MANUAL_ANALYSIS_STATUS,
         ];
 
         if (!in_array($this->status, $all_status)) {
@@ -372,7 +372,7 @@ class Sale extends AbstractModel implements JsonSerializable {
             "sale_creation_timestamp" => $this->encodeData($this->getCreationTimestamp()),
             "sale_update_timestamp"   => $this->encodeData($this->getUpdateTimestamp()),
             "sale_items"              => $this->encodeArray($this->getItems(), true),
-            "sale_payement_instance"  => $this->encodeObject($this->getPayment())
+            "sale_payment_instance"   => $this->encodeObject($this->getPayment())
         ];
 
         return $array;
