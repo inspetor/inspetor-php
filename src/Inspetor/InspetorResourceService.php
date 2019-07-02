@@ -33,7 +33,7 @@ use Inspetor\Model\Transfer;
  * @package  Inspetor
  * @author   Inspetor Team
  */
-interface InspetorService {
+interface InspetorResourceService {
 
     /**
      * Operation trackAccountAction

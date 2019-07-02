@@ -1,8 +1,7 @@
 <?php
 
-namespace Inspetor;
 
-use Inspetor\Exception\TrackerException;
+namespace Inspetor\Inspetor;
 
 use Inspetor\Model\Account;
 use Inspetor\Model\Auth;
@@ -11,354 +10,358 @@ use Inspetor\Model\PassRecovery;
 use Inspetor\Model\Sale;
 use Inspetor\Model\Transfer;
 
-use JsonSerializable;
-use Snowplow\Tracker\Tracker;
-use Snowplow\Tracker\Subject;
-use Snowplow\Tracker\Emitters\SyncEmitter;
+use Inspetor\InspetorResource;
+use Inspetor\Model\Category;
+use Inspetor\Model\Payment;
 
-class InspetorClient implements InspetorService {
+class InspetorClient {
+
     /**
-     * @var array
+     * inspetor_resource
+     *
+     * @var InspetorResource
      */
-    private $default_config;
+    private $inspetor_resource;
 
     /**
-     * @var array
-     */
-    private $company_config;
-
-    /**
-     * @var Snowplow\Tracker\Emitters\SyncEmitter;
-     */
-    private $emitter;
-
-    /**
-     * @var Snowplow\Tracker\Subject;
-     */
-    private $subject;
-
-    /**
-     * @var Snowplow\Tracker\Tracker;
-     */
-    private $tracker;
-
-    /**
+     * Construct
+     *
      * @param array $config
      */
-    public function __construct(array $config)
-    {
-        $this->company_config = $config;
-        $this->default_config = include('config.php');
-        $this->default_config = $this->default_config['inspetor_config'];
-
-        $this->verifyTracker();
-    }
-
-    /**
-     * @return boolean
-     */
-    public function verifyTracker() {
-        if ($this->tracker) {
-            return true;
+    public function __construct(array $config) {
+        try {
+            $this->inspetor_resource = new InspetorResource($config);
+        } catch (Exception $e) {
+            throw $e;
         }
-
-        $this->setupTracker();
     }
 
     /**
-     * trackSaleAction
+     * trackSaleCreation
      *
-     * @param Inspetor\Model\Sale $data
-     * @param string $action
+     * @param Sale $sale
      * @return void
      */
-    public function trackSaleAction(Sale $data, string $action) {
-        $this->verifyTracker();
-
-        $valid_actions = [
-            Sale::SALE_CREATE_ACTION,
-            Sale::SALE_UPDATE_STATUS_ACTION
-        ];
-
-        $data->isValid();
-
-        if (!in_array($action, $valid_actions)) {
-            throw new TrackerException(9005);
+    public function trackSaleCreation(Sale $sale) {
+        try {
+            $this->inspetor_resource->trackSaleAction(
+                $sale,
+                SALE::SALE_CREATE_ACTION
+            );
+        } catch (Exception $e) {
+            throw $e;
         }
-
-        $this->trackUnstructuredEvent(
-            $this->default_config['inspetorSaleSchema'],
-            $data,
-            $this->default_config['inspetorContext'],
-            $action
-        );
     }
 
     /**
-     * trackAccountAction
+     * trackSaleUpdate
      *
-     * @param Inspetor\Model\Account $data
-     * @param string $action
+     * @param Sale $sale
      * @return void
      */
-    public function trackAccountAction(Account $data, string $action) {
-        $this->verifyTracker();
-
-        $valid_actions = [
-            Account::ACCOUNT_CREATE_ACTION,
-            Account::ACCOUNT_UPDATE_ACTION,
-            Account::ACCOUNT_DELETE_ACTION
-        ];
-
-        $data->isValid();
-
-        if (!in_array($action, $valid_actions)) {
-            throw new TrackerException(9003);
+    public function trackSaleUpdate(Sale $sale) {
+        try {
+            $this->inspetor_resource->trackSaleAction(
+                $sale,
+                SALE::SALE_UPDATE_STATUS_ACTION
+            );
+        } catch (Exception $e) {
+            throw $e;
         }
-
-        $this->trackUnstructuredEvent(
-            $this->default_config['inspetorAccountSchema'],
-            $data,
-            $this->default_config['inspetorContext'],
-            $action
-        );
     }
 
     /**
-     * trackEventAction
+     * trackAccountCreation
      *
-     * @param Inspetor\Model\Event $data
-     * @param string $action
+     * @param Account $account
      * @return void
      */
-    public function trackEventAction(Event $data, string $action) {
-        $this->verifyTracker();
-
-        $valid_actions = [
-            Event::CREATE_ACTION,
-            Event::UPDATE_ACTION,
-            Event::DELETE_ACTION
-        ];
-
-        $data->isValid();
-
-        if (!in_array($action, $valid_actions)) {
-            throw new TrackerException(9008);
+    public function trackAccountCreation(Account $account) {
+        try {
+            $this->inspetor_resource->trackAccountAction(
+                $account,
+                ACCOUNT::ACCOUNT_CREATE_ACTION
+            );
+        } catch (Exception $e) {
+            throw $e;
         }
-
-        $this->trackUnstructuredEvent(
-            $this->default_config['inspetorEventSchema'],
-            $data,
-            $this->default_config['inspetorContext'],
-            $action
-        );
     }
 
-
     /**
-     * trackItemTransferAction
+     * trackAccountUpdate
      *
-     * @param Inspetor\Model\Transfer $data
-     * @param string $action
+     * @param Account $account
      * @return void
      */
-    public function trackItemTransferAction(Transfer $data, string $action) {
-        $this->verifyTracker();
-
-        $valid_actions = [
-            Transfer::TRANSFER_CREATE_ACTION,
-            Transfer::TRANSFER_UPDATE_STATUS_ACTION
-        ];
-
-        $data->isValid();
-
-        if (!in_array($action, $valid_actions)) {
-            throw new TrackerException(9006);
+    public function trackAccountUpdate(Account $account) {
+        try {
+            $this->inspetor_resource->trackAccountAction(
+                $account,
+                ACCOUNT::ACCOUNT_UPDATE_ACTION
+            );
+        } catch (Exception $e) {
+            throw $e;
         }
-
-        $this->trackUnstructuredEvent(
-            $this->default_config['inspetorTransferSchema'],
-            $data,
-            $this->default_config['inspetorContext'],
-            $action
-        );
     }
 
     /**
-     * trackAccountAuthAction
+     * trackAccountDeletion
      *
-     * @param Inspetor\Model\Auth $data
-     * @param string $action
+     * @param Account $account
      * @return void
      */
-    public function trackAccountAuthAction(Auth $data, string $action) {
-        $this->verifyTracker();
-
-        $valid_actions = [
-            Auth::ACCOUNT_LOGIN_ACTION,
-            Auth::ACCOUNT_LOGOUT_ACTION
-        ];
-
-        $data->isValid();
-
-        if (!in_array($action, $valid_actions)) {
-            throw new TrackerException(9002);
+    public function trackAccountDeletion(Account $account) {
+        try {
+            $this->inspetor_resource->trackAccountAction(
+                $account,
+                ACCOUNT::ACCOUNT_DELETE_ACTION
+            );
+        } catch (Exception $e) {
+            throw $e;
         }
-
-        $this->trackUnstructuredEvent(
-            $this->default_config['inspetorAuthSchema'],
-            $data,
-            $this->default_config['inspetorContext'],
-            $action
-        );
     }
 
     /**
-     * trackPasswordRecoveryAction
+     * trackEventCreation
      *
-     * @param Inspetor\Model\PassRecovery $data
-     * @param string $action
+     * @param Event $event
      * @return void
      */
-    public function trackPasswordRecoveryAction(PassRecovery $data, string $action) {
-        $this->verifyTracker();
-
-        $valid_actions = [
-            PassRecovery::PASSWORD_RESET_ACTION,
-            PassRecovery::PASSWORD_RECOVERY_ACTION
-        ];
-
-        $data->isValid();
-
-        if (!in_array($action, $valid_actions)) {
-            throw new TrackerException(9007);
+    public function trackEventCreation(Event $event) {
+        try {
+            $this->inspetor_resource->trackEventAction(
+                $event,
+                EVENT::CREATE_ACTION
+            );
+        } catch (Exception $e) {
+            throw $e;
         }
-
-        $this->trackUnstructuredEvent(
-            $this->default_config['inspetorPassRecoverySchema'],
-            $data,
-            $this->default_config['inspetorContext'],
-            $action
-        );
-    }
-
-    public function __destruct()
-    {
-        $this->flush();
-    }
-
-    public function flush()
-    {
-        $this->verifyTracker();
-        $this->tracker->flushEmitters();
-        return;
     }
 
     /**
-     * @param array  $config Config from main application
-     * @return array
-     */
-    private function setupTracker() {
-        $company_config = $this->setupConfig($this->company_config);
-
-        $this->emitter = new SyncEmitter(
-            $company_config['collectorHost'],
-            $company_config['protocol'],
-            $company_config['emitMethod'],
-            $company_config['bufferSize'],
-            $company_config['debugMode']
-        );
-        $this->subject = new Subject();
-        $this->tracker = new Tracker(
-            $this->emitter,
-            $this->subject,
-            $company_config['trackerName'],
-            $company_config['appId'],
-            $company_config['encode64']
-        );
-    }
-
-    /**
-     * @param array  $config Config from main application
-     * @return array
-     * @throws TrackerException
-     */
-    private function setupConfig($config) {
-        if (!($config['trackerName']) || !($config['appId'])) {
-            throw new TrackerException(9001);
-        }
-
-        $keys = [
-            'collectorHost',
-            'protocol',
-            'emitMethod',
-            'bufferSize',
-            'debugMode',
-            'encode64'
-        ];
-
-        foreach ($keys as $item) {
-            if(!array_key_exists($item, $config)) {
-                $config = $config + array($item => $this->default_config[$item]);
-            } else {
-                $config[$item] = $config[$item] ?? $this->default_config[$item];
-            }
-        }
-
-        return $config;
-    }
-
-    /**
-     * @return int
-     */
-    private function getNormalizedTimestamp()
-    {
-        return time()*1000;
-    }
-
-    /**
-     * @param string $schema  Iglu identifier of custom event schema
-     * @param object $data    Should implement JsonSerializable
-     * @param string $context Iglu identifier of custom event context
-     * @param string $action  Define context function
-     */
-    private function trackUnstructuredEvent($schema, $data, $context, $action)
-    {
-        if (!($data instanceof JsonSerializable)) {
-            $this->reportNonserializableCall($schema);
-            return;
-        }
-        $this->tracker->trackUnstructEvent(
-            array(
-                "schema" => $schema,
-                "data" => ($data->jsonSerialize())
-            ),
-            array(
-                array(
-                    "schema" => $context,
-                    "data" => array(
-                        "action" => $action
-                    )
-                )
-            ),
-            $this->getNormalizedTimestamp()
-        );
-    }
-
-    /**
-     * Public for testing
+     * trackEventUpdate
      *
-     * @param string $schema Iglu identifier of custom event schema
+     * @param Event $event
+     * @return void
      */
-    public function reportNonserializableCall($schema)
-    {
-        $this->tracker->trackUnstructEvent(
-            array(
-                "schema" => $this->config['ingresseSerializationError'],
-                "data" => (['intendedSchemaId' => $schema])
-            ),
-            array(),
-            $this->getNormalizedTimestamp()
-        );
+    public function trackEventUpdate(Event $event) {
+        try {
+            $this->inspetor_resource->trackEventAction(
+                $event,
+                EVENT::UPDATE_ACTION
+            );
+        } catch (Exception $e) {
+            throw $e;
+        }
     }
+
+    /**
+     * trackEventDeletion
+     *
+     * @param Event $event
+     * @return void
+     */
+    public function trackEventDeletion(Event $event) {
+        try {
+            $this->inspetor_resource->trackEventAction(
+                $event,
+                EVENT::DELETE_ACTION
+            );
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * trackItemTransferCreation
+     *
+     * @param Transfer $transfer
+     * @return void
+     */
+    public function trackItemTransferCreation(Transfer $transfer) {
+        try {
+            $this->inspetor_resource->trackItemTransferAction(
+                $transfer,
+                TRANSFER::TRANSFER_CREATE_ACTION
+            );
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * trackItemTransferUpdate
+     *
+     * @param Transfer $transfer
+     * @return void
+     */
+    public function trackItemTransferUpdate(Transfer $transfer) {
+        try {
+            $this->inspetor_resource->trackItemTransferAction(
+                $transfer,
+                TRANSFER::TRANSFER_UPDATE_STATUS_ACTION
+            );
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * trackLogin
+     *
+     * @param Auth $auth
+     * @return void
+     */
+    public function trackLogin(Auth $auth) {
+        try {
+            $this->inspetor_resource->trackAccountAuthAction(
+                $auth,
+                AUTH::ACCOUNT_LOGIN_ACTION
+            );
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * trackLogout
+     *
+     * @param Auth $auth
+     * @return void
+     */
+    public function trackLogout(Auth $auth) {
+        try {
+            $this->inspetor_resource->trackAccountAuthAction(
+                $auth,
+                AUTH::ACCOUNT_LOGOUT_ACTION
+            );
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * trackPasswordReset
+     *
+     * @param PassRecovery $pass_recovery
+     * @return void
+     */
+    public function trackPasswordReset(PassRecovery $pass_recovery) {
+        try {
+            $this->inspetor_resource->trackPasswordRecoveryAction(
+                $pass_recovery,
+                PASSRECOVERY::PASSWORD_RESET_ACTION
+            );
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * trackPasswordRecovery
+     *
+     * @param PassRecovery $pass_recovery
+     * @return void
+     */
+    public function trackPasswordRecovery(PassRecovery $pass_recovery) {
+        try {
+            $this->inspetor_resource->trackPasswordRecoveryAction(
+                $pass_recovery,
+                PASSRECOVERY::PASSWORD_RECOVERY_ACTION
+            );
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * getInspetorAccount
+     *
+     * @return Account
+     */
+    public function getInspetorAccount() {
+        return new Account();
+    }
+
+    /**
+     * getInspetorAuth
+     *
+     * @return Auth
+     */
+    public function getInspetorAuth() {
+        return new Auth();
+    }
+
+    /**
+     * getInspetorCategory
+     *
+     * @return Category
+     */
+    public function getInspetorCategory() {
+        return new Category();
+    }
+
+    /**
+     * getInspetorCreditCard
+     *
+     * @return CreditCard
+     */
+    public function getInspetorCreditCard() {
+        return new CreditCard();
+    }
+
+    /**
+     * getInspetorEvent
+     *
+     * @return Event
+     */
+    public function getInspetorEvent() {
+        return new Event();
+    }
+
+    /**
+     * getInspetorItem
+     *
+     * @return Item
+     */
+    public function getInspetorItem() {
+        return new Item();
+    }
+
+    /**
+     * getInspetorPassRecovery
+     *
+     * @return PassRecovery
+     */
+    public function getInspetorPassRecovery() {
+        return new PassRecovery();
+    }
+
+    /**
+     * getInspetorPayment
+     *
+     * @return Payment
+     */
+    public function getInspetorPayment() {
+        return new Payment();
+    }
+
+    /**
+     * getInspetorSale
+     *
+     * @return Sale
+     */
+    public function getInspetorSale() {
+        return new Sale();
+    }
+
+    /**
+     * getInspetorTransfer
+     *
+     * @return Transfer
+     */
+    public function getInspetorTransfer() {
+        return new Transfer();
+    }
+
 }
