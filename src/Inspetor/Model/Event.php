@@ -177,7 +177,7 @@ class Event extends AbstractModel implements JsonSerializable {
         ];
 
         if (!in_array($this->status, $all_status)) {
-            $this->setOtherStatus(base64_encode($this->status));
+            $this->setOtherStatus($this->status);
             $this->setStatus(self::STATUS_OTHER);
         }
     }
