@@ -133,22 +133,22 @@ class Inspetor {
     }
 
     /**
-     * trackAccountLogin
+     * trackLogin
      *
      * @param Auth $auth
      * @return void
      */
-    public function trackAccountLogin(Auth $auth) {
+    public function trackLogin(Auth $auth) {
         $this->inspetor_client->trackAccountAuthAction($auth, AUTH::ACCOUNT_LOGIN_ACTION);
     }
 
     /**
-     * trackAccountLogout
+     * trackLogout
      *
      * @param Auth $auth
      * @return void
      */
-    public function trackAccountLogout(Auth $auth) {
+    public function trackLogout(Auth $auth) {
         $this->inspetor_client->trackAccountAuthAction($auth, AUTH::ACCOUNT_LOGOUT_ACTION);
     }
 
