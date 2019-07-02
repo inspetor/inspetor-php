@@ -28,11 +28,11 @@ class AbstractModel {
      * encodeArray
      *
      * @param array $array
-     * @param boolean $is_object
+     * @param bool $is_object
      * 
      * @return array
      */
-    protected function encodeArray(array $array, boolean $is_object) {
+    protected function encodeArray(array $array, bool $is_object) {
         $encoded_array = [];
         foreach($array as $item) {
             if ($is_object) {
