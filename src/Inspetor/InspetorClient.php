@@ -13,8 +13,9 @@ use Inspetor\Model\Transfer;
 use Inspetor\InspetorResource;
 use Inspetor\Model\Category;
 use Inspetor\Model\Payment;
+use Inspetor\InspetorService;
 
-class InspetorClient {
+class InspetorClient implements InspetorService {
 
     /**
      * inspetor_resource
