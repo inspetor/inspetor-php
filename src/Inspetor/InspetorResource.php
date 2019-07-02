@@ -346,11 +346,11 @@ class InspetorResource implements InspetorResourceService {
     }
 
     /**
-     * Public for testing
+     * Report non serializable data
      *
      * @param string $schema Iglu identifier of custom event schema
      */
-    public function reportNonserializableCall($schema)
+    private function reportNonserializableCall($schema)
     {
         $this->tracker->trackUnstructEvent(
             array(

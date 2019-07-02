@@ -15,8 +15,8 @@
  * This is an antifraud product developed to analyzes transactions and identify frauds using trackers and analytics tools. This file must explain every request and parametes that a library must provide to a client.
  *
  * Contact: theo@useinspetor.com
+ *
  */
-
 namespace Inspetor;
 
 use Inspetor\Model\Account;
@@ -47,6 +47,7 @@ interface InspetorResourceService {
      * @return void
      */
     public function trackAccountAction(Account $data, string $action);
+
     /**
      * Operation trackEventAction
      *
@@ -58,6 +59,7 @@ interface InspetorResourceService {
      * @throws \Inspetor\Exception\ModelException\EventException
      * @return void
      */
+
     public function trackEventAction(Event $data, string $action);
     /**
      * Operation trackPasswordRecoveryAction
@@ -71,6 +73,7 @@ interface InspetorResourceService {
      * @return void
      */
     public function trackPasswordRecoveryAction(PassRecovery $data, string $action);
+
     /**
      * Operation trackItemTransferAction
      *
@@ -83,6 +86,7 @@ interface InspetorResourceService {
      * @return void
      */
     public function trackItemTransferAction(Transfer $data, string $action);
+
     /**
      * Operation trackSaleAction
      *
@@ -95,6 +99,7 @@ interface InspetorResourceService {
      * @return void
      */
     public function trackSaleAction(Sale $data, string $action);
+
     /**
      * Operation trackAccountAuthAction
      *
