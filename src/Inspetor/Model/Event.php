@@ -417,7 +417,7 @@ class Event extends AbstractModel implements JsonSerializable {
 	 * Set the value of url
 	 *
      * @param string  $url
-     * 
+     *
 	 *
 	 * @return self
 	 */
@@ -429,7 +429,7 @@ class Event extends AbstractModel implements JsonSerializable {
 	/**
 	 * Get the value of producer_id
 	 *
-	 * 
+	 *
 	 *
 	 * @return string
 	 */
@@ -441,7 +441,7 @@ class Event extends AbstractModel implements JsonSerializable {
 	 * Set the value of producer_id
 	 *
 	 * @param string  $producer_id
-     * 
+     *
 	 *
 	 * @return self
 	 */
@@ -453,7 +453,7 @@ class Event extends AbstractModel implements JsonSerializable {
 	/**
 	 * Get the value of admins_id
 	 *
-	 * 
+	 *
 	 *
 	 * @return array
 	 */
@@ -509,7 +509,7 @@ class Event extends AbstractModel implements JsonSerializable {
             "event_description"        => $this->encodeData($this->getDescription()),
             "event_creation_timestamp" => $this->encodeData($this->getCreationTimestamp()),
             "event_update_timestamp"   => $this->encodeData($this->getUpdateTimestamp()),
-            "event_sessions"           => $this->encodeArray($this->getSessions(), true),
+            "event_sessions"           => $this->encodeArray($this->getSessions(), false),
             "event_status"             => $this->encodeData($this->getStatus()),
 			"event_status_other"       => $this->encodeData($this->getOtherStatus()),
 			"event_seating_options"    => $this->encodeArray($this->getSeatingOptions(), false),
