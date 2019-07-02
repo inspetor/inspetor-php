@@ -34,60 +34,84 @@ use Inspetor\Model\Transfer;
  * @author   Inspetor Dev Team
  */
 interface InspetorService {
+
     /**
      * Operation getInspetorAccount
      *
      * @return \Inspetor\Model\Account
      */
     public function getInspetorAccount();
+
+    /**
+     * Operation getInspetorAddress
+     *
+     * @return \Inspetor\Model\Address
+     */
+    public function getInspetorAddress();
+
     /**
      * Operation getInspetorAuth
      *
      * @return \Inspetor\Model\Auth
      */
     public function getInspetorAuth();
+
     /**
      * Operation getInspetorCategory
      *
      * @return \Inspetor\Model\Category
      */
     public function getInspetorCategory();
+
     /**
      * Operation getInspetorCreditCard
      *
      * @return \Inspetor\Model\CreditCard
      */
     public function getInspetorCreditCard();
+
     /**
      * Operation getInspetorEvent
      *
      * @return \Inspetor\Model\Event
      */
     public function getInspetorEvent();
+
     /**
      * Operation getInspetorItem
      *
      * @return \Inspetor\Model\Item
      */
     public function getInspetorItem();
+
     /**
      * Operation getInspetorPassRecovery
      *
      * @return \Inspetor\Model\PassRecovery
      */
     public function getInspetorPassRecovery();
+
     /**
      * Operation getInspetorPayment
      *
      * @return \Inspetor\Model\Payment
      */
     public function getInspetorPayment();
+
+    /**
+     * Operation getInspetorSale
+     *
+     * @return \Inspetor\Model\Sale
+     */
+    public function getInspetorSale();
+
     /**
      * Operation getInspetorTransfer
      *
      * @return \Inspetor\Model\Transfer
      */
     public function getInspetorTransfer();
+
     /**
      * Operation trackAccountCreation
      *
@@ -100,6 +124,7 @@ interface InspetorService {
      * @return void
      */
     public function trackAccountCreation(Account $account);
+
     /**
      * Operation trackAccountDeletion
      *
@@ -112,6 +137,7 @@ interface InspetorService {
      * @return void
      */
     public function trackAccountDeletion(Account $account);
+
     /**
      * Operation trackAccountUpdate
      *
@@ -124,6 +150,7 @@ interface InspetorService {
      * @return void
      */
     public function trackAccountUpdate(Account $account);
+
     /**
      * Operation trackEventCreation
      *
@@ -136,6 +163,7 @@ interface InspetorService {
      * @return void
      */
     public function trackEventCreation(Event $event);
+
     /**
      * Operation trackEventDeletion
      *
@@ -148,6 +176,7 @@ interface InspetorService {
      * @return void
      */
     public function trackEventDeletion(Event $event);
+
     /**
      * Operation trackEventUpdate
      *
@@ -160,6 +189,7 @@ interface InspetorService {
      * @return void
      */
     public function trackEventUpdate(Event $event);
+
     /**
      * Operation trackItemTransferCreation
      *
@@ -172,6 +202,7 @@ interface InspetorService {
      * @return void
      */
     public function trackItemTransferCreation(Transfer $transfer);
+
     /**
      * Operation trackItemTransferUpdate
      *
@@ -184,6 +215,7 @@ interface InspetorService {
      * @return void
      */
     public function trackItemTransferUpdate(Transfer $transfer);
+
     /**
      * Operation trackLogin
      *
@@ -196,6 +228,7 @@ interface InspetorService {
      * @return void
      */
     public function trackLogin(Auth $auth);
+
     /**
      * Operation trackLogout
      *
@@ -208,6 +241,7 @@ interface InspetorService {
      * @return void
      */
     public function trackLogout(Auth $auth);
+
     /**
      * Operation trackPasswordRecovery
      *
@@ -220,6 +254,7 @@ interface InspetorService {
      * @return void
      */
     public function trackPasswordRecovery(PassRecovery $pass_recovery);
+
     /**
      * Operation trackPasswordReset
      *
@@ -232,6 +267,7 @@ interface InspetorService {
      * @return void
      */
     public function trackPasswordReset(PassRecovery $pass_recovery);
+
     /**
      * Operation trackSaleCreation
      *
@@ -244,18 +280,7 @@ interface InspetorService {
      * @return void
      */
     public function trackSaleCreation(Sale $sale);
-    /**
-     * Operation trackSaleDeletion
-     *
-     * Send sale deletion data to Inspetor
-     *
-     * @param  \Inspetor\Model\Sale $sale sale (required);
-     *
-     * @throws \Inspetor\Exception\TrackerException
-     * @throws \Inspetor\Exception\ModelException\SaleException
-     * @return void
-     */
-    public function trackSaleDeletion(Sale $sale);
+
     /**
      * Operation trackSaleUpdate
      *

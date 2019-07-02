@@ -1,18 +1,20 @@
 <?php
 
 
-namespace Inspetor\Inspetor;
+namespace Inspetor;
 
 use Inspetor\Model\Account;
+use Inspetor\Model\Address;
 use Inspetor\Model\Auth;
+use Inspetor\Model\Category;
+use Inspetor\Model\CreditCard;
 use Inspetor\Model\Event;
+use Inspetor\Model\Item;
 use Inspetor\Model\PassRecovery;
+use Inspetor\Model\Payment;
 use Inspetor\Model\Sale;
 use Inspetor\Model\Transfer;
-
 use Inspetor\InspetorResource;
-use Inspetor\Model\Category;
-use Inspetor\Model\Payment;
 use Inspetor\InspetorService;
 
 class InspetorClient implements InspetorService {
@@ -282,6 +284,15 @@ class InspetorClient implements InspetorService {
      */
     public function getInspetorAccount() {
         return new Account();
+    }
+
+    /**
+     * getInspetorAddress
+     *
+     * @return Address
+     */
+    public function getInspetorAddress() {
+        return new Address();
     }
 
     /**
