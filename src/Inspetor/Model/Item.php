@@ -214,7 +214,7 @@ class Item extends AbstractModel implements JsonSerializable {
 		return $this;
 	}
 	
-		/**
+	/**
 	 * Get the value of quantity
 	 * 
 	 * @return  string

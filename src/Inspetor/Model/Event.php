@@ -495,8 +495,10 @@ class Event extends AbstractModel implements JsonSerializable {
 	 * @return self
 	 */
 	public function setSeatingOptions($seating_options) {
-		if (!is_array($seating_options)) {
-			throw new EventException(7012);
+		if ($seating_options) {
+			if (!is_array($seating_options)) {
+				throw new EventException(7012);
+			}
 		}
 		$this->seating_options = $seating_options;
 		return $this;
