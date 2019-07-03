@@ -42,8 +42,8 @@ class TransferTest extends TestCase {
         $transfer = $this->getDefaultTransfer();
         $transfer->setTimestamp(null);
 
-        //$this->expectExceptionCode(200);
-        //$this->setExpectedException(TransferException::class);
+        $this->expectExceptionCode(200);
+        $this->setExpectedException(TransferException::class);
 
         $transfer->isValid();
     }

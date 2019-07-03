@@ -212,7 +212,28 @@ class Item extends AbstractModel implements JsonSerializable {
 	public function setSeatingOption($seating_option) {
         $this->seating_option = $seating_option;
 		return $this;
+	}
+	
+		/**
+	 * Get the value of quantity
+	 * 
+	 * @return  string
+	 */
+	public function getQuantity() {
+		return $this->quantity;
     }
+
+	/**
+	 * Set the value of quantity
+	 *
+	 * @param   string  $quantity  
+	 * 
+	 * @return  self
+	 */
+	public function setQuantity($quantity) {
+        $this->quantity = $quantity;
+		return $this;
+	}
 
     /**
      * JSONSERIALIZE
@@ -228,7 +249,8 @@ class Item extends AbstractModel implements JsonSerializable {
             "item_event_id"       => $this->encodeData($this->getEventId()),
             "item_session_id"     => $this->encodeData($this->getSessionId()),
             "item_price"          => $this->encodeData($this->getPrice()),
-            "item_seating_option" => $this->encodeData($this->getSeatingOption())
+			"item_seating_option" => $this->encodeData($this->getSeatingOption()),
+			"item_quantity"       => $this->encodeData($this->getQuantity())
         ];
 
         return $array;

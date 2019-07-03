@@ -38,8 +38,8 @@ class PassRecoveryTest extends TestCase {
         $pass_recovery = $this->getDefaultPassRecovery();
         $pass_recovery->setTimestamp(null);
 
-        //$this->expectExceptionCode(200);
-        //$this->setExpectedException(PassRecoveryException::class);
+        $this->expectExceptionCode(200);
+        $this->setExpectedException(PassRecoveryException::class);
 
         $pass_recovery->isValid();
     }

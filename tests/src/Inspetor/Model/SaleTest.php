@@ -32,6 +32,7 @@ class SaleTest extends TestCase {
         $item->setSessionId("123");
         $item->setPrice("10");
         $item->setSeatingOption("Seating Option Test");
+        $item->setQuantity("123");
         return $item;
     }
 

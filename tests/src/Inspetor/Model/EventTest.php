@@ -18,8 +18,14 @@ class EventTest extends TestCase {
         $event->setCreationTimestamp($this->getNormalizedTime());
         $event->setUpdateTimestamp($this->getNormalizedTime());
         $event->setSessions([
-            $this->getNormalizedTime(), 
-            $this->getNormalizedTime()
+            [
+                "id"        => "123",
+                "timestamp" => $this->getNormalizedTime()
+            ],
+            [
+                "id"        => "123",
+                "timestamp" => $this->getNormalizedTime()
+            ]
         ]);
         $event->setStatus(EVENT::PRIVATE_STATUS);
         $event->setCategories([
@@ -29,6 +35,7 @@ class EventTest extends TestCase {
         $event->setUrl("Url Test");
         $event->setProducerId("123");
         $event->setAdminsId(["123"]);
+        $event->setSeatingOptions(["Seating Options"]);
         return $event;
     }
 
@@ -66,16 +73,6 @@ class EventTest extends TestCase {
     public function testIfIsNotValidWhenIdIsNull() {
         $event = $this->getDefaultEvent();
         $event->setId(null);
-
-        $this->expectExceptionCode(200);
-        $this->setExpectedException(EventException::class);
-
-        $event->isValid();
-    }
-
-    public function testIfIsNotValidWhenCreationTsIsNull() {
-        $event = $this->getDefaultEvent();
-        $event->setCreationTimestamp(null);
 
         $this->expectExceptionCode(200);
         $this->setExpectedException(EventException::class);

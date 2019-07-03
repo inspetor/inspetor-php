@@ -198,7 +198,9 @@ class Payment extends AbstractModel implements JsonSerializable {
 	 * @return self
 	 */
 	public function setCreditCard($credit_card) {
-        $credit_card->isValid();
+        if ($credit_card) {
+            $credit_card->isValid();
+        }
         $this->credit_card = $credit_card;
 		return $this;
     }

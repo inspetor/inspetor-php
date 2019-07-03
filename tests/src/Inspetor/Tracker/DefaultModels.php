@@ -53,8 +53,14 @@ class DefaultModels {
         $event->setCreationTimestamp($this->getNormalizedTime());
         $event->setUpdateTimestamp($this->getNormalizedTime());
         $event->setSessions([
-            $this->getNormalizedTime(), 
-            $this->getNormalizedTime()
+            [
+                "id"        => "123",
+                "timestamp" => $this->getNormalizedTime()
+            ],
+            [
+                "id"        => "123",
+                "timestamp" => $this->getNormalizedTime()
+            ]
         ]);
         $event->setStatus(EVENT::PRIVATE_STATUS);
         $event->setCategories([
@@ -64,6 +70,7 @@ class DefaultModels {
         $event->setUrl("Url Test");
         $event->setProducerId("123");
         $event->setAdminsId(["123"]);
+        $event->setSeatingOptions(["Seating Options"]);
         return $event;
     }
 
@@ -122,6 +129,7 @@ class DefaultModels {
         $item->setSessionId("123");
         $item->setPrice("10");
         $item->setSeatingOption("Seating Option Test");
+        $item->setQuantity("123");
         return $item;
     }
 

@@ -80,7 +80,7 @@ class InspetorResource implements InspetorResourceService {
             Sale::SALE_UPDATE_STATUS_ACTION
         ];
 
-        if ($action == Sale::SAlE_CREATE_ACTION) {
+        if ($action ==  Sale::SALE_CREATE_ACTION) {
             $data->setCreationTimestamp(
                 $data->getUpdateTimestamp()
             );

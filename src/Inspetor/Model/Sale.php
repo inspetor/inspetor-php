@@ -325,8 +325,10 @@ class Sale extends AbstractModel implements JsonSerializable {
 	 * @return self
 	 */
 	public function setItems($items) {
-		foreach ($items as $item) {
-			$item->isValid();
+		if ($item) {
+			foreach ($items as $item) {
+				$item->isValid();
+			}
 		}
 		$this->items = $items;
 		return $this;
@@ -349,7 +351,9 @@ class Sale extends AbstractModel implements JsonSerializable {
 	 * @return self
 	 */
 	public function setPayment($payment) {
-		$payment->isValid();
+		if ($payment) {
+			$payment->isValid();
+		}
 		$this->payment = $payment;
 		return $this;
     }

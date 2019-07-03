@@ -168,14 +168,14 @@ class Event extends AbstractModel implements JsonSerializable {
 	 */
     private function validateStatus() {
         $all_status = [
-            self::STATUS_DRAFT,
-            self::STATUS_PRIVATE,
-            self::STATUS_PUBLISHED,
+            self::DRAFT_STATUS,
+            self::PRIVATE_STATUS,
+            self::PUBLISHED_STATUS,
         ];
 
         if (!in_array($this->status, $all_status)) {
             $this->setOtherStatus($this->status);
-            $this->setStatus(self::STATUS_OTHER);
+            $this->setStatus(self::OTHER_STATUS);
         }
     }
 
@@ -312,10 +312,12 @@ class Event extends AbstractModel implements JsonSerializable {
 	 * @return self
 	 */
 	public function setSessions($sessions) {
-		foreach($sessions as $session) {
-			if (!array_key_exists("id", $session)
-			|| !array_key_exists("timestamp", $session)){
-					throw new EventException(7010);
+		if ($sessions) {
+			foreach($sessions as $session) {
+				if (!array_key_exists("id", $session)
+				|| !array_key_exists("timestamp", $session)){
+						throw new EventException(7010);
+				}
 			}
 		}
 		$this->sessions = $sessions;
@@ -369,8 +371,10 @@ class Event extends AbstractModel implements JsonSerializable {
 	 * @return self
 	 */
 	public function setCategories($categories) {
-		foreach ($categories as $category) {
-			$category->isValid();
+		if ($categories) {
+			foreach ($categories as $category) {
+				$category->isValid();
+			}
 		}
 		$this->categories = $categories;
 		return $this;
@@ -394,7 +398,9 @@ class Event extends AbstractModel implements JsonSerializable {
 	 * @return self
 	 */
 	public function setAddress($address) {
-		$address->isValid();
+		if ($address) {
+			$address->isValid();
+		}
 		$this->address = $address;
 		return $this;
 	}
@@ -486,6 +492,7 @@ class Event extends AbstractModel implements JsonSerializable {
 	 * @return self
 	 */
 	public function setSeatingOptions($seating_options) {
+		$this->seating_options = $seating_options;
 		return $this;
 	}
 

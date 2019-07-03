@@ -39,8 +39,8 @@ class AuthTest extends TestCase {
         $auth = $this->getDefaultAuth();
         $auth->setTimestamp(null);
 
-        //$this->expectExceptionCode(200);
-        //$this->setExpectedException(AuthException::class);
+        $this->expectExceptionCode(200);
+        $this->setExpectedException(AuthException::class);
 
         $auth->isValid();
     }
