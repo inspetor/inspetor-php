@@ -22,8 +22,8 @@ class DefaultModels {
         $sale->setAccountId("123");
         $sale->setStatus(SALE::PENDING_STATUS);
         $sale->setIsFraud(true);
-        $sale->setCreationTimestamp($this->getNormalizedTime());
-        $sale->setUpdateTimestamp($this->getNormalizedTime());
+        $sale->setCreationTimestamp(time()*1000);
+        $sale->setUpdateTimestamp(time());
         $sale->setItems([
             $this->getDefaultItem()
         ]);

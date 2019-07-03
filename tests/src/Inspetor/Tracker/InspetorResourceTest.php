@@ -11,7 +11,7 @@ class InspetorResourceTest extends TestCase {
 
     private $default_models;
 
-    private function getDefaultTracker() {
+    private function getDefaultInspetorResource() {
         $inspetor_resource = new InspetorResource([
             "appId"       => "123",
             "trackerName" => "123"
@@ -21,7 +21,7 @@ class InspetorResourceTest extends TestCase {
     }
 
     public function testTrackSaleActionWithInvalidAction() {
-        $inspetor_resource = $this->getDefaultTracker();
+        $inspetor_resource = $this->getDefaultInspetorResource();
         $sale = $this->default_models->getDefaultSale();
 
         $this->expectExceptionCode(200);
@@ -31,7 +31,7 @@ class InspetorResourceTest extends TestCase {
     }
 
     public function testTrackAccountActionWithInvalidAction() {
-        $inspetor_resource = $this->getDefaultTracker();
+        $inspetor_resource = $this->getDefaultInspetorResource();
         $account = $this->default_models->getDefaultAccount();
 
         $this->expectExceptionCode(200);
@@ -41,7 +41,7 @@ class InspetorResourceTest extends TestCase {
     }
 
     public function testTrackEventActionWithInvalidAction() {
-        $inspetor_resource = $this->getDefaultTracker();
+        $inspetor_resource = $this->getDefaultInspetorResource();
         $event = $this->default_models->getDefaultEvent();
 
         $this->expectExceptionCode(200);
@@ -51,7 +51,7 @@ class InspetorResourceTest extends TestCase {
     }
 
     public function testTrackItemTransferActionWithInvalidAction() {
-        $inspetor_resource = $this->getDefaultTracker();
+        $inspetor_resource = $this->getDefaultInspetorResource();
         $transfer = $this->default_models->getDefaultTransfer();
 
         $this->expectExceptionCode(200);
@@ -61,7 +61,7 @@ class InspetorResourceTest extends TestCase {
     }
 
     public function testTrackAccountAuthActionWithInvalidAction() {
-        $inspetor_resource = $this->getDefaultTracker();
+        $inspetor_resource = $this->getDefaultInspetorResource();
         $auth = $this->default_models->getDefaultAuth();
 
         $this->expectExceptionCode(200);
@@ -71,7 +71,7 @@ class InspetorResourceTest extends TestCase {
     }
 
     public function testTrackPassRecoveyActionWithInvalidAction() {
-        $inspetor_resource = $this->getDefaultTracker();
+        $inspetor_resource = $this->getDefaultInspetorResource();
         $pass_recovery = $this->default_models->getDefaultPassRecovery();
 
         $this->expectExceptionCode(200);
