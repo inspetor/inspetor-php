@@ -7,5 +7,5 @@
         <testsuite name="Tracker">
             <directory>./tests/src/Inspetor/Tracker</directory>
         </testsuite>
-    </testsuites>
+        </testsuites>
 </phpunit>

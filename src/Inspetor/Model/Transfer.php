@@ -286,7 +286,7 @@ class Transfer extends AbstractModel implements JsonSerializable {
         $array = [
             "transfer_id"                 => $this->encodeData($this->getId()),
             "transfer_creation_timestamp" => $this->encodeData($this->getUpdateTimestamp()),
-            "transfer_creation_timestamp" => $this->encodeData($this->getCreationTimestamp()),
+            "transfer_update_timestamp"   => $this->encodeData($this->getCreationTimestamp()),
             "transfer_item_id"            => $this->encodeData($this->getItemId()),
             "transfer_sender_account_id"  => $this->encodeData($this->getSenderAccountId()),
             "transfer_receiver_email"     => $this->encodeData($this->getReceiverEmail()),
