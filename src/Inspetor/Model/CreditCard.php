@@ -62,19 +62,19 @@ class CreditCard extends AbstractModel implements JsonSerializable {
      */
     public function isValid() {
         if (!$this->first_six_digits) {
-            throw new CreditCardException(7401);
+            throw new CreditCardException(7001);
         }
 
         if (!$this->last_four_digits) {
-            throw new CreditCardException(7402);
+            throw new CreditCardException(7002);
         }
 
         if (!$this->holder_name) {
-            throw new CreditCardException(7403);
+            throw new CreditCardException(7003);
         }
 
         if (!$this->holder_cpf) {
-            throw new CreditCardException(7404);
+            throw new CreditCardException(7004);
         }
     }
 

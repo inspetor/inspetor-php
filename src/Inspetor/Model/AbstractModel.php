@@ -29,7 +29,7 @@ class AbstractModel {
      *
      * @param array $array
      * @param bool $is_object
-     * 
+     *
      * @return array
      */
     protected function encodeArray(array $array, bool $is_object) {
@@ -78,6 +78,10 @@ class AbstractModel {
      * @return string
     */
     public function inspetorDateFormatter($time) {
+        if (!$time) {
+            return null;
+        }
+
         if (!is_int($time)) {
             if (!((string) (int) $time === $time)
             && ($time <= PHP_INT_MAX)

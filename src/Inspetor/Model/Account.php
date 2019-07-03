@@ -21,6 +21,7 @@
 namespace Inspetor\Model;
 
 use Inspetor\Exception\ModelException\AccountException;
+use Inspetor\Exception\ModelException\AddressException;
 use Inspetor\Model\Address;
 use Inspetor\Model\AbstractModel;
 use JsonSerializable;
@@ -225,7 +226,10 @@ class Account extends AbstractModel implements JsonSerializable {
      * @return self
      */
     public function setAddress($address) {
-        $this->address = $address;
+        if ($address) {
+            $address->isValid();
+            $this->address = $address;
+        }
         return $this;
     }
 

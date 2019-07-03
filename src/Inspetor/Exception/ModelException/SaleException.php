@@ -9,7 +9,7 @@ class SaleException extends ExceptionAbstract {
     /**
      * Category of Exception
      */
-    const CATEGORY = 7900;
+    const CATEGORY = 7000;
 
     /**
      * Description of Exception
@@ -29,12 +29,11 @@ class SaleException extends ExceptionAbstract {
         2  => "account_id is a required property. It can't be null.",
         3  => "status is a required property. It can't be null.",
         4  => "is_fraud is a required property. It can't be null.",
-        5  => "creation_timestamp is a required property. It can't be null.",
-        6  => "update_timestamp is a required property. It can't be null.",
-        7  => "items is a required property. It can't be null neither an empty array.",
-        8  => "payment is a required property. It can't be null.",
-        9  => "The status is not a valid one.",
-        10 => "One or more items have invalid price."
+        5  => "update_timestamp is a required property. It can't be null.",
+        6  => "items is a required property. It can't be null neither an empty array.",
+        7  => "payment is a required property. It can't be null.",
+        8  => "The status is not a valid one.",
+        9  => "One or more items have invalid price."
     );
 
     /**

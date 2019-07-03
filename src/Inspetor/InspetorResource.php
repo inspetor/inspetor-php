@@ -80,11 +80,17 @@ class InspetorResource implements InspetorResourceService {
             Sale::SALE_UPDATE_STATUS_ACTION
         ];
 
-        $data->isValid();
+        if ($action == Sale::SAlE_CREATE_ACTION) {
+            $data->setCreationTimestamp(
+                $data->getUpdateTimestamp()
+            );
+        }
 
         if (!in_array($action, $valid_actions)) {
             throw new TrackerException(9005);
         }
+
+        $data->isValid();
 
         $this->trackUnstructuredEvent(
             $this->default_config['inspetorSaleSchema'],
@@ -110,11 +116,17 @@ class InspetorResource implements InspetorResourceService {
             Account::ACCOUNT_DELETE_ACTION
         ];
 
-        $data->isValid();
+        if ($action == Account::ACCOUNT_CREATE_ACTION) {
+            $data->setCreationTimestamp(
+                $data->getUpdateTimestamp()
+            );
+        }
 
         if (!in_array($action, $valid_actions)) {
             throw new TrackerException(9003);
         }
+
+        $data->isValid();
 
         $this->trackUnstructuredEvent(
             $this->default_config['inspetorAccountSchema'],
@@ -135,16 +147,22 @@ class InspetorResource implements InspetorResourceService {
         $this->verifyTracker();
 
         $valid_actions = [
-            Event::CREATE_ACTION,
-            Event::UPDATE_ACTION,
-            Event::DELETE_ACTION
+            Event::EVENT_CREATE_ACTION,
+            Event::EVENT_UPDATE_ACTION,
+            Event::EVENT_DELETE_ACTION
         ];
 
-        $data->isValid();
+        if ($action == Event::EVENT_CREATE_ACTION) {
+            $data->setCreationTimestamp(
+                $data->getUpdateTimestamp()
+            );
+        }
 
         if (!in_array($action, $valid_actions)) {
             throw new TrackerException(9008);
         }
+
+        $data->isValid();
 
         $this->trackUnstructuredEvent(
             $this->default_config['inspetorEventSchema'],
@@ -170,11 +188,12 @@ class InspetorResource implements InspetorResourceService {
             Transfer::TRANSFER_UPDATE_STATUS_ACTION
         ];
 
-        $data->isValid();
 
         if (!in_array($action, $valid_actions)) {
             throw new TrackerException(9006);
         }
+
+        $data->isValid();
 
         $this->trackUnstructuredEvent(
             $this->default_config['inspetorTransferSchema'],
@@ -199,11 +218,12 @@ class InspetorResource implements InspetorResourceService {
             Auth::ACCOUNT_LOGOUT_ACTION
         ];
 
-        $data->isValid();
 
         if (!in_array($action, $valid_actions)) {
             throw new TrackerException(9002);
         }
+
+        $data->isValid();
 
         $this->trackUnstructuredEvent(
             $this->default_config['inspetorAuthSchema'],
@@ -228,11 +248,12 @@ class InspetorResource implements InspetorResourceService {
             PassRecovery::PASSWORD_RECOVERY_ACTION
         ];
 
-        $data->isValid();
 
         if (!in_array($action, $valid_actions)) {
             throw new TrackerException(9007);
         }
+
+        $data->isValid();
 
         $this->trackUnstructuredEvent(
             $this->default_config['inspetorPassRecoverySchema'],

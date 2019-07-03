@@ -46,7 +46,7 @@ class Payment extends AbstractModel implements JsonSerializable {
     private $method;
 
     /**
-     * @param array
+     * @param string
      */
     private $installments;
 
@@ -67,13 +67,13 @@ class Payment extends AbstractModel implements JsonSerializable {
      */
     public function isValid() {
         if (!$this->id) {
-            throw new PaymentException(7801);
+            throw new PaymentException(7001);
         }
         if (!$this->method) {
-            throw new PaymentException(7802);
+            throw new PaymentException(7002);
         }
-        if (!$this->installments || empty($this->installments)) {
-            throw new PaymentException(7803);
+        if (!$this->installments) {
+            throw new PaymentException(7003);
         }
     }
 
@@ -90,7 +90,7 @@ class Payment extends AbstractModel implements JsonSerializable {
         ];
 
         if (!in_array($this->method, $all_methods)) {
-            throw new PaymentException(7800);
+            throw new PaymentException(7000);
         }
         $this->validateCreditCardInfo();
     }
@@ -103,7 +103,7 @@ class Payment extends AbstractModel implements JsonSerializable {
     private function validateCreditCardInfo() {
         if ($this->getMethod() == self::CREDIT_CARD) {
             if (!$this->getCreditCard()) {
-                throw new PaymentException(7800);
+                throw new PaymentException(7000);
             }
         }
         return true;
@@ -160,7 +160,6 @@ class Payment extends AbstractModel implements JsonSerializable {
 	/**
 	 * Get the value of installments
 	 *
-	 *
 	 * @return string
 	 */
 	public function getInstallments() {
@@ -196,6 +195,9 @@ class Payment extends AbstractModel implements JsonSerializable {
 	 * @return self
 	 */
 	public function setCreditCard($credit_card) {
+        if ($credit_card) {
+            $credit_card->isValid();
+        }
         $this->credit_card = $credit_card;
 		return $this;
     }

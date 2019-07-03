@@ -9,7 +9,7 @@ class EventException extends ExceptionAbstract {
     /**
      * Category of Exception
      */
-    const CATEGORY = 7500;
+    const CATEGORY = 7000;
 
     /**
      * Description of Exception
@@ -25,16 +25,18 @@ class EventException extends ExceptionAbstract {
      * @var array
      */
     protected static $messages = array(
-        1 => "id is a required property. It can't be null.",
-        2 => "creation_timestamp is a required property. It can't be null.",
-        3 => "name is a required property. It can't be null.",
-        4 => "update_timestamp is a required property. It can't be null.",
-        5 => "producer_id is a required property. It can't be null.",
-        6 => "address is a required property. It can't be null.",
-        7 => "sessions is a required property. It can't be null neither an empty array.",
-        8 => "seating_options is a required property. It can't be null neither an empty array.",
-        9 => "categories is a required property. It can't be null neither an empty array.",
-        10 => "The status is not a valid one."
+        1  => "id is a required property. It can't be null.",
+        2  => "name is a required property. It can't be null.",
+        3  => "update_timestamp is a required property. It can't be null.",
+        4  => "producer_id is a required property. It can't be null.",
+        5  => "address is a required property. It can't be null.",
+        6  => "sessions is a required property. It can't be null neither an empty array.",
+        7  => "seating_options is a required property. It can't be null neither an empty array.",
+        8  => "categories is a required property. It can't be null neither an empty array.",
+        9  => "The status is not a valid one.",
+        10 => "sessions should be an array of one or more sessions.",
+        11 => "id and timestamp are required properties of a session.",
+        12 => "seating_options should be an array."
     );
 
     /**
