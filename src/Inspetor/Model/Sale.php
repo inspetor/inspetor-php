@@ -325,7 +325,7 @@ class Sale extends AbstractModel implements JsonSerializable {
 	 * @return self
 	 */
 	public function setItems($items) {
-		if ($item) {
+		if ($items) {
 			foreach ($items as $item) {
 				$item->isValid();
 			}

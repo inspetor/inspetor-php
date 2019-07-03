@@ -34,7 +34,9 @@ class EventException extends ExceptionAbstract {
         7  => "seating_options is a required property. It can't be null neither an empty array.",
         8  => "categories is a required property. It can't be null neither an empty array.",
         9  => "The status is not a valid one.",
-        10 => "id and timestamp are required properties of a session."
+        10 => "sessions should be an array of one or more sessions.",
+        11 => "id and timestamp are required properties of a session.",
+        12 => "seating_options should be an array."
     );
 
     /**

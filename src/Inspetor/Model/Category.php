@@ -48,6 +48,10 @@ class Category extends AbstractModel implements JsonSerializable {
     private $is_public;
 
     /**
+     * ISVALID
+    */
+
+    /**
      * Validate Category instance
      *
      * @return void

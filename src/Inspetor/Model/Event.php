@@ -314,9 +314,12 @@ class Event extends AbstractModel implements JsonSerializable {
 	public function setSessions($sessions) {
 		if ($sessions) {
 			foreach($sessions as $session) {
+				if (!is_array($session)) {
+					throw new EventException(7010);
+				}
 				if (!array_key_exists("id", $session)
 				|| !array_key_exists("timestamp", $session)){
-						throw new EventException(7010);
+					throw new EventException(7011);
 				}
 			}
 		}
@@ -492,6 +495,9 @@ class Event extends AbstractModel implements JsonSerializable {
 	 * @return self
 	 */
 	public function setSeatingOptions($seating_options) {
+		if (!is_array($seating_options)) {
+			throw new EventException(7012);
+		}
 		$this->seating_options = $seating_options;
 		return $this;
 	}
