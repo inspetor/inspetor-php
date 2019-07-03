@@ -9,7 +9,7 @@ class CreditCardException extends ExceptionAbstract {
     /**
      * Category of Exception
      */
-    const CATEGORY = 7400;
+    const CATEGORY = 7000;
 
     /**
      * Description of Exception

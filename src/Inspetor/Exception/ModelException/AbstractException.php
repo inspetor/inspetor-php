@@ -4,7 +4,7 @@ namespace Inspetor\Exception\ModelException;
 
 use Inspetor\Exception\ExceptionAbstract;
 
-class TransferException extends ExceptionAbstract {
+class AbstractException extends ExceptionAbstract {
 
     /**
      * Category of Exception
@@ -19,18 +19,13 @@ class TransferException extends ExceptionAbstract {
     /**
      * Header of message
      */
-    const HEADER = "INSPETOR EXCEPTION - ACCOUNT";
+    const HEADER = "INSPETOR EXCEPTION";
 
     /**
      * @var array
      */
     protected static $messages = array(
-        1 => "id is a required property. It can't be null.",
-        2 => "update_timestamp is a required property. It can't be null.",
-        3 => "item_id is a required property. It can't be null.",
-        4 => "sender_account_id is a required property. It can't be null.",
-        5 => "receiver_email is a required property. It can't be null.",
-        6 => "That's an invalid status."
+        1 => "The timestamp should be an integer.",
     );
 
     /**

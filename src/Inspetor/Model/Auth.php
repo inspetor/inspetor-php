@@ -21,9 +21,10 @@
 namespace Inspetor\Model;
 
 use Inspetor\Exception\ModelException\AuthException;
+use Inspetor\Model\AbstractModel;
 use JsonSerializable;
 
-class Auth implements JsonSerializable {
+class Auth extends AbstractModel implements JsonSerializable {
 
     const ACCOUNT_LOGIN_ACTION  = "account_login";
     const ACCOUNT_LOGOUT_ACTION = "account_logout";
@@ -65,11 +66,11 @@ class Auth implements JsonSerializable {
      */
     public function isValid() {
         if (!$this->account_id) {
-            throw new AuthException(7201);
+            throw new AuthException(7001);
         }
 
         if (!$this->timestamp) {
-            throw new AuthException(7202);
+            throw new AuthException(7002);
         }
     }
 
@@ -80,14 +81,9 @@ class Auth implements JsonSerializable {
     /**
      * Get the value of account_id
      *
-     * @param boolean $debug
-     *
      * @return string
     */
-    public function getAccountId($debug=false) {
-        if ($debug) {
-            return base64_decode($this->account_id);
-        }
+    public function getAccountId() {
         return $this->account_id;
     }
 
@@ -95,30 +91,21 @@ class Auth implements JsonSerializable {
      * Set the value of account_id
      *
      * @param string  $account_id
-     * @param boolean $is_editable
      *
      * @return self
     */
-    public function setAccountId($account_id, $is_editable = false) {
-        if ($is_editable) {
-            $this->account_id = base64_encode($account_id);
-        } else {
-            $this->account_id = $account_id;
-        }
+    public function setAccountId($account_id) {
+        $this->account_id = $account_id;
         return $this;
     }
 
     /**
      * Get the value of account_email
      *
-     * @param boolean $debug
      *
      * @return string
     */
-    public function getAccountEmail($debug = false) {
-        if ($debug) {
-            return base64_decode($this->account_email);
-        }
+    public function getAccountEmail() {
         return $this->account_email;
     }
 
@@ -126,16 +113,11 @@ class Auth implements JsonSerializable {
      * Set the value of account_email
      *
      * @param string  $account_email
-     * @param boolean $is_editable
      *
      * @return self
     */
-    public function setAccountEmail($account_email, $is_editable = true) {
-        if ($is_editable) {
-            $this->account_email = base64_encode($account_email);
-        } else {
-            $this->account_email = $account_email;
-        }
+    public function setAccountEmail($account_email) {
+        $this->account_email = $account_email;
         return $this;
     }
 
@@ -154,7 +136,9 @@ class Auth implements JsonSerializable {
      * @return self
     */
     public function setTimestamp($timestamp) {
-        $this->timestamp = $timestamp;
+        $this->timestamp = $this->inspetorDateFormatter(
+            $timestamp
+        );
         return $this;
     }
 
@@ -168,9 +152,9 @@ class Auth implements JsonSerializable {
     */
     public function jsonSerialize() {
         $array = [
-            "auth_account_id"    => $this->getAccountId(),
-            "auth_account_email" => $this->getAccountEmail(),
-            "auth_timestamp"     => $this->getTimestamp()
+            "auth_account_id"    => $this->encodeData($this->getAccountId()),
+            "auth_account_email" => $this->encodeData($this->getAccountEmail()),
+            "auth_timestamp"     => $this->encodeData($this->getTimestamp())
         ];
 
         return $array;

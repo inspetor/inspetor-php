@@ -21,9 +21,10 @@
 namespace Inspetor\Model;
 
 use Inspetor\Exception\ModelException\AddressException;
+use Inspetor\Model\AbstractModel;
 use JsonSerializable;
 
-class Address implements JsonSerializable {
+class Address extends AbstractModel implements JsonSerializable {
 
     /**
      * PROPERTIES
@@ -76,27 +77,27 @@ class Address implements JsonSerializable {
      */
     public function isValid() {
         if (!$this->street) {
-            throw new AddressException(7101);
+            throw new AddressException(7001);
         }
 
         if (!$this->number) {
-            throw new AddressException(7102);
+            throw new AddressException(7002);
         }
 
         if (!$this->zip_code) {
-            throw new AddressException(7103);
+            throw new AddressException(7003);
         }
 
         if (!$this->city) {
-            throw new AddressException(7104);
+            throw new AddressException(7004);
         }
 
         if (!$this->state) {
-            throw new AddressException(7105);
+            throw new AddressException(7005);
         }
 
         if (!$this->country) {
-            throw new AddressException(7106);
+            throw new AddressException(7006);
         }
     }
 
@@ -107,13 +108,8 @@ class Address implements JsonSerializable {
     /**
      * Get the value of street
      *
-     * @param boolean $debug
-     *
      */
-    public function getStreet($debug = false) {
-        if ($debug) {
-            return base64_decode($this->street);
-        }
+    public function getStreet() {
         return $this->street;
     }
 
@@ -121,29 +117,19 @@ class Address implements JsonSerializable {
      * Set the value of street
      *
      * @param string  $street
-     * @param boolean $is_editable
      *
      * @return self
      */
-    public function setStreet($street, $is_editable = true) {
-        if ($is_editable) {
-            $this->street = base64_encode($street);
-        } else {
-            $this->street = $street;
-        }
+    public function setStreet($street) {
+        $this->street = $street;
         return $this;
     }
 
     /**
      * Get the value of number
      *
-     * @param boolean $debug
-     *
      */
-    public function getNumber($debug = false) {
-        if ($debug) {
-            return base64_decode($this->number);
-        }
+    public function getNumber() {
         return $this->number;
     }
 
@@ -151,29 +137,19 @@ class Address implements JsonSerializable {
      * Set the value of number
      *
      * @param string  $number
-     * @param boolean $is_editable
      *
      * @return self
      */
-    public function setNumber($number, $is_editable = true) {
-        if ($is_editable) {
-            $this->number = base64_encode($number);
-        } else {
-            $this->number = $number;
-        }
+    public function setNumber($number) {
+        $this->number = $number;
         return $this;
     }
 
     /**
      * Get the value of zip_code
      *
-     * @param boolean $debug
-     *
      */
-    public function getZipCode($debug = false) {
-        if ($debug) {
-            return base64_decode($this->zip_code);
-        }
+    public function getZipCode() {
         return $this->zip_code;
     }
 
@@ -181,29 +157,20 @@ class Address implements JsonSerializable {
      * Set the value of zip_code
      *
      * @param string  $zip_code
-     * @param boolean $is_editable
      *
      * @return self
      */
-    public function setZipCode($zip_code, $is_editable = true) {
-        if ($is_editable) {
-            $this->zip_code = base64_encode($zip_code);
-        } else {
-            $this->zip_code = $zip_code;
-        }
+    public function setZipCode($zip_code) {
+        $this->zip_code = $zip_code;
         return $this;
     }
 
     /**
      * Get the value of city
      *
-     * @param boolean $debug
      *
      */
-    public function getCity($debug = false) {
-        if ($debug) {
-            return base64_decode($this->city);
-        }
+    public function getCity() {
         return $this->city;
     }
 
@@ -211,29 +178,20 @@ class Address implements JsonSerializable {
      * Set the value of city
      *
      * @param string  $city
-     * @param boolean $is_editable
      *
      * @return self
      */
-    public function setCity($city, $is_editable = true) {
-        if ($is_editable) {
-            $this->city = base64_encode($city);
-        } else {
-            $this->city = $city;
-        }
+    public function setCity($city) {
+        $this->city = $city;
         return $this;
     }
 
     /**
      * Get the value of state
      *
-     * @param boolean $debug
      *
      */
-    public function getState($debug = false) {
-        if ($debug) {
-            return base64_decode($this->state);
-        }
+    public function getState() {
         return $this->state;
     }
 
@@ -241,29 +199,20 @@ class Address implements JsonSerializable {
      * Set the value of state
      *
      * @param string  $state
-     * @param boolean $is_editable
      *
      * @return self
      */
-    public function setState($state, $is_editable = true) {
-        if ($is_editable) {
-            $this->state = base64_encode($state);
-        } else {
-            $this->state = $state;
-        }
+    public function setState($state) {
+        $this->state = $state;
         return $this;
     }
 
     /**
      * Get the value of country
      *
-     * @param boolean $debug
      *
      */
-    public function getCountry($debug = false) {
-        if ($debug) {
-            return base64_decode($this->country);
-        }
+    public function getCountry() {
         return $this->country;
     }
 
@@ -271,29 +220,20 @@ class Address implements JsonSerializable {
      * Set the value of country
      *
      * @param string  $country
-     * @param boolean $is_editable
      *
      * @return self
      */
-    public function setCountry($country, $is_editable = true) {
-        if ($is_editable) {
-            $this->country = base64_encode($country);
-        } else {
-            $this->country = $country;
-        }
+    public function setCountry($country) {
+        $this->country = $country;
         return $this;
     }
 
     /**
      * Get the value of latitude
      *
-     * @param boolean $debug
      *
      */
-    public function getLatitude($debug = false) {
-        if ($debug) {
-            return base64_decode($this->latitude);
-        }
+    public function getLatitude() {
         return $this->latitude;
     }
 
@@ -301,29 +241,19 @@ class Address implements JsonSerializable {
      * Set the value of latitude
      *
      * @param string  $latitude
-     * @param boolean $is_editable
      *
      * @return self
      */
-    public function setLatitude($latitude, $is_editable = true) {
-        if ($is_editable) {
-            $this->latitude = base64_encode($latitude);
-        } else {
-            $this->latitude = $latitude;
-        }
+    public function setLatitude($latitude) {
+        $this->latitude = $latitude;
         return $this;
     }
 
     /**
      * Get the value of longitude
      *
-     * @param boolean $debug
-     *
      */
-    public function getLongitude($debug = false) {
-        if ($debug) {
-            return base64_decode($this->longitude);
-        }
+    public function getLongitude() {
         return $this->longitude;
     }
 
@@ -331,16 +261,11 @@ class Address implements JsonSerializable {
      * Set the value of longitude
      *
      * @param string  $longitude
-     * @param boolean $is_editable
      *
      * @return self
      */
-    public function setLongitude($longitude, $is_editable = true) {
-        if ($is_editable) {
-            $this->longitude = base64_encode($longitude);
-        } else {
-            $this->longitude = $longitude;
-        }
+    public function setLongitude($longitude) {
+        $this->longitude = $longitude;
         return $this;
     }
 
@@ -355,14 +280,14 @@ class Address implements JsonSerializable {
     */
     public function jsonSerialize() {
         $array = [
-            "address_street"    => $this->getStreet(),
-            "address_number"    => $this->getNumber(),
-            "address_zip_code"  => $this->getZipCode(),
-            "address_city"      => $this->getCity(),
-            "address_state"     => $this->getState(),
-            "address_country"   => $this->getCountry(),
-            "address_latitude"  => $this->getLatitude(),
-            "address_longitude" => $this->getLongitude()
+            "address_street"    => $this->encodeData($this->getStreet()),
+            "address_number"    => $this->encodeData($this->getNumber()),
+            "address_zip_code"  => $this->encodeData($this->getZipCode()),
+            "address_city"      => $this->encodeData($this->getCity()),
+            "address_state"     => $this->encodeData($this->getState()),
+            "address_country"   => $this->encodeData($this->getCountry()),
+            "address_latitude"  => $this->encodeData($this->getLatitude()),
+            "address_longitude" => $this->encodeData($this->getLongitude())
         ];
 
         return $array;

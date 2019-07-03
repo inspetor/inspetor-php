@@ -21,10 +21,13 @@
 namespace Inspetor\Model;
 
 use Inspetor\Exception\ModelException\AccountException;
+use Inspetor\Exception\ModelException\AddressException;
 use Inspetor\Model\Address;
+use Inspetor\Model\AbstractModel;
 use JsonSerializable;
+use Rhumsaa\Uuid\Console\Exception;
 
-class Account implements JsonSerializable {
+class Account extends AbstractModel implements JsonSerializable {
 
     const ACCOUNT_CREATE_ACTION = "account_create";
     const ACCOUNT_UPDATE_ACTION = "account_update";
@@ -105,14 +108,9 @@ class Account implements JsonSerializable {
     /**
      * Get the value of id
      *
-     * @param boolean $debug
-     *
      * @return string
      */
-    public function getId($debug = false) {
-        if ($debug) {
-            return base64_decode($this->id);
-        }
+    public function getId() {
         return $this->id;
     }
 
@@ -120,30 +118,20 @@ class Account implements JsonSerializable {
      * Set the value of id
      *
      * @param string  $id
-     * @param boolean $is_editable
      *
      * @return self
      */
-    public function setId($id, $is_editable = false) {
-        if ($is_editable) {
-            $this->id = base64_encode($id);
-        } else {
-            $this->id = $id;
-        }
+    public function setId($id) {
+        $this->id = $id;
         return $this;
     }
 
     /**
      * Get the value of name
      *
-     * @param boolean $debug
-     *
      * @return string
      */
-    public function getName($debug = false) {
-        if ($debug) {
-            return base64_decode($this->name);
-        }
+    public function getName() {
         return $this->name;
     }
 
@@ -151,30 +139,20 @@ class Account implements JsonSerializable {
      * Set the value of name
      *
      * @param string  $name
-     * @param boolean $is_editable
      *
      * @return self
      */
-    public function setName($name, $is_editable = true) {
-        if ($is_editable) {
-            $this->name = base64_encode($name);
-        } else {
-            $this->name = $name;
-        }
+    public function setName($name) {
+        $this->name = $name;
         return $this;
     }
 
     /**
      * Get the value of email
      *
-     * @param boolean $debug
-     *
      * @return string
      */
-    public function getEmail($debug = false) {
-        if ($debug) {
-            return base64_decode($this->email);
-        }
+    public function getEmail() {
         return $this->email;
     }
 
@@ -182,30 +160,20 @@ class Account implements JsonSerializable {
      * Set the value of email
      *
      * @param string  $email
-     * @param boolean $is_editable
      *
      * @return self
      */
-    public function setEmail($email, $is_editable = true) {
-        if ($is_editable) {
-            $this->email = base64_encode($email);
-        } else {
-            $this->email = $email;
-        }
+    public function setEmail($email) {
+        $this->email = $email;
         return $this;
     }
 
     /**
      * Get the value of document
      *
-     * @param boolean $debug
-     *
      * @return string
      */
-    public function getDocument($debug = false) {
-        if ($debug) {
-            return base64_decode($this->document);
-        }
+    public function getDocument() {
         return $this->document;
     }
 
@@ -213,30 +181,20 @@ class Account implements JsonSerializable {
      * Set the value of document
      *
      * @param string  $document
-     * @param boolean $is_editable
      *
      * @return self
      */
-    public function setDocument($document, $is_editable = true) {
-        if ($is_editable) {
-            $this->document = base64_encode($document);
-        } else {
-            $this->document = $document;
-        }
+    public function setDocument($document) {
+        $this->document = $document;
         return $this;
     }
 
     /**
      * Get the value of phone_number
      *
-     * @param boolean $debug
-     *
      * @return string
      */
-    public function getPhoneNumber($debug = false) {
-        if ($debug) {
-            return base64_decode($this->phone_number);
-        }
+    public function getPhoneNumber() {
         return $this->phone_number;
     }
 
@@ -244,16 +202,11 @@ class Account implements JsonSerializable {
      * Set the value of phone_number
      *
      * @param string  $phone_number
-     * @param boolean $is_editable
      *
      * @return self
      */
-    public function setPhoneNumber($phone_number, $is_editable = true) {
-        if ($is_editable) {
-            $this->phone_number = base64_encode($phone_number);
-        } else {
-            $this->phone_number = $phone_number;
-        }
+    public function setPhoneNumber($phone_number) {
+        $this->phone_number = $phone_number;
         return $this;
     }
 
@@ -274,6 +227,9 @@ class Account implements JsonSerializable {
      * @return self
      */
     public function setAddress($address) {
+        if ($address) {
+            $address->isValid();
+        }
         $this->address = $address;
         return $this;
     }
@@ -311,12 +267,14 @@ class Account implements JsonSerializable {
     /**
      * Set the value of update_timestamp
      *
-     * @param string $update_timestamp
+     * @param integer $update_timestamp
      *
      * @return self
      */
     public function setUpdateTimestamp($update_timestamp) {
-        $this->update_timestamp = $update_timestamp;
+        $this->update_timestamp = $this->inspetorDateFormatter(
+            $update_timestamp
+        );
         return $this;
     }
 
@@ -332,12 +290,12 @@ class Account implements JsonSerializable {
     /**
      * Set the value of creation_timestamp
      *
-     * @param string $update_timestamp
+     * @param integer $update_timestamp
      *
      * @return self
      */
     public function setCreationTimestamp($creation_timestamp) {
-        $this->create_function = $creation_timestamp;
+        $this->creation_timestamp = $creation_timestamp;
         return $this;
     }
 
@@ -352,19 +310,15 @@ class Account implements JsonSerializable {
     */
     public function jsonSerialize() {
         $array = [
-            "account_id"                 => $this->getId(),
-            "account_name"               => $this->getName(),
-            "account_email"              => $this->getEmail(),
-            "account_document"           => $this->getDocument(),
-            "account_address"            => $this->getAddress()
-                                            ? $this->getAddress()->jsonSerialize()
-                                            : null,
-            "account_billing_address"    => $this->getBillingAddress()
-                                            ?  $this->getBillingAddress()->jsonSerialize()
-                                            : null,
-            "account_creation_timestamp" => $this->getCreationTimestamp(),
-            "account_update_timestamp"   => $this->getUpdateTimestamp(),
-            "account_phone_number"       => $this->getPhoneNumber()
+            "account_id"                 => $this->encodeData($this->getId()),
+            "account_name"               => $this->encodeData($this->getName()),
+            "account_email"              => $this->encodeData($this->getEmail()),
+            "account_document"           => $this->encodeData($this->getDocument()),
+            "account_address"            => $this->encodeObject($this->getAddress()),
+            "account_billing_address"    => $this->encodeObject($this->getBillingAddress()),
+            "account_creation_timestamp" => $this->encodeData($this->getCreationTimestamp()),
+            "account_update_timestamp"   => $this->encodeData($this->getUpdateTimestamp()),
+            "account_phone_number"       => $this->encodeData($this->getPhoneNumber())
         ];
 
         return $array;

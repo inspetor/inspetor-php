@@ -21,9 +21,10 @@
 namespace Inspetor\Model;
 
 use Inspetor\Exception\ModelException\PassRecoveryException;
+use Inspetor\Model\AbstractModel;
 use JsonSerializable;
 
-class PassRecovery implements JsonSerializable {
+class PassRecovery extends AbstractModel implements JsonSerializable {
 
     const PASSWORD_RESET_ACTION    = "password_reset";
     const PASSWORD_RECOVERY_ACTION = "password_recovery";
@@ -54,10 +55,10 @@ class PassRecovery implements JsonSerializable {
      */
     public function isValid() {
         if (!$this->recovery_email) {
-            throw new PassRecoveryException(7701);
+            throw new PassRecoveryException(7001);
         }
         if (!$this->timestamp) {
-            throw new PassRecoveryException(7702);
+            throw new PassRecoveryException(7002);
         }
     }
 
@@ -68,14 +69,10 @@ class PassRecovery implements JsonSerializable {
 	/**
 	 * Get the value of recovery_email
 	 *
-	 * @param boolean $debug  If set as true will decode the value
 	 *
 	 * @return string
 	 */
-	public function getRecoveryEmail($debug = false) {
-        if ($debug) {
-            return base64_decode($this->recovery_email);
-        }
+	public function getRecoveryEmail() {
 		return $this->recovery_email;
     }
 
@@ -83,23 +80,16 @@ class PassRecovery implements JsonSerializable {
 	 * Set the value of recovery_email
 	 *
 	 * @param string  $recovery_email
-	 * @param boolean $is_editable  If set as true will encode the value
 	 *
 	 * @return  self
 	 */
-	public function setRecoveryEmail($recovery_email, $is_editable = true) {
-        if ($is_editable) {
-            $this->recovery_email = base64_encode($recovery_email);
-        } else {
-            $this->recovery_email = $recovery_email;
-        }
+	public function setRecoveryEmail($recovery_email) {
+        $this->recovery_email = $recovery_email;
 		return $this;
     }
 
 	/**
 	 * Get the value of timestamp
-	 *
-	 * @param boolean $debug  If set as true will decode the value
 	 *
 	 * @return string
 	 */
@@ -111,12 +101,13 @@ class PassRecovery implements JsonSerializable {
 	 * Set the value of timestamp
 	 *
 	 * @param string  $timestamp
-	 * @param boolean $is_editable  If set as true will encode the value
 	 *
 	 * @return  self
 	 */
 	public function setTimestamp($timestamp) {
-        $this->timestamp = $timestamp;
+        $this->timestamp = $this->inspetorDateFormatter(
+            $timestamp
+        );
 		return $this;
     }
 
@@ -130,8 +121,8 @@ class PassRecovery implements JsonSerializable {
     */
     public function jsonSerialize() {
         $array = [
-            "pass_recovery_email" => $this->getRecoveryEmail(),
-            "pass_recovery_timestamp" => $this->getTimestamp()
+            "pass_recovery_email"     => $this->encodeData($this->getRecoveryEmail()),
+            "pass_recovery_timestamp" => $this->encodeData($this->getTimestamp())
         ];
 
         return $array;

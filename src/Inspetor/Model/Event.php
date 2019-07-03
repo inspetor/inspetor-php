@@ -20,16 +20,17 @@
 
 namespace Inspetor\Model;
 
-use Inspetor\Exception\ModelExceptions\EventException;
+use Inspetor\Exception\ModelException\EventException;
 use Inspetor\Model\Address;
 use Inspetor\Model\Category;
+use Inspetor\Model\AbstractModel;
 use JsonSerializable;
 
-class Event implements JsonSerializable {
+class Event extends AbstractModel implements JsonSerializable {
 
-	const CREATE_ACTION = "event_create";
-	const UPDATE_ACTION = "event_update";
-	const DELETE_ACTION = "event_delete";
+	const EVENT_CREATE_ACTION = "event_create";
+	const EVENT_UPDATE_ACTION = "event_update";
+	const EVENT_DELETE_ACTION = "event_delete";
 
     const DRAFT_STATUS     = "draft";
     const PRIVATE_STATUS   = "private";
@@ -122,42 +123,39 @@ class Event implements JsonSerializable {
      */
     public function isValid() {
         if (!$this->id) {
-            throw new EventException(7501);
+            throw new EventException(7001);
         }
 
-		if (!$this->creation_timestamp) {
-            throw new EventException(7502);
-		}
-
 		if (!$this->name) {
-            throw new EventException(7503);
+            throw new EventException(7002);
         }
 
         if (!$this->update_timestamp) {
-            throw new EventException(7504);
+            throw new EventException(7003);
 		}
 
         if (!$this->producer_id) {
-            throw new EventException(7505);
+            throw new EventException(7004);
 		}
 
 		if (!$this->address) {
-            throw new EventException(7506);
+            throw new EventException(7005);
 		}
 
 		if (!$this->sessions || empty($this->sessions)) {
-            throw new EventException(7507);
+            throw new EventException(7006);
 		}
 
 		if (!$this->seating_options || empty($this->seating_options)) {
-            throw new EventException(7508);
+            throw new EventException(7007);
 		}
+		
         if (!$this->categories || empty($this->categories)) {
-            throw new EventException(7509);
+            throw new EventException(7008);
         }
 
 		if (!$this->status) {
-			throw new EventException(7510);
+			throw new EventException(7009);
 		}
 
 		$this->validateStatus();
@@ -170,14 +168,14 @@ class Event implements JsonSerializable {
 	 */
     private function validateStatus() {
         $all_status = [
-            self::STATUS_DRAFT,
-            self::STATUS_PRIVATE,
-            self::STATUS_PUBLISHED,
+            self::DRAFT_STATUS,
+            self::PRIVATE_STATUS,
+            self::PUBLISHED_STATUS,
         ];
 
         if (!in_array($this->status, $all_status)) {
-            $this->setOtherStatus(base64_encode($this->status));
-            $this->setStatus(self::STATUS_OTHER);
+            $this->setOtherStatus($this->status);
+            $this->setStatus(self::OTHER_STATUS);
         }
     }
 
@@ -189,14 +187,10 @@ class Event implements JsonSerializable {
 	/**
 	 * Get the value of id
      *
-     * @param boolean $debug
      *
 	 * @return string
 	 */
-	public function getId($debug = false) {
-        if ($debug) {
-            return base64_decode($this->id);
-        }
+	public function getId() {
 		return $this->id;
     }
 
@@ -204,30 +198,21 @@ class Event implements JsonSerializable {
 	 * Set the value of id
      *
 	 * @param string  $id
-     * @param boolean $is_editable
      *
 	 * @return self
 	 */
-	public function setId($id, $is_editable = false) {
-        if ($is_editable) {
-            $this->id = base64_encode($id);
-        } else {
-            $this->id = $id;
-        }
+	public function setId($id) {
+        $this->id = $id;
 		return $this;
 	}
 
 	/**
 	 * Get the value of name
      *
-     * @param boolean $debug
      *
 	 * @return string
 	 */
-	public function getName($debug = false) {
-        if ($debug) {
-            return base64_decode($this->name);
-        }
+	public function getName() {
 		return $this->name;
     }
 
@@ -235,30 +220,20 @@ class Event implements JsonSerializable {
 	 * Set the value of name
 	 *
 	 * @param string  $name
-     * @param boolean $is_editable
 	 *
 	 * @return self
 	 */
-	public function setName($name, $is_editable = true) {
-        if ($is_editable) {
-            $this->name = base64_encode($name);
-        } else {
-            $this->name = $name;
-        }
+	public function setName($name) {
+        $this->name = $name;
 		return $this;
 	}
 
 	/**
 	 * Get the value of description
      *
-     * @param boolean $debug
-     *
 	 * @return string
 	 */
-	public function getDescription($debug = false) {
-        if ($debug) {
-            return base64_decode($this->description);
-        }
+	public function getDescription() {
 		return $this->description;
     }
 
@@ -266,16 +241,11 @@ class Event implements JsonSerializable {
 	 * Set the value of description
 	 *
 	 * @param string  $description
-     * @param boolean $is_editable
 	 *
 	 * @return self
 	 */
-	public function setDescription($description, $is_editable = true) {
-        if ($is_editable) {
-            $this->description = base64_encode($description);
-        } else {
-            $this->description = $description;
-        }
+	public function setDescription($description) {
+        $this->description = $description;
 		return $this;
 	}
 
@@ -296,7 +266,9 @@ class Event implements JsonSerializable {
      * @return self
      */
     public function setUpdateTimestamp($update_timestamp) {
-        $this->update_timestamp = $update_timestamp;
+        $this->update_timestamp = $this->inspetorDateFormatter(
+			$update_timestamp
+		);
         return $this;
     }
 
@@ -317,7 +289,7 @@ class Event implements JsonSerializable {
      * @return self
      */
     public function setCreationTimestamp($creation_timestamp) {
-        $this->create_function = $creation_timestamp;
+        $this->creation_timestamp = $creation_timestamp;
         return $this;
     }
 
@@ -338,7 +310,18 @@ class Event implements JsonSerializable {
 	 * @return self
 	 */
 	public function setSessions($sessions) {
-        $this->sessions = $sessions;
+		if ($sessions) {
+			foreach($sessions as $session) {
+				if (!is_array($session)) {
+					throw new EventException(7010);
+				}
+				if (!array_key_exists("id", $session)
+				|| !array_key_exists("timestamp", $session)){
+					throw new EventException(7011);
+				}
+			}
+		}
+		$this->sessions = $sessions;
 		return $this;
 	}
 
@@ -373,18 +356,6 @@ class Event implements JsonSerializable {
     }
 
 	/**
-	 * Set the value of other status
-	 *
-	 * @param string $status
-	 *
-	 * @return self
-	 */
-	public function setOtherStatus($status_other) {
-        $this->status_other = $status_other;
-		return $this;
-	}
-
-	/**
 	 * Get the value of categories
 	 *
 	 * @return array
@@ -401,7 +372,12 @@ class Event implements JsonSerializable {
 	 * @return self
 	 */
 	public function setCategories($categories) {
-        $this->categories = $categories;
+		if ($categories) {
+			foreach ($categories as $category) {
+				$category->isValid();
+			}
+		}
+		$this->categories = $categories;
 		return $this;
 	}
 
@@ -423,21 +399,19 @@ class Event implements JsonSerializable {
 	 * @return self
 	 */
 	public function setAddress($address) {
-        $this->address = $address;
+		if ($address) {
+			$address->isValid();
+		}
+		$this->address = $address;
 		return $this;
 	}
 
 	/**
 	 * Get the value of url
 	 *
-	 * @param boolean $debug
-	 *
 	 * @return string
 	 */
-	public function getUrl($debug = false) {
-        if ($debug) {
-            return base64_decode($this->url);
-        }
+	public function getUrl() {
 		return $this->url;
     }
 
@@ -445,30 +419,23 @@ class Event implements JsonSerializable {
 	 * Set the value of url
 	 *
      * @param string  $url
-     * @param boolean $is_editable
+     *
 	 *
 	 * @return self
 	 */
-	public function setUrl($url, $is_editable = true) {
-        if ($is_editable) {
-            $this->url = base64_encode($url);
-        } else {
-            $this->url = $url;
-        }
+	public function setUrl($url) {
+        $this->url = $url;
 		return $this;
 	}
 
 	/**
 	 * Get the value of producer_id
 	 *
-	 * @param boolean $debug
+	 *
 	 *
 	 * @return string
 	 */
-	public function getProducerId($debug = false) {
-        if ($debug) {
-            return base64_decode($this->producer_id);
-        }
+	public function getProducerId() {
 		return $this->producer_id;
     }
 
@@ -476,35 +443,23 @@ class Event implements JsonSerializable {
 	 * Set the value of producer_id
 	 *
 	 * @param string  $producer_id
-     * @param boolean $is_editable
+     *
 	 *
 	 * @return self
 	 */
-	public function setProducerId($producer_id, $is_editable = false) {
-        if ($is_editable) {
-            $this->producer_id = base64_encode($producer_id);
-        } else {
-            $this->producer_id = $producer_id;
-        }
+	public function setProducerId($producer_id) {
+        $this->producer_id = $producer_id;
 		return $this;
 	}
 
 	/**
 	 * Get the value of admins_id
 	 *
-	 * @param boolean $debug
+	 *
 	 *
 	 * @return array
 	 */
-	public function getAdminsId($debug = false) {
-		if ($debug) {
-			$admins = array();
-            foreach ($this->admins_id as $admin) {
-				$admin = base64_decode($admin);
-				array_push($admins, $admin);
-			}
-			return $admins;
-        }
+	public function getAdminsId() {
 		return $this->admins_id;
     }
 
@@ -515,26 +470,18 @@ class Event implements JsonSerializable {
 	 *
 	 * @return self
 	 */
-	public function setAdminsId($admins_id, $is_editable = false) {
-        if ($is_editable) {
-            $this->admins_id = base64_encode($admins_id);
-        } else {
-            $this->admins_id = $admins_id;
-        }
+	public function setAdminsId($admins_id) {
+        $this->admins_id = $admins_id;
 		return $this;
 	}
 
 	/**
 	 * Get the value of seating_options
 	 *
-	 * @param boolean $debug  If set as true will decode the value
 	 *
 	 * @return array
 	 */
-	public function getSeatingOptions($debug = false) {
-        if ($debug) {
-            return base64_decode($this->seating_options);
-        }
+	public function getSeatingOptions() {
 		return $this->seating_options;
     }
 
@@ -542,16 +489,16 @@ class Event implements JsonSerializable {
 	 * Set the value of seating_options
 	 *
 	 * @param array   $seating_options
-	 * @param boolean $is_editable  If set as true will encode the value
 	 *
 	 * @return self
 	 */
-	public function setSeatingOptions($seating_options, $is_editable = true) {
-        if ($is_editable) {
-            $this->seating_options = base64_encode($seating_options);
-        } else {
-            $this->seating_options = $seating_options;
-        }
+	public function setSeatingOptions($seating_options) {
+		if ($seating_options) {
+			if (!is_array($seating_options)) {
+				throw new EventException(7012);
+			}
+		}
+		$this->seating_options = $seating_options;
 		return $this;
 	}
 
@@ -565,20 +512,20 @@ class Event implements JsonSerializable {
     */
     public function jsonSerialize() {
         $array = [
-            "event_id"                 => $this->getId(),
-            "event_name"               => $this->getName(),
-            "event_description"        => $this->getDescription(),
-            "event_creation_timestamp" => $this->getCreationTimestamp(),
-            "event_update_timestamp"   => $this->getUpdateTimestamp(),
-            "event_sessions"           => $this->getSessions()->jsonSerialize(),
-            "event_status"             => $this->getStatus(),
-			"event_status_other"       => $this->getOtherStatus(),
-			"event_seating_options"    => $this->getSeatingOptions(),
-            "event_categories"         => $this->getCategories()->jsonSerialize(),
-            "event_address"            => $this->getAddress()->jsonSerialize(),
-            "event_url"                => $this->getUrl(),
-            "event_producer_id"        => $this->getProducerId(),
-            "event_admins_id"          => $this->getAdminsId()
+            "event_id"                 => $this->encodeData($this->getId()),
+            "event_name"               => $this->encodeData($this->getName()),
+            "event_description"        => $this->encodeData($this->getDescription()),
+            "event_creation_timestamp" => $this->encodeData($this->getCreationTimestamp()),
+            "event_update_timestamp"   => $this->encodeData($this->getUpdateTimestamp()),
+            "event_sessions"           => $this->encodeArray($this->getSessions(), false),
+            "event_status"             => $this->encodeData($this->getStatus()),
+			"event_status_other"       => $this->encodeData($this->getOtherStatus()),
+			"event_seating_options"    => $this->encodeArray($this->getSeatingOptions(), false),
+            "event_categories"         => $this->encodeArray($this->getCategories(), true),
+            "event_address"            => $this->encodeObject($this->getAddress()),
+            "event_url"                => $this->encodeData($this->getUrl()),
+            "event_producer_id"        => $this->encodeData($this->getProducerId()),
+            "event_admins_id"          => $this->encodeArray($this->getAdminsId(), false)
         ];
 
         return $array;

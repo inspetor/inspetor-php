@@ -21,9 +21,10 @@
 namespace Inspetor\Model;
 
 use Inspetor\Exception\ModelException\ItemException;
+use Inspetor\Model\AbstractModel;
 use JsonSerializable;
 
-class Item implements JsonSerializable {
+class Item extends AbstractModel implements JsonSerializable {
 
     /**
      * PROPERTIES
@@ -54,6 +55,10 @@ class Item implements JsonSerializable {
 	 */
 	private $seating_option;
 
+	/**
+	 * @param string
+	 */
+	private $quantity;
 
     /**
      * ISVALID
@@ -66,19 +71,27 @@ class Item implements JsonSerializable {
      */
     public function isValid() {
         if (!$this->id) {
-            throw new ItemException(7601);
+            throw new ItemException(7001);
         }
-        if (!$this->event_id) {
-            throw new ItemException(7602);
+
+		if (!$this->event_id) {
+            throw new ItemException(7002);
         }
-        if (!$this->session_id) {
-            throw new ItemException(7603);
+
+		if (!$this->session_id) {
+            throw new ItemException(7003);
         }
-        if (!$this->price) {
-            throw new ItemException(7604);
+
+		if (!$this->price) {
+            throw new ItemException(7004);
         }
-        if (!$this->seating_option) {
-            throw new ItemException(7605);
+
+		if (!$this->seating_option) {
+            throw new ItemException(7005);
+		}
+
+		if (!$this->quantity) {
+            throw new ItemException(7007);
         }
     }
 
@@ -89,14 +102,10 @@ class Item implements JsonSerializable {
 	/**
 	 * Get the value of id
 	 *
-	 * @param boolean $debug  If set as true will decode the value
 	 *
 	 * @return string
 	 */
-	public function getId($debug = false) {
-        if ($debug) {
-            return base64_decode($this->id);
-        }
+	public function getId() {
 		return $this->id;
     }
 
@@ -104,30 +113,20 @@ class Item implements JsonSerializable {
 	 * Set the value of id
 	 *
 	 * @param mixed   $id
-	 * @param boolean $is_editable  If set as true will encode the value
 	 *
 	 * @return self
 	 */
-	public function setId($id, $is_editable = false) {
-        if ($is_editable) {
-            $this->id = base64_encode($id);
-        } else {
-            $this->id = $id;
-        }
+	public function setId($id) {
+        $this->id = $id;
 		return $this;
 	}
 
 	/**
 	 * Get the value of event_id
 	 *
-	 * @param boolean $debug  If set as true will decode the value
-	 *
 	 * @return string
 	 */
-	public function getEventId($debug = false) {
-        if ($debug) {
-            return base64_decode($this->event_id);
-        }
+	public function getEventId() {
 		return $this->event_id;
     }
 
@@ -135,30 +134,21 @@ class Item implements JsonSerializable {
 	 * Set the value of event_id
 	 *
 	 * @param string  $event_id
-	 * @param boolean $is_editable  If set as true will encode the value
 	 *
 	 * @return self
 	 */
-	public function setEventId($event_id, $is_editable = false) {
-        if ($is_editable) {
-            $this->event_id = base64_encode($event_id);
-        } else {
-            $this->event_id = $event_id;
-        }
+	public function setEventId($event_id) {
+        $this->event_id = $event_id;
 		return $this;
 	}
 
 	/**
 	 * Get the value of session_id
 	 *
-	 * @param boolean $debug  If set as true will decode the value
 	 *
 	 * @return string
 	 */
-	public function getSessionId($debug = false) {
-        if ($debug) {
-            return base64_decode($this->session_id);
-        }
+	public function getSessionId() {
 		return $this->session_id;
     }
 
@@ -166,16 +156,11 @@ class Item implements JsonSerializable {
 	 * Set the value of session_id
 	 *
 	 * @param string  $session_id
-	 * @param boolean $is_editable  If set as true will encode the value
 	 *
 	 * @return self
 	 */
-	public function setSessionId($session_id, $is_editable = true) {
-        if ($is_editable) {
-            $this->session_id = base64_encode($session_id);
-        } else {
-            $this->session_id = $session_id;
-        }
+	public function setSessionId($session_id) {
+        $this->session_id = $session_id;
 		return $this;
 	}
 
@@ -192,7 +177,6 @@ class Item implements JsonSerializable {
 	 * Set the value of price
 	 *
 	 * @param string  $price
-	 * @param boolean $is_editable  If set as true will encode the value
 	 *
 	 * @return self
 	 */
@@ -200,7 +184,7 @@ class Item implements JsonSerializable {
 		$price = $this->convertToValidPrice($price);
 
 		if (!$price) {
-            throw new ItemException(7606);
+            throw new ItemException(7006);
 		}
 
 		$this->price = $price;
@@ -211,14 +195,10 @@ class Item implements JsonSerializable {
 	/**
 	 * Get the value of seating_option
 	 *
-	 * @param boolean $debug  If set as true will decode the value
 	 *
 	 * @return string
 	 */
-	public function getSeatingOption($debug = false) {
-        if ($debug) {
-            return base64_decode($this->seating_option);
-        }
+	public function getSeatingOption() {
 		return $this->seating_option;
     }
 
@@ -226,18 +206,34 @@ class Item implements JsonSerializable {
 	 * Set the value of seating_option
 	 *
 	 * @param string  $seating_option
-	 * @param boolean $is_editable  If set as true will encode the value
 	 *
 	 * @return self
 	 */
-	public function setSeatingOption($seating_option, $is_editable = true) {
-        if ($is_editable) {
-            $this->seating_option = base64_encode($seating_option);
-        } else {
-            $this->seating_option = $seating_option;
-        }
+	public function setSeatingOption($seating_option) {
+        $this->seating_option = $seating_option;
 		return $this;
+	}
+	
+	/**
+	 * Get the value of quantity
+	 * 
+	 * @return  string
+	 */
+	public function getQuantity() {
+		return $this->quantity;
     }
+
+	/**
+	 * Set the value of quantity
+	 *
+	 * @param   string  $quantity  
+	 * 
+	 * @return  self
+	 */
+	public function setQuantity($quantity) {
+        $this->quantity = $quantity;
+		return $this;
+	}
 
     /**
      * JSONSERIALIZE
@@ -249,11 +245,12 @@ class Item implements JsonSerializable {
     */
     public function jsonSerialize() {
         $array = [
-            "item_id" => $this->getId(),
-            "item_event_id" => $this->getEventId(),
-            "item_session_id" => $this->getSessionId(),
-            "item_price" => $this->getPrice(),
-            "item_seating_option" => $this->getSeatingOption()
+            "item_id"             => $this->encodeData($this->getId()),
+            "item_event_id"       => $this->encodeData($this->getEventId()),
+            "item_session_id"     => $this->encodeData($this->getSessionId()),
+            "item_price"          => $this->encodeData($this->getPrice()),
+			"item_seating_option" => $this->encodeData($this->getSeatingOption()),
+			"item_quantity"       => $this->encodeData($this->getQuantity())
         ];
 
         return $array;

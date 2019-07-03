@@ -9,7 +9,7 @@ class CategoryException extends ExceptionAbstract {
     /**
      * Category of Exception
      */
-    const CATEGORY = 7300;
+    const CATEGORY = 7000;
 
     /**
      * Description of Exception

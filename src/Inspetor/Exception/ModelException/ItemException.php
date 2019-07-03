@@ -9,7 +9,7 @@ class ItemException extends ExceptionAbstract {
     /**
      * Category of Exception
      */
-    const CATEGORY = 7600;
+    const CATEGORY = 7000;
 
     /**
      * Description of Exception
@@ -30,7 +30,8 @@ class ItemException extends ExceptionAbstract {
         3 => "session_id is a required property. It can't be null.",
         4 => "price is a required property. It can't be null.",
         5 => "seating_option is a required property. It can't be null.",
-        6 => "price is not valid."
+        6 => "price is not valid.",
+        7 => "quantity is a required property. It can't be null."
     );
 
     /**

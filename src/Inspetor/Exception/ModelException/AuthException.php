@@ -9,7 +9,7 @@ class AuthException extends ExceptionAbstract {
     /**
      * Category of Exception
      */
-    const CATEGORY = 7200;
+    const CATEGORY = 7000;
 
     /**
      * Description of Exception

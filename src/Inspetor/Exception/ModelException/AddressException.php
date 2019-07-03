@@ -9,7 +9,7 @@ class AddressException extends ExceptionAbstract {
     /**
      * Category of Exception
      */
-    const CATEGORY = 7100;
+    const CATEGORY = 7000;
 
     /**
      * Description of Exception
