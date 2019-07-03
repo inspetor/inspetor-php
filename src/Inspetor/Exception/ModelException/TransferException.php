@@ -9,7 +9,7 @@ class TransferException extends ExceptionAbstract {
     /**
      * Category of Exception
      */
-    const CATEGORY = 8000;
+    const CATEGORY = 7000;
 
     /**
      * Description of Exception

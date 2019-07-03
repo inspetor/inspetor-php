@@ -93,37 +93,33 @@ class Sale extends AbstractModel implements JsonSerializable {
      */
     public function isValid() {
         if (!$this->id) {
-            throw new SaleException(7901);
+            throw new SaleException(7001);
         }
 
 		if (!$this->account_id) {
-            throw new SaleException(7902);
+            throw new SaleException(7002);
         }
 
 		if (!$this->status) {
-            throw new SaleException(7903);
+            throw new SaleException(7003);
         }
 
         $this->validateStatus();
 
 		if (!$this->is_fraud) {
-            throw new SaleException(7904);
-        }
-
-		if (!$this->creation_timestamp) {
-            throw new SaleException(7905);
+            throw new SaleException(7004);
         }
 
 		if (!$this->update_timestamp) {
-            throw new SaleException(7906);
+            throw new SaleException(7005);
         }
 
 		if (!$this->items || empty($this->items)) {
-            throw new SaleException(7907);
+            throw new SaleException(7006);
         }
 
 		if (!$this->payment) {
-            throw new SaleException(7908);
+            throw new SaleException(7007);
         }
 
         $this->setTotalValue();
@@ -144,7 +140,7 @@ class Sale extends AbstractModel implements JsonSerializable {
         ];
 
         if (!in_array($this->status, $all_status)) {
-            throw new SaleException(7909);
+            throw new SaleException(7008);
         }
     }
 
@@ -158,7 +154,7 @@ class Sale extends AbstractModel implements JsonSerializable {
             try {
                 $this->total_value += floatval($item->getPrice());
             } catch (Exception $e) {
-                throw new SaleException(7910);
+                throw new SaleException(7009);
             }
         }
     }
@@ -329,7 +325,10 @@ class Sale extends AbstractModel implements JsonSerializable {
 	 * @return self
 	 */
 	public function setItems($items) {
-        $this->items = $items;
+		foreach ($items as $item) {
+			$item->isValid();
+		}
+		$this->items = $items;
 		return $this;
 	}
 
@@ -350,7 +349,8 @@ class Sale extends AbstractModel implements JsonSerializable {
 	 * @return self
 	 */
 	public function setPayment($payment) {
-        $this->payment = $payment;
+		$payment->isValid();
+		$this->payment = $payment;
 		return $this;
     }
 

@@ -9,7 +9,7 @@ class PassRecoveryException extends ExceptionAbstract {
     /**
      * Category of Exception
      */
-    const CATEGORY = 7700;
+    const CATEGORY = 7000;
 
     /**
      * Description of Exception
