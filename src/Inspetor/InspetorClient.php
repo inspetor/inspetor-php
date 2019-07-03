@@ -54,6 +54,7 @@ class InspetorClient implements InspetorService {
         } catch (Exception $e) {
             throw $e;
         }
+        return true;
     }
 
     /**
@@ -71,6 +72,7 @@ class InspetorClient implements InspetorService {
         } catch (Exception $e) {
             throw $e;
         }
+        return true;
     }
 
     /**
@@ -88,6 +90,7 @@ class InspetorClient implements InspetorService {
         } catch (Exception $e) {
             throw $e;
         }
+        return true;
     }
 
     /**
@@ -105,6 +108,7 @@ class InspetorClient implements InspetorService {
         } catch (Exception $e) {
             throw $e;
         }
+        return true;
     }
 
     /**
@@ -122,6 +126,7 @@ class InspetorClient implements InspetorService {
         } catch (Exception $e) {
             throw $e;
         }
+        return true;
     }
 
     /**
@@ -139,6 +144,7 @@ class InspetorClient implements InspetorService {
         } catch (Exception $e) {
             throw $e;
         }
+        return true;
     }
 
     /**
@@ -156,6 +162,7 @@ class InspetorClient implements InspetorService {
         } catch (Exception $e) {
             throw $e;
         }
+        return true;
     }
 
     /**
@@ -173,6 +180,7 @@ class InspetorClient implements InspetorService {
         } catch (Exception $e) {
             throw $e;
         }
+        return true;
     }
 
     /**
@@ -190,6 +198,7 @@ class InspetorClient implements InspetorService {
         } catch (Exception $e) {
             throw $e;
         }
+        return true;
     }
 
     /**
@@ -207,6 +216,7 @@ class InspetorClient implements InspetorService {
         } catch (Exception $e) {
             throw $e;
         }
+        return true;
     }
 
     /**
@@ -224,6 +234,7 @@ class InspetorClient implements InspetorService {
         } catch (Exception $e) {
             throw $e;
         }
+        return true;
     }
 
     /**
@@ -241,6 +252,7 @@ class InspetorClient implements InspetorService {
         } catch (Exception $e) {
             throw $e;
         }
+        return true;
     }
 
     /**
@@ -258,6 +270,7 @@ class InspetorClient implements InspetorService {
         } catch (Exception $e) {
             throw $e;
         }
+        return true;
     }
 
     /**
@@ -275,6 +288,7 @@ class InspetorClient implements InspetorService {
         } catch (Exception $e) {
             throw $e;
         }
+        return true;
     }
 
     /**

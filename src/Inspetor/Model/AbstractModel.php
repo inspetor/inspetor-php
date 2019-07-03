@@ -35,10 +35,14 @@ class AbstractModel {
     protected function encodeArray(array $array, bool $is_object) {
         $encoded_array = [];
         foreach($array as $item) {
-            if ($is_object) {
-                array_push($encoded_array, $this->encodeObject($item));
+            if (is_array($item)) {
+                $this->encodeArray($item, false);
             } else {
-                array_push($encoded_array, $this->encodeData($item));
+                if ($is_object) {
+                    array_push($encoded_array, $this->encodeObject($item));
+                } else {
+                    array_push($encoded_array, $this->encodeData($item));
+                }
             }
         }
         return $encoded_array;
@@ -86,7 +90,7 @@ class AbstractModel {
             if (!((string) (int) $time === $time)
             && ($time <= PHP_INT_MAX)
             && ($time >= ~PHP_INT_MAX)){
-                throw new AbsctractException(6901);
+                throw new AbstractException(7001);
             }
         }
         date_default_timezone_set('UTC');

@@ -37,12 +37,40 @@ class Transfer extends AbstractModel implements JsonSerializable {
      * PROPERTIES
      */
 
-    var $id;
-    var $timestamp;
-    var $item_id;
-    var $sender_account_id;
-    var $receiver_email;
-    var $status;
+    /**
+	 * @param string
+	 */
+	private $id;
+
+    /**
+     * @param string
+     */
+    private $creation_timestamp;
+
+    /**
+     * @param string
+     */
+    private $update_timestamp;
+
+	/**
+	 * @param string
+	 */
+	private $item_id;
+
+	/**
+	 * @param string
+	 */
+	private $sender_account_id;
+
+	/**
+	 * @param string
+	 */
+	private $receiver_email;
+
+	/**
+	 * @param string
+	 */
+	private $status;
 
     /**
      * ISVALID
@@ -57,18 +85,23 @@ class Transfer extends AbstractModel implements JsonSerializable {
         if (!$this->id) {
             throw new TransferException(7001);
         }
-        if (!$this->timestamp) {
+
+        if (!$this->update_timestamp) {
             throw new TransferException(7002);
-        }
-        if (!$this->item_id) {
+		}
+
+		if (!$this->item_id) {
             throw new TransferException(7003);
         }
-        if (!$this->sender_account_id) {
+
+		if (!$this->sender_account_id) {
             throw new TransferException(7004);
         }
-        if (!$this->receiver_email) {
+
+		if (!$this->receiver_email) {
             throw new TransferException(7005);
-        }
+		}
+
         $this->validateStatus();
     }
 
@@ -112,30 +145,48 @@ class Transfer extends AbstractModel implements JsonSerializable {
 	}
 
 	/**
-	 * Get the value of timestamp
-	 *
-	 *
-	 * @return string
-	 */
-	public function getTimestamp() {
-		return $this->timestamp;
+     * Get the value of update_timestamp
+     *
+     * @return string
+     */
+    public function getUpdateTimestamp() {
+        return $this->update_timestamp;
     }
 
-	/**
-	 * Set the value of timestamp
-	 *
-	 * @param string  $timestamp
-	 *
-	 * @return self
-	 */
+    /**
+     * Set the value of update_timestamp
+     *
+     * @param integer $update_timestamp
+     *
+     * @return self
+     */
+    public function setUpdateTimestamp($update_timestamp) {
+        $this->update_timestamp = $this->inspetorDateFormatter(
+            $update_timestamp
+        );
+        return $this;
+    }
 
-	public function setTimestamp($timestamp) {
-        $this->timestamp = $this->inspetorDateFormatter(
-			$timestamp
-		);
-		return $this;
-	}
+    /**
+     * Get the value of creation_timestamp
+     *
+     * @return string
+     */
+    public function getCreationTimestamp() {
+        return $this->creation_timestamp;
+    }
 
+    /**
+     * Set the value of creation_timestamp
+     *
+     * @param integer $update_timestamp
+     *
+     * @return self
+     */
+    public function setCreationTimestamp($creation_timestamp) {
+        $this->creation_timestamp = $creation_timestamp;
+        return $this;
+    }
 	/**
 	 * Get the value of item_id
 	 *
@@ -233,12 +284,13 @@ class Transfer extends AbstractModel implements JsonSerializable {
     */
     public function jsonSerialize() {
         $array = [
-            "transfer_id"                => $this->encodeData($this->getId()),
-            "transfer_timestamp"         => $this->encodeData($this->getTimestamp()),
-            "transfer_item_id"           => $this->encodeData($this->getItemId()),
-            "transfer_sender_account_id" => $this->encodeData($this->getSenderAccountId()),
-            "transfer_receiver_email"    => $this->encodeData($this->getReceiverEmail()),
-            "transfer_status"            => $this->encodeData($this->getStatus())
+            "transfer_id"                 => $this->encodeData($this->getId()),
+            "transfer_creation_timestamp" => $this->encodeData($this->getUpdateTimestamp()),
+            "transfer_creation_timestamp" => $this->encodeData($this->getCreationTimestamp()),
+            "transfer_item_id"            => $this->encodeData($this->getItemId()),
+            "transfer_sender_account_id"  => $this->encodeData($this->getSenderAccountId()),
+            "transfer_receiver_email"     => $this->encodeData($this->getReceiverEmail()),
+            "transfer_status"             => $this->encodeData($this->getStatus())
         ];
 
         return $array;

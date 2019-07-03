@@ -289,9 +289,7 @@ class Event extends AbstractModel implements JsonSerializable {
      * @return self
      */
     public function setCreationTimestamp($creation_timestamp) {
-        $this->create_function = $this->inspetorDateFormatter(
-			$creation_timestamp
-		);
+        $this->creation_timestamp = $creation_timestamp;
         return $this;
     }
 
