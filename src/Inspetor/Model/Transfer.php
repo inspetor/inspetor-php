@@ -54,7 +54,7 @@ class Transfer extends AbstractModel implements JsonSerializable {
      * @return void
      */
     public function isValid () {
-        if (!$this->id == null) {
+        if (!$this->id) {
             throw new TransferException(7001);
         }
         if (!$this->timestamp) {
@@ -79,9 +79,9 @@ class Transfer extends AbstractModel implements JsonSerializable {
 	 */
     private function validateStatus() {
         $all_status = [
-            self::ACCEPTED,
-            self::PENDING,
-            self::REJECTED,
+            self::ACCEPTED_STATUS,
+            self::PENDING_STATUS,
+            self::REJECTED_STATUS,
         ];
 
         if (!in_array($this->status, $all_status)) {

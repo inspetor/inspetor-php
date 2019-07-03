@@ -20,7 +20,7 @@
 
 namespace Inspetor\Model;
 
-use Inspetor\Exception\ModelExceptions\EventException;
+use Inspetor\Exception\ModelException\EventException;
 use Inspetor\Model\Address;
 use Inspetor\Model\Category;
 use Inspetor\Model\AbstractModel;
@@ -149,6 +149,7 @@ class Event extends AbstractModel implements JsonSerializable {
 		if (!$this->seating_options || empty($this->seating_options)) {
             throw new EventException(7007);
 		}
+		
         if (!$this->categories || empty($this->categories)) {
             throw new EventException(7008);
         }
@@ -167,14 +168,14 @@ class Event extends AbstractModel implements JsonSerializable {
 	 */
     private function validateStatus() {
         $all_status = [
-            self::STATUS_DRAFT,
-            self::STATUS_PRIVATE,
-            self::STATUS_PUBLISHED,
+            self::DRAFT_STATUS,
+            self::PRIVATE_STATUS,
+            self::PUBLISHED_STATUS,
         ];
 
         if (!in_array($this->status, $all_status)) {
             $this->setOtherStatus($this->status);
-            $this->setStatus(self::STATUS_OTHER);
+            $this->setStatus(self::OTHER_STATUS);
         }
     }
 
@@ -357,18 +358,6 @@ class Event extends AbstractModel implements JsonSerializable {
     }
 
 	/**
-	 * Set the value of other status
-	 *
-	 * @param string $status
-	 *
-	 * @return self
-	 */
-	public function setOtherStatus($status_other) {
-        $this->status_other = $status_other;
-		return $this;
-	}
-
-	/**
 	 * Get the value of categories
 	 *
 	 * @return array
@@ -506,9 +495,12 @@ class Event extends AbstractModel implements JsonSerializable {
 	 * @return self
 	 */
 	public function setSeatingOptions($seating_options) {
-		if (!is_array($seating_options)) {
-			throw new EventException(7012);
+		if ($seating_options) {
+			if (!is_array($seating_options)) {
+				throw new EventException(7012);
+			}
 		}
+		$this->seating_options = $seating_options;
 		return $this;
 	}
 

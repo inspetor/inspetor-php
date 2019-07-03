@@ -25,6 +25,7 @@ use Inspetor\Exception\ModelException\AddressException;
 use Inspetor\Model\Address;
 use Inspetor\Model\AbstractModel;
 use JsonSerializable;
+use Rhumsaa\Uuid\Console\Exception;
 
 class Account extends AbstractModel implements JsonSerializable {
 
@@ -228,8 +229,8 @@ class Account extends AbstractModel implements JsonSerializable {
     public function setAddress($address) {
         if ($address) {
             $address->isValid();
-            $this->address = $address;
         }
+        $this->address = $address;
         return $this;
     }
 
