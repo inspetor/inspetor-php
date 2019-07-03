@@ -188,6 +188,11 @@ class InspetorResource implements InspetorResourceService {
             Transfer::TRANSFER_UPDATE_STATUS_ACTION
         ];
 
+        if ($action == Transfer::TRANSFER_CREATE_ACTION) {
+            $data->setCreationTimestamp(
+                $data->getUpdateTimestamp()
+            );
+        }
 
         if (!in_array($action, $valid_actions)) {
             throw new TrackerException(9006);

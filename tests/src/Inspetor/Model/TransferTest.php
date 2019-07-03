@@ -11,7 +11,8 @@ class TransferTest extends TestCase {
     private function getDefaultTransfer() {
         $transfer = new Transfer();
         $transfer->setId("123");
-        $transfer->setTimestamp($this->getNormalizedTime());
+        $transfer->setCreationTimestamp($this->getNormalizedTime());
+        $transfer->setUpdateTimestamp($this->getNormalizedTime());
         $transfer->setItemId("123");
         $transfer->setSenderAccountId("123");
         $transfer->setReceiverEmail("test@email.com");
@@ -38,9 +39,9 @@ class TransferTest extends TestCase {
         $transfer->isValid();
     }
 
-    public function testIfIsNotValidWhenTimestampIsNull() {
+    public function testIfIsNotValidWhenUpdateTimestampIsNull() {
         $transfer = $this->getDefaultTransfer();
-        $transfer->setTimestamp(null);
+        $transfer->setUpdateTimestamp(null);
 
         $this->expectExceptionCode(200);
         $this->setExpectedException(TransferException::class);
