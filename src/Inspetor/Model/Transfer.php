@@ -54,13 +54,8 @@ class Transfer extends AbstractModel implements JsonSerializable {
      * @return void
      */
     public function isValid () {
-<<<<<<< HEAD
         if (!$this->id) {
-            throw new TransferException(8001);
-=======
-        if (!$this->id == null) {
             throw new TransferException(7001);
->>>>>>> 3bdec1efe54ad4a242d958ab8412ea08338db77d
         }
         if (!$this->timestamp) {
             throw new TransferException(7002);

@@ -93,11 +93,7 @@ class Payment extends AbstractModel implements JsonSerializable {
         ];
 
         if (!in_array($this->method, $all_methods)) {
-<<<<<<< HEAD
-            throw new PaymentException(7804);
-=======
-            throw new PaymentException(7000);
->>>>>>> 3bdec1efe54ad4a242d958ab8412ea08338db77d
+            throw new PaymentException(7004);
         }
         $this->validateCreditCardInfo();
     }
@@ -110,11 +106,7 @@ class Payment extends AbstractModel implements JsonSerializable {
     private function validateCreditCardInfo() {
         if ($this->getMethod() == self::CREDIT_CARD) {
             if (!$this->getCreditCard()) {
-<<<<<<< HEAD
-                throw new PaymentException(7805);
-=======
-                throw new PaymentException(7000);
->>>>>>> 3bdec1efe54ad4a242d958ab8412ea08338db77d
+                throw new PaymentException(7005);
             }
         }
         return true;
