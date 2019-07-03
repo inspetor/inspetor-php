@@ -23,8 +23,9 @@ class InspetorClientTest extends TestCase {
 
     private function getDefaultInspetorClient() {
         $inspetor_client = new InspetorClient([
-            "appId"       => "123",
-            "trackerName" => "123"
+            "appId"         => "123",
+            "trackerName"   => "123",
+            'collectorHost' => "test.test",
         ]);
         return $inspetor_client;
     }

@@ -13,8 +13,9 @@ class InspetorResourceTest extends TestCase {
 
     private function getDefaultInspetorResource() {
         $inspetor_resource = new InspetorResource([
-            "appId"       => "123",
-            "trackerName" => "123"
+            "appId"         => "123",
+            "trackerName"   => "123",
+            'collectorHost' => "test.test",
         ]);
         $this->default_models = new DefaultModels();
         return $inspetor_resource;
