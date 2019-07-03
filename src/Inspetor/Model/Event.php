@@ -28,9 +28,9 @@ use JsonSerializable;
 
 class Event extends AbstractModel implements JsonSerializable {
 
-	const CREATE_ACTION = "event_create";
-	const UPDATE_ACTION = "event_update";
-	const DELETE_ACTION = "event_delete";
+	const EVENT_CREATE_ACTION = "event_create";
+	const EVENT_UPDATE_ACTION = "event_update";
+	const EVENT_DELETE_ACTION = "event_delete";
 
     const DRAFT_STATUS     = "draft";
     const PRIVATE_STATUS   = "private";
@@ -123,43 +123,39 @@ class Event extends AbstractModel implements JsonSerializable {
      */
     public function isValid() {
         if (!$this->id) {
-            throw new EventException(7501);
+            throw new EventException(7001);
         }
 
-		if (!$this->creation_timestamp) {
-            throw new EventException(7502);
-		}
-
 		if (!$this->name) {
-            throw new EventException(7503);
+            throw new EventException(7002);
         }
 
         if (!$this->update_timestamp) {
-            throw new EventException(7504);
+            throw new EventException(7003);
 		}
 
         if (!$this->producer_id) {
-            throw new EventException(7505);
+            throw new EventException(7004);
 		}
 
 		if (!$this->address) {
-            throw new EventException(7506);
+            throw new EventException(7005);
 		}
 
 		if (!$this->sessions || empty($this->sessions)) {
-            throw new EventException(7507);
+            throw new EventException(7006);
 		}
 
 		if (!$this->seating_options || empty($this->seating_options)) {
-            throw new EventException(7508);
+            throw new EventException(7007);
 		}
 		
         if (!$this->categories || empty($this->categories)) {
-            throw new EventException(7509);
+            throw new EventException(7008);
         }
 
 		if (!$this->status) {
-			throw new EventException(7510);
+			throw new EventException(7009);
 		}
 
 		$this->validateStatus();
@@ -316,7 +312,13 @@ class Event extends AbstractModel implements JsonSerializable {
 	 * @return self
 	 */
 	public function setSessions($sessions) {
-        $this->sessions = $sessions;
+		foreach($sessions as $session) {
+			if (!array_key_exists("id", $session)
+			|| !array_key_exists("timestamp", $session)){
+					throw new EventException(7010);
+			}
+		}
+		$this->sessions = $sessions;
 		return $this;
 	}
 
@@ -367,7 +369,10 @@ class Event extends AbstractModel implements JsonSerializable {
 	 * @return self
 	 */
 	public function setCategories($categories) {
-        $this->categories = $categories;
+		foreach ($categories as $category) {
+			$category->isValid();
+		}
+		$this->categories = $categories;
 		return $this;
 	}
 
@@ -389,7 +394,8 @@ class Event extends AbstractModel implements JsonSerializable {
 	 * @return self
 	 */
 	public function setAddress($address) {
-        $this->address = $address;
+		$address->isValid();
+		$this->address = $address;
 		return $this;
 	}
 

@@ -77,27 +77,27 @@ class Address extends AbstractModel implements JsonSerializable {
      */
     public function isValid() {
         if (!$this->street) {
-            throw new AddressException(7101);
+            throw new AddressException(7001);
         }
 
         if (!$this->number) {
-            throw new AddressException(7102);
+            throw new AddressException(7002);
         }
 
         if (!$this->zip_code) {
-            throw new AddressException(7103);
+            throw new AddressException(7003);
         }
 
         if (!$this->city) {
-            throw new AddressException(7104);
+            throw new AddressException(7004);
         }
 
         if (!$this->state) {
-            throw new AddressException(7105);
+            throw new AddressException(7005);
         }
 
         if (!$this->country) {
-            throw new AddressException(7106);
+            throw new AddressException(7006);
         }
     }
 

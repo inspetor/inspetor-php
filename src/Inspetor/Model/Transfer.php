@@ -54,20 +54,25 @@ class Transfer extends AbstractModel implements JsonSerializable {
      * @return void
      */
     public function isValid () {
+<<<<<<< HEAD
         if (!$this->id) {
             throw new TransferException(8001);
+=======
+        if (!$this->id == null) {
+            throw new TransferException(7001);
+>>>>>>> 3bdec1efe54ad4a242d958ab8412ea08338db77d
         }
         if (!$this->timestamp) {
-            throw new TransferException(8002);
+            throw new TransferException(7002);
         }
         if (!$this->item_id) {
-            throw new TransferException(8003);
+            throw new TransferException(7003);
         }
         if (!$this->sender_account_id) {
-            throw new TransferException(8004);
+            throw new TransferException(7004);
         }
         if (!$this->receiver_email) {
-            throw new TransferException(8005);
+            throw new TransferException(7005);
         }
         $this->validateStatus();
     }
@@ -85,7 +90,7 @@ class Transfer extends AbstractModel implements JsonSerializable {
         ];
 
         if (!in_array($this->status, $all_status)) {
-            throw new TransferException(8006);
+            throw new TransferException(7006);
         }
     }
 
@@ -204,7 +209,7 @@ class Transfer extends AbstractModel implements JsonSerializable {
 
 	/**
 	 * Get the value of status
-	 *	 
+	 *
 	 * @return string
 	 */
 	public function getStatus() {

@@ -9,7 +9,7 @@ class AbstractException extends ExceptionAbstract {
     /**
      * Category of Exception
      */
-    const CATEGORY = 6900;
+    const CATEGORY = 7000;
 
     /**
      * Description of Exception

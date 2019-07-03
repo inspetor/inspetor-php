@@ -55,10 +55,10 @@ class PassRecovery extends AbstractModel implements JsonSerializable {
      */
     public function isValid() {
         if (!$this->recovery_email) {
-            throw new PassRecoveryException(7701);
+            throw new PassRecoveryException(7001);
         }
         if (!$this->timestamp) {
-            throw new PassRecoveryException(7702);
+            throw new PassRecoveryException(7002);
         }
     }
 
@@ -90,7 +90,7 @@ class PassRecovery extends AbstractModel implements JsonSerializable {
 
 	/**
 	 * Get the value of timestamp
-	 *	 
+	 *
 	 * @return string
 	 */
 	public function getTimestamp() {

@@ -46,7 +46,7 @@ class Payment extends AbstractModel implements JsonSerializable {
     private $method;
 
     /**
-     * @param array
+     * @param string
      */
     private $installments;
 
@@ -67,13 +67,13 @@ class Payment extends AbstractModel implements JsonSerializable {
      */
     public function isValid() {
         if (!$this->id) {
-            throw new PaymentException(7801);
+            throw new PaymentException(7001);
         }
         if (!$this->method) {
-            throw new PaymentException(7802);
+            throw new PaymentException(7002);
         }
-        if (!$this->installments || empty($this->installments)) {
-            throw new PaymentException(7803);
+        if (!$this->installments) {
+            throw new PaymentException(7003);
         }
 
         $this->validateMethod();
@@ -93,7 +93,11 @@ class Payment extends AbstractModel implements JsonSerializable {
         ];
 
         if (!in_array($this->method, $all_methods)) {
+<<<<<<< HEAD
             throw new PaymentException(7804);
+=======
+            throw new PaymentException(7000);
+>>>>>>> 3bdec1efe54ad4a242d958ab8412ea08338db77d
         }
         $this->validateCreditCardInfo();
     }
@@ -106,7 +110,11 @@ class Payment extends AbstractModel implements JsonSerializable {
     private function validateCreditCardInfo() {
         if ($this->getMethod() == self::CREDIT_CARD) {
             if (!$this->getCreditCard()) {
+<<<<<<< HEAD
                 throw new PaymentException(7805);
+=======
+                throw new PaymentException(7000);
+>>>>>>> 3bdec1efe54ad4a242d958ab8412ea08338db77d
             }
         }
         return true;
@@ -163,7 +171,6 @@ class Payment extends AbstractModel implements JsonSerializable {
 	/**
 	 * Get the value of installments
 	 *
-	 *
 	 * @return string
 	 */
 	public function getInstallments() {
@@ -199,6 +206,7 @@ class Payment extends AbstractModel implements JsonSerializable {
 	 * @return self
 	 */
 	public function setCreditCard($credit_card) {
+        $credit_card->isValid();
         $this->credit_card = $credit_card;
 		return $this;
     }

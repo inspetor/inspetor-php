@@ -54,19 +54,19 @@ class Category extends AbstractModel implements JsonSerializable {
      */
     public function isValid() {
         if (!$this->id) {
-            throw new CategoryException(7301);
+            throw new CategoryException(7001);
         }
 
         if (!$this->name) {
-            throw new CategoryException(7302);
+            throw new CategoryException(7002);
         }
 
         if (!$this->slug) {
-            throw new CategoryException(7303);
+            throw new CategoryException(7003);
         }
 
         if (!$this->is_public) {
-            throw new CategoryException(7304);
+            throw new CategoryException(7004);
         }
     }
 
@@ -88,7 +88,7 @@ class Category extends AbstractModel implements JsonSerializable {
      * Set the value of id
      *
      * @param string $id
-     * 
+     *
      * @return  self
      */
     public function setId($id) {
@@ -98,7 +98,7 @@ class Category extends AbstractModel implements JsonSerializable {
 
     /**
      * Get the value of name
-     * 
+     *
      * @return string
      **/
     public function getName() {

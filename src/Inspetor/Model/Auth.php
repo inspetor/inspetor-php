@@ -66,11 +66,11 @@ class Auth extends AbstractModel implements JsonSerializable {
      */
     public function isValid() {
         if (!$this->account_id) {
-            throw new AuthException(7201);
+            throw new AuthException(7001);
         }
 
         if (!$this->timestamp) {
-            throw new AuthException(7202);
+            throw new AuthException(7002);
         }
     }
 

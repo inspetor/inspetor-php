@@ -134,7 +134,7 @@ class InspetorClient implements InspetorService {
         try {
             $this->inspetor_resource->trackEventAction(
                 $event,
-                EVENT::CREATE_ACTION
+                EVENT::EVENT_CREATE_ACTION
             );
         } catch (Exception $e) {
             throw $e;
@@ -151,7 +151,7 @@ class InspetorClient implements InspetorService {
         try {
             $this->inspetor_resource->trackEventAction(
                 $event,
-                EVENT::UPDATE_ACTION
+                EVENT::EVENT_UPDATE_ACTION
             );
         } catch (Exception $e) {
             throw $e;
@@ -168,7 +168,7 @@ class InspetorClient implements InspetorService {
         try {
             $this->inspetor_resource->trackEventAction(
                 $event,
-                EVENT::DELETE_ACTION
+                EVENT::EVENT_DELETE_ACTION
             );
         } catch (Exception $e) {
             throw $e;

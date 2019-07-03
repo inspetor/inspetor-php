@@ -55,6 +55,10 @@ class Item extends AbstractModel implements JsonSerializable {
 	 */
 	private $seating_option;
 
+	/**
+	 * @param string
+	 */
+	private $quantity;
 
     /**
      * ISVALID
@@ -67,19 +71,27 @@ class Item extends AbstractModel implements JsonSerializable {
      */
     public function isValid() {
         if (!$this->id) {
-            throw new ItemException(7601);
+            throw new ItemException(7001);
         }
-        if (!$this->event_id) {
-            throw new ItemException(7602);
+
+		if (!$this->event_id) {
+            throw new ItemException(7002);
         }
-        if (!$this->session_id) {
-            throw new ItemException(7603);
+
+		if (!$this->session_id) {
+            throw new ItemException(7003);
         }
-        if (!$this->price) {
-            throw new ItemException(7604);
+
+		if (!$this->price) {
+            throw new ItemException(7004);
         }
-        if (!$this->seating_option) {
-            throw new ItemException(7605);
+
+		if (!$this->seating_option) {
+            throw new ItemException(7005);
+		}
+
+		if (!$this->quantity) {
+            throw new ItemException(7007);
         }
     }
 
@@ -172,7 +184,7 @@ class Item extends AbstractModel implements JsonSerializable {
 		$price = $this->convertToValidPrice($price);
 
 		if (!$price) {
-            throw new ItemException(7606);
+            throw new ItemException(7006);
 		}
 
 		$this->price = $price;
