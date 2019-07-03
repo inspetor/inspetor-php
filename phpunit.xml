@@ -4,5 +4,8 @@
         <testsuite name="Models">
             <directory>./tests/src/Inspetor/Model</directory>
         </testsuite>
+        <testsuite name="Tracker">
+            <directory>./tests/src/Inspetor/Tracker</directory>
+        </testsuite>
     </testsuites>
 </phpunit>

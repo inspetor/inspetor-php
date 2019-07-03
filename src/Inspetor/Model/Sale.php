@@ -136,11 +136,11 @@ class Sale extends AbstractModel implements JsonSerializable {
 	 */
     private function validateStatus() {
         $all_status = [
-            self::ACCEPTED,
-            self::DECLINED,
-            self::PENDING,
-            self::REFUNDED,
-            self::MANUAL_ANALYSIS,
+            self::ACCEPTED_STATUS,
+            self::DECLINED_STATUS,
+            self::PENDING_STATUS,
+            self::REFUNDED_STATUS,
+            self::MANUAL_ANALYSIS_STATUS,
         ];
 
         if (!in_array($this->status, $all_status)) {

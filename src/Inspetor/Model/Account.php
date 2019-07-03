@@ -24,6 +24,7 @@ use Inspetor\Exception\ModelException\AccountException;
 use Inspetor\Model\Address;
 use Inspetor\Model\AbstractModel;
 use JsonSerializable;
+use Rhumsaa\Uuid\Console\Exception;
 
 class Account extends AbstractModel implements JsonSerializable {
 

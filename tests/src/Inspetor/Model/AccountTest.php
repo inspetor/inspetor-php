@@ -2,12 +2,10 @@
 
 namespace Inspetor\Test\Model;
 
-use Inspetor\InspetorClient;
 use Inspetor\Model\Account;
 use Inspetor\Model\Address;
 use Inspetor\Exception\ModelException\AccountException;
 use PHPUnit\Framework\TestCase;
-use Rhumsaa\Uuid\Console\Exception;
 
 class AccountTest extends TestCase {
 
@@ -51,12 +49,30 @@ class AccountTest extends TestCase {
         $account = $this->getDefaultAccount();
         $account->setId(null);
 
-        //$this->expectExceptionCode(7001);
-        try {
-            $account->isValid();
-        } catch (Exception $e) {
-            echo 'Caught exception: ',  $e->getMessage(), "\n";
-        }
+        $this->expectExceptionCode(200);
+        $this->setExpectedException(AccountException::class);
+        
+        $account->isValid();
+    }
+
+    public function testIfNotValidWhenEmailIsNull() {
+        $account = $this->getDefaultAccount();
+        $account->setEmail(null);
+
+        $this->expectExceptionCode(200);
+        $this->setExpectedException(AccountException::class);
+
+        $account->isValid();
+    }
+
+    public function testIfPassingNullAsTSThrowsException() {
+        $account = $this->getDefaultAccount();
+
+        //$this->expectExceptionCode(200);
+        //$this->setExpectedException(AbstractException::class);
+        //$this->expectExceptionMessage("The timestamp should be an integer.");
+
+        $account->setUpdateTimestamp(null);
     }
 
 }
