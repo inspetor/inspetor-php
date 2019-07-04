@@ -51,7 +51,7 @@ class AccountTest extends TestCase {
 
         $this->expectExceptionCode(200);
         $this->setExpectedException(AccountException::class);
-        
+
         $account->isValid();
     }
 

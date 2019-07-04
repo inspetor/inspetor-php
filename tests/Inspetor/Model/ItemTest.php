@@ -17,7 +17,7 @@ class ItemTest extends TestCase {
         $item->setSeatingOption("Seating Option Test");
         $item->setQuantity("123");
         return $item;
-    } 
+    }
 
     public function testIfIsValid() {
         $item = $this->getDefaultItem();
@@ -61,16 +61,6 @@ class ItemTest extends TestCase {
         $this->setExpectedException(ItemException::class);
 
         $item->setPrice(null);
-    }
-
-    public function testIfIsNotValidWhenSeatingOptionIsNull() {
-        $item = $this->getDefaultItem();
-        $item->setSeatingOption(null);
-
-        $this->expectExceptionCode(200);
-        $this->setExpectedException(ItemException::class);
-
-        $item->isValid();
     }
 
     public function testIfIsNotValidWhenQuantityIsNull() {

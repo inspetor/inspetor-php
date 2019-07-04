@@ -20,20 +20,15 @@
 
 namespace Inspetor\Model;
 
-use Inspetor\Exception\ModelException\ItemException;
+use Inspetor\Exception\ModelException\TicketException;
 use Inspetor\Model\AbstractModel;
 use JsonSerializable;
 
-class Item extends AbstractModel implements JsonSerializable {
+class Tickets extends Item implements JsonSerializable {
 
     /**
      * PROPERTIES
      */
-
-    /**
-	 * @param string
-	 */
-	private $id;
 
     /**
 	 * @param string
@@ -48,17 +43,8 @@ class Item extends AbstractModel implements JsonSerializable {
     /**
 	 * @param string
 	 */
-	private $price;
-
-    /**
-	 * @param string
-	 */
 	private $seating_option;
 
-	/**
-	 * @param string
-	 */
-	private $quantity;
 
     /**
      * ISVALID
@@ -70,24 +56,16 @@ class Item extends AbstractModel implements JsonSerializable {
      * @return void
      */
     public function isValid() {
-        if (!$this->id) {
-            throw new ItemException(7001);
-        }
+        if (!$this->event_id) {
+            throw new TicketException(7002);
+		}
 
-		if (!$this->event_id) {
-            throw new ItemException(7002);
-        }
+        if (!$this->session_id) {
+            throw new TicketException(7003);
+		}
 
-		if (!$this->session_id) {
-            throw new ItemException(7003);
-        }
-
-		if (!$this->price) {
-            throw new ItemException(7004);
-        }
-
-		if (!$this->quantity) {
-            throw new ItemException(7007);
+        if (!$this->seating_option) {
+            throw new TicketException(7005);
         }
     }
 
@@ -180,7 +158,7 @@ class Item extends AbstractModel implements JsonSerializable {
 		$price = $this->convertToValidPrice($price);
 
 		if (!$price) {
-            throw new ItemException(7006);
+            throw new TicketException(7006);
 		}
 
 		$this->price = $price;
@@ -208,28 +186,7 @@ class Item extends AbstractModel implements JsonSerializable {
 	public function setSeatingOption($seating_option) {
         $this->seating_option = $seating_option;
 		return $this;
-	}
-
-	/**
-	 * Get the value of quantity
-	 *
-	 * @return  string
-	 */
-	public function getQuantity() {
-		return $this->quantity;
     }
-
-	/**
-	 * Set the value of quantity
-	 *
-	 * @param   string  $quantity
-	 *
-	 * @return  self
-	 */
-	public function setQuantity($quantity) {
-        $this->quantity = $quantity;
-		return $this;
-	}
 
     /**
      * JSONSERIALIZE
@@ -245,8 +202,7 @@ class Item extends AbstractModel implements JsonSerializable {
             "item_event_id"       => $this->encodeData($this->getEventId()),
             "item_session_id"     => $this->encodeData($this->getSessionId()),
             "item_price"          => $this->encodeData($this->getPrice()),
-			"item_seating_option" => $this->encodeData($this->getSeatingOption()),
-			"item_quantity"       => $this->encodeData($this->getQuantity())
+            "item_seating_option" => $this->encodeData($this->getSeatingOption())
         ];
 
         return $array;

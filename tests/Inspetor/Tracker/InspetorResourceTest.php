@@ -1,9 +1,9 @@
 <?php
 
-namespace Inspetor\Tests\src\Inspetor\Tracker;
+namespace Inspetor\Test\Tracker;
 
 use Inspetor\InspetorResource;
-use Inspetor\Tests\src\Inspetor\Tracker\DefaultModels;
+use Inspetor\Test\Tracker\DefaultModels;
 use Inspetor\Exception\TrackerException;
 use PHPUnit\Framework\TestCase;
 
@@ -15,7 +15,7 @@ class InspetorResourceTest extends TestCase {
         $inspetor_resource = new InspetorResource([
             "appId"         => "123",
             "trackerName"   => "123",
-            'collectorHost' => "test.test",
+            "collectorHost" => "test.test"
         ]);
         $this->default_models = new DefaultModels();
         return $inspetor_resource;
@@ -85,9 +85,9 @@ class InspetorResourceTest extends TestCase {
         $this->expectExceptionCode(200);
         $this->setExpectedException(TrackerException::class);
 
-        $inspetor_resource = new InspetorResource([]);
+        $inspetor_resource = new InspetorResource(["trackerName" => null, "appId" => null]);
     }
-    
+
 
 
 }

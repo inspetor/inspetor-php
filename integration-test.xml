@@ -2,7 +2,7 @@
 <phpunit colors="true">
     <testsuites>
         <testsuite name="Integration">
-            <directory>./tests/src/Inspetor/Integration</directory>
+            <directory>./tests/Inspetor/Integration</directory>
         </testsuite>
     </testsuites>
 </phpunit>

@@ -6,7 +6,6 @@ namespace Inspetor;
 use Inspetor\Model\Account;
 use Inspetor\Model\Address;
 use Inspetor\Model\Auth;
-use Inspetor\Model\Category;
 use Inspetor\Model\CreditCard;
 use Inspetor\Model\Event;
 use Inspetor\Model\Item;
@@ -316,15 +315,6 @@ class InspetorClient implements InspetorService {
      */
     public function getInspetorAuth() {
         return new Auth();
-    }
-
-    /**
-     * getInspetorCategory
-     *
-     * @return Category
-     */
-    public function getInspetorCategory() {
-        return new Category();
     }
 
     /**

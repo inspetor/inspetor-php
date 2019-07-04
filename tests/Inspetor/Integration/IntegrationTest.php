@@ -3,7 +3,7 @@
 namespace Inspetor\Tests\src\Inspetor\Tracker;
 
 use Inspetor\InspetorClient;
-use Inspetor\Tests\src\Inspetor\Tracker\DefaultModels;
+use Inspetor\Test\Tracker\DefaultModels;
 use Inspetor\Model\Sale;
 use Inspetor\Model\Event;
 use Inspetor\Model\Account;
@@ -42,7 +42,7 @@ class IntegrationTest extends TestCase {
     //     $inspetor_client = $this->getDefaultInspetorClient();
     //     $default_models = new DefaultModels();
     //     $sale = $default_models->getDefaultSale();
-        
+
     //     $payment = $sale->getPayment();
     //     $payment->setMethod(PAYMENT::CREDIT_CARD);
     //     $payment->setCreditCard($default_models->getDefaultCreditCard());
@@ -90,21 +90,21 @@ class IntegrationTest extends TestCase {
         $this->assertTrue($inspetor_client->trackEventCreation($event));
     }
 
-    public function testTrackEventUpdate() {
-        $inspetor_client = $this->getDefaultInspetorClient();
-        $default_models = new DefaultModels();
-        $event = $default_models->getDefaultEvent();
+    // public function testTrackEventUpdate() {
+    //     $inspetor_client = $this->getDefaultInspetorClient();
+    //     $default_models = new DefaultModels();
+    //     $event = $default_models->getDefaultEvent();
 
-        $this->assertTrue($inspetor_client->trackEventUpdate($event));
-    }
+    //     $this->assertTrue($inspetor_client->trackEventUpdate($event));
+    // }
 
-    public function testTrackEventDeletion() {
-        $inspetor_client = $this->getDefaultInspetorClient();
-        $default_models = new DefaultModels();
-        $event = $default_models->getDefaultEvent();
+    // public function testTrackEventDeletion() {
+    //     $inspetor_client = $this->getDefaultInspetorClient();
+    //     $default_models = new DefaultModels();
+    //     $event = $default_models->getDefaultEvent();
 
-        $this->assertTrue($inspetor_client->trackEventDeletion($event));
-    }
+    //     $this->assertTrue($inspetor_client->trackEventDeletion($event));
+    // }
 
     // public function testTrackItemTransferCreation() {
     //     $inspetor_client = $this->getDefaultInspetorClient();

@@ -3,7 +3,6 @@
 namespace Inspetor\Test\Model;
 
 use Inspetor\Model\Event;
-use Inspetor\Model\Category;
 use Inspetor\Model\Address;
 use Inspetor\Exception\ModelException\EventException;
 use PHPUnit\Framework\TestCase;
@@ -28,24 +27,13 @@ class EventTest extends TestCase {
             ]
         ]);
         $event->setStatus(EVENT::PRIVATE_STATUS);
-        $event->setCategories([
-            $this->getDefaultCategory()
-        ]);
+        $event->setCategories(["Category Test"]);
         $event->setAddress($this->getDefaultAddress());
         $event->setUrl("Url Test");
         $event->setProducerId("123");
         $event->setAdminsId(["123"]);
         $event->setSeatingOptions(["Seating Options"]);
         return $event;
-    }
-
-    private function getDefaultCategory() {
-        $category = new Category();
-        $category->setId("123");
-        $category->setName("Name Test");
-        $category->setSlug("Slug Test");
-        $category->setIsPublic(true);
-        return $category;
     }
 
     private function getDefaultAddress() {
@@ -133,46 +121,6 @@ class EventTest extends TestCase {
     public function testIfIsNotValidWhenSessionsEmptyArray() {
         $event = $this->getDefaultEvent();
         $event->setSessions([]);
-
-        $this->expectExceptionCode(200);
-        $this->setExpectedException(EventException::class);
-
-        $event->isValid();
-    }
-
-    public function testIfIsNotValidWhenSeatingOptionIsNull() {
-        $event = $this->getDefaultEvent();
-        $event->setSeatingOptions(null);
-
-        $this->expectExceptionCode(200);
-        $this->setExpectedException(EventException::class);
-
-        $event->isValid();
-    }
-
-    public function testIfIsNotValidWhensetSeatingOptionsEmptyArray() {
-        $event = $this->getDefaultEvent();
-        $event->setSeatingOptions([]);
-
-        $this->expectExceptionCode(200);
-        $this->setExpectedException(EventException::class);
-
-        $event->isValid();
-    }
-
-    public function testIfIsNotValidWhenCategoriesIsNull() {
-        $event = $this->getDefaultEvent();
-        $event->setCategories(null);
-
-        $this->expectExceptionCode(200);
-        $this->setExpectedException(EventException::class);
-
-        $event->isValid();
-    }
-
-    public function testIfIsNotValidWhenCategoriesEmptyArray() {
-        $event = $this->getDefaultEvent();
-        $event->setCategories([]);
 
         $this->expectExceptionCode(200);
         $this->setExpectedException(EventException::class);
