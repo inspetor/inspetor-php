@@ -117,7 +117,13 @@ We're using an auxiliar function *inspetorSaleBuilder* to build the *Sale Model*
 
 ### What you should notice
 Not all of the Model's attributes are required but we trully recommend you work around to pass them all. On the other hand, some of them are **super important** and you should pass it correctly. Let's talk about some of them.
- - ***is_fraud***: is an Sale Model attribute that you **must** pass to indicate that a sale is fraudulent or not even if it's something that we're providing to you (as part of postback process).
- - ***sessions***: is an Event Model and 
+ - Sale:
+   - ***is_fraud***: it's an attribute that you **must** pass to indicate that a sale is fraudulent or not even if it's something that we're providing to you (as part of postback process).
+ - Event:
+   - ***sessions***: it's an attribute that you **must** pass even if you don't use the sessions context. If is that the case, you just need to replicate some of you Event attribute, as *event_id* and *event_date* for example.
+ - Address:
+   - ***almost all fields***: address is **only required** when you try to track an Event, but exists in Account model as well. The tricky is that once you decide to provide an Address, most of the atributes are required and you'll get a lot of Exceptions if try to pass it incomplete.
+ - Common requests:
+   - ***update_timestamp***: some Models have setters and getters to update_timestamp and creation_timestamp as you can see in the general files, but only update_timestamp is really required and should be setted. When is a create request (e.g *trackAccountCreation()*), the *update_timestamp* provided we'll be used as *create_timestamp*. 
 
 ### Best Practices & Tips
