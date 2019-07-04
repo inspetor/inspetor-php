@@ -10,6 +10,7 @@ use Inspetor\Model\Account;
 use Inspetor\Model\Auth;
 use Inspetor\Model\PassRecovery;
 use Inspetor\Model\Transfer;
+use Inspetor\Model\Payment;
 use Inspetor\Exception\TrackerException;
 use Inspetor\Exception\ModelException\SaleException;
 use Inspetor\Exception\ModelException\AccountException;
@@ -29,45 +30,57 @@ class IntegrationTest extends TestCase {
         return $inspetor_client;
     }
 
-    public function testTrackSaleCreation() {
-        $inspetor_client = $this->getDefaultInspetorClient();
-        $default_models = new DefaultModels();
-        $sale = $default_models->getDefaultSale();
+    // public function testTrackSaleCreation() {
+    //     $inspetor_client = $this->getDefaultInspetorClient();
+    //     $default_models = new DefaultModels();
+    //     $sale = $default_models->getDefaultSale();
 
-        $this->assertTrue($inspetor_client->trackSaleCreation($sale));
-    }
+    //     $this->assertTrue($inspetor_client->trackSaleCreation($sale));
+    // }
 
-    public function testTrackSaleUpdate() {
-        $inspetor_client = $this->getDefaultInspetorClient();
-        $default_models = new DefaultModels();
-        $sale = $default_models->getDefaultSale();
+    // public function testTrackSaleCreationWithCreditCard() {
+    //     $inspetor_client = $this->getDefaultInspetorClient();
+    //     $default_models = new DefaultModels();
+    //     $sale = $default_models->getDefaultSale();
+        
+    //     $payment = $sale->getPayment();
+    //     $payment->setMethod(PAYMENT::CREDIT_CARD);
+    //     $payment->setCreditCard($default_models->getDefaultCreditCard());
 
-        $this->assertTrue($inspetor_client->trackSaleUpdate($sale));
-    }
+    //     $this->assertTrue($inspetor_client->trackSaleCreation($sale));
+    // }
 
-    public function testTrackAccountCreation() {
-        $inspetor_client = $this->getDefaultInspetorClient();
-        $default_models = new DefaultModels();
-        $account = $default_models->getDefaultAccount();
+    // public function testTrackSaleUpdate() {
+    //     $inspetor_client = $this->getDefaultInspetorClient();
+    //     $default_models = new DefaultModels();
+    //     $sale = $default_models->getDefaultSale();
 
-        $this->assertTrue($inspetor_client->trackAccountCreation($account));
-    }
+    //     $this->assertTrue($inspetor_client->trackSaleUpdate($sale));
+    // }
 
-    public function testTrackAccountUpdate() {
-        $inspetor_client = $this->getDefaultInspetorClient();
-        $default_models = new DefaultModels();
-        $account = $default_models->getDefaultAccount();
+    // public function testTrackAccountCreation() {
+    //     $inspetor_client = $this->getDefaultInspetorClient();
+    //     $default_models = new DefaultModels();
+    //     $account = $default_models->getDefaultAccount();
 
-        $this->assertTrue($inspetor_client->trackAccountUpdate($account));
-    }
+    //     $this->assertTrue($inspetor_client->trackAccountCreation($account));
+    // }
 
-    public function testTrackAccountDeletion() {
-        $inspetor_client = $this->getDefaultInspetorClient();
-        $default_models = new DefaultModels();
-        $account = $default_models->getDefaultAccount();
+    // public function testTrackAccountUpdate() {
+    //     $inspetor_client = $this->getDefaultInspetorClient();
+    //     $default_models = new DefaultModels();
+    //     $account = $default_models->getDefaultAccount();
 
-        $this->assertTrue($inspetor_client->trackAccountDeletion($account));
-    }
+    //     $this->assertTrue($inspetor_client->trackAccountUpdate($account));
+    // }
+
+    // public function testTrackAccountDeletion() {
+    //     $inspetor_client = $this->getDefaultInspetorClient();
+    //     $default_models = new DefaultModels();
+    //     $account = $default_models->getDefaultAccount();
+
+    //     $this->assertTrue($inspetor_client->trackAccountDeletion($account));
+    // }
 
     public function testTrackEventCreation() {
         $inspetor_client = $this->getDefaultInspetorClient();
@@ -93,53 +106,53 @@ class IntegrationTest extends TestCase {
         $this->assertTrue($inspetor_client->trackEventDeletion($event));
     }
 
-    public function testTrackItemTransferCreation() {
-        $inspetor_client = $this->getDefaultInspetorClient();
-        $default_models = new DefaultModels();
-        $transfer = $default_models->getDefaultTransfer();
+    // public function testTrackItemTransferCreation() {
+    //     $inspetor_client = $this->getDefaultInspetorClient();
+    //     $default_models = new DefaultModels();
+    //     $transfer = $default_models->getDefaultTransfer();
 
-        $this->assertTrue($inspetor_client->trackItemTransferCreation($transfer));
-    }
+    //     $this->assertTrue($inspetor_client->trackItemTransferCreation($transfer));
+    // }
 
-    public function testTrackItemTransferUpdate() {
-        $inspetor_client = $this->getDefaultInspetorClient();
-        $default_models = new DefaultModels();
-        $transfer = $default_models->getDefaultTransfer();
+    // public function testTrackItemTransferUpdate() {
+    //     $inspetor_client = $this->getDefaultInspetorClient();
+    //     $default_models = new DefaultModels();
+    //     $transfer = $default_models->getDefaultTransfer();
 
-        $this->assertTrue($inspetor_client->trackItemTransferUpdate($transfer));
-    }
+    //     $this->assertTrue($inspetor_client->trackItemTransferUpdate($transfer));
+    // }
 
-    public function testTrackLogin() {
-        $inspetor_client = $this->getDefaultInspetorClient();
-        $default_models = new DefaultModels();
-        $auth = $default_models->getDefaultAuth();
+    // public function testTrackLogin() {
+    //     $inspetor_client = $this->getDefaultInspetorClient();
+    //     $default_models = new DefaultModels();
+    //     $auth = $default_models->getDefaultAuth();
 
-        $this->assertTrue($inspetor_client->trackLogin($auth));
-    }
+    //     $this->assertTrue($inspetor_client->trackLogin($auth));
+    // }
 
-    public function testTrackLogout() {
-        $inspetor_client = $this->getDefaultInspetorClient();
-        $default_models = new DefaultModels();
-        $auth = $default_models->getDefaultAuth();
+    // public function testTrackLogout() {
+    //     $inspetor_client = $this->getDefaultInspetorClient();
+    //     $default_models = new DefaultModels();
+    //     $auth = $default_models->getDefaultAuth();
 
-        $this->assertTrue($inspetor_client->trackLogout($auth));
-    }
+    //     $this->assertTrue($inspetor_client->trackLogout($auth));
+    // }
 
-    public function testTrackPasswordRecovery() {
-        $inspetor_client = $this->getDefaultInspetorClient();
-        $default_models = new DefaultModels();
-        $pass_recovery = $default_models->getDefaultPassRecovery();
+    // public function testTrackPasswordRecovery() {
+    //     $inspetor_client = $this->getDefaultInspetorClient();
+    //     $default_models = new DefaultModels();
+    //     $pass_recovery = $default_models->getDefaultPassRecovery();
 
-        $this->assertTrue($inspetor_client->trackPasswordRecovery($pass_recovery));
-    }
+    //     $this->assertTrue($inspetor_client->trackPasswordRecovery($pass_recovery));
+    // }
 
-    public function testTrackPasswordReset() {
-        $inspetor_client = $this->getDefaultInspetorClient();
-        $default_models = new DefaultModels();
-        $pass_recovery = $default_models->getDefaultPassRecovery();
+    // public function testTrackPasswordReset() {
+    //     $inspetor_client = $this->getDefaultInspetorClient();
+    //     $default_models = new DefaultModels();
+    //     $pass_recovery = $default_models->getDefaultPassRecovery();
 
-        $this->assertTrue($inspetor_client->trackPasswordReset($pass_recovery));
-    }
+    //     $this->assertTrue($inspetor_client->trackPasswordReset($pass_recovery));
+    // }
 }
 
 

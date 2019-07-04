@@ -101,6 +101,15 @@ class DefaultModels {
         return $pass_recovery;
     }
 
+    public function getDefaultCreditCard() {
+        $credit_card = new CreditCard();
+        $credit_card->setFirstSixDigits("123456");
+        $credit_card->setLastFourDigits("1234");
+        $credit_card->setHolderName("Holder Name Test");
+        $credit_card->setHolderCpf("Holder CPF Test");
+        return $credit_card;
+    }
+
     public function getDefaultCategory() {
         $category = new Category();
         $category->setId("123");

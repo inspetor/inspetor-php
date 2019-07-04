@@ -517,7 +517,7 @@ class Event extends AbstractModel implements JsonSerializable {
             "event_description"        => $this->encodeData($this->getDescription()),
             "event_creation_timestamp" => $this->encodeData($this->getCreationTimestamp()),
             "event_update_timestamp"   => $this->encodeData($this->getUpdateTimestamp()),
-            "event_sessions"           => $this->encodeArray($this->getSessions(), false),
+            "event_sessions"           => $this->encodeSessions(),
             "event_status"             => $this->encodeData($this->getStatus()),
 			"event_status_other"       => $this->encodeData($this->getOtherStatus()),
 			"event_seating_options"    => $this->encodeArray($this->getSeatingOptions(), false),
@@ -529,7 +529,23 @@ class Event extends AbstractModel implements JsonSerializable {
         ];
 
         return $array;
-    }
+	}
+	
+	private function encodeSessions() {
+		$sessions = $this->sessions;
+		$encoded_sessions = [];
+
+		foreach($sessions as $session) {
+			if (is_array($session)) {
+				$partial_session = [];
+				foreach($session as $key => $value) {
+					$partial_session[$key] = $this->encodeData($value);
+				}
+				array_push($encoded_sessions, $partial_session);
+			}
+		}
+		return $encoded_sessions;
+	}
 }
 
 ?>

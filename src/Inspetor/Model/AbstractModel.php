@@ -35,14 +35,10 @@ class AbstractModel {
     protected function encodeArray(array $array, bool $is_object) {
         $encoded_array = [];
         foreach($array as $item) {
-            if (is_array($item)) {
-                $this->encodeArray($item, false);
+            if ($is_object) {
+                array_push($encoded_array, $this->encodeObject($item));
             } else {
-                if ($is_object) {
-                    array_push($encoded_array, $this->encodeObject($item));
-                } else {
-                    array_push($encoded_array, $this->encodeData($item));
-                }
+                array_push($encoded_array, $this->encodeData($item));
             }
         }
         return $encoded_array;
