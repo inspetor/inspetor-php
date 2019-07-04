@@ -1,9 +1,9 @@
 <?php
 
-namespace Inspetor\Tests\src\Inspetor\Tracker;
+namespace Inspetor\Test\Tracker;
 
 use Inspetor\InspetorClient;
-use Inspetor\Tests\src\Inspetor\Tracker\DefaultModels;
+use Inspetor\Test\Tracker\DefaultModels;
 use Inspetor\Model\Sale;
 use Inspetor\Model\Event;
 use Inspetor\Model\Account;
@@ -146,7 +146,7 @@ class InspetorClientTest extends TestCase {
 
         $this->expectExceptionCode(200);
         $this->setExpectedException(EventException::class);
-        
+
         $inspetor_client->trackEventCreation($event);
     }
 
@@ -166,7 +166,7 @@ class InspetorClientTest extends TestCase {
 
         $this->expectExceptionCode(200);
         $this->setExpectedException(EventException::class);
-        
+
         $inspetor_client->trackEventUpdate($event);
     }
 
@@ -186,7 +186,7 @@ class InspetorClientTest extends TestCase {
 
         $this->expectExceptionCode(200);
         $this->setExpectedException(EventException::class);
-        
+
         $inspetor_client->trackEventDeletion($event);
     }
 
@@ -323,11 +323,6 @@ class InspetorClientTest extends TestCase {
     public function testGetInspetorAuth() {
         $inspetor_client = $this->getDefaultInspetorClient();
         $this->assertInstanceOf("Inspetor\Model\Auth", $inspetor_client->getInspetorAuth());
-    }
-
-    public function testGetInspetorCategory() {
-        $inspetor_client = $this->getDefaultInspetorClient();
-        $this->assertInstanceOf("Inspetor\Model\Category", $inspetor_client->getInspetorCategory());
     }
 
     public function testGetInspetorCreditCard() {

@@ -15,7 +15,7 @@ return [
         'inspetorSaleSchema'          => 'iglu:com.inspetor/inspetor_sale/jsonschema/1-0-2',
         'inspetorTransferSchema'      => 'iglu:com.inspetor/inspetor_transfer/jsonschema/1-0-2',
         'inspetorAccountSchema'       => 'iglu:com.inspetor/inspetor_account/jsonschema/1-0-3',
-        'inspetorEventSchema'         => 'iglu:com.inspetor/inspetor_event/jsonschema/1-0-2',
+        'inspetorEventSchema'         => 'iglu:com.inspetor/inspetor_event/jsonschema/1-0-4',
         'inspetorContext'             => 'iglu:com.inspetor/inspetor_context/jsonschema/1-0-0'
     ]
 ];

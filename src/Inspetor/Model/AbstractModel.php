@@ -34,6 +34,9 @@ class AbstractModel {
      */
     protected function encodeArray(array $array, bool $is_object) {
         $encoded_array = [];
+        if(!$array) {
+            return null;
+        }
         foreach($array as $item) {
             if ($is_object) {
                 array_push($encoded_array, $this->encodeObject($item));

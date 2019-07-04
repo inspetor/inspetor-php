@@ -1,11 +1,10 @@
 <?php
 
-namespace Inspetor\Tests\src\Inspetor\Tracker;
+namespace Inspetor\Test\Tracker;
 
 use Inspetor\Model\Account;
 use Inspetor\Model\Address;
 use Inspetor\Model\Auth;
-use Inspetor\Model\Category;
 use Inspetor\Model\CreditCard;
 use Inspetor\Model\Event;
 use Inspetor\Model\Item;
@@ -63,9 +62,7 @@ class DefaultModels {
             ]
         ]);
         $event->setStatus(EVENT::PRIVATE_STATUS);
-        $event->setCategories([
-            $this->getDefaultCategory()
-        ]);
+        $event->setCategories(["Category Test"]);
         $event->setAddress($this->getDefaultAddress());
         $event->setUrl("Url Test");
         $event->setProducerId("123");
@@ -108,15 +105,6 @@ class DefaultModels {
         $credit_card->setHolderName("Holder Name Test");
         $credit_card->setHolderCpf("Holder CPF Test");
         return $credit_card;
-    }
-
-    public function getDefaultCategory() {
-        $category = new Category();
-        $category->setId("123");
-        $category->setName("Name Test");
-        $category->setSlug("Slug Test");
-        $category->setIsPublic(true);
-        return $category;
     }
 
     public function getDefaultAddress() {

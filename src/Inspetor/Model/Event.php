@@ -22,7 +22,6 @@ namespace Inspetor\Model;
 
 use Inspetor\Exception\ModelException\EventException;
 use Inspetor\Model\Address;
-use Inspetor\Model\Category;
 use Inspetor\Model\AbstractModel;
 use JsonSerializable;
 
@@ -145,14 +144,6 @@ class Event extends AbstractModel implements JsonSerializable {
 		if (!$this->sessions || empty($this->sessions)) {
             throw new EventException(7006);
 		}
-
-		if (!$this->seating_options || empty($this->seating_options)) {
-            throw new EventException(7007);
-		}
-		
-        if (!$this->categories || empty($this->categories)) {
-            throw new EventException(7008);
-        }
 
 		if (!$this->status) {
 			throw new EventException(7009);
@@ -373,8 +364,13 @@ class Event extends AbstractModel implements JsonSerializable {
 	 */
 	public function setCategories($categories) {
 		if ($categories) {
-			foreach ($categories as $category) {
-				$category->isValid();
+			if(!is_array($categories)) {
+				throw new EventException(7008);
+			}
+			foreach($categories as $category) {
+				if(!$category) {
+					throw new EventException(7008);
+				}
 			}
 		}
 		$this->categories = $categories;
@@ -495,7 +491,12 @@ class Event extends AbstractModel implements JsonSerializable {
 	public function setSeatingOptions($seating_options) {
 		if ($seating_options) {
 			if (!is_array($seating_options)) {
-				throw new EventException(7012);
+				throw new EventException(7007);
+			}
+			foreach($seating_options as $seating_option) {
+				if(!$seating_option) {
+					throw new EventException(7007);
+				}
 			}
 		}
 		$this->seating_options = $seating_options;
@@ -521,7 +522,7 @@ class Event extends AbstractModel implements JsonSerializable {
             "event_status"             => $this->encodeData($this->getStatus()),
 			"event_status_other"       => $this->encodeData($this->getOtherStatus()),
 			"event_seating_options"    => $this->encodeArray($this->getSeatingOptions(), false),
-            "event_categories"         => $this->encodeArray($this->getCategories(), true),
+            "event_categories"         => $this->encodeArray($this->getCategories(), false),
             "event_address"            => $this->encodeObject($this->getAddress()),
             "event_url"                => $this->encodeData($this->getUrl()),
             "event_producer_id"        => $this->encodeData($this->getProducerId()),
@@ -530,7 +531,7 @@ class Event extends AbstractModel implements JsonSerializable {
 
         return $array;
 	}
-	
+
 	private function encodeSessions() {
 		$sessions = $this->sessions;
 		$encoded_sessions = [];

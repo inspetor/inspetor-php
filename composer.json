@@ -17,12 +17,11 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Inspetor\\Tests\\": "tests/"
+            "Inspetor\\Test\\": "tests/Inspetor"
         }
     },
     "require": {
         "php": ">=7.1.3",
-        "phalcon/incubator": "3.4.*",
         "snowplow/snowplow-tracker": "0.2.1"
     },
     "require-dev": {
