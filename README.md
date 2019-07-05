@@ -406,7 +406,7 @@ class InspetorServices
         ]);
 
         $dependencyInjector->set('InspetorTracker', [
-            'className' => 'Ingresse\Inspetor\Inspetor',
+            'className' => 'NiceCompany\Inspetor\Inspetor',
             'arguments' => [
                 [
                     'type' => 'service',
