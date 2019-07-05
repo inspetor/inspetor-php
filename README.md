@@ -37,6 +37,8 @@ The *"appId"* is an unique identifier that the awesome Inspetor Team will provid
 We'll gonna code for real now, so we **strongly** recommend you to create an Inspetor class in your code to start our library. There's where you gonna insert Inspetor config you wrote some lines above and retrieve our client. Confusing? Relax, we're kind enough to show you how to do it.
 
 ```
+<?php
+
 namespace NiceCompany\Inspetor;
 
 use Inspetor\InspetorClient;
@@ -60,6 +62,7 @@ class InspetorClass
     }
   ...
 }
+?>
 ```
 
 Now, wherever you need to call some Inspetor function, you just need to import this Class and _voilà_. 
@@ -78,6 +81,8 @@ Yeah, but we must ask you a little favor. Considering the fraud context, it's po
 help us to indenfity fraud, so we created a **Model** for each instance we use (remember what is a Model [here]()) that you must build and fill with it's needed. Let's see a snippet.
 
 ```
+<?php
+
 namespace NiceCompany\SaleFolder;
 
 use NiceCompany\Inspetor\InspetorClass;
@@ -109,11 +114,114 @@ class Sale {
   }
   ...
 }
+
+?>
 ```
 
 Following this code and assuming you've builded your model with all required parametes (find out each Model's required parameters [here]()), we *someCompanyFunction* run, the Inspetor code inside will send a great object with all we need to know about that sale. Easy? 
 
-We're using an auxiliar function *inspetorSaleBuilder* to build the *Sale Model* but you don't have to do it, or place it where we do here neither. You could set this *inspetorSaleBuilder* inside your *InspetorClass* that we talked about some lines above, for example. More tips in the next section. 
+We're using an auxiliar function *inspetorSaleBuilder* to build the *Sale Model* but you don't have to do it, or place it where we do here neither. You could set this *inspetorSaleBuilder* inside your *InspetorClass* that we talked about some lines above, for example. More tips in the section Best Practices & Tips.
+
+### Models 
+
+The last snipped was a simple example to show how you should call our library and build one of our models. But now we're gonna talk about all of our Models, hoping you understand that some of them are not tracked it self but it's needed inside others. Take a look! 
+Principal models:
+- **Auth**: model you fill with ***login*** or ***logout*** data. The name came from "*Authentication*".
+```
+<?php
+// Calling an instance of Model
+  $inspetor_auth = $this->getInspetorAuth();
+
+// Filling model with company data
+  $inspetor_auth->setAccountId("123");
+  $inspetor_auth->setAccountEmail("test@email.com");
+  $inspetor_auth->setTimestamp(time()); // time() returns unix timestamp
+?>
+```
+- **Account**: model you fill with your ***user*** data. 
+```
+<?php
+// Calling an instance of Model
+  $inspetor_account = $this->getInspetorAuth();
+
+// Filling model with company data
+  $inspetor_account->setId("123");
+  $inspetor_account->setName("Test Name");
+  $inspetor_account->setEmail("test@email.com");
+  $inspetor_account->setDocument("07206094880"); // CPF
+  $inspetor_account->setPhoneNumber("11953890735"); 
+  $inspetor_account->setAddress($inspetor_account_address);
+  $inspetor_account->setBillingAddress($inspetor_account_billing_address);
+  $inspetor_account->setCreationTimestamp(time());
+  $inspetor_account->setUpdateTimestamp(time());
+?>
+```
+- **Event**: model you fill with your ***event*** data (e.g. an party or forum info).
+```
+<?php
+// Calling an instance of Model
+$inspetor_event = $this->getInspetorEvent();
+
+// Filling model with company data
+  $inspetor_event->setId("123");
+  $inspetor_event->setName("Name Test");
+  $inspetor_event->setDescription("Description Test");
+  $inspetor_event->setCreationTimestamp(time());
+  $inspetor_event->setUpdateTimestamp(time());
+  $inspetor_event->setSessions([
+      [
+          "id"        => "123",
+          "timestamp" => $event_session_date
+      ],
+      [
+          "id"        => "124",
+          "timestamp" => $event_session_date
+      ]
+  ]);
+  $inspetor_event->setStatus(EVENT::PRIVATE_STATUS);
+  $inspetor_event->setCategories(["Category1", "Category2"]);
+  $inspetor_event->setAddress($inspetor_event_address);
+  $inspetor_event->setUrl("cool-company-event);
+  $inspetor_event->setProducerId("123");
+  $inspetor_event->setAdminsId(["123", "234"]);
+  $inspetor_event->setSeatingOptions(["Pista", "VIP"]);
+?>
+```
+- **PassRecovery**: model that must contain data from a ***password recovery*** or ***password reset*** request of your API.
+```
+<?php
+$auth = $this->getInspetorAuth();
+
+?>
+```
+- **Sale**: model that should be filled with the ***sale*** data you have in your API.
+```
+<?php
+$auth = $this->getInspetorAuth();
+
+?>
+```
+- **Transfer**: model you fill with ***transference*** data of an item of your API (e.g. transfer of a ticket).
+```
+<?php
+$auth = $this->getInspetorAuth();
+
+?>
+```
+
+Auxiliar models:
+- **Address**: this model appears inside Account and Event models and should be filled with data of an ***user*** or an ***event***.
+```
+```
+- **CreditCard**: when your API process a payment done with credit card, this model will be used. It should be filled with ***buyer's creditcard*** secure data. We don't hold all information at all.
+```
+```
+- **Item**: when someone buy a ***ticket*** for instance, this Model will be instantiate and filled with that ticket data.
+```
+```
+- **Payment**: this is a Model that holds the ***transaction*** data (e.g. payment method or installments).
+```
+```
 
 ### What you should notice
 Not all of the Model's attributes are required but we trully recommend you work around to pass them all. On the other hand, some of them are **super important** and you should pass it correctly. Let's talk about some of them.
@@ -124,6 +232,6 @@ Not all of the Model's attributes are required but we trully recommend you work 
  - Address:
    - ***almost all fields***: address is **only required** when you try to track an Event, but exists in Account model as well. The tricky is that once you decide to provide an Address, most of the atributes are required and you'll get a lot of Exceptions if try to pass it incomplete.
  - Common requests:
-   - ***update_timestamp***: some Models have setters and getters to update_timestamp and creation_timestamp as you can see in the general files, but only update_timestamp is really required and should be setted. When is a create request (e.g *trackAccountCreation()*), the *update_timestamp* provided we'll be used as *create_timestamp*. 
+   - ***update_timestamp***: some Models have setters and getters to update_timestamp and creation_timestamp as you can see in the general files, but only update_timestamp is really required and should be setted. When is a create request (e.g *trackAccountCreation()*), the *update_timestamp* provided we'll be used as *create_timestamp*. We recommend use of *time()* PHP function that returns an unix timestamp. 
 
 ### Best Practices & Tips
