@@ -368,10 +368,8 @@ class InspetorClass
 ?>
 ```
   - **InspetorServices**: that's another class to help you with Inspetor instantion and is a totally optional feature. But you'll like it. Do you know something about **dependency injection**? What about **Phalcon**? Dude, these are awesome tools to development with PHP, let's talk about it. 
-    - *Dependency Injection*: not only in PHP but in *software engineering* at all, that's a technique whereby one object supplies the dependencies of another object. A "dependency" is an object that can be used, for example a service (that's how we do!). And, if I had to explain to 5-years-old, I would quote John Munsch: 
+    - *Dependency Injection*: not only in PHP but in *software engineering* at all, that's a technique whereby one object supplies the dependencies of another object. A "dependency" is an object that can be used, for example a service (that's how we do!). And, if I had to explain to 5-years-old, I would quote John Munsch and please, read more about this awesome topic [here](https://www.freecodecamp.org/news/a-quick-intro-to-dependency-injection-what-it-is-and-when-to-use-it-7578c84fa88f/0).: 
     > When you go and get things out of the refrigerator for yourself, you can cause problems. You might leave the door open, you might get something Mommy or Daddy doesn't want you to have. You might even be looking for something we don't even have or which has expired. What you should be doing is stating a need, "I need something to drink with lunch," and then we will make sure you have something when you sit down to eat.
-    
-    Please, read more about this awesome topic [here](https://www.freecodecamp.org/news/a-quick-intro-to-dependency-injection-what-it-is-and-when-to-use-it-7578c84fa88f/0).
     - *Phalcon*: that's an open source full stack framework for PHP, optimized for high performance. Among all the advantages and features, Phalcon provide us an nice *dependency injection* service. More about Phalcon [here](https://docs.phalconphp.com/3.4/en/introduction). 
     
     Let's see an example: 
