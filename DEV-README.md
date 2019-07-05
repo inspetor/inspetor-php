@@ -39,6 +39,6 @@ composer require inspetor/inspetor-php:[version] (e.g composer require inspetor/
 ### Conclusion
 Easy, huh? I hope this small guide has been helpful to anyone who wants to improve our library. Nice job!
 
-*DPCL (dope cool)*
-
 And never forget that **STEALING IS BULLSHIT**. 
+
+*DPCL (dope cool)*
