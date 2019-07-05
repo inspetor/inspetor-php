@@ -311,7 +311,54 @@ Not all of the Model's attributes are required but we trully recommend you work 
    - ***sessions***: it's an attribute that you **must** pass even if you don't use the sessions context. If is that the case, you just need to replicate some of you Event attribute, as *event_id* and *event_date* for example.
  - Address:
    - ***almost all fields***: address is **only required** when you try to track an Event, but exists in Account model as well. The tricky is that once you decide to provide an Address, most of the atributes are required and you'll get a lot of Exceptions if try to pass it incomplete.
+ - CreditCard: 
+   - ***all fields***: all of them are requested once you set that the *payment_method* as "credit_card", so pay attention to that. 
  - Common requests:
    - ***update_timestamp***: some Models have setters and getters to update_timestamp and creation_timestamp as you can see in the general files, but only update_timestamp is really required and should be setted. When is a create request (e.g *trackAccountCreation()*), the *update_timestamp* provided we'll be used as *create_timestamp*. We recommend use of *time()* PHP function that returns an unix timestamp. 
 
 ### Best Practices & Tips
+Did you think it was easy? Please tell us and feel free to send suggestions [here](), we really would appreciate that. From now on, we decided to tell you some ~~secrets~~ nice practices we discover during development time and should help you with a cleaner integration. 
+  - InspetorClass: we already told you about that but it's important. Do it! With this class, you don't need to pass our config everytime and creates a layer between our application and yours, where you can, for instance, create funcions as *modelsBuilders* (we've already talked about that too) to keep all builders in one place. Here's a snippet of InspetorClass like that old before but with an example of *builder*.
+```
+<?php
+
+namespace NiceCompany\Inspetor;
+
+use Inspetor\InspetorClient;
+
+class InspetorClass 
+{
+  ...
+    /**
+     * Let's instantiate this awesome library! 
+     */
+    public function __construct()
+    {
+        $this->inspetor = new InspetorClient($inspetor_config);
+    }
+
+    /**
+     * @return Inspetor\InspetorClient $client
+     */
+    public function getClient() {
+        return $this->inspetor;
+    }
+    
+     /**
+     * @param array $auth_data
+     * @return Inspetor\Model\Auth
+     */
+     public function inspetorAuthBuilder($auth_data) {
+        $inspetor_auth = $this->getClient()
+            ->getInspetorAuth();
+        $inspetor_auth->setAccountId($auth_data['userId']);
+        $inspetor_auth->setAccountEmail($auth_data['userEmail']);
+        $inspetor_auth->setTimestamp(time());
+
+        return $inspetor_auth;
+    }
+
+  ...
+}
+?>
+```

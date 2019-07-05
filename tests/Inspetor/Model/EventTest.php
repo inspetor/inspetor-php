@@ -138,6 +138,16 @@ class EventTest extends TestCase {
         $event->isValid();
     }
 
+    public function testIfIsNotValidWhenAdminsIdIsNull() {
+        $event = $this->getDefaultEvent();
+        $event->setAdminsId(null);
+
+        $this->expectExceptionCode(200);
+        $this->setExpectedException(EventException::class);
+
+        $event->isValid();
+    }
+
 
 }
 
