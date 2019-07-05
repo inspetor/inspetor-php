@@ -125,7 +125,10 @@ We're using an auxiliar function *inspetorSaleBuilder* to build the *Sale Model*
 ### Models 
 
 The last snipped was a simple example to show how you should call our library and build one of our models. But now we're gonna talk about all of our Models, hoping you understand that some of them are not tracked it self but it's needed inside others. Take a look! 
-Principal models:
+
+
+
+***Principal models***:
 - **Auth**: model you fill with ***login*** or ***logout*** data. The name came from "*Authentication*".
 ```
 <?php
@@ -240,7 +243,9 @@ $inspetor_event = $inspetor->getInspetorEvent();
 ?>
 ```
 
-Auxiliar models:
+
+
+***Auxiliar models***:
 - **Address**: this model appears inside Account and Event models and should be filled with data of an ***user*** or an ***event***.
 ```
 <?php
@@ -318,7 +323,7 @@ Not all of the Model's attributes are required but we trully recommend you work 
 
 ### Best Practices & Tips
 Did you think it was easy? Please tell us and feel free to send suggestions [here](), we really would appreciate that. From now on, we decided to tell you some ~~secrets~~ nice practices we discover during development time and should help you with a cleaner integration. 
-  - InspetorClass: we already told you about that but it's important. Do it! With this class, you don't need to pass our config everytime and creates a layer between our application and yours, where you can, for instance, create funcions as *modelsBuilders* (we've already talked about that too) to keep all builders in one place. Here's a snippet of InspetorClass like that old before but with an example of *builder*.
+  - **InspetorClass**: we already told you about that but it's important. Do it! With this class, you don't need to pass our config everytime and creates a layer between our application and yours, where you can, for instance, create funcions as *modelsBuilders* (we've already talked about that too) to keep all builders in one place. Here's a snippet of InspetorClass like that old before but with an example of *builder*.
 ```
 <?php
 
@@ -362,3 +367,62 @@ class InspetorClass
 }
 ?>
 ```
+  - **InspetorServices**: that's another class to help you with Inspetor instantion and is a totally optional feature. But you'll like it. Do you know something about **dependency injection**? What about **Phalcon**? Dude, these are awesome tools to development with PHP, let's talk about it. 
+    - *Dependency Injection*: not only in PHP but in *software engineering* at all, that's a technique whereby one object supplies the dependencies of another object. A "dependency" is an object that can be used, for example a service (that's how we do!). And, if I had to explain to 5-years-old, I would quote John Munsch: 
+    > When you go and get things out of the refrigerator for yourself, you can cause problems. You might leave the door open, you might get something Mommy or Daddy doesn't want you to have. You might even be looking for something we don't even have or which has expired. What you should be doing is stating a need, "I need something to drink with lunch," and then we will make sure you have something when you sit down to eat.
+    
+    Please, read more about this awesome topic [here](https://www.freecodecamp.org/news/a-quick-intro-to-dependency-injection-what-it-is-and-when-to-use-it-7578c84fa88f/0).
+    - *Phalcon*: that's an open source full stack framework for PHP, optimized for high performance. Among all the advantages and features, Phalcon provide us an nice *dependency injection* service. More about Phalcon [here](https://docs.phalconphp.com/3.4/en/introduction). 
+    
+    Let's see an example: 
+```
+<?php
+
+namespace NiceCompany\Inspetor;
+
+use Phalcon\DiInterface;
+
+class InspetorServices
+{
+    /**
+     * @SuppressWarnings(PHPMD.StaticAccess)
+     * @param \Phalcon\DI\FactoryDefault $dependencyInjector
+     *
+     * @return void
+     */
+    public static function load(DiInterface $dependencyInjector)
+    {
+        $dependencyInjector->set('InspetorClient', [
+            'className' => 'Inspetor\InspetorClient',
+            'arguments' => [
+                [
+                    'type' => 'parameter',
+                    'value' => $dependencyInjector
+                        ->get('config')
+                        ->inspetor
+                        ->toArray()
+                ]
+            ]
+        ]);
+
+        $dependencyInjector->set('InspetorTracker', [
+            'className' => 'Ingresse\Inspetor\Inspetor',
+            'arguments' => [
+                [
+                    'type' => 'service',
+                    'name' => 'InspetorClient'
+                ]
+            ]
+        ]);
+    }
+}
+
+
+``` 
+
+### Conclusion 
+WOW! It was lovely to work with you, my friend. We trully hope that our instructions were clear and effective. Again, please tell us if we could make something better and contact us [here](). 
+
+Now you're invited to join our army against fraud 'cause ***STEALING IS BULLSHIT***! 
+
+*DPCL (dope cool)*
