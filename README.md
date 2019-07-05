@@ -138,7 +138,7 @@ Principal models:
   $inspetor_auth->setTimestamp(time()); // time() returns unix timestamp
 ?>
 ```
-- **Account**: model you fill with your ***user*** data. 
+- **Account**: model you fill with your ***user*** data. Account has *address* and *billing_address* as two non required values and both are builded with *Address* Model.
 ```
 <?php
 // Calling an instance of Model
@@ -156,7 +156,7 @@ Principal models:
   $inspetor_account->setUpdateTimestamp(time());
 ?>
 ```
-- **Event**: model you fill with your ***event*** data (e.g. an party or forum info).
+- **Event**: model you fill with your ***event*** data (e.g. an party or forum info). The *address* is required here, so you **must** instantiate an *Address* Model to an Event.
 ```
 <?php
 // Calling an instance of Model
@@ -198,11 +198,12 @@ $inspetor_event = $inspetor->getInspetorEvent();
   $inspetor_pass->setTimestamp(time());
 ?>
 ```
-- **Sale**: model that should be filled with the ***sale*** data you have in your API.
-  - Sale status allowed values:
-    -
-    -
-    -
+- **Sale**: model that should be filled with the ***sale*** data you have in your API. The sale status has fixed allowed values:
+  - "accepted" but you can use the Transfer const like Sale::ACCEPTED_STATUS
+  - "rejected" but you can use the Transfer const like Sale::DECLINED_STATUS
+  - "pending" but you can use the Transfer const like Sale::PENDING_STATUS
+  - "refunded" but you can use the Transfer const like Sale::REFUNDED_STATUS
+  - "manual_analysis" but you can use the Transfer const like Sale::MANUAL_ANALYSIS_STATUS
 ```
 <?php
 // Calling an instance of Model
@@ -220,9 +221,9 @@ $inspetor_event = $inspetor->getInspetorEvent();
 ?>
 ```
 - **Transfer**: model you fill with ***transference*** data of an item of your API (e.g. transfer of a ticket). The transfer status has fixed allowed values:
-  - "accepted"
-  - "rejected"
-  - "pending"
+  - "accepted" but you can use the Transfer const like Transfer::ACCEPTED_STATUS
+  - "rejected" but you can use the Transfer const like Transfer::REJECTED_STATUS
+  - "pending" but you can use the Transfer const like Transfer::PENDING_STATUS
 ```
 <?php
 // Calling an instance of Model
