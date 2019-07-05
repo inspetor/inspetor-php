@@ -137,6 +137,10 @@ class Event extends AbstractModel implements JsonSerializable {
             throw new EventException(7004);
 		}
 
+		if (!$this->admins_id || empty($this->admins_id)) {
+            throw new EventException(7012);
+		}
+
 		if (!$this->address) {
             throw new EventException(7005);
 		}
@@ -467,6 +471,16 @@ class Event extends AbstractModel implements JsonSerializable {
 	 * @return self
 	 */
 	public function setAdminsId($admins_id) {
+		if ($admins_id) {
+			if(!is_array($admins_id)) {
+				throw new EventException(7012);
+			}
+			foreach($admins_id as $admin) {
+				if(!$admin) {
+					throw new EventException(7012);
+				}
+			}
+		}
         $this->admins_id = $admins_id;
 		return $this;
 	}
