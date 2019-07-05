@@ -130,7 +130,7 @@ Principal models:
 ```
 <?php
 // Calling an instance of Model
-  $inspetor_auth = $this->getInspetorAuth();
+  $inspetor_auth = $inspetor->getInspetorAuth();
 
 // Filling model with company data
   $inspetor_auth->setAccountId("123");
@@ -142,14 +142,14 @@ Principal models:
 ```
 <?php
 // Calling an instance of Model
-  $inspetor_account = $this->getInspetorAuth();
+  $inspetor_account = $inspetor->getInspetorAuth();
 
 // Filling model with company data
   $inspetor_account->setId("123");
   $inspetor_account->setName("Test Name");
   $inspetor_account->setEmail("test@email.com");
   $inspetor_account->setDocument("07206094880"); // CPF
-  $inspetor_account->setPhoneNumber("11953890735"); 
+  $inspetor_account->setPhoneNumber("11953891736"); 
   $inspetor_account->setAddress($inspetor_account_address);
   $inspetor_account->setBillingAddress($inspetor_account_billing_address);
   $inspetor_account->setCreationTimestamp(time());
@@ -160,10 +160,10 @@ Principal models:
 ```
 <?php
 // Calling an instance of Model
-$inspetor_event = $this->getInspetorEvent();
+$inspetor_event = $inspetor->getInspetorEvent();
 
 // Filling model with company data
-  $inspetor_event->setId("123");
+  $inspetor_event->setId("8000");
   $inspetor_event->setName("Name Test");
   $inspetor_event->setDescription("Description Test");
   $inspetor_event->setCreationTimestamp(time());
@@ -171,11 +171,11 @@ $inspetor_event = $this->getInspetorEvent();
   $inspetor_event->setSessions([
       [
           "id"        => "123",
-          "timestamp" => $event_session_date
+          "timestamp" => $event_session_date1
       ],
       [
           "id"        => "124",
-          "timestamp" => $event_session_date
+          "timestamp" => $event_session_date2
       ]
   ]);
   $inspetor_event->setStatus(EVENT::PRIVATE_STATUS);
@@ -190,37 +190,116 @@ $inspetor_event = $this->getInspetorEvent();
 - **PassRecovery**: model that must contain data from a ***password recovery*** or ***password reset*** request of your API.
 ```
 <?php
-$auth = $this->getInspetorAuth();
+// Calling an instance of Model
+  $inspetor_pass = $inspetor->getInspetorPassRecovery();
 
+// Filling model with company data
+  $inspetor_pass->setRecoveryEmail("test@email.com");
+  $inspetor_pass->setTimestamp(time());
 ?>
 ```
 - **Sale**: model that should be filled with the ***sale*** data you have in your API.
+  - Sale status allowed values:
+    -
+    -
+    -
 ```
 <?php
-$auth = $this->getInspetorAuth();
+// Calling an instance of Model
+  $inspetor_sale = $inspetor->getInspetorSale();
 
+// Filling model with company data
+  $inspetor_sale->setId("1234");
+  $inspetor_sale->setAccountId("123");
+  $inspetor_sale->setStatus("pending");
+  $inspetor_sale->setIsFraud(false);
+  $inspetor_sale->setCreationTimestamp(time());
+  $inspetor_sale->setUpdateTimestamp(time());
+  $inspetor_sale->setItems([$inspetor_item1, $inspetor_item2]);
+  $inspetor_sale->setPayment($inspetor_payment);
 ?>
 ```
-- **Transfer**: model you fill with ***transference*** data of an item of your API (e.g. transfer of a ticket).
+- **Transfer**: model you fill with ***transference*** data of an item of your API (e.g. transfer of a ticket). The transfer status has fixed allowed values:
+  - "accepted"
+  - "rejected"
+  - "pending"
 ```
 <?php
-$auth = $this->getInspetorAuth();
+// Calling an instance of Model
+  $inspetor_transfer = $inspetor->getInspetorTransfer();
 
+// Filling model with company data
+  $inspetor_transfer->setId("123");
+  $inspetor_transfer->setCreationTimestamp(time());
+  $inspetor_transfer->setUpdateTimestamp(time());
+  $inspetor_transfer->setItemId("9000");
+  $inspetor_transfer->setSenderAccountId("124");
+  $inspetor_transfer->setReceiverEmail("test@email.com");
+  $inspetor_transfer->setStatus("accepted");
 ?>
 ```
 
 Auxiliar models:
 - **Address**: this model appears inside Account and Event models and should be filled with data of an ***user*** or an ***event***.
 ```
+<?php
+// Calling an instance of Model
+  $inspetor_address = $inspetor->getInspetorAddress();
+
+// Filling model with company data
+  $inspetor_address->setStreet("Street Security");
+  $inspetor_address->setNumber("123");
+  $inspetor_address->setZipCode("05511010");
+  $inspetor_address->setCity("Test City");
+  $inspetor_address->setState("Test State");
+  $inspetor_address->setCountry("Test Country");
+  $inspetor_address->setLatitude("123");
+  $inspetor_address->setLongitude("123");
+?>
 ```
 - **CreditCard**: when your API process a payment done with credit card, this model will be used. It should be filled with ***buyer's creditcard*** secure data. We don't hold all information at all.
 ```
+<?php
+// Calling an instance of Model
+  $inspetor_cc = $inspetor->getInspetorCreditCard();
+
+// Filling model with company data
+  $inspetor_cc->setFirstSixDigits("123456");
+  $inspetor_cc->setLastFourDigits("1234");
+  $inspetor_cc->setHolderName("Holder Name");
+  $inspetor_cc->setHolderCpf("07206094880");
+?>
 ```
 - **Item**: when someone buy a ***ticket*** for instance, this Model will be instantiate and filled with that ticket data.
 ```
+<?php
+// Calling an instance of Model
+  $inspetor_item = $inspetor->getInspetorItem();
+
+// Filling model with company data
+  $inspetor_item->setId("9000");
+  $inspetor_item->setEventId("8000");
+  $inspetor_item->setSessionId("124");
+  $inspetor_item->setPrice("50.00");
+  $inspetor_item->setSeatingOption("PISTA");
+  $inspetor_item->setQuantity("2");
+?>
 ```
-- **Payment**: this is a Model that holds the ***transaction*** data (e.g. payment method or installments).
+- **Payment**: this is a Model that holds the ***transaction*** data (e.g. payment method or installments). The payment status has fixed allowed values:
+  - "credit_card" but you can use the Payment const like Payment::CREDIT_CARD
+  - "boleto" but you can use the Payment const like Payment::BOLETO
+  - "other" but you can use the Payment const like Payment::OTHER_METHOD
 ```
+<?php
+// Calling an instance of Model
+  $inspetor_payment = $inspetor->getInspetorPayment();
+
+// Filling model with company data
+  $inspetor_payment->setId("12345");
+  $inspetor_payment->setMethod("credit_card");
+  $inspetor_payment->setInstallments("1");
+  $inspetor_payment->setCreditCard($inspetor_cc);
+?>
 ```
 
 ### What you should notice
