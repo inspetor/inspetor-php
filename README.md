@@ -73,12 +73,12 @@ Now, wherever you need to call some Inspetor function, you just need to import t
 
 I'm supposing you did an amazing job until this moment, so let's move on. It's time to make some calls and track some data. Nice, huh? Here we go. 
 
-If you've already read the [general Inspetor files](), you should be aware of all of Inspetor requests and trackers, so our intention here is just to show you how to use the PHP version of some of them. 
+If you've already read the [general Inspetor files](https://inspetor.github.io/slate/#introduction), you should be aware of all of Inspetor requests and trackers, so our intention here is just to show you how to use the PHP version of some of them. 
 
 Let's imagine that you want to put a tracker in your *"create transaction"* flow to send some data that the best Antifraud team should analyze and tell you if it's a fraud or not. So, it's intuitive that you need to call the *inspetorSaleCreation* and pass the data of that sale, right? 
 
 Yeah, but we must ask you a little favor. Considering the fraud context, it's possible that not all of your transaction data 
-help us to indenfity fraud, so we created a **Model** for each instance we use (remember what is a Model [here]()) that you must build and fill with it's needed. Let's see a snippet.
+help us to indenfity fraud, so we created a **Model** for each instance we use (remember what is a Model [here](https://inspetor.github.io/slate/#models)) that you must build and fill with it's needed. Let's see a snippet.
 
 ```
 <?php
@@ -118,7 +118,7 @@ class Sale {
 ?>
 ```
 
-Following this code and assuming you've builded your model with all required parametes (find out each Model's required parameters [here]()), we *someCompanyFunction* run, the Inspetor code inside will send a great object with all we need to know about that sale. Easy? 
+Following this code and assuming you've builded your model with all required parametes (find out each Model's required parameters [here](https://inspetor.github.io/slate/#models)), we *someCompanyFunction* run, the Inspetor code inside will send a great object with all we need to know about that sale. Easy? 
 
 We're using an auxiliar function *inspetorSaleBuilder* to build the *Sale Model* but you don't have to do it, or place it where we do here neither. You could set this *inspetorSaleBuilder* inside your *InspetorClass* that we talked about some lines above, for example. More tips in the section Best Practices & Tips.
 
