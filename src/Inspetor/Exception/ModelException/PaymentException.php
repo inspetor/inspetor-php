@@ -27,7 +27,7 @@ class PaymentException extends ExceptionAbstract {
     protected static $messages = array(
         1 => "id is a required property. It can't be null.",
         2 => "method is a required property. It can't be null.",
-        3 => "installments is a required property. It can't be null.",
+        3 => "installments is a required property. It should be an integer greater than zero.",
         4 => "This payment method is not a valid one.",
         5 => "Credit card can't be null when method is credit_card."
     );

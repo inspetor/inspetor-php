@@ -80,12 +80,6 @@ class InspetorResource implements InspetorResourceService {
             Sale::SALE_UPDATE_STATUS_ACTION
         ];
 
-        if ($action ==  Sale::SALE_CREATE_ACTION) {
-            $data->setCreationTimestamp(
-                $data->getUpdateTimestamp()
-            );
-        }
-
         if (!in_array($action, $valid_actions)) {
             throw new TrackerException(9005);
         }
@@ -115,12 +109,6 @@ class InspetorResource implements InspetorResourceService {
             Account::ACCOUNT_UPDATE_ACTION,
             Account::ACCOUNT_DELETE_ACTION
         ];
-
-        if ($action == Account::ACCOUNT_CREATE_ACTION) {
-            $data->setCreationTimestamp(
-                $data->getUpdateTimestamp()
-            );
-        }
 
         if (!in_array($action, $valid_actions)) {
             throw new TrackerException(9003);
@@ -152,12 +140,6 @@ class InspetorResource implements InspetorResourceService {
             Event::EVENT_DELETE_ACTION
         ];
 
-        if ($action == Event::EVENT_CREATE_ACTION) {
-            $data->setCreationTimestamp(
-                $data->getUpdateTimestamp()
-            );
-        }
-
         if (!in_array($action, $valid_actions)) {
             throw new TrackerException(9008);
         }
@@ -187,12 +169,6 @@ class InspetorResource implements InspetorResourceService {
             Transfer::TRANSFER_CREATE_ACTION,
             Transfer::TRANSFER_UPDATE_STATUS_ACTION
         ];
-
-        if ($action == Transfer::TRANSFER_CREATE_ACTION) {
-            $data->setCreationTimestamp(
-                $data->getUpdateTimestamp()
-            );
-        }
 
         if (!in_array($action, $valid_actions)) {
             throw new TrackerException(9006);

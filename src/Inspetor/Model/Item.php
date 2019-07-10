@@ -46,7 +46,7 @@ class Item extends AbstractModel implements JsonSerializable {
 	private $session_id;
 
     /**
-	 * @param string
+	 * @param double
 	 */
 	private $price;
 
@@ -56,7 +56,7 @@ class Item extends AbstractModel implements JsonSerializable {
 	private $seating_option;
 
 	/**
-	 * @param string
+	 * @param integer
 	 */
 	private $quantity;
 
@@ -163,7 +163,7 @@ class Item extends AbstractModel implements JsonSerializable {
 	/**
 	 * Get the value of price
 	 *
-	 * @return string
+	 * @return double
 	 */
 	public function getPrice() {
 		return $this->price;
@@ -172,15 +172,15 @@ class Item extends AbstractModel implements JsonSerializable {
 	/**
 	 * Set the value of price
 	 *
-	 * @param string  $price
+	 * @param double $price
 	 *
 	 * @return self
 	 */
 	public function setPrice($price) {
-		$price = $this->convertToValidPrice($price);
-
-		if (!$price) {
-            throw new ItemException(7006);
+		if($price){
+			if ($price < 0.0) {
+        	    throw new ItemException(7006);
+			}
 		}
 
 		$this->price = $price;
@@ -213,7 +213,7 @@ class Item extends AbstractModel implements JsonSerializable {
 	/**
 	 * Get the value of quantity
 	 *
-	 * @return  string
+	 * @return integer
 	 */
 	public function getQuantity() {
 		return $this->quantity;
@@ -222,11 +222,16 @@ class Item extends AbstractModel implements JsonSerializable {
 	/**
 	 * Set the value of quantity
 	 *
-	 * @param   string  $quantity
+	 * @param integer  $quantity
 	 *
-	 * @return  self
+	 * @return self
 	 */
 	public function setQuantity($quantity) {
+		if ($quantity) {
+			if ($quantity <= 0) {
+				throw new ItemException(7007);
+			}
+		}
         $this->quantity = $quantity;
 		return $this;
 	}
@@ -251,39 +256,6 @@ class Item extends AbstractModel implements JsonSerializable {
 
         return $array;
     }
-
-	/**
-	 * Convert $price string to valid value
-	 *
-	 * @param string $price
-	 *
-	 * @return
-	 */
-	private function convertToValidPrice($price) {
-		$price = str_replace(['-', ',', '$', ' '], '', $price);
-		if(!is_numeric($price)) {
-			$price = null;
-		} else {
-			if(strpos($price, '.') !== false) {
-				$dollarExplode = explode('.', $price);
-				$dollar = $dollarExplode[0];
-				$cents = $dollarExplode[1];
-				if(strlen($cents) === 0) {
-					$cents = '00';
-				} elseif(strlen($cents) === 1) {
-					$cents = $cents.'0';
-				} elseif(strlen($cents) > 2) {
-					$cents = substr($cents, 0, 2);
-				}
-				$price = $dollar.'.'.$cents;
-			} else {
-				$cents = '00';
-				$price = $price.'.'.$cents;
-			}
-		}
-
-		return $price;
-	}
 }
 
 ?>

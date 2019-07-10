@@ -13,7 +13,7 @@ class ItemTest extends TestCase {
         $item->setId("123");
         $item->setEventId("123");
         $item->setSessionId("123");
-        $item->setPrice("10");
+        $item->setPrice(10.00);
         $item->setSeatingOption("Seating Option Test");
         $item->setQuantity("123");
         return $item;
@@ -56,11 +56,12 @@ class ItemTest extends TestCase {
 
     public function testIfIsNotValidWhenPriceIsNull() {
         $item = $this->getDefaultItem();
+        $item->setPrice(null);
 
         $this->expectExceptionCode(200);
         $this->setExpectedException(ItemException::class);
 
-        $item->setPrice(null);
+        $item->isValid();
     }
 
     public function testIfIsNotValidWhenQuantityIsNull() {
@@ -69,7 +70,6 @@ class ItemTest extends TestCase {
 
         $this->expectExceptionCode(200);
         $this->setExpectedException(ItemException::class);
-
         $item->isValid();
     }
 

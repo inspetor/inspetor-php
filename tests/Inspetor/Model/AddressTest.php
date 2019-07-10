@@ -32,17 +32,7 @@ class AddressTest extends TestCase {
 
         $this->expectExceptionCode(200);
         $this->setExpectedException(AddressException::class);
-        
-        $address->isValid();
-    }
 
-    public function testIfIsNotValidWhenNumberIsNull() {
-        $address = $this->getDefaultAddress();
-        $address->setNumber(null);
-
-        $this->expectExceptionCode(200);
-        $this->setExpectedException(AddressException::class);
-        
         $address->isValid();
     }
 
@@ -52,7 +42,7 @@ class AddressTest extends TestCase {
 
         $this->expectExceptionCode(200);
         $this->setExpectedException(AddressException::class);
-        
+
         $address->isValid();
     }
 
@@ -62,7 +52,7 @@ class AddressTest extends TestCase {
 
         $this->expectExceptionCode(200);
         $this->setExpectedException(AddressException::class);
-        
+
         $address->isValid();
     }
 
@@ -72,7 +62,7 @@ class AddressTest extends TestCase {
 
         $this->expectExceptionCode(200);
         $this->setExpectedException(AddressException::class);
-        
+
         $address->isValid();
     }
 
@@ -82,21 +72,21 @@ class AddressTest extends TestCase {
 
         $this->expectExceptionCode(200);
         $this->setExpectedException(AddressException::class);
-        
+
         $address->isValid();
     }
 
     public function testIfIsValidWhenLatitudeIsNull() {
         $address = $this->getDefaultAddress();
         $address->setLatitude(null);
-        
+
         $this->assertNull($address->isValid());
     }
 
     public function testIfIsValidWhenLongitudeIsNull() {
         $address = $this->getDefaultAddress();
         $address->setLongitude(null);
-        
+
         $this->assertNull($address->isValid());
     }
 

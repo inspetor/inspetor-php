@@ -14,8 +14,7 @@ class EventTest extends TestCase {
         $event->setId("123");
         $event->setName("Name Test");
         $event->setDescription("Description Test");
-        $event->setCreationTimestamp($this->getNormalizedTime());
-        $event->setUpdateTimestamp($this->getNormalizedTime());
+        $event->setTimestamp($this->getNormalizedTime());
         $event->setSessions([
             [
                 "id"        => "123",
@@ -80,7 +79,7 @@ class EventTest extends TestCase {
 
     public function testIfIsNotValidWhenUpdateTsIsNull() {
         $event = $this->getDefaultEvent();
-        $event->setUpdateTimestamp(null);
+        $event->setTimestamp(null);
 
         $this->expectExceptionCode(200);
         $this->setExpectedException(EventException::class);

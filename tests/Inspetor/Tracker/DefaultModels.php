@@ -21,8 +21,7 @@ class DefaultModels {
         $sale->setAccountId("123");
         $sale->setStatus(SALE::PENDING_STATUS);
         $sale->setIsFraud(true);
-        $sale->setCreationTimestamp(time()*1000);
-        $sale->setUpdateTimestamp(time());
+        $sale->setTimestamp(time());
         $sale->setItems([
             $this->getDefaultItem()
         ]);
@@ -39,8 +38,7 @@ class DefaultModels {
         $account->setPhoneNumber("112345678");
         $account->setAddress($this->getDefaultAddress());
         $account->setBillingAddress($this->getDefaultAddress());
-        $account->setCreationTimestamp($this->getNormalizedTime());
-        $account->setUpdateTimestamp($this->getNormalizedTime());
+        $account->setTimestamp($this->getNormalizedTime());
         return $account;
     }
 
@@ -49,8 +47,7 @@ class DefaultModels {
         $event->setId("123");
         $event->setName("Name Test");
         $event->setDescription("Description Test");
-        $event->setCreationTimestamp($this->getNormalizedTime());
-        $event->setUpdateTimestamp($this->getNormalizedTime());
+        $event->setTimestamp($this->getNormalizedTime());
         $event->setSessions([
             [
                 "id"        => "123",
@@ -74,8 +71,7 @@ class DefaultModels {
     public function getDefaultTransfer() {
         $transfer = new Transfer();
         $transfer->setId("123");
-        $transfer->setCreationTimestamp($this->getNormalizedTime());
-        $transfer->setUpdateTimestamp($this->getNormalizedTime());
+        $transfer->setTimestamp($this->getNormalizedTime());
         $transfer->setItemId("123");
         $transfer->setSenderAccountId("123");
         $transfer->setReceiverEmail("test@email.com");
