@@ -16,8 +16,7 @@ class SaleTest extends TestCase {
         $sale->setAccountId("123");
         $sale->setStatus(SALE::PENDING_STATUS);
         $sale->setIsFraud(true);
-        $sale->setCreationTimestamp($this->getNormalizedTime());
-        $sale->setUpdateTimestamp($this->getNormalizedTime());
+        $sale->setTimestamp($this->getNormalizedTime());
         $sale->setItems([
             $this->getDefaultItem()
         ]);
@@ -101,26 +100,6 @@ class SaleTest extends TestCase {
 
         $this->expectExceptionCode(200);
         $this->setExpectedException(SaleException::class);
-
-        $sale->isValid();
-    }
-
-    public function testIfIsNotValidWhenCreationTsIsNull() {
-        $sale = $this->getDefaultSale();
-        $sale->setCreationTimestamp(null);
-
-        //$this->expectExceptionCode(200);
-        //$this->setExpectedException(SaleException::class);
-
-        $sale->isValid();
-    }
-
-    public function testIfIsNotValidWhenUpdateTsIsNull() {
-        $sale = $this->getDefaultSale();
-        $sale->setCreationTimestamp(null);
-
-        //$this->expectExceptionCode(200);
-        //$this->setExpectedException(SaleException::class);
 
         $sale->isValid();
     }

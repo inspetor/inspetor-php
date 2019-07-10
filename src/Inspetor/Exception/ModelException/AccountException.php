@@ -27,7 +27,7 @@ class AccountException extends ExceptionAbstract {
     protected static $messages = array(
         1 => "id is a required property. It can't be null.",
         2 => "email is a required property. It can't be null.",
-        3 => "update_timestamp is a required property. It can't be null.",
+        3 => "timestamp is a required property. It can't be null.",
     );
 
     /**

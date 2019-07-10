@@ -80,10 +80,6 @@ class Address extends AbstractModel implements JsonSerializable {
             throw new AddressException(7001);
         }
 
-        if (!$this->number) {
-            throw new AddressException(7002);
-        }
-
         if (!$this->zip_code) {
             throw new AddressException(7003);
         }

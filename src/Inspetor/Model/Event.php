@@ -58,12 +58,7 @@ class Event extends AbstractModel implements JsonSerializable {
 	/**
 	 * @param string
 	 */
-	private $creation_timestamp;
-
-	/**
-	 * @param string
-	 */
-	private $update_timestamp;
+	private $timestamp;
 
 	/**
 	 * @param array
@@ -129,7 +124,7 @@ class Event extends AbstractModel implements JsonSerializable {
             throw new EventException(7002);
         }
 
-        if (!$this->update_timestamp) {
+        if (!$this->timestamp) {
             throw new EventException(7003);
 		}
 
@@ -245,46 +240,25 @@ class Event extends AbstractModel implements JsonSerializable {
 	}
 
     /**
-     * Get the value of update_timestamp
+     * Get the value of timestamp
      *
      * @return string
      */
-    public function getUpdateTimestamp() {
-        return $this->update_timestamp;
+    public function getTimestamp() {
+        return $this->timestamp;
     }
 
     /**
-     * Set the value of update_timestamp
+     * Set the value of timestamp
      *
-     * @param string $update_timestamp
+     * @param string $timestamp
      *
      * @return self
      */
-    public function setUpdateTimestamp($update_timestamp) {
-        $this->update_timestamp = $this->inspetorDateFormatter(
-			$update_timestamp
+    public function setTimestamp($timestamp) {
+        $this->timestamp = $this->inspetorDateFormatter(
+			$timestamp
 		);
-        return $this;
-    }
-
-    /**
-     * Get the value of creation_timestamp
-     *
-     * @return string
-     */
-    public function getCreationTimestamp() {
-        return $this->creation_timestamp;
-    }
-
-    /**
-     * Set the value of creation_timestamp
-     *
-     * @param string $update_timestamp
-     *
-     * @return self
-     */
-    public function setCreationTimestamp($creation_timestamp) {
-        $this->creation_timestamp = $creation_timestamp;
         return $this;
     }
 
@@ -530,8 +504,7 @@ class Event extends AbstractModel implements JsonSerializable {
             "event_id"                 => $this->encodeData($this->getId()),
             "event_name"               => $this->encodeData($this->getName()),
             "event_description"        => $this->encodeData($this->getDescription()),
-            "event_creation_timestamp" => $this->encodeData($this->getCreationTimestamp()),
-            "event_update_timestamp"   => $this->encodeData($this->getUpdateTimestamp()),
+            "event_timestamp"  		   => $this->encodeData($this->getTimestamp()),
             "event_sessions"           => $this->encodeSessions(),
             "event_status"             => $this->encodeData($this->getStatus()),
 			"event_status_other"       => $this->encodeData($this->getOtherStatus()),

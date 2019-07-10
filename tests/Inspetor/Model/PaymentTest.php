@@ -12,7 +12,7 @@ class PaymentTest extends TestCase {
         $payment = new Payment();
         $payment->setId("123");
         $payment->setMethod(PAYMENT::BOLETO);
-        $payment->setInstallments("1");
+        $payment->setInstallments(1);
         $payment->setCreditCard(null);
         return $payment;
     }

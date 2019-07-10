@@ -73,14 +73,9 @@ class Account extends AbstractModel implements JsonSerializable {
     private $billing_address;
 
     /**
-     * @param string $creation_timestamp
+     * @param string $timestamp
      */
-    private $creation_timestamp;
-
-    /**
-     * @param string $update_timestamp
-     */
-    private $update_timestamp;
+    private $timestamp;
 
     /**
      * Validate Account instance
@@ -96,7 +91,7 @@ class Account extends AbstractModel implements JsonSerializable {
             throw new AccountException(7002);
         }
 
-        if (!$this->update_timestamp) {
+        if (!$this->timestamp) {
             throw new AccountException(7003);
         }
     }
@@ -259,46 +254,25 @@ class Account extends AbstractModel implements JsonSerializable {
     }
 
     /**
-     * Get the value of update_timestamp
+     * Get the value of timestamp
      *
      * @return string
      */
-    public function getUpdateTimestamp() {
-        return $this->update_timestamp;
+    public function getTimestamp() {
+        return $this->timestamp;
     }
 
     /**
-     * Set the value of update_timestamp
+     * Set the value of timestamp
      *
-     * @param integer $update_timestamp
+     * @param integer $timestamp
      *
      * @return self
      */
-    public function setUpdateTimestamp($update_timestamp) {
-        $this->update_timestamp = $this->inspetorDateFormatter(
-            $update_timestamp
+    public function setTimestamp($timestamp) {
+        $this->timestamp = $this->inspetorDateFormatter(
+            $timestamp
         );
-        return $this;
-    }
-
-    /**
-     * Get the value of creation_timestamp
-     *
-     * @return string
-     */
-    public function getCreationTimestamp() {
-        return $this->creation_timestamp;
-    }
-
-    /**
-     * Set the value of creation_timestamp
-     *
-     * @param integer $update_timestamp
-     *
-     * @return self
-     */
-    public function setCreationTimestamp($creation_timestamp) {
-        $this->creation_timestamp = $creation_timestamp;
         return $this;
     }
 
@@ -319,8 +293,7 @@ class Account extends AbstractModel implements JsonSerializable {
             "account_document"           => $this->encodeData($this->getDocument()),
             "account_address"            => $this->encodeObject($this->getAddress()),
             "account_billing_address"    => $this->encodeObject($this->getBillingAddress()),
-            "account_creation_timestamp" => $this->encodeData($this->getCreationTimestamp()),
-            "account_update_timestamp"   => $this->encodeData($this->getUpdateTimestamp()),
+            "account_timestamp"          => $this->encodeData($this->getTimestamp()),
             "account_phone_number"       => $this->encodeData($this->getPhoneNumber())
         ];
 

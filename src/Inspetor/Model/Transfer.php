@@ -45,12 +45,7 @@ class Transfer extends AbstractModel implements JsonSerializable {
     /**
      * @param string
      */
-    private $creation_timestamp;
-
-    /**
-     * @param string
-     */
-    private $update_timestamp;
+    private $timestamp;
 
 	/**
 	 * @param string
@@ -86,7 +81,7 @@ class Transfer extends AbstractModel implements JsonSerializable {
             throw new TransferException(7001);
         }
 
-        if (!$this->update_timestamp) {
+        if (!$this->timestamp) {
             throw new TransferException(7002);
 		}
 
@@ -145,48 +140,28 @@ class Transfer extends AbstractModel implements JsonSerializable {
 	}
 
 	/**
-     * Get the value of update_timestamp
+     * Get the value of timestamp
      *
      * @return string
      */
-    public function getUpdateTimestamp() {
-        return $this->update_timestamp;
+    public function getTimestamp() {
+        return $this->timestamp;
     }
 
     /**
-     * Set the value of update_timestamp
+     * Set the value of timestamp
      *
-     * @param integer $update_timestamp
+     * @param integer $timestamp
      *
      * @return self
      */
-    public function setUpdateTimestamp($update_timestamp) {
-        $this->update_timestamp = $this->inspetorDateFormatter(
-            $update_timestamp
+    public function setTimestamp($timestamp) {
+        $this->timestamp = $this->inspetorDateFormatter(
+            $timestamp
         );
         return $this;
     }
 
-    /**
-     * Get the value of creation_timestamp
-     *
-     * @return string
-     */
-    public function getCreationTimestamp() {
-        return $this->creation_timestamp;
-    }
-
-    /**
-     * Set the value of creation_timestamp
-     *
-     * @param integer $update_timestamp
-     *
-     * @return self
-     */
-    public function setCreationTimestamp($creation_timestamp) {
-        $this->creation_timestamp = $creation_timestamp;
-        return $this;
-    }
 	/**
 	 * Get the value of item_id
 	 *
@@ -285,8 +260,7 @@ class Transfer extends AbstractModel implements JsonSerializable {
     public function jsonSerialize() {
         $array = [
             "transfer_id"                 => $this->encodeData($this->getId()),
-            "transfer_creation_timestamp" => $this->encodeData($this->getUpdateTimestamp()),
-            "transfer_update_timestamp"   => $this->encodeData($this->getCreationTimestamp()),
+            "transfer_timestamp" 		  => $this->encodeData($this->getTimestamp()),
             "transfer_item_id"            => $this->encodeData($this->getItemId()),
             "transfer_sender_account_id"  => $this->encodeData($this->getSenderAccountId()),
             "transfer_receiver_email"     => $this->encodeData($this->getReceiverEmail()),

@@ -27,7 +27,7 @@ class EventException extends ExceptionAbstract {
     protected static $messages = array(
         1  => "id is a required property. It can't be null.",
         2  => "name is a required property. It can't be null.",
-        3  => "update_timestamp is a required property. It can't be null.",
+        3  => "timestamp is a required property. It can't be null.",
         4  => "producer_id is a required property. It can't be null.",
         5  => "address is a required property. It can't be null.",
         6  => "sessions is a required property. It can't be null neither an empty array.",

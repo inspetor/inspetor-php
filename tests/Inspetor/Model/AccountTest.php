@@ -18,8 +18,7 @@ class AccountTest extends TestCase {
         $account->setPhoneNumber("112345678");
         $account->setAddress($this->getDefaultAddress());
         $account->setBillingAddress($this->getDefaultAddress());
-        $account->setCreationTimestamp($this->getNormalizedTime());
-        $account->setUpdateTimestamp($this->getNormalizedTime());
+        $account->setTimestamp($this->getNormalizedTime());
         return $account;
     }
 
@@ -69,10 +68,10 @@ class AccountTest extends TestCase {
         $account = $this->getDefaultAccount();
 
         //$this->expectExceptionCode(200);
-        //$this->setExpectedException(AbstractException::class);
+        //$this->setExpectedException(GeneralException::class);
         //$this->expectExceptionMessage("The timestamp should be an integer.");
 
-        $account->setUpdateTimestamp(null);
+        $account->setTimestamp(null);
     }
 
 }

@@ -46,7 +46,7 @@ class Payment extends AbstractModel implements JsonSerializable {
     private $method;
 
     /**
-     * @param string
+     * @param integer
      */
     private $installments;
 
@@ -163,7 +163,7 @@ class Payment extends AbstractModel implements JsonSerializable {
 	/**
 	 * Get the value of installments
 	 *
-	 * @return string
+	 * @return integer
 	 */
 	public function getInstallments() {
 		return $this->installments;
@@ -172,11 +172,16 @@ class Payment extends AbstractModel implements JsonSerializable {
 	/**
 	 * Set the value of installments
 	 *
-	 * @param string  $installments
+	 * @param integer $installments
 	 *
 	 * @return self
 	 */
 	public function setInstallments($installments) {
+        if ($installments) {
+            if($installments <= 0) {
+                throw new PaymentException(7003);
+            }
+        }
         $this->installments = $installments;
 		return $this;
 	}

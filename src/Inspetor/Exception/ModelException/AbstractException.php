@@ -4,7 +4,7 @@ namespace Inspetor\Exception\ModelException;
 
 use Inspetor\Exception\ExceptionAbstract;
 
-class AbstractException extends ExceptionAbstract {
+class GeneralException extends ExceptionAbstract {
 
     /**
      * Category of Exception

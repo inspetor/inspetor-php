@@ -20,7 +20,7 @@
 
 namespace Inspetor\Model;
 
-use Inspetor\Exception\ModelException\AbstractException;
+use Inspetor\Exception\ModelException\GeneralException;
 
 class AbstractModel {
 
@@ -89,7 +89,7 @@ class AbstractModel {
             if (!((string) (int) $time === $time)
             && ($time <= PHP_INT_MAX)
             && ($time >= ~PHP_INT_MAX)){
-                throw new AbstractException(7001);
+                throw new GeneralException(7001);
             }
         }
         date_default_timezone_set('UTC');

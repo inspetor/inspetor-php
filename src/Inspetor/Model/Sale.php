@@ -52,7 +52,7 @@ class Sale extends AbstractModel implements JsonSerializable {
 	private $account_id;
 
     /**
-	 * @param string
+	 * @param double
 	 */
 	private $total_value;
 
@@ -69,12 +69,7 @@ class Sale extends AbstractModel implements JsonSerializable {
     /**
 	 * @param string
 	 */
-	private $creation_timestamp;
-
-    /**
-	 * @param string
-	 */
-	private $update_timestamp;
+	private $timestamp;
 
     /**
 	 * @param array
@@ -110,7 +105,7 @@ class Sale extends AbstractModel implements JsonSerializable {
             throw new SaleException(7004);
         }
 
-		if (!$this->update_timestamp) {
+		if (!$this->timestamp) {
             throw new SaleException(7005);
         }
 
@@ -152,7 +147,9 @@ class Sale extends AbstractModel implements JsonSerializable {
     private function setTotalValue() {
         foreach ($this->items as $item) {
             try {
-                $this->total_value += floatval($item->getPrice());
+                $this->total_value += floatval(
+					$item->getPrice()*$item->getQuantity()
+				);
             } catch (Exception $e) {
                 throw new SaleException(7009);
             }
@@ -211,7 +208,7 @@ class Sale extends AbstractModel implements JsonSerializable {
 	 * Get the value of total_value
 	 *
 	 *
-	 * @return string
+	 * @return double
 	 */
 	public function getTotalValue() {
 		return $this->total_value;
@@ -261,13 +258,14 @@ class Sale extends AbstractModel implements JsonSerializable {
 		return $this;
 	}
 
-	/**
+    /**
 	 * Get the value of timestamp
+	 *
 	 *
 	 * @return string
 	 */
-	public function getCreationTimestamp() {
-		return $this->creation_timestamp;
+	public function getTimestamp() {
+		return $this->timestamp;
     }
 
 	/**
@@ -277,31 +275,9 @@ class Sale extends AbstractModel implements JsonSerializable {
 	 *
 	 * @return self
 	 */
-	public function setCreationTimestamp($creation_timestamp) {
-        $this->creation_timestamp = $creation_timestamp;
-		return $this;
-    }
-
-    /**
-	 * Get the value of update_timestamp
-	 *
-	 *
-	 * @return string
-	 */
-	public function getUpdateTimestamp() {
-		return $this->update_timestamp;
-    }
-
-	/**
-	 * Set the value of update_timestamp
-	 *
-	 * @param string  $update_timestamp
-	 *
-	 * @return self
-	 */
-	public function setUpdateTimestamp($update_timestamp) {
-        $this->update_timestamp = $this->inspetorDateFormatter(
-			$update_timestamp
+	public function setTimestamp($timestamp) {
+        $this->timestamp = $this->inspetorDateFormatter(
+			$timestamp
 		);
 		return $this;
 	}
@@ -371,8 +347,7 @@ class Sale extends AbstractModel implements JsonSerializable {
             "sale_total_value"        => $this->encodeData($this->getTotalValue()),
             "sale_status"             => $this->encodeData($this->getStatus()),
             "sale_is_fraud"           => $this->encodeData($this->getIsFraud()),
-            "sale_creation_timestamp" => $this->encodeData($this->getCreationTimestamp()),
-            "sale_update_timestamp"   => $this->encodeData($this->getUpdateTimestamp()),
+            "sale_timestamp"  		  => $this->encodeData($this->getTimestamp()),
             "sale_items"              => $this->encodeArray($this->getItems(), true),
             "sale_payment_instance"   => $this->encodeObject($this->getPayment())
         ];
