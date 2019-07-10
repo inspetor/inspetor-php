@@ -251,6 +251,9 @@ class Account extends AbstractModel implements JsonSerializable {
      * @return self
      */
     public function setBillingAddress($billing_address) {
+        if ($billing_address) {
+            $billing_address->isValid();
+        }
         $this->billing_address = $billing_address;
         return $this;
     }
