@@ -80,7 +80,7 @@ class AbstractModel {
      *
      * @return string
     */
-    public function inspetorDateFormatter($time) {
+    protected function inspetorDateFormatter($time) {
         if (!$time) {
             return null;
         }
