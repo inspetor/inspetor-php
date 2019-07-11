@@ -519,6 +519,11 @@ class Event extends AbstractModel implements JsonSerializable {
         return $array;
 	}
 
+	/**
+	 * encodeSessions
+	 *
+	 * @return array
+	 */
 	private function encodeSessions() {
 		$sessions = $this->sessions;
 		$encoded_sessions = [];

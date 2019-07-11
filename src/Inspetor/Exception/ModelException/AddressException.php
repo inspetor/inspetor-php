@@ -26,11 +26,10 @@ class AddressException extends ExceptionAbstract {
      */
     protected static $messages = array(
         1 => "street is a required property. It can't be null.",
-        2 => "number is a required property. It can't be null.",
-        3 => "zip_code is a required property. It can't be null.",
-        4 => "city is a required property. It can't be null.",
-        5 => "state is a required property. It can't be null.",
-        6 => "country is a required property. It can't be null.",
+        2 => "zip_code is a required property. It can't be null.",
+        3 => "city is a required property. It can't be null.",
+        4 => "state is a required property. It can't be null.",
+        5 => "country is a required property. It can't be null.",
     );
 
     /**

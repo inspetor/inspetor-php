@@ -87,7 +87,7 @@ class Item extends AbstractModel implements JsonSerializable {
         }
 
 		if (!$this->quantity) {
-            throw new ItemException(7007);
+            throw new ItemException(7006);
         }
     }
 
@@ -179,7 +179,7 @@ class Item extends AbstractModel implements JsonSerializable {
 	public function setPrice($price) {
 		if($price){
 			if ($price < 0.0) {
-        	    throw new ItemException(7006);
+        	    throw new ItemException(7005);
 			}
 		}
 
@@ -229,7 +229,7 @@ class Item extends AbstractModel implements JsonSerializable {
 	public function setQuantity($quantity) {
 		if ($quantity) {
 			if ($quantity <= 0) {
-				throw new ItemException(7007);
+				throw new ItemException(7006);
 			}
 		}
         $this->quantity = $quantity;

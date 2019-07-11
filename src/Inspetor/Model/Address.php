@@ -81,19 +81,19 @@ class Address extends AbstractModel implements JsonSerializable {
         }
 
         if (!$this->zip_code) {
-            throw new AddressException(7003);
+            throw new AddressException(7002);
         }
 
         if (!$this->city) {
-            throw new AddressException(7004);
+            throw new AddressException(7003);
         }
 
         if (!$this->state) {
-            throw new AddressException(7005);
+            throw new AddressException(7004);
         }
 
         if (!$this->country) {
-            throw new AddressException(7006);
+            throw new AddressException(7005);
         }
     }
 

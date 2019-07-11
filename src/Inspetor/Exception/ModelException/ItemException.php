@@ -29,9 +29,8 @@ class ItemException extends ExceptionAbstract {
         2 => "event_id is a required property. It can't be null.",
         3 => "session_id is a required property. It can't be null.",
         4 => "price is a required property. It can't be null.",
-        5 => "seating_option is a required property. It can't be null.",
-        6 => "price is not valid. It must be a double value equals or greater than zero.",
-        7 => "quantity is a required property. It must be an integer greater than zero."
+        5 => "price is not valid. It must be a double value equals or greater than zero.",
+        6 => "quantity is a required property. It must be an integer greater than zero."
     );
 
     /**
