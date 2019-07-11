@@ -73,7 +73,7 @@ class Account extends AbstractModel implements JsonSerializable {
     private $billing_address;
 
     /**
-     * @param string $timestamp
+     * @param integer $timestamp
      */
     private $timestamp;
 
@@ -256,7 +256,7 @@ class Account extends AbstractModel implements JsonSerializable {
     /**
      * Get the value of timestamp
      *
-     * @return string
+     * @return integer
      */
     public function getTimestamp() {
         return $this->timestamp;

@@ -51,7 +51,7 @@ class Auth extends AbstractModel implements JsonSerializable {
       * Time and date when the action is occured.
       * The format needs to be in DD-MM-YYYY HH:MI:SS
       *
-      * @param string
+      * @param integer
     */
     private $timestamp;
 
@@ -124,7 +124,7 @@ class Auth extends AbstractModel implements JsonSerializable {
     /**
      * Get the value of timestamp
      *
-     * @return string
+     * @return integer
      */
     public function getTimestamp() {
         return $this->timestamp;
@@ -132,6 +132,8 @@ class Auth extends AbstractModel implements JsonSerializable {
 
     /**
      * Set the value of timestamp
+     *
+     * @param integer $timestamp
      *
      * @return self
     */

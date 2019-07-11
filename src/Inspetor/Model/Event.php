@@ -56,7 +56,7 @@ class Event extends AbstractModel implements JsonSerializable {
 	private $description;
 
 	/**
-	 * @param string
+     * @param integer
 	 */
 	private $timestamp;
 
@@ -242,7 +242,7 @@ class Event extends AbstractModel implements JsonSerializable {
     /**
      * Get the value of timestamp
      *
-     * @return string
+     * @return integer
      */
     public function getTimestamp() {
         return $this->timestamp;
@@ -251,7 +251,7 @@ class Event extends AbstractModel implements JsonSerializable {
     /**
      * Set the value of timestamp
      *
-     * @param string $timestamp
+     * @param integer $timestamp
      *
      * @return self
      */

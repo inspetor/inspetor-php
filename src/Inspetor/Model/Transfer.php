@@ -43,9 +43,9 @@ class Transfer extends AbstractModel implements JsonSerializable {
 	private $id;
 
     /**
-     * @param string
-     */
-    private $timestamp;
+     * @param integer
+	 */
+	private $timestamp;
 
 	/**
 	 * @param string
@@ -142,7 +142,7 @@ class Transfer extends AbstractModel implements JsonSerializable {
 	/**
      * Get the value of timestamp
      *
-     * @return string
+     * @return integer
      */
     public function getTimestamp() {
         return $this->timestamp;
