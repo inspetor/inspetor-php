@@ -82,7 +82,6 @@ class DefaultModels {
     public function getDefaultAuth() {
         $auth = new Auth();
         $auth->setAccountId("123");
-        $auth->setAccountEmail("test@email.com");
         $auth->setTimestamp($this->getNormalizedTime());
         return $auth;
     }

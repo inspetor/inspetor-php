@@ -41,13 +41,6 @@ class Auth extends AbstractModel implements JsonSerializable {
     private $account_id;
 
     /**
-      * Email of the account that is making the action
-      *
-      * @param string
-      */
-    private $account_email;
-
-    /**
       * Time and date when the action is occured.
       * The format needs to be in DD-MM-YYYY HH:MI:SS
       *
@@ -100,28 +93,6 @@ class Auth extends AbstractModel implements JsonSerializable {
     }
 
     /**
-     * Get the value of account_email
-     *
-     *
-     * @return string
-    */
-    public function getAccountEmail() {
-        return $this->account_email;
-    }
-
-    /**
-     * Set the value of account_email
-     *
-     * @param string  $account_email
-     *
-     * @return self
-    */
-    public function setAccountEmail($account_email) {
-        $this->account_email = $account_email;
-        return $this;
-    }
-
-    /**
      * Get the value of timestamp
      *
      * @return integer
@@ -155,7 +126,6 @@ class Auth extends AbstractModel implements JsonSerializable {
     public function jsonSerialize() {
         $array = [
             "auth_account_id"    => $this->encodeData($this->getAccountId()),
-            "auth_account_email" => $this->encodeData($this->getAccountEmail()),
             "auth_timestamp"     => $this->encodeData($this->getTimestamp())
         ];
 

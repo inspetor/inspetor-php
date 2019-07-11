@@ -11,7 +11,6 @@ class AuthTest extends TestCase {
     private function getDefaultAuth() {
         $auth = new Auth();
         $auth->setAccountId("123");
-        $auth->setAccountEmail("test@email.com");
         $auth->setTimestamp($this->getNormalizedTime());
         return $auth;
     }
@@ -31,7 +30,7 @@ class AuthTest extends TestCase {
 
         $this->expectExceptionCode(200);
         $this->setExpectedException(AuthException::class);
-        
+
         $auth->isValid();
     }
 
