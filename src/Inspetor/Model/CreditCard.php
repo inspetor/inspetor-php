@@ -21,6 +21,7 @@
 namespace Inspetor\Model;
 
 use Inspetor\Exception\ModelException\CreditCardException;
+use Inspetor\Model\Address;
 use Inspetor\Model\AbstractModel;
 use JsonSerializable;
 
@@ -50,6 +51,10 @@ class CreditCard extends AbstractModel implements JsonSerializable {
      */
     private $holder_cpf;
 
+    /**
+     * @param Inspetor\Model\Address $billing_address
+     */
+    private $billing_address;
 
     /**
      * ISVALID
@@ -75,6 +80,10 @@ class CreditCard extends AbstractModel implements JsonSerializable {
 
         if (!$this->holder_cpf) {
             throw new CreditCardException(7004);
+        }
+
+        if (!$this->billing_address) {
+            throw new CreditCardException(7005);
         }
     }
 
@@ -169,6 +178,30 @@ class CreditCard extends AbstractModel implements JsonSerializable {
     }
 
     /**
+     * Get the value of billing_address
+     *
+     * @return Inspetor\Model\Address
+     */
+    public function getBillingAddress() {
+        return $this->billing_address;
+    }
+
+    /**
+     * Set the value of billing_address
+     *
+     * @param Inspetor\Model\Address $billing_address
+     *
+     * @return self
+     */
+    public function setBillingAddress($billing_address) {
+        if ($billing_address) {
+            $billing_address->isValid();
+        }
+        $this->billing_address = $billing_address;
+        return $this;
+    }
+
+    /**
      * JSONSERIALIZE
     */
 
@@ -178,10 +211,11 @@ class CreditCard extends AbstractModel implements JsonSerializable {
     */
     public function jsonSerialize() {
         $array = [
-            "cc_first_six"   => $this->encodeData($this->getFirstSixDigits()),
-            "cc_last_four"   => $this->encodeData($this->getLastFourDigits()),
-            "cc_holder_name" => $this->encodeData($this->getHolderName()),
-            "cc_holder_cpf"  => $this->encodeData($this->getHolderCpf())
+            "cc_first_six"       => $this->encodeData($this->getFirstSixDigits()),
+            "cc_last_four"       => $this->encodeData($this->getLastFourDigits()),
+            "cc_holder_name"     => $this->encodeData($this->getHolderName()),
+            "cc_holder_cpf"      => $this->encodeData($this->getHolderCpf()),
+            "cc_billing_address" => $this->encodeObject($this->getBillingAddress())
         ];
 
         return $array;

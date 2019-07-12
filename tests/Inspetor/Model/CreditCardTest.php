@@ -3,6 +3,7 @@
 namespace Inspetor\Test\Model;
 
 use Inspetor\Model\CreditCard;
+use Inspetor\Model\Address;
 use Inspetor\Exception\ModelException\CreditCardException;
 use PHPUnit\Framework\TestCase;
 
@@ -14,7 +15,21 @@ class CreditCardTest extends TestCase {
         $credit_card->setLastFourDigits("1234");
         $credit_card->setHolderName("Holder Name Test");
         $credit_card->setHolderCpf("Holder CPF Test");
+        $credit_card->setBillingAddress($this->getDefaultAddress());
         return $credit_card;
+    }
+
+    private function getDefaultAddress() {
+        $address = new Address();
+        $address->setStreet("Test Street");
+        $address->setNumber("123");
+        $address->setZipCode("123456");
+        $address->setCity("Test City");
+        $address->setState("Test State");
+        $address->setCountry("Test Country");
+        $address->setLatitude("123");
+        $address->setLongitude("123");
+        return $address;
     }
 
     public function testIfIsValid() {
@@ -62,6 +77,15 @@ class CreditCardTest extends TestCase {
         $credit_card->isValid();
     }
 
+    public function testIfIsNotValidWhenAddressIsNull() {
+        $credit_card = $this->getDefaultCreditCard();
+        $credit_card->setBillingAddress(null);
+
+        $this->expectExceptionCode(200);
+        $this->setExpectedException(CreditCardException::class);
+
+        $credit_card->isValid();
+    }
 
 }
 

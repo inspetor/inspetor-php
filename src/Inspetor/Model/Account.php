@@ -68,12 +68,7 @@ class Account extends AbstractModel implements JsonSerializable {
     private $address;
 
     /**
-     * @param Inspetor\Model\Address $billing_address
-     */
-    private $billing_address;
-
-    /**
-     * @param integer $timestamp
+     * @param string $timestamp
      */
     private $timestamp;
 
@@ -230,30 +225,6 @@ class Account extends AbstractModel implements JsonSerializable {
     }
 
     /**
-     * Get the value of billing_address
-     *
-     * @return Inspetor\Model\Address
-     */
-    public function getBillingAddress() {
-        return $this->billing_address;
-    }
-
-    /**
-     * Set the value of billing_address
-     *
-     * @param Inspetor\Model\Address $billing_address
-     *
-     * @return self
-     */
-    public function setBillingAddress($billing_address) {
-        if ($billing_address) {
-            $billing_address->isValid();
-        }
-        $this->billing_address = $billing_address;
-        return $this;
-    }
-
-    /**
      * Get the value of timestamp
      *
      * @return integer
@@ -292,7 +263,6 @@ class Account extends AbstractModel implements JsonSerializable {
             "account_email"              => $this->encodeData($this->getEmail()),
             "account_document"           => $this->encodeData($this->getDocument()),
             "account_address"            => $this->encodeObject($this->getAddress()),
-            "account_billing_address"    => $this->encodeObject($this->getBillingAddress()),
             "account_timestamp"          => $this->encodeData($this->getTimestamp()),
             "account_phone_number"       => $this->encodeData($this->getPhoneNumber())
         ];

@@ -17,7 +17,6 @@ class AccountTest extends TestCase {
         $account->setDocument("12312312312");
         $account->setPhoneNumber("112345678");
         $account->setAddress($this->getDefaultAddress());
-        $account->setBillingAddress($this->getDefaultAddress());
         $account->setTimestamp($this->getNormalizedTime());
         return $account;
     }

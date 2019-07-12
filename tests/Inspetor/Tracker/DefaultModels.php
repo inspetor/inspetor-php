@@ -37,7 +37,6 @@ class DefaultModels {
         $account->setDocument("12312312312");
         $account->setPhoneNumber("112345678");
         $account->setAddress($this->getDefaultAddress());
-        $account->setBillingAddress($this->getDefaultAddress());
         $account->setTimestamp($this->getNormalizedTime());
         return $account;
     }
@@ -99,6 +98,7 @@ class DefaultModels {
         $credit_card->setLastFourDigits("1234");
         $credit_card->setHolderName("Holder Name Test");
         $credit_card->setHolderCpf("Holder CPF Test");
+        $credit_card->setBillingAddress($this->getDefaultAddress());
         return $credit_card;
     }
 
