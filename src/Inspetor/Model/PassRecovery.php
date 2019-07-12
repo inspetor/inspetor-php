@@ -39,10 +39,9 @@ class PassRecovery extends AbstractModel implements JsonSerializable {
     private $recovery_email;
 
     /**
-     * @param string
-     */
-    private $timestamp;
-
+     * @param integer
+	 */
+	private $timestamp;
 
     /**
      * ISVALID
@@ -91,7 +90,7 @@ class PassRecovery extends AbstractModel implements JsonSerializable {
 	/**
 	 * Get the value of timestamp
 	 *
-	 * @return string
+	 * @return integer
 	 */
 	public function getTimestamp() {
 		return $this->timestamp;
@@ -100,9 +99,9 @@ class PassRecovery extends AbstractModel implements JsonSerializable {
 	/**
 	 * Set the value of timestamp
 	 *
-	 * @param string  $timestamp
+	 * @param integer  $timestamp
 	 *
-	 * @return  self
+	 * @return self
 	 */
 	public function setTimestamp($timestamp) {
         $this->timestamp = $this->inspetorDateFormatter(
