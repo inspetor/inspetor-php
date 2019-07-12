@@ -144,11 +144,9 @@ class Event extends AbstractModel implements JsonSerializable {
             throw new EventException(7006);
 		}
 
-		if (!$this->status) {
-			throw new EventException(7009);
+		if ($this->status) {
+			$this->validateStatus();
 		}
-
-		$this->validateStatus();
     }
 
 	/**
