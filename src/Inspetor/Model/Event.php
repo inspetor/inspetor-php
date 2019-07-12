@@ -105,6 +105,10 @@ class Event extends AbstractModel implements JsonSerializable {
 	 */
 	private $admins_id;
 
+	/**
+	 * @param boolean
+	 */
+	private $is_physical = true;
 
     /**
      * ISVALID
@@ -136,8 +140,10 @@ class Event extends AbstractModel implements JsonSerializable {
             throw new EventException(7012);
 		}
 
-		if (!$this->address) {
-            throw new EventException(7005);
+		if ($this->is_physical) {
+			if (!$this->address) {
+				throw new EventException(7005);
+			}
 		}
 
 		if (!$this->sessions || empty($this->sessions)) {
@@ -489,9 +495,30 @@ class Event extends AbstractModel implements JsonSerializable {
 		return $this;
 	}
 
+	/**
+	 * Get the value of is_physical
+	 *
+	 * @return boolean
+	 */
+	public function getIsPhysical() {
+		return $this->is_physical;
+    }
+
+	/**
+	 * Set the value of slug
+	 *
+     * @param boolean  $is_physical
+	 *
+	 * @return self
+	 */
+	public function setIsPhysical($is_physical) {
+        $this->is_physical = $is_physical;
+		return $this;
+	}
+
     /**
      * JSONSERIALIZE
-    */
+     */
 
     /**
      * Create a json with the data from the object
@@ -509,8 +536,8 @@ class Event extends AbstractModel implements JsonSerializable {
 			"event_seating_options"    => $this->encodeArray($this->getSeatingOptions(), false),
             "event_categories"         => $this->encodeArray($this->getCategories(), false),
             "event_address"            => $this->encodeObject($this->getAddress()),
-            "event_slug"                => $this->encodeData($this->getSlug()),
-            "event_creator_id"        => $this->encodeData($this->getCreatorId()),
+            "event_slug"               => $this->encodeData($this->getSlug()),
+            "event_creator_id"         => $this->encodeData($this->getCreatorId()),
             "event_admins_id"          => $this->encodeArray($this->getAdminsId(), false)
         ];
 

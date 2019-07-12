@@ -107,9 +107,10 @@ class EventTest extends TestCase {
         $event->isValid();
     }
 
-    public function testIfIsNotValidWhenSessionsIsNull() {
+    public function testIfIsNotValidWhenAddressIsNullEventNotPhysical() {
         $event = $this->getDefaultEvent();
-        $event->setSessions(null);
+        $event->setAddress(null);
+        $event->setIsPhysical(true);
 
         $this->expectExceptionCode(200);
         $this->setExpectedException(EventException::class);

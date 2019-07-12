@@ -29,7 +29,7 @@ class EventException extends ExceptionAbstract {
         2  => "name is a required property. It can't be null.",
         3  => "timestamp is a required property. It can't be null.",
         4  => "creator_id is a required property. It can't be null.",
-        5  => "address is a required property. It can't be null.",
+        5  => "address is a required property when the event has physical place. It can't be null.",
         6  => "sessions is a required property. It can't be null neither an empty array.",
         7  => "seating_options should be null or an array of strings.",
         8  => "categories should be null or an array of strings.",
