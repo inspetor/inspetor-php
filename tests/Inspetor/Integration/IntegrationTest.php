@@ -4,20 +4,20 @@ namespace Inspetor\Tests\src\Inspetor\Tracker;
 
 use Inspetor\InspetorClient;
 use Inspetor\Test\Tracker\DefaultModels;
-use Inspetor\Model\Sale;
-use Inspetor\Model\Event;
-use Inspetor\Model\Account;
-use Inspetor\Model\Auth;
-use Inspetor\Model\PassRecovery;
-use Inspetor\Model\Transfer;
-use Inspetor\Model\Payment;
+use Inspetor\Model\InspetorSale;
+use Inspetor\Model\InspetorEvent;
+use Inspetor\Model\InspetorAccount;
+use Inspetor\Model\InspetorAuth;
+use Inspetor\Model\InspetorPassRecovery;
+use Inspetor\Model\InspetorTransfer;
+use Inspetor\Model\InspetorPayment;
 use Inspetor\Exception\TrackerException;
-use Inspetor\Exception\ModelException\SaleException;
-use Inspetor\Exception\ModelException\AccountException;
-use Inspetor\Exception\ModelException\AuthException;
-use Inspetor\Exception\ModelException\EventException;
-use Inspetor\Exception\ModelException\PassRecoveryException;
-use Inspetor\Exception\ModelException\TransferException;
+use Inspetor\Exception\ModelException\InspetorSaleException;
+use Inspetor\Exception\ModelException\InspetorAccountException;
+use Inspetor\Exception\ModelException\InspetorAuthException;
+use Inspetor\Exception\ModelException\InspetorEventException;
+use Inspetor\Exception\ModelException\InspetorPassRecoveryException;
+use Inspetor\Exception\ModelException\InspetorTransferException;
 use PHPUnit\Framework\TestCase;
 
 class IntegrationTest extends TestCase {
@@ -44,7 +44,7 @@ class IntegrationTest extends TestCase {
          $sale = $default_models->getDefaultSale();
 
          $payment = $sale->getPayment();
-         $payment->setMethod(PAYMENT::CREDIT_CARD);
+         $payment->setMethod(InspetorPayment::CREDIT_CARD);
          $payment->setCreditCard($default_models->getDefaultCreditCard());
 
          $this->assertTrue($inspetor_client->trackSaleCreation($sale));

@@ -19,12 +19,12 @@
  */
 namespace Inspetor;
 
-use Inspetor\Model\Account;
-use Inspetor\Model\Auth;
-use Inspetor\Model\Event;
-use Inspetor\Model\PassRecovery;
-use Inspetor\Model\Sale;
-use Inspetor\Model\Transfer;
+use Inspetor\Model\InspetorAccount;
+use Inspetor\Model\InspetorAuth;
+use Inspetor\Model\InspetorEvent;
+use Inspetor\Model\InspetorPassRecovery;
+use Inspetor\Model\InspetorSale;
+use Inspetor\Model\InspetorTransfer;
 
 /**
  * InspetorServer Interface Doc Comment
@@ -40,76 +40,76 @@ interface InspetorResourceService {
      *
      * Send account data to Inspetor
      *
-     * @param  \Inspetor\Model\Account $data data (required)
+     * @param  \Inspetor\Model\InspetorAccount $data data (required)
      * @param  string $action action (required)
      *
-     * @throws \Inspetor\Exception\ModelException\AccountException
+     * @throws \Inspetor\Exception\ModelException\InspetorAccountException
      * @return void
      */
-    public function trackAccountAction(Account $data, string $action);
+    public function trackAccountAction(InspetorAccount $data, string $action);
 
     /**
      * Operation trackEventAction
      *
      * Send event data to Inspetor
      *
-     * @param  \Inspetor\Model\Event $data data (required)
+     * @param  \Inspetor\Model\InspetorEvent $data data (required)
      * @param  string $action action (required)
      *
-     * @throws \Inspetor\Exception\ModelException\EventException
+     * @throws \Inspetor\Exception\ModelException\InspetorEventException
      * @return void
      */
 
-    public function trackEventAction(Event $data, string $action);
+    public function trackEventAction(InspetorEvent $data, string $action);
     /**
      * Operation trackPasswordRecoveryAction
      *
      * Send pass recovery data to Inspetor
      *
-     * @param  \Inspetor\Model\PassRecovery $data data (required)
+     * @param  \Inspetor\Model\InspetorPassRecovery $data data (required)
      * @param  string $action action (required)
      *
-     * @throws \Inspetor\Exception\ModelException\PassRecoveryException
+     * @throws \Inspetor\Exception\ModelException\InspetorPassRecoveryException
      * @return void
      */
-    public function trackPasswordRecoveryAction(PassRecovery $data, string $action);
+    public function trackPasswordRecoveryAction(InspetorPassRecovery $data, string $action);
 
     /**
      * Operation trackItemTransferAction
      *
      * Send ticket transfer data to Inspetor
      *
-     * @param  \Inspetor\Model\Transfer $data data (required)
+     * @param  \Inspetor\Model\InspetorTransfer $data data (required)
      * @param  string $action action (required)
      *
-     * @throws \Inspetor\Exception\ModelException\TransferException
+     * @throws \Inspetor\Exception\ModelException\InspetorTransferException
      * @return void
      */
-    public function trackItemTransferAction(Transfer $data, string $action);
+    public function trackItemTransferAction(InspetorTransfer $data, string $action);
 
     /**
      * Operation trackSaleAction
      *
      * Send transaction data to Inspetor
      *
-     * @param  \Inspetor\Model\Sale $data data (required)
+     * @param  \Inspetor\Model\InspetorSale $data data (required)
      * @param  string $action action (required)
      *
-     * @throws \Inspetor\Exception\ModelException\SaleException
+     * @throws \Inspetor\Exception\ModelException\InspetorSaleException
      * @return void
      */
-    public function trackSaleAction(Sale $data, string $action);
+    public function trackSaleAction(InspetorSale $data, string $action);
 
     /**
      * Operation trackAccountAuthAction
      *
      * Send auth data to Inspetor
      *
-     * @param  \Inspetor\Model\Auth $data data (required)
+     * @param  \Inspetor\Model\InspetorAuth $data data (required)
      * @param  string $action action (required)
      *
-     * @throws \Inspetor\Exception\ModelException\AuthException
+     * @throws \Inspetor\Exception\ModelException\InspetorAuthException
      * @return void
      */
-    public function trackAccountAuthAction(Auth $data, string $action);
+    public function trackAccountAuthAction(InspetorAuth $data, string $action);
 }

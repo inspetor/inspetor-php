@@ -4,19 +4,19 @@ namespace Inspetor\Test\Tracker;
 
 use Inspetor\InspetorClient;
 use Inspetor\Test\Tracker\DefaultModels;
-use Inspetor\Model\Sale;
-use Inspetor\Model\Event;
-use Inspetor\Model\Account;
-use Inspetor\Model\Auth;
-use Inspetor\Model\PassRecovery;
-use Inspetor\Model\Transfer;
+use Inspetor\Model\InspetorSale;
+use Inspetor\Model\InspetorEvent;
+use Inspetor\Model\InspetorAccount;
+use Inspetor\Model\InspetorAuth;
+use Inspetor\Model\InspetorPassRecovery;
+use Inspetor\Model\InspetorTransfer;
 use Inspetor\Exception\TrackerException;
-use Inspetor\Exception\ModelException\SaleException;
-use Inspetor\Exception\ModelException\AccountException;
-use Inspetor\Exception\ModelException\AuthException;
-use Inspetor\Exception\ModelException\EventException;
-use Inspetor\Exception\ModelException\PassRecoveryException;
-use Inspetor\Exception\ModelException\TransferException;
+use Inspetor\Exception\ModelException\InspetorSaleException;
+use Inspetor\Exception\ModelException\InspetorAccountException;
+use Inspetor\Exception\ModelException\InspetorAuthException;
+use Inspetor\Exception\ModelException\InspetorEventException;
+use Inspetor\Exception\ModelException\InspetorPassRecoveryException;
+use Inspetor\Exception\ModelException\InspetorTransferException;
 use PHPUnit\Framework\TestCase;
 
 class InspetorClientTest extends TestCase {
@@ -45,7 +45,7 @@ class InspetorClientTest extends TestCase {
         $sale->setId(null);
 
         $this->expectExceptionCode(200);
-        $this->setExpectedException(SaleException::class);
+        $this->setExpectedException(InspetorSaleException::class);
 
         $inspetor_client->trackSaleCreation($sale);
     }
@@ -65,7 +65,7 @@ class InspetorClientTest extends TestCase {
         $sale->setId(null);
 
         $this->expectExceptionCode(200);
-        $this->setExpectedException(SaleException::class);
+        $this->setExpectedException(InspetorSaleException::class);
 
         $inspetor_client->trackSaleUpdate($sale);
     }
@@ -85,7 +85,7 @@ class InspetorClientTest extends TestCase {
         $account->setId(null);
 
         $this->expectExceptionCode(200);
-        $this->setExpectedException(AccountException::class);
+        $this->setExpectedException(InspetorAccountException::class);
 
         $inspetor_client->trackAccountCreation($account);
     }
@@ -105,7 +105,7 @@ class InspetorClientTest extends TestCase {
         $account->setId(null);
 
         $this->expectExceptionCode(200);
-        $this->setExpectedException(AccountException::class);
+        $this->setExpectedException(InspetorAccountException::class);
 
         $inspetor_client->trackAccountUpdate($account);
     }
@@ -125,7 +125,7 @@ class InspetorClientTest extends TestCase {
         $account->setId(null);
 
         $this->expectExceptionCode(200);
-        $this->setExpectedException(AccountException::class);
+        $this->setExpectedException(InspetorAccountException::class);
 
         $inspetor_client->trackAccountDeletion($account);
     }
@@ -145,7 +145,7 @@ class InspetorClientTest extends TestCase {
         $event->setId(null);
 
         $this->expectExceptionCode(200);
-        $this->setExpectedException(EventException::class);
+        $this->setExpectedException(InspetorEventException::class);
 
         $inspetor_client->trackEventCreation($event);
     }
@@ -165,7 +165,7 @@ class InspetorClientTest extends TestCase {
         $event->setId(null);
 
         $this->expectExceptionCode(200);
-        $this->setExpectedException(EventException::class);
+        $this->setExpectedException(InspetorEventException::class);
 
         $inspetor_client->trackEventUpdate($event);
     }
@@ -185,7 +185,7 @@ class InspetorClientTest extends TestCase {
         $event->setId(null);
 
         $this->expectExceptionCode(200);
-        $this->setExpectedException(EventException::class);
+        $this->setExpectedException(InspetorEventException::class);
 
         $inspetor_client->trackEventDeletion($event);
     }
@@ -205,7 +205,7 @@ class InspetorClientTest extends TestCase {
         $transfer->setId(null);
 
         $this->expectExceptionCode(200);
-        $this->setExpectedException(TransferException::class);
+        $this->setExpectedException(InspetorTransferException::class);
 
         $inspetor_client->trackItemTransferCreation($transfer);
     }
@@ -225,7 +225,7 @@ class InspetorClientTest extends TestCase {
         $transfer->setId(null);
 
         $this->expectExceptionCode(200);
-        $this->setExpectedException(TransferException::class);
+        $this->setExpectedException(InspetorTransferException::class);
 
         $inspetor_client->trackItemTransferUpdate($transfer);
     }
@@ -245,7 +245,7 @@ class InspetorClientTest extends TestCase {
         $auth->setAccountId(null);
 
         $this->expectExceptionCode(200);
-        $this->setExpectedException(AuthException::class);
+        $this->setExpectedException(InspetorAuthException::class);
 
         $inspetor_client->trackLogin($auth);
     }
@@ -265,7 +265,7 @@ class InspetorClientTest extends TestCase {
         $auth->setAccountId(null);
 
         $this->expectExceptionCode(200);
-        $this->setExpectedException(AuthException::class);
+        $this->setExpectedException(InspetorAuthException::class);
 
         $inspetor_client->trackLogout($auth);
     }
@@ -285,7 +285,7 @@ class InspetorClientTest extends TestCase {
         $pass_recovery->setRecoveryEmail(null);
 
         $this->expectExceptionCode(200);
-        $this->setExpectedException(PassRecoveryException::class);
+        $this->setExpectedException(InspetorPassRecoveryException::class);
 
         $inspetor_client->trackPasswordRecovery($pass_recovery);
     }
@@ -305,59 +305,59 @@ class InspetorClientTest extends TestCase {
         $pass_recovery->setRecoveryEmail(null);
 
         $this->expectExceptionCode(200);
-        $this->setExpectedException(PassRecoveryException::class);
+        $this->setExpectedException(InspetorPassRecoveryException::class);
 
         $inspetor_client->trackPasswordReset($pass_recovery);
     }
 
     public function testGetInspetorAccount() {
         $inspetor_client = $this->getDefaultInspetorClient();
-        $this->assertInstanceOf("Inspetor\Model\Account", $inspetor_client->getInspetorAccount());
+        $this->assertInstanceOf("Inspetor\Model\InspetorAccount", $inspetor_client->getInspetorAccount());
     }
 
     public function testGetInspetorAddress() {
         $inspetor_client = $this->getDefaultInspetorClient();
-        $this->assertInstanceOf("Inspetor\Model\Address", $inspetor_client->getInspetorAddress());
+        $this->assertInstanceOf("Inspetor\Model\InspetorAddress", $inspetor_client->getInspetorAddress());
     }
 
     public function testGetInspetorAuth() {
         $inspetor_client = $this->getDefaultInspetorClient();
-        $this->assertInstanceOf("Inspetor\Model\Auth", $inspetor_client->getInspetorAuth());
+        $this->assertInstanceOf("Inspetor\Model\InspetorAuth", $inspetor_client->getInspetorAuth());
     }
 
     public function testGetInspetorCreditCard() {
         $inspetor_client = $this->getDefaultInspetorClient();
-        $this->assertInstanceOf("Inspetor\Model\CreditCard", $inspetor_client->getInspetorCreditCard());
+        $this->assertInstanceOf("Inspetor\Model\InspetorCreditCard", $inspetor_client->getInspetorCreditCard());
     }
 
     public function testGetInspetorEvent() {
         $inspetor_client = $this->getDefaultInspetorClient();
-        $this->assertInstanceOf("Inspetor\Model\Event", $inspetor_client->getInspetorEvent());
+        $this->assertInstanceOf("Inspetor\Model\InspetorEvent", $inspetor_client->getInspetorEvent());
     }
 
     public function testGetInspetorItem() {
         $inspetor_client = $this->getDefaultInspetorClient();
-        $this->assertInstanceOf("Inspetor\Model\Item", $inspetor_client->getInspetorItem());
+        $this->assertInstanceOf("Inspetor\Model\InspetorItem", $inspetor_client->getInspetorItem());
     }
 
     public function testGetInspetorPassRecovery() {
         $inspetor_client = $this->getDefaultInspetorClient();
-        $this->assertInstanceOf("Inspetor\Model\PassRecovery", $inspetor_client->getInspetorPassRecovery());
+        $this->assertInstanceOf("Inspetor\Model\InspetorPassRecovery", $inspetor_client->getInspetorPassRecovery());
     }
 
     public function testGetInspetorPayment() {
         $inspetor_client = $this->getDefaultInspetorClient();
-        $this->assertInstanceOf("Inspetor\Model\Payment", $inspetor_client->getInspetorPayment());
+        $this->assertInstanceOf("Inspetor\Model\InspetorPayment", $inspetor_client->getInspetorPayment());
     }
 
     public function testGetInspetorSale() {
         $inspetor_client = $this->getDefaultInspetorClient();
-        $this->assertInstanceOf("Inspetor\Model\Sale", $inspetor_client->getInspetorSale());
+        $this->assertInstanceOf("Inspetor\Model\InspetorSale", $inspetor_client->getInspetorSale());
     }
 
     public function testGetInspetorTransfer() {
         $inspetor_client = $this->getDefaultInspetorClient();
-        $this->assertInstanceOf("Inspetor\Model\Transfer", $inspetor_client->getInspetorTransfer());
+        $this->assertInstanceOf("Inspetor\Model\InspetorTransfer", $inspetor_client->getInspetorTransfer());
     }
 
 

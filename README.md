@@ -179,11 +179,11 @@ $inspetor_event = $inspetor->getInspetorEvent();
           "timestamp" => $event_session_date2
       ]
   ]);
-  $inspetor_event->setStatus(EVENT::PRIVATE_STATUS);
+  $inspetor_event->setStatus(InspetorEvent::PRIVATE_STATUS);
   $inspetor_event->setCategories(["Category1", "Category2"]);
   $inspetor_event->setAddress($inspetor_event_address);
-  $inspetor_event->setUrl("cool-company-event);
-  $inspetor_event->setProducerId("123");
+  $inspetor_event->setSlug("cool-company-event");
+  $inspetor_event->setCreatorId("123");
   $inspetor_event->setAdminsId(["123", "234"]);
   $inspetor_event->setSeatingOptions(["Pista", "VIP"]);
 ?>

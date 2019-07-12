@@ -4,12 +4,12 @@ namespace Inspetor;
 
 use Inspetor\Exception\TrackerException;
 
-use Inspetor\Model\Account;
-use Inspetor\Model\Auth;
-use Inspetor\Model\Event;
-use Inspetor\Model\PassRecovery;
-use Inspetor\Model\Sale;
-use Inspetor\Model\Transfer;
+use Inspetor\Model\InspetorAccount;
+use Inspetor\Model\InspetorAuth;
+use Inspetor\Model\InspetorEvent;
+use Inspetor\Model\InspetorPassRecovery;
+use Inspetor\Model\InspetorSale;
+use Inspetor\Model\InspetorTransfer;
 
 use JsonSerializable;
 use Snowplow\Tracker\Tracker;
@@ -68,16 +68,16 @@ class InspetorResource implements InspetorResourceService {
     /**
      * trackSaleAction
      *
-     * @param Inspetor\Model\Sale $data
+     * @param Inspetor\Model\InspetorSale $data
      * @param string $action
      * @return void
      */
-    public function trackSaleAction(Sale $data, string $action) {
+    public function trackSaleAction(InspetorSale $data, string $action) {
         $this->verifyTracker();
 
         $valid_actions = [
-            Sale::SALE_CREATE_ACTION,
-            Sale::SALE_UPDATE_STATUS_ACTION
+            InspetorSale::SALE_CREATE_ACTION,
+            InspetorSale::SALE_UPDATE_STATUS_ACTION
         ];
 
         if (!in_array($action, $valid_actions)) {
@@ -97,17 +97,17 @@ class InspetorResource implements InspetorResourceService {
     /**
      * trackAccountAction
      *
-     * @param Inspetor\Model\Account $data
+     * @param Inspetor\Model\InspetorAccount $data
      * @param string $action
      * @return void
      */
-    public function trackAccountAction(Account $data, string $action) {
+    public function trackAccountAction(InspetorAccount $data, string $action) {
         $this->verifyTracker();
 
         $valid_actions = [
-            Account::ACCOUNT_CREATE_ACTION,
-            Account::ACCOUNT_UPDATE_ACTION,
-            Account::ACCOUNT_DELETE_ACTION
+            InspetorAccount::ACCOUNT_CREATE_ACTION,
+            InspetorAccount::ACCOUNT_UPDATE_ACTION,
+            InspetorAccount::ACCOUNT_DELETE_ACTION
         ];
 
         if (!in_array($action, $valid_actions)) {
@@ -127,17 +127,17 @@ class InspetorResource implements InspetorResourceService {
     /**
      * trackEventAction
      *
-     * @param Inspetor\Model\Event $data
+     * @param Inspetor\Model\InspetorEvent $data
      * @param string $action
      * @return void
      */
-    public function trackEventAction(Event $data, string $action) {
+    public function trackEventAction(InspetorEvent $data, string $action) {
         $this->verifyTracker();
 
         $valid_actions = [
-            Event::EVENT_CREATE_ACTION,
-            Event::EVENT_UPDATE_ACTION,
-            Event::EVENT_DELETE_ACTION
+            InspetorEvent::EVENT_CREATE_ACTION,
+            InspetorEvent::EVENT_UPDATE_ACTION,
+            InspetorEvent::EVENT_DELETE_ACTION
         ];
 
         if (!in_array($action, $valid_actions)) {
@@ -158,16 +158,16 @@ class InspetorResource implements InspetorResourceService {
     /**
      * trackItemTransferAction
      *
-     * @param Inspetor\Model\Transfer $data
+     * @param Inspetor\Model\InspetorTransfer $data
      * @param string $action
      * @return void
      */
-    public function trackItemTransferAction(Transfer $data, string $action) {
+    public function trackItemTransferAction(InspetorTransfer $data, string $action) {
         $this->verifyTracker();
 
         $valid_actions = [
-            Transfer::TRANSFER_CREATE_ACTION,
-            Transfer::TRANSFER_UPDATE_STATUS_ACTION
+            InspetorTransfer::TRANSFER_CREATE_ACTION,
+            InspetorTransfer::TRANSFER_UPDATE_STATUS_ACTION
         ];
 
         if (!in_array($action, $valid_actions)) {
@@ -187,16 +187,16 @@ class InspetorResource implements InspetorResourceService {
     /**
      * trackAccountAuthAction
      *
-     * @param Inspetor\Model\Auth $data
+     * @param Inspetor\Model\InspetorAuth $data
      * @param string $action
      * @return void
      */
-    public function trackAccountAuthAction(Auth $data, string $action) {
+    public function trackAccountAuthAction(InspetorAuth $data, string $action) {
         $this->verifyTracker();
 
         $valid_actions = [
-            Auth::ACCOUNT_LOGIN_ACTION,
-            Auth::ACCOUNT_LOGOUT_ACTION
+            InspetorAuth::ACCOUNT_LOGIN_ACTION,
+            InspetorAuth::ACCOUNT_LOGOUT_ACTION
         ];
 
 
@@ -217,16 +217,16 @@ class InspetorResource implements InspetorResourceService {
     /**
      * trackPasswordRecoveryAction
      *
-     * @param Inspetor\Model\PassRecovery $data
+     * @param Inspetor\Model\InspetorPassRecovery $data
      * @param string $action
      * @return void
      */
-    public function trackPasswordRecoveryAction(PassRecovery $data, string $action) {
+    public function trackPasswordRecoveryAction(InspetorPassRecovery $data, string $action) {
         $this->verifyTracker();
 
         $valid_actions = [
-            PassRecovery::PASSWORD_RESET_ACTION,
-            PassRecovery::PASSWORD_RECOVERY_ACTION
+            InspetorPassRecovery::PASSWORD_RESET_ACTION,
+            InspetorPassRecovery::PASSWORD_RECOVERY_ACTION
         ];
 
 
