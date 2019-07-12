@@ -117,8 +117,8 @@ class InspetorSession extends InspetorAbstractModel implements JsonSerializable 
     */
     public function jsonSerialize() {
         $array = [
-            "category_id"       => $this->encodeData($this->getId()),
-            "category_datetime" => $this->encodeData($this->getDatetime())
+            "session_id"        => $this->encodeData($this->getId()),
+            "session_timestamp" => $this->encodeData($this->getDatetime())
         ];
 
         return $array;

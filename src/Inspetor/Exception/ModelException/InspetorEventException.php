@@ -36,7 +36,8 @@ class InspetorEventException extends ExceptionAbstract {
         9  => "The status is not a valid one.",
         10 => "sessions should be an array of one or more sessions.",
         11 => "id and timestamp are required properties of a session.",
-        12 => "admins_id should be an array of one or more users."
+        12 => "admins_id should be an array of one or more users.",
+        13 => "is_physical should be a boolean. It's true by default."
     );
 
     /**

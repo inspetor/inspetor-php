@@ -142,6 +142,10 @@ class InspetorEvent extends InspetorAbstractModel implements JsonSerializable {
             throw new InspetorEventException(7012);
 		}
 
+		if (!$this->is_physical) {
+			throw new InspetorEventException(7013);
+		}
+
 		if ($this->is_physical) {
 			if (!$this->address) {
 				throw new InspetorEventException(7005);
@@ -532,7 +536,8 @@ class InspetorEvent extends InspetorAbstractModel implements JsonSerializable {
             "event_address"            => $this->encodeObject($this->getAddress()),
             "event_slug"               => $this->encodeData($this->getSlug()),
             "event_creator_id"         => $this->encodeData($this->getCreatorId()),
-            "event_admins_id"          => $this->encodeArray($this->getAdminsId(), false)
+			"event_admins_id"          => $this->encodeArray($this->getAdminsId(), false),
+			"event_is_physical"		   => $this->encodeData($this->getIsPhysical())
         ];
 
         return $array;
