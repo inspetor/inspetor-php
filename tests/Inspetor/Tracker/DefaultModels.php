@@ -2,24 +2,24 @@
 
 namespace Inspetor\Test\Tracker;
 
-use Inspetor\Model\Account;
-use Inspetor\Model\Address;
-use Inspetor\Model\Auth;
-use Inspetor\Model\CreditCard;
-use Inspetor\Model\Event;
-use Inspetor\Model\Item;
-use Inspetor\Model\PassRecovery;
-use Inspetor\Model\Payment;
-use Inspetor\Model\Sale;
-use Inspetor\Model\Transfer;
+use Inspetor\Model\InspetorAccount;
+use Inspetor\Model\InspetorAddress;
+use Inspetor\Model\InspetorAuth;
+use Inspetor\Model\InspetorCreditCard;
+use Inspetor\Model\InspetorEvent;
+use Inspetor\Model\InspetorItem;
+use Inspetor\Model\InspetorPassRecovery;
+use Inspetor\Model\InspetorPayment;
+use Inspetor\Model\InspetorSale;
+use Inspetor\Model\InspetorTransfer;
 
 class DefaultModels {
 
     public function getDefaultSale() {
-        $sale = new Sale();
+        $sale = new InspetorSale();
         $sale->setId("123");
         $sale->setAccountId("123");
-        $sale->setStatus(SALE::PENDING_STATUS);
+        $sale->setStatus(InspetorSale::PENDING_STATUS);
         $sale->setIsFraud(true);
         $sale->setTimestamp(time());
         $sale->setItems([
@@ -30,7 +30,7 @@ class DefaultModels {
     }
 
     public function getDefaultAccount() {
-        $account = new Account();
+        $account = new InspetorAccount();
         $account->setId("123");
         $account->setName("Test Name");
         $account->setEmail("test@email.com");
@@ -42,7 +42,7 @@ class DefaultModels {
     }
 
     public function getDefaultEvent() {
-        $event = new Event();
+        $event = new InspetorEvent();
         $event->setId("123");
         $event->setName("Name Test");
         $event->setDescription("Description Test");
@@ -57,7 +57,7 @@ class DefaultModels {
                 "timestamp" => $this->getNormalizedTime()
             ]
         ]);
-        $event->setStatus(EVENT::PRIVATE_STATUS);
+        $event->setStatus(InspetorEvent::PRIVATE_STATUS);
         $event->setCategories(["Category Test"]);
         $event->setAddress($this->getDefaultAddress());
         $event->setSlug("Slug Test");
@@ -68,32 +68,32 @@ class DefaultModels {
     }
 
     public function getDefaultTransfer() {
-        $transfer = new Transfer();
+        $transfer = new InspetorTransfer();
         $transfer->setId("123");
         $transfer->setTimestamp($this->getNormalizedTime());
         $transfer->setItemId("123");
         $transfer->setSenderAccountId("123");
         $transfer->setReceiverEmail("test@email.com");
-        $transfer->setStatus(TRANSFER::PENDING_STATUS);
+        $transfer->setStatus(InspetorTransfer::PENDING_STATUS);
         return $transfer;
     }
 
     public function getDefaultAuth() {
-        $auth = new Auth();
+        $auth = new InspetorAuth();
         $auth->setAccountId("123");
         $auth->setTimestamp($this->getNormalizedTime());
         return $auth;
     }
 
     public function getDefaultPassRecovery() {
-        $pass_recovery = new PassRecovery();
+        $pass_recovery = new InspetorPassRecovery();
         $pass_recovery->setRecoveryEmail("test@email.com");
         $pass_recovery->setTimestamp($this->getNormalizedTime());
         return $pass_recovery;
     }
 
     public function getDefaultCreditCard() {
-        $credit_card = new CreditCard();
+        $credit_card = new InspetorCreditCard();
         $credit_card->setFirstSixDigits("123456");
         $credit_card->setLastFourDigits("1234");
         $credit_card->setHolderName("Holder Name Test");
@@ -103,7 +103,7 @@ class DefaultModels {
     }
 
     public function getDefaultAddress() {
-        $address = new Address();
+        $address = new InspetorAddress();
         $address->setStreet("Test Street");
         $address->setNumber("123");
         $address->setZipCode("123456");
@@ -116,7 +116,7 @@ class DefaultModels {
     }
 
     public function getDefaultItem() {
-        $item = new Item();
+        $item = new InspetorItem();
         $item->setId("123");
         $item->setEventId("123");
         $item->setSessionId("123");
@@ -127,9 +127,9 @@ class DefaultModels {
     }
 
     public function getDefaultPayment() {
-        $payment = new Payment();
+        $payment = new InspetorPayment();
         $payment->setId("123");
-        $payment->setMethod(PAYMENT::BOLETO);
+        $payment->setMethod(InspetorPayment::BOLETO);
         $payment->setInstallments("1");
         $payment->setCreditCard(null);
         return $payment;

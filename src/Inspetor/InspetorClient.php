@@ -3,16 +3,16 @@
 
 namespace Inspetor;
 
-use Inspetor\Model\Account;
-use Inspetor\Model\Address;
-use Inspetor\Model\Auth;
-use Inspetor\Model\CreditCard;
-use Inspetor\Model\Event;
-use Inspetor\Model\Item;
-use Inspetor\Model\PassRecovery;
-use Inspetor\Model\Payment;
-use Inspetor\Model\Sale;
-use Inspetor\Model\Transfer;
+use Inspetor\Model\InspetorAccount;
+use Inspetor\Model\InspetorAddress;
+use Inspetor\Model\InspetorAuth;
+use Inspetor\Model\InspetorCreditCard;
+use Inspetor\Model\InspetorEvent;
+use Inspetor\Model\InspetorItem;
+use Inspetor\Model\InspetorPassRecovery;
+use Inspetor\Model\InspetorPayment;
+use Inspetor\Model\InspetorSale;
+use Inspetor\Model\InspetorTransfer;
 use Inspetor\InspetorResource;
 use Inspetor\InspetorService;
 
@@ -41,14 +41,14 @@ class InspetorClient implements InspetorService {
     /**
      * trackSaleCreation
      *
-     * @param Sale $sale
+     * @param Inspetor\Model\InspetorSale $sale
      * @return void
      */
-    public function trackSaleCreation(Sale $sale) {
+    public function trackSaleCreation(InspetorSale $sale) {
         try {
             $this->inspetor_resource->trackSaleAction(
                 $sale,
-                SALE::SALE_CREATE_ACTION
+                InspetorSale::SALE_CREATE_ACTION
             );
         } catch (Exception $e) {
             throw $e;
@@ -59,14 +59,14 @@ class InspetorClient implements InspetorService {
     /**
      * trackSaleUpdate
      *
-     * @param Sale $sale
+     * @param Inspetor\Model\InspetorSale $sale
      * @return void
      */
-    public function trackSaleUpdate(Sale $sale) {
+    public function trackSaleUpdate(InspetorSale $sale) {
         try {
             $this->inspetor_resource->trackSaleAction(
                 $sale,
-                SALE::SALE_UPDATE_STATUS_ACTION
+                InspetorSale::SALE_UPDATE_STATUS_ACTION
             );
         } catch (Exception $e) {
             throw $e;
@@ -77,14 +77,14 @@ class InspetorClient implements InspetorService {
     /**
      * trackAccountCreation
      *
-     * @param Account $account
+     * @param Inspetor\Model\InspetorAccount $account
      * @return void
      */
-    public function trackAccountCreation(Account $account) {
+    public function trackAccountCreation(InspetorAccount $account) {
         try {
             $this->inspetor_resource->trackAccountAction(
                 $account,
-                ACCOUNT::ACCOUNT_CREATE_ACTION
+                InspetorAccount::ACCOUNT_CREATE_ACTION
             );
         } catch (Exception $e) {
             throw $e;
@@ -95,14 +95,14 @@ class InspetorClient implements InspetorService {
     /**
      * trackAccountUpdate
      *
-     * @param Account $account
+     * @param Inspetor\Model\InspetorAccount $account
      * @return void
      */
-    public function trackAccountUpdate(Account $account) {
+    public function trackAccountUpdate(InspetorAccount $account) {
         try {
             $this->inspetor_resource->trackAccountAction(
                 $account,
-                ACCOUNT::ACCOUNT_UPDATE_ACTION
+                InspetorAccount::ACCOUNT_UPDATE_ACTION
             );
         } catch (Exception $e) {
             throw $e;
@@ -113,14 +113,14 @@ class InspetorClient implements InspetorService {
     /**
      * trackAccountDeletion
      *
-     * @param Account $account
+     * @param Inspetor\Model\InspetorAccount $account
      * @return void
      */
-    public function trackAccountDeletion(Account $account) {
+    public function trackAccountDeletion(InspetorAccount $account) {
         try {
             $this->inspetor_resource->trackAccountAction(
                 $account,
-                ACCOUNT::ACCOUNT_DELETE_ACTION
+                InspetorAccount::ACCOUNT_DELETE_ACTION
             );
         } catch (Exception $e) {
             throw $e;
@@ -131,14 +131,14 @@ class InspetorClient implements InspetorService {
     /**
      * trackEventCreation
      *
-     * @param Event $event
+     * @param Inspetor\Model\InspetorEvent $event
      * @return void
      */
-    public function trackEventCreation(Event $event) {
+    public function trackEventCreation(InspetorEvent $event) {
         try {
             $this->inspetor_resource->trackEventAction(
                 $event,
-                EVENT::EVENT_CREATE_ACTION
+                InspetorEvent::EVENT_CREATE_ACTION
             );
         } catch (Exception $e) {
             throw $e;
@@ -149,14 +149,14 @@ class InspetorClient implements InspetorService {
     /**
      * trackEventUpdate
      *
-     * @param Event $event
+     * @param Inspetor\Model\InspetorEvent $event
      * @return void
      */
-    public function trackEventUpdate(Event $event) {
+    public function trackEventUpdate(InspetorEvent $event) {
         try {
             $this->inspetor_resource->trackEventAction(
                 $event,
-                EVENT::EVENT_UPDATE_ACTION
+                InspetorEvent::EVENT_UPDATE_ACTION
             );
         } catch (Exception $e) {
             throw $e;
@@ -167,14 +167,14 @@ class InspetorClient implements InspetorService {
     /**
      * trackEventDeletion
      *
-     * @param Event $event
+     * @param Inspetor\Model\InspetorEvent $event
      * @return void
      */
-    public function trackEventDeletion(Event $event) {
+    public function trackEventDeletion(InspetorEvent $event) {
         try {
             $this->inspetor_resource->trackEventAction(
                 $event,
-                EVENT::EVENT_DELETE_ACTION
+                InspetorEvent::EVENT_DELETE_ACTION
             );
         } catch (Exception $e) {
             throw $e;
@@ -185,14 +185,14 @@ class InspetorClient implements InspetorService {
     /**
      * trackItemTransferCreation
      *
-     * @param Transfer $transfer
+     * @param Inspetor\Model\InspetorTransfer $transfer
      * @return void
      */
-    public function trackItemTransferCreation(Transfer $transfer) {
+    public function trackItemTransferCreation(InspetorTransfer $transfer) {
         try {
             $this->inspetor_resource->trackItemTransferAction(
                 $transfer,
-                TRANSFER::TRANSFER_CREATE_ACTION
+                InspetorTransfer::TRANSFER_CREATE_ACTION
             );
         } catch (Exception $e) {
             throw $e;
@@ -203,14 +203,14 @@ class InspetorClient implements InspetorService {
     /**
      * trackItemTransferUpdate
      *
-     * @param Transfer $transfer
+     * @param Inspetor\Model\InspetorTransfer $transfer
      * @return void
      */
-    public function trackItemTransferUpdate(Transfer $transfer) {
+    public function trackItemTransferUpdate(InspetorTransfer $transfer) {
         try {
             $this->inspetor_resource->trackItemTransferAction(
                 $transfer,
-                TRANSFER::TRANSFER_UPDATE_STATUS_ACTION
+                InspetorTransfer::TRANSFER_UPDATE_STATUS_ACTION
             );
         } catch (Exception $e) {
             throw $e;
@@ -221,14 +221,14 @@ class InspetorClient implements InspetorService {
     /**
      * trackLogin
      *
-     * @param Auth $auth
+     * @param Inspetor\Model\InspetorAuth $auth
      * @return void
      */
-    public function trackLogin(Auth $auth) {
+    public function trackLogin(InspetorAuth $auth) {
         try {
             $this->inspetor_resource->trackAccountAuthAction(
                 $auth,
-                AUTH::ACCOUNT_LOGIN_ACTION
+                InspetorAuth::ACCOUNT_LOGIN_ACTION
             );
         } catch (Exception $e) {
             throw $e;
@@ -239,14 +239,14 @@ class InspetorClient implements InspetorService {
     /**
      * trackLogout
      *
-     * @param Auth $auth
+     * @param Inspetor\Model\InspetorAuth $auth
      * @return void
      */
-    public function trackLogout(Auth $auth) {
+    public function trackLogout(InspetorAuth $auth) {
         try {
             $this->inspetor_resource->trackAccountAuthAction(
                 $auth,
-                AUTH::ACCOUNT_LOGOUT_ACTION
+                InspetorAuth::ACCOUNT_LOGOUT_ACTION
             );
         } catch (Exception $e) {
             throw $e;
@@ -257,14 +257,14 @@ class InspetorClient implements InspetorService {
     /**
      * trackPasswordReset
      *
-     * @param PassRecovery $pass_recovery
+     * @param Inspetor\Model\InspetorPassRecovery $pass_recovery
      * @return void
      */
-    public function trackPasswordReset(PassRecovery $pass_recovery) {
+    public function trackPasswordReset(InspetorPassRecovery $pass_recovery) {
         try {
             $this->inspetor_resource->trackPasswordRecoveryAction(
                 $pass_recovery,
-                PASSRECOVERY::PASSWORD_RESET_ACTION
+                InspetorPassRecovery::PASSWORD_RESET_ACTION
             );
         } catch (Exception $e) {
             throw $e;
@@ -275,14 +275,14 @@ class InspetorClient implements InspetorService {
     /**
      * trackPasswordRecovery
      *
-     * @param PassRecovery $pass_recovery
+     * @param Inspetor\Model\InspetorPassRecovery $pass_recovery
      * @return void
      */
-    public function trackPasswordRecovery(PassRecovery $pass_recovery) {
+    public function trackPasswordRecovery(InspetorPassRecovery $pass_recovery) {
         try {
             $this->inspetor_resource->trackPasswordRecoveryAction(
                 $pass_recovery,
-                PASSRECOVERY::PASSWORD_RECOVERY_ACTION
+                InspetorPassRecovery::PASSWORD_RECOVERY_ACTION
             );
         } catch (Exception $e) {
             throw $e;
@@ -296,7 +296,7 @@ class InspetorClient implements InspetorService {
      * @return Account
      */
     public function getInspetorAccount() {
-        return new Account();
+        return new InspetorAccount();
     }
 
     /**
@@ -305,7 +305,7 @@ class InspetorClient implements InspetorService {
      * @return Address
      */
     public function getInspetorAddress() {
-        return new Address();
+        return new InspetorAddress();
     }
 
     /**
@@ -314,7 +314,7 @@ class InspetorClient implements InspetorService {
      * @return Auth
      */
     public function getInspetorAuth() {
-        return new Auth();
+        return new InspetorAuth();
     }
 
     /**
@@ -323,7 +323,7 @@ class InspetorClient implements InspetorService {
      * @return CreditCard
      */
     public function getInspetorCreditCard() {
-        return new CreditCard();
+        return new InspetorCreditCard();
     }
 
     /**
@@ -332,7 +332,7 @@ class InspetorClient implements InspetorService {
      * @return Event
      */
     public function getInspetorEvent() {
-        return new Event();
+        return new InspetorEvent();
     }
 
     /**
@@ -341,7 +341,7 @@ class InspetorClient implements InspetorService {
      * @return Item
      */
     public function getInspetorItem() {
-        return new Item();
+        return new InspetorItem();
     }
 
     /**
@@ -350,7 +350,7 @@ class InspetorClient implements InspetorService {
      * @return PassRecovery
      */
     public function getInspetorPassRecovery() {
-        return new PassRecovery();
+        return new InspetorPassRecovery();
     }
 
     /**
@@ -359,7 +359,7 @@ class InspetorClient implements InspetorService {
      * @return Payment
      */
     public function getInspetorPayment() {
-        return new Payment();
+        return new InspetorPayment();
     }
 
     /**
@@ -368,7 +368,7 @@ class InspetorClient implements InspetorService {
      * @return Sale
      */
     public function getInspetorSale() {
-        return new Sale();
+        return new InspetorSale();
     }
 
     /**
@@ -377,7 +377,7 @@ class InspetorClient implements InspetorService {
      * @return Transfer
      */
     public function getInspetorTransfer() {
-        return new Transfer();
+        return new InspetorTransfer();
     }
 
 }

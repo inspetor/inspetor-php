@@ -19,12 +19,12 @@
 
 namespace Inspetor;
 
-use Inspetor\Model\Account;
-use Inspetor\Model\Auth;
-use Inspetor\Model\Event;
-use Inspetor\Model\PassRecovery;
-use Inspetor\Model\Sale;
-use Inspetor\Model\Transfer;
+use Inspetor\Model\InspetorAccount;
+use Inspetor\Model\InspetorAuth;
+use Inspetor\Model\InspetorEvent;
+use Inspetor\Model\InspetorPassRecovery;
+use Inspetor\Model\InspetorSale;
+use Inspetor\Model\InspetorTransfer;
 
 /**
  * InspetorApi Class Doc Comment
@@ -38,70 +38,70 @@ interface InspetorService {
     /**
      * Operation getInspetorAccount
      *
-     * @return \Inspetor\Model\Account
+     * @return \Inspetor\Model\InspetorAccount
      */
     public function getInspetorAccount();
 
     /**
      * Operation getInspetorAddress
      *
-     * @return \Inspetor\Model\Address
+     * @return \Inspetor\Model\InspetorAddress
      */
     public function getInspetorAddress();
 
     /**
      * Operation getInspetorAuth
      *
-     * @return \Inspetor\Model\Auth
+     * @return \Inspetor\Model\InspetorAuth
      */
     public function getInspetorAuth();
 
     /**
      * Operation getInspetorCreditCard
      *
-     * @return \Inspetor\Model\CreditCard
+     * @return \Inspetor\Model\InspetorCreditCard
      */
     public function getInspetorCreditCard();
 
     /**
      * Operation getInspetorEvent
      *
-     * @return \Inspetor\Model\Event
+     * @return \Inspetor\Model\InspetorEvent
      */
     public function getInspetorEvent();
 
     /**
      * Operation getInspetorItem
      *
-     * @return \Inspetor\Model\Item
+     * @return \Inspetor\Model\InspetorItem
      */
     public function getInspetorItem();
 
     /**
      * Operation getInspetorPassRecovery
      *
-     * @return \Inspetor\Model\PassRecovery
+     * @return \Inspetor\Model\InspetorPassRecovery
      */
     public function getInspetorPassRecovery();
 
     /**
      * Operation getInspetorPayment
      *
-     * @return \Inspetor\Model\Payment
+     * @return \Inspetor\Model\InspetorPayment
      */
     public function getInspetorPayment();
 
     /**
      * Operation getInspetorSale
      *
-     * @return \Inspetor\Model\Sale
+     * @return \Inspetor\Model\InspetorSale
      */
     public function getInspetorSale();
 
     /**
      * Operation getInspetorTransfer
      *
-     * @return \Inspetor\Model\Transfer
+     * @return \Inspetor\Model\InspetorTransfer
      */
     public function getInspetorTransfer();
 
@@ -110,180 +110,180 @@ interface InspetorService {
      *
      * Send account creation data to Inspetor
      *
-     * @param  \Inspetor\Model\Account $account account (required);
+     * @param  \Inspetor\Model\InspetorAccount $account account (required);
      *
      * @throws \Inspetor\Exception\TrackerException
-     * @throws \Inspetor\Exception\ModelException\AccountException
+     * @throws \Inspetor\Exception\ModelException\InspetorAccountException
      * @return void
      */
-    public function trackAccountCreation(Account $account);
+    public function trackAccountCreation(InspetorAccount $account);
 
     /**
      * Operation trackAccountDeletion
      *
      * Send account deletion data to Inspetor
      *
-     * @param  \Inspetor\Model\Account $account account (required);
+     * @param  \Inspetor\Model\InspetorAccount $account account (required);
      *
      * @throws \Inspetor\Exception\TrackerException
-     * @throws \Inspetor\Exception\ModelException\AccountException
+     * @throws \Inspetor\Exception\ModelException\InspetorAccountException
      * @return void
      */
-    public function trackAccountDeletion(Account $account);
+    public function trackAccountDeletion(InspetorAccount $account);
 
     /**
      * Operation trackAccountUpdate
      *
      * Send account update data to Inspetor
      *
-     * @param  \Inspetor\Model\Account $account account (required);
+     * @param  \Inspetor\Model\InspetorAccount $account account (required);
      *
      * @throws \Inspetor\Exception\TrackerException
-     * @throws \Inspetor\Exception\ModelException\AccountException
+     * @throws \Inspetor\Exception\ModelException\InspetorAccountException
      * @return void
      */
-    public function trackAccountUpdate(Account $account);
+    public function trackAccountUpdate(InspetorAccount $account);
 
     /**
      * Operation trackEventCreation
      *
      * Send event creation data to Inspetor
      *
-     * @param  \Inspetor\Model\Event $event event (required);
+     * @param  \Inspetor\Model\InspetorEvent $event event (required);
      *
      * @throws \Inspetor\Exception\TrackerException
-     * @throws \Inspetor\Exception\ModelException\EventException
+     * @throws \Inspetor\Exception\ModelException\InspetorEventException
      * @return void
      */
-    public function trackEventCreation(Event $event);
+    public function trackEventCreation(InspetorEvent $event);
 
     /**
      * Operation trackEventDeletion
      *
      * Send event deletion data to Inspetor
      *
-     * @param  \Inspetor\Model\Event $event event (required);
+     * @param  \Inspetor\Model\InspetorEvent $event event (required);
      *
      * @throws \Inspetor\Exception\TrackerException
-     * @throws \Inspetor\Exception\ModelException\EventException
+     * @throws \Inspetor\Exception\ModelException\InspetorEventException
      * @return void
      */
-    public function trackEventDeletion(Event $event);
+    public function trackEventDeletion(InspetorEvent $event);
 
     /**
      * Operation trackEventUpdate
      *
      * Send event update data to Inspetor
      *
-     * @param  \Inspetor\Model\Event $event event (required);
+     * @param  \Inspetor\Model\InspetorEvent $event event (required);
      *
      * @throws \Inspetor\Exception\TrackerException
-     * @throws \Inspetor\Exception\ModelException\EventException
+     * @throws \Inspetor\Exception\ModelException\InspetorEventException
      * @return void
      */
-    public function trackEventUpdate(Event $event);
+    public function trackEventUpdate(InspetorEvent $event);
 
     /**
      * Operation trackItemTransferCreation
      *
      * Send item transfer creation data to Inspetor
      *
-     * @param  \Inspetor\Model\Transfer $transfer transfer (required);
+     * @param  \Inspetor\Model\InspetorTransfer $transfer transfer (required);
      *
      * @throws \Inspetor\Exception\TrackerException
-     * @throws \Inspetor\Exception\ModelException\TransferException
+     * @throws \Inspetor\Exception\ModelException\InspetorTransferException
      * @return void
      */
-    public function trackItemTransferCreation(Transfer $transfer);
+    public function trackItemTransferCreation(InspetorTransfer $transfer);
 
     /**
      * Operation trackItemTransferUpdate
      *
      * Send item transfer update data to Inspetor
      *
-     * @param  \Inspetor\Model\Transfer $transfer transfer (required);
+     * @param  \Inspetor\Model\InspetorTransfer $transfer transfer (required);
      *
      * @throws \Inspetor\Exception\TrackerException
-     * @throws \Inspetor\Exception\ModelException\TransferException
+     * @throws \Inspetor\Exception\ModelException\InspetorTransferException
      * @return void
      */
-    public function trackItemTransferUpdate(Transfer $transfer);
+    public function trackItemTransferUpdate(InspetorTransfer $transfer);
 
     /**
      * Operation trackLogin
      *
      * Send account login data to Inspetor
      *
-     * @param  \Inspetor\Model\Auth $auth auth (required);
+     * @param  \Inspetor\Model\InspetorAuth $auth auth (required);
      *
      * @throws \Inspetor\Exception\TrackerException
-     * @throws \Inspetor\Exception\ModelException\AuthException
+     * @throws \Inspetor\Exception\ModelException\InspetorAuthException
      * @return void
      */
-    public function trackLogin(Auth $auth);
+    public function trackLogin(InspetorAuth $auth);
 
     /**
      * Operation trackLogout
      *
      * Send account logout data to Inspetor
      *
-     * @param  \Inspetor\Model\Auth $auth auth (required);
+     * @param  \Inspetor\Model\InspetorAuth $auth auth (required);
      *
      * @throws \Inspetor\Exception\TrackerException
-     * @throws \Inspetor\Exception\ModelException\AuthException
+     * @throws \Inspetor\Exception\ModelException\InspetorAuthException
      * @return void
      */
-    public function trackLogout(Auth $auth);
+    public function trackLogout(InspetorAuth $auth);
 
     /**
      * Operation trackPasswordRecovery
      *
      * Send password recovery data to Inspetor
      *
-     * @param  \Inspetor\Model\PassRecovery $pass_recovery pass_recovery (required);
+     * @param  \Inspetor\Model\InspetorPassRecovery $pass_recovery pass_recovery (required);
      *
      * @throws \Inspetor\Exception\TrackerException
-     * @throws \Inspetor\Exception\ModelException\PassRecoveryException
+     * @throws \Inspetor\Exception\ModelException\InspetorPassRecoveryException
      * @return void
      */
-    public function trackPasswordRecovery(PassRecovery $pass_recovery);
+    public function trackPasswordRecovery(InspetorPassRecovery $pass_recovery);
 
     /**
      * Operation trackPasswordReset
      *
      * Send password reset data to Inspetor
      *
-     * @param  \Inspetor\Model\PassRecovery $pass_recovery pass_recovery (required);
+     * @param  \Inspetor\Model\InspetorPassRecovery $pass_recovery pass_recovery (required);
      *
      * @throws \Inspetor\Exception\TrackerException
-     * @throws \Inspetor\Exception\ModelException\PassRecoveryException
+     * @throws \Inspetor\Exception\ModelException\InspetorPassRecoveryException
      * @return void
      */
-    public function trackPasswordReset(PassRecovery $pass_recovery);
+    public function trackPasswordReset(InspetorPassRecovery $pass_recovery);
 
     /**
      * Operation trackSaleCreation
      *
      * Send sale creation data to Inspetor
      *
-     * @param  \Inspetor\Model\Sale $sale sale (required);
+     * @param  \Inspetor\Model\InspetorSale $sale sale (required);
      *
      * @throws \Inspetor\Exception\TrackerException
-     * @throws \Inspetor\Exception\ModelException\SaleException
+     * @throws \Inspetor\Exception\ModelException\InspetorSaleException
      * @return void
      */
-    public function trackSaleCreation(Sale $sale);
+    public function trackSaleCreation(InspetorSale $sale);
 
     /**
      * Operation trackSaleUpdate
      *
      * Send sale update data to Inspetor
      *
-     * @param  \Inspetor\Model\Sale $sale sale (required);
+     * @param  \Inspetor\Model\InspetorSale $sale sale (required);
      *
      * @throws \Inspetor\Exception\TrackerException
-     * @throws \Inspetor\Exception\ModelException\SaleException
+     * @throws \Inspetor\Exception\ModelException\InspetorSaleException
      * @return void
      */
-    public function trackSaleUpdate(Sale $sale);
+    public function trackSaleUpdate(InspetorSale $sale);
 }
