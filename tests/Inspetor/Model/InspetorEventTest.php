@@ -2,8 +2,10 @@
 
 namespace Inspetor\Test\Model;
 
-use Inspetor\Model\InspetorEvent;
 use Inspetor\Model\InspetorAddress;
+use Inspetor\Model\InspetorCategory;
+use Inspetor\Model\InspetorEvent;
+use Inspetor\Model\InspetorSession;
 use Inspetor\Exception\ModelException\InspetorEventException;
 use PHPUnit\Framework\TestCase;
 
@@ -15,18 +17,9 @@ class InspetorEventTest extends TestCase {
         $event->setName("Name Test");
         $event->setDescription("Description Test");
         $event->setTimestamp($this->getNormalizedTime());
-        $event->setSessions([
-            [
-                "id"        => "123",
-                "timestamp" => $this->getNormalizedTime()
-            ],
-            [
-                "id"        => "123",
-                "timestamp" => $this->getNormalizedTime()
-            ]
-        ]);
+        $event->setSessions([$this->getDefaultSession()]);
         $event->setStatus(InspetorEvent::PRIVATE_STATUS);
-        $event->setCategories(["Category Test"]);
+        $event->setCategories([$this->getDefaultCategory()]);
         $event->setAddress($this->getDefaultAddress());
         $event->setSlug("Slug Test");
         $event->setCreatorId("123");
@@ -46,6 +39,20 @@ class InspetorEventTest extends TestCase {
         $address->setLatitude("123");
         $address->setLongitude("123");
         return $address;
+    }
+
+    private function getDefaultCategory() {
+        $category = new InspetorCategory();
+        $category->setId("123");
+        $category->setName("Category");
+        return $category;
+    }
+
+    private function getDefaultSession() {
+        $session = new InspetorSession();
+        $session->setId("123");
+        $session->setDatetime(1562934682);
+        return $session;
     }
 
     private function getNormalizedTime() {

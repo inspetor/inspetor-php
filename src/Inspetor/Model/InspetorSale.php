@@ -210,7 +210,7 @@ class InspetorSale extends InspetorAbstractModel implements JsonSerializable {
 	 *
 	 * @return double
 	 */
-	public function getTotalValue() {
+	private function getTotalValue() {
 		return $this->total_value;
     }
 

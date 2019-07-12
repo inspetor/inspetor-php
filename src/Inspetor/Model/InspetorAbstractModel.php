@@ -86,12 +86,9 @@ class InspetorAbstractModel {
         }
 
         if (!is_int($time)) {
-            if (!((string) (int) $time === $time)
-            && ($time <= PHP_INT_MAX)
-            && ($time >= ~PHP_INT_MAX)){
-                throw new GeneralException(7001);
-            }
+            throw new InspetorGeneralException(7001);
         }
+
         date_default_timezone_set('UTC');
         $formatted = date(DATE_ATOM, $time);
 

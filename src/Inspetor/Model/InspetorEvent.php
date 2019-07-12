@@ -22,6 +22,8 @@ namespace Inspetor\Model;
 
 use Inspetor\Exception\ModelException\InspetorEventException;
 use Inspetor\Model\InspetorAddress;
+use Inspetor\Model\InspetorCategory;
+use Inspetor\Model\InspetorSession;
 use Inspetor\Model\InspetorAbstractModel;
 use JsonSerializable;
 
@@ -285,12 +287,8 @@ class InspetorEvent extends InspetorAbstractModel implements JsonSerializable {
 	public function setSessions($sessions) {
 		if ($sessions) {
 			foreach($sessions as $session) {
-				if (!is_array($session)) {
-					throw new EventException(7010);
-				}
-				if (!array_key_exists("id", $session)
-				|| !array_key_exists("timestamp", $session)){
-					throw new EventException(7011);
+				if ($session) {
+					$session->isValid();
 				}
 			}
 		}
@@ -346,17 +344,13 @@ class InspetorEvent extends InspetorAbstractModel implements JsonSerializable {
 	 */
 	public function setCategories($categories) {
 		if ($categories) {
-			if(!is_array($categories)) {
-				throw new EventException(7008);
-			}
 			foreach($categories as $category) {
-				if(!$category) {
-					throw new EventException(7008);
+				if ($category) {
+					$category->isValid();
 				}
 			}
 		}
 		$this->categories = $categories;
-		return $this;
 	}
 
 	/**
@@ -530,11 +524,11 @@ class InspetorEvent extends InspetorAbstractModel implements JsonSerializable {
             "event_name"               => $this->encodeData($this->getName()),
             "event_description"        => $this->encodeData($this->getDescription()),
             "event_timestamp"  		   => $this->encodeData($this->getTimestamp()),
-            "event_sessions"           => $this->encodeSessions(),
+            "event_sessions"           => $this->encodeArray($this->getSessions(), true),
             "event_status"             => $this->encodeData($this->getStatus()),
 			"event_status_other"       => $this->encodeData($this->getOtherStatus()),
 			"event_seating_options"    => $this->encodeArray($this->getSeatingOptions(), false),
-            "event_categories"         => $this->encodeArray($this->getCategories(), false),
+            "event_categories"         => $this->encodeArray($this->getCategories(), true),
             "event_address"            => $this->encodeObject($this->getAddress()),
             "event_slug"               => $this->encodeData($this->getSlug()),
             "event_creator_id"         => $this->encodeData($this->getCreatorId()),
@@ -542,27 +536,6 @@ class InspetorEvent extends InspetorAbstractModel implements JsonSerializable {
         ];
 
         return $array;
-	}
-
-	/**
-	 * encodeSessions
-	 *
-	 * @return array
-	 */
-	private function encodeSessions() {
-		$sessions = $this->sessions;
-		$encoded_sessions = [];
-
-		foreach($sessions as $session) {
-			if (is_array($session)) {
-				$partial_session = [];
-				foreach($session as $key => $value) {
-					$partial_session[$key] = $this->encodeData($value);
-				}
-				array_push($encoded_sessions, $partial_session);
-			}
-		}
-		return $encoded_sessions;
 	}
 }
 
