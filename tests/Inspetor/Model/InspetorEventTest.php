@@ -16,7 +16,7 @@ class InspetorEventTest extends TestCase {
         $event->setId("123");
         $event->setName("Name Test");
         $event->setDescription("Description Test");
-        $event->setTimestamp($this->getNormalizedTime());
+        $event->setTimestamp(time());
         $event->setSessions([$this->getDefaultSession()]);
         $event->setStatus(InspetorEvent::PRIVATE_STATUS);
         $event->setCategories([$this->getDefaultCategory()]);
@@ -53,10 +53,6 @@ class InspetorEventTest extends TestCase {
         $session->setId("123");
         $session->setDatetime(1562934682);
         return $session;
-    }
-
-    private function getNormalizedTime() {
-        return time()*1000;
     }
 
     public function testIfIsValid() {

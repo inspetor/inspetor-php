@@ -11,16 +11,12 @@ class InspetorTransferTest extends TestCase {
     private function getDefaultTransfer() {
         $transfer = new InspetorTransfer();
         $transfer->setId("123");
-        $transfer->setTimestamp($this->getNormalizedTime());
+        $transfer->setTimestamp(time());
         $transfer->setItemId("123");
         $transfer->setSenderAccountId("123");
         $transfer->setReceiverEmail("test@email.com");
         $transfer->setStatus(InspetorTransfer::PENDING_STATUS);
         return $transfer;
-    }
-
-    private function getNormalizedTime() {
-        return time()*1000;
     }
 
     public function testIfIsValid() {

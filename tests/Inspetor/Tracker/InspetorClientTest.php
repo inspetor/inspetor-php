@@ -325,6 +325,11 @@ class InspetorClientTest extends TestCase {
         $this->assertInstanceOf("Inspetor\Model\InspetorAuth", $inspetor_client->getInspetorAuth());
     }
 
+    public function testGetInspetorCategory() {
+        $inspetor_client = $this->getDefaultInspetorClient();
+        $this->assertInstanceOf("Inspetor\Model\InspetorCategory", $inspetor_client->getInspetorCategory());
+    }
+
     public function testGetInspetorCreditCard() {
         $inspetor_client = $this->getDefaultInspetorClient();
         $this->assertInstanceOf("Inspetor\Model\InspetorCreditCard", $inspetor_client->getInspetorCreditCard());
@@ -355,11 +360,15 @@ class InspetorClientTest extends TestCase {
         $this->assertInstanceOf("Inspetor\Model\InspetorSale", $inspetor_client->getInspetorSale());
     }
 
-    public function testGetInspetorTransfer() {
+    public function testGetInspetorSession() {
         $inspetor_client = $this->getDefaultInspetorClient();
-        $this->assertInstanceOf("Inspetor\Model\InspetorTransfer", $inspetor_client->getInspetorTransfer());
+        $this->assertInstanceOf("Inspetor\Model\InspetorSession", $inspetor_client->getInspetorSession());
     }
 
+    public function testGetInspetorTransfer() {
+        $inspetor_client = $this->getDefaultInspetorClient();
+        $this->assertInstanceOf("Inspetor\Model\InspetorSession", $inspetor_client->getInspetorSession());
+    }
 
 }
 

@@ -16,7 +16,7 @@ class InspetorSaleTest extends TestCase {
         $sale->setAccountId("123");
         $sale->setStatus(InspetorSale::PENDING_STATUS);
         $sale->setIsFraud(true);
-        $sale->setTimestamp($this->getNormalizedTime());
+        $sale->setTimestamp(time());
         $sale->setItems([
             $this->getDefaultItem()
         ]);
@@ -43,11 +43,6 @@ class InspetorSaleTest extends TestCase {
         $payment->setCreditCard(null);
         return $payment;
     }
-
-    private function getNormalizedTime() {
-        return time()*1000;
-    }
-
 
     public function testIfIsValid() {
         $sale = $this->getDefaultSale();
