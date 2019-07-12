@@ -154,7 +154,6 @@ The last snipped was a simple example to show how you should call our library an
   $inspetor_account->setDocument("07206094880"); // CPF
   $inspetor_account->setPhoneNumber("11953891736");
   $inspetor_account->setAddress($inspetor_account_address);
-  $inspetor_account->setBillingAddress($inspetor_account_billing_address);
   $inspetor_account->setTimestamp(time());
 ?>
 ```
@@ -188,6 +187,7 @@ $inspetor_event = $inspetor->getInspetorEvent();
   $inspetor_event->setSeatingOptions(["Pista", "VIP"]);
 ?>
 ```
+
 - **PassRecovery**: model that must contain data from a ***password recovery*** or ***password reset*** request of your API.
 ```
 <?php
@@ -242,7 +242,7 @@ $inspetor_event = $inspetor->getInspetorEvent();
 
 
 ***Auxiliar models***:
-- **Address**: this model appears inside Account and Event models and should be filled with data of an ***user*** or an ***event***.
+- **Address**: this model appears inside Account and Event models and should be filled with data of an ***user***, ***credit card**** or an ***event***.
 ```
 <?php
 // Calling an instance of Model
@@ -270,6 +270,7 @@ $inspetor_event = $inspetor->getInspetorEvent();
   $inspetor_cc->setLastFourDigits("1234");
   $inspetor_cc->setHolderName("Holder Name");
   $inspetor_cc->setHolderCpf("07206094880");
+  $inspetor_cc->setBillingAddress($cc_billing_address);
 ?>
 ```
 - **Item**: when someone buy a ***ticket*** for instance, this Model will be instantiate and filled with that ticket data.
