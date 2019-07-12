@@ -57,6 +57,13 @@ interface InspetorService {
     public function getInspetorAuth();
 
     /**
+     * Operation getInspetorCategory
+     *
+     * @return \Inspetor\Model\InspetorCategory
+     */
+    public function getInspetorCategory();
+
+    /**
      * Operation getInspetorCreditCard
      *
      * @return \Inspetor\Model\InspetorCreditCard
@@ -97,6 +104,13 @@ interface InspetorService {
      * @return \Inspetor\Model\InspetorSale
      */
     public function getInspetorSale();
+
+    /**
+     * Operation getInspetorSession
+     *
+     * @return \Inspetor\Model\InspetorSession
+     */
+    public function getInspetorSession();
 
     /**
      * Operation getInspetorTransfer

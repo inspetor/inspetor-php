@@ -6,12 +6,14 @@ namespace Inspetor;
 use Inspetor\Model\InspetorAccount;
 use Inspetor\Model\InspetorAddress;
 use Inspetor\Model\InspetorAuth;
+use Inspetor\Model\InspetorCategory;
 use Inspetor\Model\InspetorCreditCard;
 use Inspetor\Model\InspetorEvent;
 use Inspetor\Model\InspetorItem;
 use Inspetor\Model\InspetorPassRecovery;
 use Inspetor\Model\InspetorPayment;
 use Inspetor\Model\InspetorSale;
+use Inspetor\Model\InspetorSession;
 use Inspetor\Model\InspetorTransfer;
 use Inspetor\InspetorResource;
 use Inspetor\InspetorService;
@@ -293,7 +295,7 @@ class InspetorClient implements InspetorService {
     /**
      * getInspetorAccount
      *
-     * @return Account
+     * @return InspetorAccount
      */
     public function getInspetorAccount() {
         return new InspetorAccount();
@@ -302,7 +304,7 @@ class InspetorClient implements InspetorService {
     /**
      * getInspetorAddress
      *
-     * @return Address
+     * @return InspetorAddress
      */
     public function getInspetorAddress() {
         return new InspetorAddress();
@@ -311,16 +313,25 @@ class InspetorClient implements InspetorService {
     /**
      * getInspetorAuth
      *
-     * @return Auth
+     * @return InspetorAuth
      */
     public function getInspetorAuth() {
         return new InspetorAuth();
     }
 
     /**
+     * getInspetorCategory
+     *
+     * @return InspetorSale
+     */
+    public function getInspetorCategory() {
+        return new InspetorCategory();
+    }
+
+    /**
      * getInspetorCreditCard
      *
-     * @return CreditCard
+     * @return InspetorCreditCard
      */
     public function getInspetorCreditCard() {
         return new InspetorCreditCard();
@@ -329,7 +340,7 @@ class InspetorClient implements InspetorService {
     /**
      * getInspetorEvent
      *
-     * @return Event
+     * @return InspetorEvent
      */
     public function getInspetorEvent() {
         return new InspetorEvent();
@@ -338,7 +349,7 @@ class InspetorClient implements InspetorService {
     /**
      * getInspetorItem
      *
-     * @return Item
+     * @return InspetorItem
      */
     public function getInspetorItem() {
         return new InspetorItem();
@@ -347,7 +358,7 @@ class InspetorClient implements InspetorService {
     /**
      * getInspetorPassRecovery
      *
-     * @return PassRecovery
+     * @return InspetorPassRecovery
      */
     public function getInspetorPassRecovery() {
         return new InspetorPassRecovery();
@@ -356,7 +367,7 @@ class InspetorClient implements InspetorService {
     /**
      * getInspetorPayment
      *
-     * @return Payment
+     * @return InspetorPayment
      */
     public function getInspetorPayment() {
         return new InspetorPayment();
@@ -365,16 +376,25 @@ class InspetorClient implements InspetorService {
     /**
      * getInspetorSale
      *
-     * @return Sale
+     * @return InspetorSale
      */
     public function getInspetorSale() {
         return new InspetorSale();
     }
 
     /**
+     * getInspetorSession
+     *
+     * @return InspetorSession
+     */
+    public function getInspetorSession() {
+        return new InspetorSession();
+    }
+
+    /**
      * getInspetorTransfer
      *
-     * @return Transfer
+     * @return InspetorTransfer
      */
     public function getInspetorTransfer() {
         return new InspetorTransfer();

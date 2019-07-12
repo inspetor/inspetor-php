@@ -11,12 +11,8 @@ class InspetorAuthTest extends TestCase {
     private function getDefaultAuth() {
         $auth = new InspetorAuth();
         $auth->setAccountId("123");
-        $auth->setTimestamp($this->getNormalizedTime());
+        $auth->setTimestamp(time());
         return $auth;
-    }
-
-    private function getNormalizedTime() {
-        return time()*1000;
     }
 
     public function testIfIsValid() {

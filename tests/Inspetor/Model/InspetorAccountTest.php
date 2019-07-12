@@ -17,7 +17,7 @@ class InspetorAccountTest extends TestCase {
         $account->setDocument("12312312312");
         $account->setPhoneNumber("112345678");
         $account->setAddress($this->getDefaultAddress());
-        $account->setTimestamp($this->getNormalizedTime());
+        $account->setTimestamp(time());
         return $account;
     }
 
@@ -32,10 +32,6 @@ class InspetorAccountTest extends TestCase {
         $address->setLatitude("123");
         $address->setLongitude("123");
         return $address;
-    }
-
-    private function getNormalizedTime() {
-        return time()*1000;
     }
 
     public function testIfIsValid() {

@@ -11,12 +11,8 @@ class InspetorPassRecoveryTest extends TestCase {
     private function getDefaultPassRecovery() {
         $pass_recovery = new InspetorPassRecovery();
         $pass_recovery->setRecoveryEmail("test@email.com");
-        $pass_recovery->setTimestamp($this->getNormalizedTime());
+        $pass_recovery->setTimestamp(time());
         return $pass_recovery;
-    }
-
-    private function getNormalizedTime() {
-        return time()*1000;
     }
 
     public function testIfIsValid() {
