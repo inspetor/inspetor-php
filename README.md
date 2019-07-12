@@ -304,6 +304,30 @@ $inspetor_event = $inspetor->getInspetorEvent();
 ?>
 ```
 
+ - **Session**: model you fill with ***event date session*** data.
+```
+<?php
+// Calling an instance of Model
+  $inspetor_session = $inspetor->getInspetorSession();
+
+// Filling model with company data
+  $inspetor_session->setId("123");
+  $inspetor_session->setDatetime(1562934682); // it's the date of that event session in unix timestamp format
+?>
+```
+
+ - **Category**: model you fill with ***event category*** data. In event context it could be, for instance "Show", "Lecture", "Art Exposition", etc.
+```
+<?php
+// Calling an instance of Model
+  $inspetor_category = $inspetor->getInspetorCategory();
+
+// Filling model with company data
+  $inspetor_category->setId("123");
+  $inspetor_category->setName("Cooltegory");
+?>
+```
+
 ### What you should notice
 Not all of the Model's attributes are required but we trully recommend you work around to pass them all. On the other hand, some of them are **super important** and you should pass it correctly. Let's talk about some of them.
  - Sale:
@@ -315,7 +339,7 @@ Not all of the Model's attributes are required but we trully recommend you work 
  - CreditCard:
    - ***all fields***: all of them are requested once you set that the *payment_method* as "credit_card", so pay attention to that.
  - Common requests:
-   - ***timestamp***: some Models have setters and getters to timestamp and timestamp as you can see in the general files, but only timestamp is really required and should be setted. When is a create request (e.g *trackAccountCreation()*), the *timestamp* provided we'll be used as *create_timestamp*. We recommend use of *time()* PHP function that returns an unix timestamp.
+   - ***timestamp***: some Models have setters and getters to timestamp as you can see in the general files, and you must provide us a unix timestamp.
 
 ### Best Practices & Tips
 Did you think it was easy? Please tell us and feel free to send suggestions [here](), we really would appreciate that. From now on, we decided to tell you some ~~secrets~~ nice practices we discover during development time and should help you with a cleaner integration.
