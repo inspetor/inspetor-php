@@ -93,7 +93,7 @@ class Event extends AbstractModel implements JsonSerializable {
 	/**
 	 * @param string
 	 */
-	private $url;
+	private $slug;
 
 	/**
 	 * @param $producer_id
@@ -381,24 +381,24 @@ class Event extends AbstractModel implements JsonSerializable {
 	}
 
 	/**
-	 * Get the value of url
+	 * Get the value of slug
 	 *
 	 * @return string
 	 */
-	public function getUrl() {
-		return $this->url;
+	public function getSlug() {
+		return $this->slug;
     }
 
 	/**
-	 * Set the value of url
+	 * Set the value of slug
 	 *
-     * @param string  $url
+     * @param string  $slug
      *
 	 *
 	 * @return self
 	 */
-	public function setUrl($url) {
-        $this->url = $url;
+	public function setSlug($slug) {
+        $this->slug = $slug;
 		return $this;
 	}
 
@@ -511,7 +511,7 @@ class Event extends AbstractModel implements JsonSerializable {
 			"event_seating_options"    => $this->encodeArray($this->getSeatingOptions(), false),
             "event_categories"         => $this->encodeArray($this->getCategories(), false),
             "event_address"            => $this->encodeObject($this->getAddress()),
-            "event_url"                => $this->encodeData($this->getUrl()),
+            "event_slug"                => $this->encodeData($this->getSlug()),
             "event_producer_id"        => $this->encodeData($this->getProducerId()),
             "event_admins_id"          => $this->encodeArray($this->getAdminsId(), false)
         ];

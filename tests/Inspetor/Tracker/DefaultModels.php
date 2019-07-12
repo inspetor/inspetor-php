@@ -61,7 +61,7 @@ class DefaultModels {
         $event->setStatus(EVENT::PRIVATE_STATUS);
         $event->setCategories(["Category Test"]);
         $event->setAddress($this->getDefaultAddress());
-        $event->setUrl("Url Test");
+        $event->setSlug("Slug Test");
         $event->setProducerId("123");
         $event->setAdminsId(["123"]);
         $event->setSeatingOptions(["Seating Options"]);
