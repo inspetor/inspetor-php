@@ -62,7 +62,7 @@ class DefaultModels {
         $event->setCategories(["Category Test"]);
         $event->setAddress($this->getDefaultAddress());
         $event->setSlug("Slug Test");
-        $event->setProducerId("123");
+        $event->setCreatorId("123");
         $event->setAdminsId(["123"]);
         $event->setSeatingOptions(["Seating Options"]);
         return $event;

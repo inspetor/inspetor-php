@@ -96,9 +96,9 @@ class Event extends AbstractModel implements JsonSerializable {
 	private $slug;
 
 	/**
-	 * @param $producer_id
+	 * @param $creator_id
 	 */
-	private $producer_id;
+	private $creator_id;
 
 	/**
 	 * @param array
@@ -128,7 +128,7 @@ class Event extends AbstractModel implements JsonSerializable {
             throw new EventException(7003);
 		}
 
-        if (!$this->producer_id) {
+        if (!$this->creator_id) {
             throw new EventException(7004);
 		}
 
@@ -403,26 +403,26 @@ class Event extends AbstractModel implements JsonSerializable {
 	}
 
 	/**
-	 * Get the value of producer_id
+	 * Get the value of creator_id
 	 *
 	 *
 	 *
 	 * @return string
 	 */
-	public function getProducerId() {
-		return $this->producer_id;
+	public function getCreatorId() {
+		return $this->creator_id;
     }
 
 	/**
-	 * Set the value of producer_id
+	 * Set the value of creator_id
 	 *
-	 * @param string  $producer_id
+	 * @param string  $creator_id
      *
 	 *
 	 * @return self
 	 */
-	public function setProducerId($producer_id) {
-        $this->producer_id = $producer_id;
+	public function setCreatorId($creator_id) {
+        $this->creator_id = $creator_id;
 		return $this;
 	}
 
@@ -512,7 +512,7 @@ class Event extends AbstractModel implements JsonSerializable {
             "event_categories"         => $this->encodeArray($this->getCategories(), false),
             "event_address"            => $this->encodeObject($this->getAddress()),
             "event_slug"                => $this->encodeData($this->getSlug()),
-            "event_producer_id"        => $this->encodeData($this->getProducerId()),
+            "event_creator_id"        => $this->encodeData($this->getCreatorId()),
             "event_admins_id"          => $this->encodeArray($this->getAdminsId(), false)
         ];
 

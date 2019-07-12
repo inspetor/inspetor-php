@@ -29,7 +29,7 @@ class EventTest extends TestCase {
         $event->setCategories(["Category Test"]);
         $event->setAddress($this->getDefaultAddress());
         $event->setSlug("Slug Test");
-        $event->setProducerId("123");
+        $event->setCreatorId("123");
         $event->setAdminsId(["123"]);
         $event->setSeatingOptions(["Seating Options"]);
         return $event;
@@ -87,9 +87,9 @@ class EventTest extends TestCase {
         $event->isValid();
     }
 
-    public function testIfIsNotValidWhenProducerIdIsNull() {
+    public function testIfIsNotValidWhenCreatorIdIsNull() {
         $event = $this->getDefaultEvent();
-        $event->setProducerId(null);
+        $event->setCreatorId(null);
 
         $this->expectExceptionCode(200);
         $this->setExpectedException(EventException::class);
