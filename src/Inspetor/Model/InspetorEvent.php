@@ -328,6 +328,16 @@ class InspetorEvent extends InspetorAbstractModel implements JsonSerializable {
 	 */
 	public function getOtherStatus() {
 		return $this->status;
+	}
+	
+	/**
+	 * Set the value of other status
+	 *
+	 * @return string
+	 */
+	public function setOtherStatus($status_other) {
+		$this->status_other = $status_other;
+		return $this;
     }
 
 	/**
