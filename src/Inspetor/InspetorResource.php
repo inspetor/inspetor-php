@@ -84,7 +84,11 @@ class InspetorResource implements InspetorResourceService {
             throw new TrackerException(9005);
         }
 
-        $data->isValid();
+        if ($action == InspetorSale::SALE_CREATE_ACTION) {
+            $data->isValid();
+        }
+
+        $data->isValidUpdate();
 
         $this->trackUnstructuredEvent(
             $this->default_config['inspetorSaleSchema'],
@@ -114,7 +118,11 @@ class InspetorResource implements InspetorResourceService {
             throw new TrackerException(9003);
         }
 
-        $data->isValid();
+        if ($action == InspetorAccount::ACCOUNT_CREATE_ACTION) {
+            $data->isValid();
+        }
+
+        $data->isValidUpdate();
 
         $this->trackUnstructuredEvent(
             $this->default_config['inspetorAccountSchema'],
@@ -144,7 +152,11 @@ class InspetorResource implements InspetorResourceService {
             throw new TrackerException(9008);
         }
 
-        $data->isValid();
+        if ($action == InspetorEvent::EVENT_CREATE_ACTION) {
+            $data->isValid();
+        }
+
+        $data->isValidUpdate();
 
         $this->trackUnstructuredEvent(
             $this->default_config['inspetorEventSchema'],
@@ -174,7 +186,11 @@ class InspetorResource implements InspetorResourceService {
             throw new TrackerException(9006);
         }
 
-        $data->isValid();
+        if ($action == InspetorTransfer::TRANSFER_CREATE_ACTION) {
+            $data->isValid();
+        }
+
+        $data->isValidUpdate();
 
         $this->trackUnstructuredEvent(
             $this->default_config['inspetorTransferSchema'],

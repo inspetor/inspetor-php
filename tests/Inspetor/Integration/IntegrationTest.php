@@ -53,7 +53,7 @@ class IntegrationTest extends TestCase {
      public function testTrackSaleUpdate() {
          $inspetor_client = $this->getDefaultInspetorClient();
          $default_models = new DefaultModels();
-         $sale = $default_models->getDefaultSale();
+         $sale = $default_models->getDefaultUpdateSale();
 
          $this->assertTrue($inspetor_client->trackSaleUpdate($sale));
      }
@@ -69,7 +69,7 @@ class IntegrationTest extends TestCase {
      public function testTrackAccountUpdate() {
          $inspetor_client = $this->getDefaultInspetorClient();
          $default_models = new DefaultModels();
-         $account = $default_models->getDefaultAccount();
+         $account = $default_models->getDefaultUpdateAccount();
 
          $this->assertTrue($inspetor_client->trackAccountUpdate($account));
      }
@@ -93,7 +93,7 @@ class IntegrationTest extends TestCase {
      public function testTrackEventUpdate() {
          $inspetor_client = $this->getDefaultInspetorClient();
          $default_models = new DefaultModels();
-         $event = $default_models->getDefaultEvent();
+         $event = $default_models->getDefaultUpdateEvent();
 
          $this->assertTrue($inspetor_client->trackEventUpdate($event));
      }
@@ -101,7 +101,7 @@ class IntegrationTest extends TestCase {
      public function testTrackEventDeletion() {
          $inspetor_client = $this->getDefaultInspetorClient();
          $default_models = new DefaultModels();
-         $event = $default_models->getDefaultEvent();
+         $event = $default_models->getDefaultUpdateEvent();
 
          $this->assertTrue($inspetor_client->trackEventDeletion($event));
      }
@@ -117,7 +117,7 @@ class IntegrationTest extends TestCase {
      public function testTrackItemTransferUpdate() {
          $inspetor_client = $this->getDefaultInspetorClient();
          $default_models = new DefaultModels();
-         $transfer = $default_models->getDefaultTransfer();
+         $transfer = $default_models->getDefaultUpdateTransfer();
 
          $this->assertTrue($inspetor_client->trackItemTransferUpdate($transfer));
      }

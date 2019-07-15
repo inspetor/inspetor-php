@@ -26,12 +26,12 @@ class InspetorSaleException extends ExceptionAbstract {
      */
     protected static $messages = array(
         1  => "id is a required property. It can't be null.",
-        2  => "account_id is a required property. It can't be null.",
-        3  => "status is a required property. It can't be null.",
-        4  => "is_fraud is a required property. It can't be null.",
+        2  => "account_id is a required property. It can't be null on creation.",
+        3  => "status is a required property. It can't be null on creation.",
+        4  => "is_fraud is a required property. It can't be null on creation.",
         5  => "timestamp is a required property. It can't be null.",
-        6  => "items is a required property. It can't be null neither an empty array.",
-        7  => "payment is a required property. It can't be null.",
+        6  => "items is a required property. It can't be null neither an empty array on creation.",
+        7  => "payment is a required property. It can't be null on creation.",
         8  => "The status is not a valid one.",
         9  => "One or more items have invalid price."
     );

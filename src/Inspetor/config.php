@@ -10,12 +10,12 @@ return [
         'appId'                       => null,
         'encode64'                    => true,
         'debugMode'                   => false,
-        'inspetorAuthSchema'          => 'iglu:com.inspetor/inspetor_auth/jsonschema/1-0-4',
-        'inspetorPassRecoverySchema'  => 'iglu:com.inspetor/inspetor_pass_recovery/jsonschema/1-0-1',
-        'inspetorSaleSchema'          => 'iglu:com.inspetor/inspetor_sale/jsonschema/1-0-4',
-        'inspetorTransferSchema'      => 'iglu:com.inspetor/inspetor_transfer/jsonschema/1-0-3',
-        'inspetorAccountSchema'       => 'iglu:com.inspetor/inspetor_account/jsonschema/1-0-6',
-        'inspetorEventSchema'         => 'iglu:com.inspetor/inspetor_event/jsonschema/1-0-10',
+        'inspetorAuthSchema'          => 'iglu:com.inspetor/inspetor_auth_backend/jsonschema/1-0-0',
+        'inspetorPassRecoverySchema'  => 'iglu:com.inspetor/inspetor_pass_recovery_backend/jsonschema/1-0-0',
+        'inspetorSaleSchema'          => 'iglu:com.inspetor/inspetor_sale_backend/jsonschema/1-0-1',
+        'inspetorTransferSchema'      => 'iglu:com.inspetor/inspetor_transfer_backend/jsonschema/1-0-0',
+        'inspetorAccountSchema'       => 'iglu:com.inspetor/inspetor_account_backend/jsonschema/1-0-0',
+        'inspetorEventSchema'         => 'iglu:com.inspetor/inspetor_event_backend/jsonschema/1-0-1',
         'inspetorContext'             => 'iglu:com.inspetor/inspetor_context/jsonschema/1-0-0'
     ]
 ];
