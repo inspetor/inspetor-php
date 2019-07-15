@@ -31,6 +31,13 @@ class DefaultModels {
         return $sale;
     }
 
+    public function getDefaultUpdateSale() {
+        $sale = new InspetorSale();
+        $sale->setId("123");
+        $sale->setTimestamp(time());
+        return $sale;
+    }
+
     public function getDefaultAccount() {
         $account = new InspetorAccount();
         $account->setId("123");
@@ -39,7 +46,14 @@ class DefaultModels {
         $account->setDocument("12312312312");
         $account->setPhoneNumber("112345678");
         $account->setAddress($this->getDefaultAddress());
-        $account->setTimestamp($this->getNormalizedTime());
+        $account->setTimestamp(time());
+        return $account;
+    }
+
+    public function getDefaultUpdateAccount() {
+        $account = new InspetorAccount();
+        $account->setId("123");
+        $account->setTimestamp(time());
         return $account;
     }
 
@@ -48,7 +62,7 @@ class DefaultModels {
         $event->setId("123");
         $event->setName("Name Test");
         $event->setDescription("Description Test");
-        $event->setTimestamp($this->getNormalizedTime());
+        $event->setTimestamp(time());
         $event->setSessions([$this->getDefaultSession()]);
         $event->setStatus(InspetorEvent::PRIVATE_STATUS);
         $event->setCategories([$this->getDefaultCategory()]);
@@ -60,10 +74,17 @@ class DefaultModels {
         return $event;
     }
 
+    public function getDefaultUpdateEvent() {
+        $event = new InspetorEvent();
+        $event->setId("123");
+        $event->setTimestamp(time());
+        return $event;
+    }
+
     public function getDefaultTransfer() {
         $transfer = new InspetorTransfer();
         $transfer->setId("123");
-        $transfer->setTimestamp($this->getNormalizedTime());
+        $transfer->setTimestamp(time());
         $transfer->setItemId("123");
         $transfer->setSenderAccountId("123");
         $transfer->setReceiverEmail("test@email.com");
@@ -71,10 +92,17 @@ class DefaultModels {
         return $transfer;
     }
 
+    public function getDefaultUpdateTransfer() {
+        $transfer = new InspetorTransfer();
+        $transfer->setId("123");
+        $transfer->setTimestamp(time());
+        return $transfer;
+    }
+
     public function getDefaultAuth() {
         $auth = new InspetorAuth();
         $auth->setAccountId("123");
-        $auth->setTimestamp($this->getNormalizedTime());
+        $auth->setTimestamp(time());
         return $auth;
     }
 
@@ -95,7 +123,7 @@ class DefaultModels {
     public function getDefaultPassRecovery() {
         $pass_recovery = new InspetorPassRecovery();
         $pass_recovery->setRecoveryEmail("test@email.com");
-        $pass_recovery->setTimestamp($this->getNormalizedTime());
+        $pass_recovery->setTimestamp(time());
         return $pass_recovery;
     }
 

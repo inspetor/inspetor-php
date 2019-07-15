@@ -32,7 +32,7 @@ class InspetorAbstractModel {
      *
      * @return array
      */
-    protected function encodeArray(array $array, bool $is_object) {
+    protected function encodeArray(?array $array, bool $is_object) {
         $encoded_array = [];
         if(!$array) {
             return null;

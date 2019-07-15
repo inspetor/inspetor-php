@@ -159,6 +159,25 @@ class InspetorEvent extends InspetorAbstractModel implements JsonSerializable {
 		if ($this->status) {
 			$this->validateStatus();
 		}
+	}
+
+		/**
+     * Validate Event instance
+     *
+     * @return void
+     */
+    public function isValidUpdate() {
+        if (!$this->id) {
+            throw new InspetorEventException(7001);
+        }
+
+        if (!$this->timestamp) {
+            throw new InspetorEventException(7003);
+		}
+
+		if ($this->status) {
+			$this->validateStatus();
+		}
     }
 
 	/**
@@ -329,7 +348,7 @@ class InspetorEvent extends InspetorAbstractModel implements JsonSerializable {
 	public function getOtherStatus() {
 		return $this->status;
 	}
-	
+
 	/**
 	 * Set the value of other status
 	 *

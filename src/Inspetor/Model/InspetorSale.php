@@ -118,7 +118,26 @@ class InspetorSale extends InspetorAbstractModel implements JsonSerializable {
         }
 
         $this->setTotalValue();
-    }
+	}
+
+	/**
+     * Validate Sale instance
+     *
+     * @return void
+     */
+    public function isValidUpdate() {
+        if (!$this->id) {
+            throw new InspetorSaleException(7001);
+        }
+
+		if (!$this->timestamp) {
+			throw new InspetorSaleException(7005);
+        }
+
+		if ($this->status) {
+			$this->validateStatus();
+		}
+	}
 
 	/**
 	 * Validate status of the Sale

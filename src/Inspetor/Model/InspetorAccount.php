@@ -91,6 +91,21 @@ class InspetorAccount extends InspetorAbstractModel implements JsonSerializable 
     }
 
     /**
+     * Validate Account instance
+     *
+     * @return void
+     */
+    public function isValidUpdate() {
+        if (!$this->id) {
+            throw new InspetorAccountException(7001);
+        }
+
+        if (!$this->timestamp) {
+            throw new InspetorAccountException(7003);
+        }
+    }
+
+    /**
      * GETTERS AND SETTERS
     */
 

@@ -76,7 +76,7 @@ class InspetorTransfer extends InspetorAbstractModel implements JsonSerializable
      *
      * @return void
      */
-    public function isValid () {
+    public function isValid() {
         if (!$this->id) {
             throw new InspetorTransferException(7001);
         }
@@ -98,6 +98,25 @@ class InspetorTransfer extends InspetorAbstractModel implements JsonSerializable
 		}
 
         $this->validateStatus();
+	}
+
+	/**
+     * Validate Transfer instance
+     *
+     * @return void
+     */
+    public function isValidUpdate() {
+        if (!$this->id) {
+            throw new InspetorTransferException(7001);
+        }
+
+        if (!$this->timestamp) {
+            throw new InspetorTransferException(7002);
+		}
+
+		if ($this->status) {
+			$this->validateStatus();
+		}
     }
 
 	/**
