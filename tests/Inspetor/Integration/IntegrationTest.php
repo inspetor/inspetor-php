@@ -25,7 +25,8 @@ class IntegrationTest extends TestCase {
     private function getDefaultInspetorClient() {
         $inspetor_client = new InspetorClient([
             "appId"         => "123",
-            "trackerName"   => "inspetor.php.test"
+            "trackerName"   => "inspetor.test",
+            "devEnv"        => true,
         ]);
         return $inspetor_client;
     }
