@@ -316,10 +316,18 @@ class InspetorResource implements InspetorResourceService {
         ];
 
         foreach ($keys as $item) {
-            if(!array_key_exists($item, $config)) {
-                $config = $config + array($item => $this->default_config[$item]);
-            } else {
-                $config[$item] = $config[$item] ?? $this->default_config[$item];
+            $config = $config + array($item => $this->default_config[$item]);
+        }
+
+        if(array_key_exists('devEnv', $config)) {
+            if ($config['devEnv'] == true) {
+                $config['collectorHost'] = $this->default_config['collectorHostDev'];
+            }
+        }
+
+        if(array_key_exists('inspetorEnv', $config)) {
+            if ($config['inspetorEnv'] == true) {
+                $config['collectorHost'] = 'test';
             }
         }
 

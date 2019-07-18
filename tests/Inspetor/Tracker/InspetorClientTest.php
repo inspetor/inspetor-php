@@ -25,7 +25,8 @@ class InspetorClientTest extends TestCase {
         $inspetor_client = new InspetorClient([
             "appId"         => "123",
             "trackerName"   => "123",
-            'collectorHost' => "test.test",
+            "devEnv"        => true,
+            "inspetorEnv"   => true
         ]);
         return $inspetor_client;
     }
