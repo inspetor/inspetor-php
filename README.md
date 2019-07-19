@@ -24,15 +24,16 @@ We use the Composer commands to install the Inspetor PHP library hosted into Pac
 If you're a lucky person and get no errors, the library should be listed in your composer.json 'require' and the library files should be inside your vendor folder.
 
 ### Library setup
-Now you're almost able to call our beautiful library inside your code. But, first, you need to set some **configuration**. To Inspetor avoid your fraud, you only need to provide us **two things**: *"appId"* and *"trackerName"* like that:
+Now you're almost able to call our beautiful library inside your code. But, first, you need to set some **configuration**. To Inspetor avoid your fraud, you only need to provide us **three things**: *"appId"*, *"trackerName"*, *"devEnv"* like that:
 ```
 'inspetor_config' => [
   'trackerName' => cool.name (e.g. company.api),
   'appId'       => unique.number (e.g. 30cdfed3-9f7f-4aaa-b9f1-033c4dbfef58)
+  'devEnv'      => false 
 ]
 ```
 
-The *"appId"* is an unique identifier that the awesome Inspetor Team will provide you when you start to pay us. The *"trackerName"* is a name that will help us to find your data in our database and we'll provide you a couple of them. Okay, if you did everything right until now, you're really able to call our functions and to begin your fight against fraudulent transactions with us.
+The ***"appId"*** is an unique identifier that the awesome Inspetor Team will provide you when you start to pay us. The ***"trackerName"*** is a name that will help us to find your data in our database and we'll provide you a couple of them. The ***"devEnv"*** is a boolean statement that you set to say if you want to use the develoment environment or prod. It's false by default. Okay, if you did everything right until now, you're really able to call our functions and to begin your fight against fraudulent transactions with us.
 
 We'll gonna code for real now, so we **strongly** recommend you to create an Inspetor class in your code to start our library. There's where you gonna insert Inspetor config you wrote some lines above and retrieve our client. Confusing? Relax, we're kind enough to show you how to do it.
 
