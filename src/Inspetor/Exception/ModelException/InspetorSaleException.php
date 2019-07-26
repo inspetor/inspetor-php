@@ -33,7 +33,8 @@ class InspetorSaleException extends ExceptionAbstract {
         6  => "items is a required property. It can't be null neither an empty array on creation.",
         7  => "payment is a required property. It can't be null on creation.",
         8  => "The status is not a valid one.",
-        9  => "One or more items have invalid price."
+        9  => "One or more items have invalid price.",
+        10 => "analyzed_by is a required property. It can't be null on update."
     );
 
     /**
