@@ -36,7 +36,7 @@ class InspetorAuth extends InspetorAbstractModel implements JsonSerializable {
     /**
       * Id of the account that is making the action
       *
-      * @param string
+      * @var string
     */
     private $account_id;
 
@@ -44,9 +44,16 @@ class InspetorAuth extends InspetorAbstractModel implements JsonSerializable {
       * Time and date when the action is occured.
       * The format needs to be in DD-MM-YYYY HH:MI:SS
       *
-      * @param integer
+      * @var integer
     */
     private $timestamp;
+
+    /**
+     * If the attemp to login was succeeded or not
+     *
+     * @var boolean
+     */
+    private $suceeded;
 
     /**
      * ISVALID
@@ -64,6 +71,10 @@ class InspetorAuth extends InspetorAbstractModel implements JsonSerializable {
 
         if (!$this->timestamp) {
             throw new InspetorAuthException(7002);
+        }
+
+        if (!$this->suceeded) {
+            throw new InspetorAuthException(7003);
         }
     }
 
@@ -116,6 +127,27 @@ class InspetorAuth extends InspetorAbstractModel implements JsonSerializable {
     }
 
     /**
+	 * Get if the attemp to login was succeeded or not
+	 *
+	 * @return  string
+	 */
+	public function getSuceeded() {
+		return $this->suceeded;
+    }
+
+	/**
+	 * Set if the attemp to login was succeeded or not
+	 *
+	 * @param   boolean  $suceeded  If the attemp to login was succeeded or not
+	 * 
+	 * @return  self
+	 */
+	public function setSuceeded($suceeded) {
+        $this->suceeded = $suceeded;
+		return $this;
+	}
+
+    /**
      * JSONSERIALIZE
     */
 
@@ -126,12 +158,12 @@ class InspetorAuth extends InspetorAbstractModel implements JsonSerializable {
     public function jsonSerialize() {
         $array = [
             "auth_account_id"    => $this->encodeData($this->getAccountId()),
-            "auth_timestamp"     => $this->encodeData($this->getTimestamp())
+            "auth_timestamp"     => $this->encodeData($this->getTimestamp()),
+            "auth_succeeded"     => $this->encodeData($this->getSuceeded()),
         ];
 
         return $array;
     }
-
 }
 
 ?>

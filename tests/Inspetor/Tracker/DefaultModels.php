@@ -28,6 +28,7 @@ class DefaultModels {
             $this->getDefaultItem()
         ]);
         $sale->setPayment($this->getDefaultPayment());
+        $sale->setAnalyzedBy("sift");
         return $sale;
     }
 
@@ -35,6 +36,7 @@ class DefaultModels {
         $sale = new InspetorSale();
         $sale->setId("123");
         $sale->setTimestamp(time());
+        $sale->setAnalyzedBy("sift");
         return $sale;
     }
 
@@ -103,6 +105,7 @@ class DefaultModels {
         $auth = new InspetorAuth();
         $auth->setAccountId("123");
         $auth->setTimestamp(time());
+        $auth->setSuceeded(true);
         return $auth;
     }
 

@@ -12,6 +12,7 @@ class InspetorAuthTest extends TestCase {
         $auth = new InspetorAuth();
         $auth->setAccountId("123");
         $auth->setTimestamp(time());
+        $auth->setSuceeded(true);
         return $auth;
     }
 
@@ -30,9 +31,19 @@ class InspetorAuthTest extends TestCase {
         $auth->isValid();
     }
 
-    public function testIfPassingNullAsTSThrowsException() {
+    public function testIfIsNotValidWhenTimestampIsNull() {
         $auth = $this->getDefaultAuth();
         $auth->setTimestamp(null);
+
+        $this->expectExceptionCode(200);
+        $this->setExpectedException(InspetorAuthException::class);
+
+        $auth->isValid();
+    }
+
+    public function testIfIsNotValidWhenSuceededIsNull() {
+        $auth = $this->getDefaultAuth();
+        $auth->setSuceeded(null);
 
         $this->expectExceptionCode(200);
         $this->setExpectedException(InspetorAuthException::class);

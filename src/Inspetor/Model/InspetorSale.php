@@ -21,8 +21,6 @@
 namespace Inspetor\Model;
 
 use Inspetor\Exception\ModelException\InspetorSaleException;
-use Inspetor\Model\InspetorItem;
-use Inspetor\Model\InspetorPayment;
 use Inspetor\Model\InspetorAbstractModel;
 use JsonSerializable;
 
@@ -65,6 +63,11 @@ class InspetorSale extends InspetorAbstractModel implements JsonSerializable {
 	 * @param boolean
 	 */
 	private $is_fraud;
+
+	/**
+	 * @param string
+	 */
+	private $analyzed_by;
 
     /**
      * @param integer
@@ -115,8 +118,8 @@ class InspetorSale extends InspetorAbstractModel implements JsonSerializable {
 
 		if (!$this->payment) {
             throw new InspetorSaleException(7007);
-        }
-
+		}
+		
         $this->setTotalValue();
 	}
 
@@ -136,6 +139,10 @@ class InspetorSale extends InspetorAbstractModel implements JsonSerializable {
 
 		if ($this->status) {
 			$this->validateStatus();
+		}
+
+		if (!$this->analyzed_by) {
+			throw new InspetorSaleException(7010);
 		}
 	}
 
@@ -277,6 +284,28 @@ class InspetorSale extends InspetorAbstractModel implements JsonSerializable {
 		return $this;
 	}
 
+
+	/**
+	 * Get the value of analysed_by
+	 *
+	 * @return  string
+	 */
+	public function getAnalyzedBy() {
+		return $this->analyzed_by;
+    }
+
+	/**
+	 * Set the value of analysed_by
+	 *
+	 * @param string $analysed_by  
+	 * 
+	 * @return  self
+	 */
+	public function setAnalyzedBy($analyzed_by) {
+        $this->analyzed_by = $analyzed_by;
+		return $this;
+	}
+
     /**
 	 * Get the value of timestamp
 	 *
@@ -365,7 +394,8 @@ class InspetorSale extends InspetorAbstractModel implements JsonSerializable {
             "sale_id"                 => $this->encodeData($this->getId()),
             "sale_total_value"        => $this->encodeData($this->getTotalValue()),
             "sale_status"             => $this->encodeData($this->getStatus()),
-            "sale_is_fraud"           => $this->encodeData($this->getIsFraud()),
+			"sale_is_fraud"           => $this->encodeData($this->getIsFraud()),
+			"sale_analyzed_by"        => $this->encodeData($this->getAnalyzedBy()),
             "sale_timestamp"  		  => $this->encodeData($this->getTimestamp()),
             "sale_items"              => $this->encodeArray($this->getItems(), true),
             "sale_payment_instance"   => $this->encodeObject($this->getPayment())

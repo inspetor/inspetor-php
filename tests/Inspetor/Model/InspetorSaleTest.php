@@ -16,6 +16,7 @@ class InspetorSaleTest extends TestCase {
         $sale->setAccountId("123");
         $sale->setStatus(InspetorSale::PENDING_STATUS);
         $sale->setIsFraud(true);
+        $sale->setAnalyzedBy("sift");
         $sale->setTimestamp(time());
         $sale->setItems([
             $this->getDefaultItem()
@@ -129,6 +130,15 @@ class InspetorSaleTest extends TestCase {
         $sale->isValid();
     }
 
+    public function testIfIsNotValidWhenAnalysedByIsNull() {
+        $sale = $this->getDefaultSale();
+        $sale->setAnalyzedBy(null);
+
+        $this->expectExceptionCode(200);
+        $this->setExpectedException(InspetorSaleException::class);
+
+        $sale->isValidUpdate();
+    }
 }
 
 
