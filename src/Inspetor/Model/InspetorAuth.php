@@ -53,7 +53,7 @@ class InspetorAuth extends InspetorAbstractModel implements JsonSerializable {
      *
      * @var boolean
      */
-    private $suceeded;
+    private $succeeded;
 
     /**
      * ISVALID
@@ -73,7 +73,7 @@ class InspetorAuth extends InspetorAbstractModel implements JsonSerializable {
             throw new InspetorAuthException(7002);
         }
 
-        if (!$this->suceeded) {
+        if (!$this->succeeded) {
             throw new InspetorAuthException(7003);
         }
     }
@@ -131,19 +131,19 @@ class InspetorAuth extends InspetorAbstractModel implements JsonSerializable {
 	 *
 	 * @return  string
 	 */
-	public function getSuceeded() {
-		return $this->suceeded;
+	public function getSucceeded() {
+		return $this->succeeded;
     }
 
 	/**
 	 * Set if the attemp to login was succeeded or not
 	 *
-	 * @param   boolean  $suceeded  If the attemp to login was succeeded or not
-	 * 
+	 * @param   boolean  $succeeded  If the attemp to login was succeeded or not
+	 *
 	 * @return  self
 	 */
-	public function setSuceeded($suceeded) {
-        $this->suceeded = $suceeded;
+	public function setSucceeded($succeeded) {
+        $this->succeeded = $succeeded;
 		return $this;
 	}
 
@@ -159,7 +159,7 @@ class InspetorAuth extends InspetorAbstractModel implements JsonSerializable {
         $array = [
             "auth_account_id"    => $this->encodeData($this->getAccountId()),
             "auth_timestamp"     => $this->encodeData($this->getTimestamp()),
-            "auth_succeeded"     => $this->encodeData($this->getSuceeded()),
+            "auth_succeeded"     => $this->encodeData($this->getSucceeded()),
         ];
 
         return $array;
