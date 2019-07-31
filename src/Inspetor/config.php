@@ -12,7 +12,7 @@ return [
         'bufferSize'                  => 1,
         'encode64'                    => true,
         'debugMode'                   => false,
-        'inspetorAuthSchema'          => 'iglu:com.inspetor/inspetor_auth_backend/jsonschema/1-0-1',
+        'inspetorAuthSchema'          => 'iglu:com.inspetor/inspetor_auth_backend/jsonschema/1-0-2',
         'inspetorPassRecoverySchema'  => 'iglu:com.inspetor/inspetor_pass_recovery_backend/jsonschema/1-0-0',
         'inspetorSaleSchema'          => 'iglu:com.inspetor/inspetor_sale_backend/jsonschema/1-0-2',
         'inspetorTransferSchema'      => 'iglu:com.inspetor/inspetor_transfer_backend/jsonschema/1-0-0',

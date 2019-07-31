@@ -215,9 +215,12 @@ class InspetorResource implements InspetorResourceService {
             InspetorAuth::ACCOUNT_LOGOUT_ACTION
         ];
 
-
         if (!in_array($action, $valid_actions)) {
             throw new TrackerException(9002);
+        }
+
+        if ($action == InspetorAuth::ACCOUNT_LOGIN_ACTION) {
+            $data->isValid();
         }
 
         $data->isValid();
