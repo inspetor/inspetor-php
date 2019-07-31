@@ -243,7 +243,7 @@ class InspetorClientTest extends TestCase {
         $inspetor_client = $this->getDefaultInspetorClient();
         $default_models = new DefaultModels();
         $auth = $default_models->getDefaultAuth();
-        $auth->setAccountId(null);
+        $auth->setAccountEmail(null);
 
         $this->expectExceptionCode(200);
         $this->setExpectedException(InspetorAuthException::class);
@@ -263,7 +263,7 @@ class InspetorClientTest extends TestCase {
         $inspetor_client = $this->getDefaultInspetorClient();
         $default_models = new DefaultModels();
         $auth = $default_models->getDefaultAuth();
-        $auth->setAccountId(null);
+        $auth->setAccountEmail(null);
 
         $this->expectExceptionCode(200);
         $this->setExpectedException(InspetorAuthException::class);

@@ -103,7 +103,7 @@ class DefaultModels {
 
     public function getDefaultAuth() {
         $auth = new InspetorAuth();
-        $auth->setAccountId("123");
+        $auth->setAccountEmail("test@email.com");
         $auth->setTimestamp(time());
         $auth->setSucceeded(true);
         return $auth;

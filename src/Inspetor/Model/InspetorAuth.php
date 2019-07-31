@@ -34,11 +34,11 @@ class InspetorAuth extends InspetorAbstractModel implements JsonSerializable {
      */
 
     /**
-      * Id of the account that is making the action
+      * Email of the account that is making the action
       *
       * @var string
     */
-    private $account_id;
+    private $account_email;
 
     /**
       * Time and date when the action is occured.
@@ -64,8 +64,8 @@ class InspetorAuth extends InspetorAbstractModel implements JsonSerializable {
      *
      * @return void
      */
-    public function isValid() {
-        if (!$this->account_id) {
+    public function isValidLogin() {
+        if (!$this->account_email) {
             throw new InspetorAuthException(7001);
         }
 
@@ -79,27 +79,42 @@ class InspetorAuth extends InspetorAbstractModel implements JsonSerializable {
     }
 
     /**
+     * Validate Auth instance
+     *
+     * @return void
+     */
+    public function isValid() {
+        if (!$this->account_email) {
+            throw new InspetorAuthException(7001);
+        }
+
+        if (!$this->timestamp) {
+            throw new InspetorAuthException(7002);
+        }
+    }
+
+    /**
      * GETTER AND SETTERS
     */
 
     /**
-     * Get the value of account_id
+     * Get the value of account_email
      *
      * @return string
     */
-    public function getAccountId() {
-        return $this->account_id;
+    public function getAccountEmail() {
+        return $this->account_email;
     }
 
     /**
-     * Set the value of account_id
+     * Set the value of account_email
      *
-     * @param string  $account_id
+     * @param string  $account_email
      *
      * @return self
     */
-    public function setAccountId($account_id) {
-        $this->account_id = $account_id;
+    public function setAccountEmail($account_email) {
+        $this->account_email = $account_email;
         return $this;
     }
 
@@ -157,7 +172,7 @@ class InspetorAuth extends InspetorAbstractModel implements JsonSerializable {
     */
     public function jsonSerialize() {
         $array = [
-            "auth_account_id"    => $this->encodeData($this->getAccountId()),
+            "auth_account_email" => $this->encodeData($this->getAccountEmail()),
             "auth_timestamp"     => $this->encodeData($this->getTimestamp()),
             "auth_succeeded"     => $this->encodeData($this->getSucceeded()),
         ];
