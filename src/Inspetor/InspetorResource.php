@@ -16,6 +16,7 @@ use Snowplow\Tracker\Tracker;
 use Snowplow\Tracker\Subject;
 use Snowplow\Tracker\Emitters\SyncEmitter;
 
+
 class InspetorResource implements InspetorResourceService {
     /**
      * @var array
@@ -73,7 +74,6 @@ class InspetorResource implements InspetorResourceService {
      * @return void
      */
     public function trackSaleAction(InspetorSale $data, string $action) {
-        $this->verifyTracker();
 
         $valid_actions = [
             InspetorSale::SALE_CREATE_ACTION,
@@ -106,7 +106,6 @@ class InspetorResource implements InspetorResourceService {
      * @return void
      */
     public function trackAccountAction(InspetorAccount $data, string $action) {
-        $this->verifyTracker();
 
         $valid_actions = [
             InspetorAccount::ACCOUNT_CREATE_ACTION,
@@ -140,7 +139,6 @@ class InspetorResource implements InspetorResourceService {
      * @return void
      */
     public function trackEventAction(InspetorEvent $data, string $action) {
-        $this->verifyTracker();
 
         $valid_actions = [
             InspetorEvent::EVENT_CREATE_ACTION,
@@ -175,7 +173,6 @@ class InspetorResource implements InspetorResourceService {
      * @return void
      */
     public function trackItemTransferAction(InspetorTransfer $data, string $action) {
-        $this->verifyTracker();
 
         $valid_actions = [
             InspetorTransfer::TRANSFER_CREATE_ACTION,
@@ -208,7 +205,6 @@ class InspetorResource implements InspetorResourceService {
      * @return void
      */
     public function trackAccountAuthAction(InspetorAuth $data, string $action) {
-        $this->verifyTracker();
 
         $valid_actions = [
             InspetorAuth::ACCOUNT_LOGIN_ACTION,
@@ -241,7 +237,6 @@ class InspetorResource implements InspetorResourceService {
      * @return void
      */
     public function trackPasswordRecoveryAction(InspetorPassRecovery $data, string $action) {
-        $this->verifyTracker();
 
         $valid_actions = [
             InspetorPassRecovery::PASSWORD_RESET_ACTION,
@@ -353,6 +348,8 @@ class InspetorResource implements InspetorResourceService {
      */
     private function trackUnstructuredEvent($schema, $data, $context, $action)
     {
+        $this->verifyTracker();
+
         if (!($data instanceof JsonSerializable)) {
             $this->reportNonserializableCall($schema);
             return;
@@ -381,6 +378,8 @@ class InspetorResource implements InspetorResourceService {
      */
     private function reportNonserializableCall($schema)
     {
+        $this->verifyTracker();
+
         $this->tracker->trackUnstructEvent(
             array(
                 "schema" => $this->config['ingresseSerializationError'],
