@@ -28,8 +28,7 @@ class TrackerException extends ExceptionAbstract
     protected static $messages = array(
         1 => "AppId and trackerName are required parameters.",
         2 => "Invalid Context! Authentication valid contexts:  \"account_login\", \"account_logout\".",
-        3 => "Invalid Context! User valid contexts: \"account_create\", \"account_update\", \"account_delete\".",
-        4 => "Invalid Context! Order valid contexts: \"new_order\", \"order_refund\".",
+        3 => "Invalid Context! Account valid contexts: \"account_create\", \"account_update\", \"account_delete\".",
         5 => "Invalid Context! Sale valid contexts: \"sale_create\", \"sale_update_status\".",
         6 => "Invalid Context! Tranfer valid contexts: \"transfer_create\", \"transfer_update_status\".",
         7 => "Invalid Context! Password request valid contexts: \"password_reset\", \"password_recovery\".",

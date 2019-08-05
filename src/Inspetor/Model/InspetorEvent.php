@@ -142,7 +142,7 @@ class InspetorEvent extends InspetorAbstractModel implements JsonSerializable {
             throw new InspetorEventException(7012);
 		}
 
-		if (!$this->is_physical) {
+		if ($this->is_physical == NULL) {
 			throw new InspetorEventException(7013);
 		}
 
