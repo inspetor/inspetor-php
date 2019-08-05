@@ -36,6 +36,7 @@ class DefaultModels {
         $sale = new InspetorSale();
         $sale->setId("123");
         $sale->setTimestamp(time());
+        $sale->setIsFraud(true);
         $sale->setAnalyzedBy("sift");
         return $sale;
     }

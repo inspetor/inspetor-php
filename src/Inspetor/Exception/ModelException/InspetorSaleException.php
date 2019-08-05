@@ -28,7 +28,7 @@ class InspetorSaleException extends ExceptionAbstract {
         1  => "id is a required property. It can't be null.",
         2  => "account_id is a required property. It can't be null on creation.",
         3  => "status is a required property. It can't be null on creation.",
-        4  => "is_fraud is a required property. It can't be null on creation.",
+        4  => "is_fraud is a required property. It can't be null on update.",
         5  => "timestamp is a required property. It can't be null.",
         6  => "items is a required property. It can't be null neither an empty array on creation.",
         7  => "payment is a required property. It can't be null on creation.",
