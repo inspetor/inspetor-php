@@ -137,7 +137,7 @@ class InspetorSale extends InspetorAbstractModel implements JsonSerializable {
 			$this->validateStatus();
 		}
 
-		if (!$this->is_fraud) {
+		if ($this->is_fraud == null) {
             throw new InspetorSaleException(7004);
         }
 

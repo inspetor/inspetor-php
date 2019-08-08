@@ -90,15 +90,15 @@ class InspetorSaleTest extends TestCase {
         $sale->isValid();
     }
 
-    // public function testIfIsNotValidWhenIsFraudIsNull() {
-    //     $sale = $this->getDefaultSale();
-    //     $sale->setIsFraud(null);
+    public function testIfIsNotValidWhenIsFraudIsNull() {
+        $sale = $this->getDefaultSale();
+        $sale->setIsFraud(null);
 
-    //     $this->expectExceptionCode(200);
-    //     $this->setExpectedException(InspetorSaleException::class);
+        $this->expectExceptionCode(200);
+        $this->setExpectedException(InspetorSaleException::class);
 
-    //     $sale->isValid();
-    // }
+        $sale->isValidUpdate();
+    }
 
     public function testIfIsNotValidWhenItemsIsNull() {
         $sale = $this->getDefaultSale();
