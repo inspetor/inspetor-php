@@ -104,10 +104,6 @@ class InspetorSale extends InspetorAbstractModel implements JsonSerializable {
 
         $this->validateStatus();
 
-		if (!$this->is_fraud) {
-            throw new InspetorSaleException(7004);
-        }
-
 		if (!$this->timestamp) {
             throw new InspetorSaleException(7005);
         }
@@ -119,7 +115,7 @@ class InspetorSale extends InspetorAbstractModel implements JsonSerializable {
 		if (!$this->payment) {
             throw new InspetorSaleException(7007);
 		}
-		
+
         $this->setTotalValue();
 	}
 
@@ -140,6 +136,10 @@ class InspetorSale extends InspetorAbstractModel implements JsonSerializable {
 		if ($this->status) {
 			$this->validateStatus();
 		}
+
+		if ($this->is_fraud == null) {
+            throw new InspetorSaleException(7004);
+        }
 
 		if (!$this->analyzed_by) {
 			throw new InspetorSaleException(7010);
@@ -297,8 +297,8 @@ class InspetorSale extends InspetorAbstractModel implements JsonSerializable {
 	/**
 	 * Set the value of analysed_by
 	 *
-	 * @param string $analysed_by  
-	 * 
+	 * @param string $analysed_by
+	 *
 	 * @return  self
 	 */
 	public function setAnalyzedBy($analyzed_by) {

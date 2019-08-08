@@ -97,7 +97,7 @@ class InspetorSaleTest extends TestCase {
         $this->expectExceptionCode(200);
         $this->setExpectedException(InspetorSaleException::class);
 
-        $sale->isValid();
+        $sale->isValidUpdate();
     }
 
     public function testIfIsNotValidWhenItemsIsNull() {
