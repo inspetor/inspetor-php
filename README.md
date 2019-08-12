@@ -136,7 +136,7 @@ The last snipped was a simple example to show how you should call our library an
 // Calling an instance of Model
   $inspetor_auth = $inspetor->getInspetorAuth();
 
-// Filling model with company data
+// Filling model with auth data
   $inspetor_auth->setAccountId("123");
   $inspetor_auth->setAccountEmail("test@email.com");
   $inspetor_auth->setTimestamp(time()); // time() returns unix timestamp
@@ -148,7 +148,7 @@ The last snipped was a simple example to show how you should call our library an
 // Calling an instance of Model
   $inspetor_account = $inspetor->getInspetorAccount();
 
-// Filling model with company data
+// Filling model with account data
   $inspetor_account->setId("123");
   $inspetor_account->setName("Test Name");
   $inspetor_account->setEmail("test@email.com");
@@ -164,7 +164,7 @@ The last snipped was a simple example to show how you should call our library an
 // Calling an instance of Model
 $inspetor_event = $inspetor->getInspetorEvent();
 
-// Filling model with company data
+// Filling model with event data
   $inspetor_event->setId("8000");
   $inspetor_event->setName("Name Test");
   $inspetor_event->setDescription("Description Test");
@@ -195,7 +195,7 @@ $inspetor_event = $inspetor->getInspetorEvent();
 // Calling an instance of Model
   $inspetor_pass = $inspetor->getInspetorPassRecovery();
 
-// Filling model with company data
+// Filling model with password recovery data
   $inspetor_pass->setRecoveryEmail("test@email.com");
   $inspetor_pass->setTimestamp(time());
 ?>
@@ -211,7 +211,7 @@ $inspetor_event = $inspetor->getInspetorEvent();
 // Calling an instance of Model
   $inspetor_sale = $inspetor->getInspetorSale();
 
-// Filling model with company data
+// Filling model with sale data
   $inspetor_sale->setId("1234");
   $inspetor_sale->setAccountId("123");
   $inspetor_sale->setStatus("pending");
@@ -231,7 +231,7 @@ $inspetor_event = $inspetor->getInspetorEvent();
 // Calling an instance of Model
   $inspetor_transfer = $inspetor->getInspetorTransfer();
 
-// Filling model with company data
+// Filling model with transfer data
   $inspetor_transfer->setId("123");
   $inspetor_transfer->setTimestamp(time());
   $inspetor_transfer->setItemId("9000");
@@ -251,7 +251,7 @@ $inspetor_event = $inspetor->getInspetorEvent();
 // Calling an instance of Model
   $inspetor_address = $inspetor->getInspetorAddress();
 
-// Filling model with company data
+// Filling model with address data
   $inspetor_address->setStreet("Street Security");
   $inspetor_address->setNumber("123");
   $inspetor_address->setZipCode("05511010");
@@ -268,7 +268,7 @@ $inspetor_event = $inspetor->getInspetorEvent();
 // Calling an instance of Model
   $inspetor_cc = $inspetor->getInspetorCreditCard();
 
-// Filling model with company data
+// Filling model with credit card data
   $inspetor_cc->setFirstSixDigits("123456");
   $inspetor_cc->setLastFourDigits("1234");
   $inspetor_cc->setHolderName("Holder Name");
@@ -282,7 +282,7 @@ $inspetor_event = $inspetor->getInspetorEvent();
 // Calling an instance of Model
   $inspetor_item = $inspetor->getInspetorItem();
 
-// Filling model with company data
+// Filling model with item data
   $inspetor_item->setId("9000");
   $inspetor_item->setEventId("8000");
   $inspetor_item->setSessionId("124");
@@ -300,7 +300,7 @@ $inspetor_event = $inspetor->getInspetorEvent();
 // Calling an instance of Model
   $inspetor_payment = $inspetor->getInspetorPayment();
 
-// Filling model with company data
+// Filling model with payment data
   $inspetor_payment->setId("12345");
   $inspetor_payment->setMethod("credit_card");
   $inspetor_payment->setInstallments("1");
@@ -314,7 +314,7 @@ $inspetor_event = $inspetor->getInspetorEvent();
 // Calling an instance of Model
   $inspetor_session = $inspetor->getInspetorSession();
 
-// Filling model with company data
+// Filling model with session data
   $inspetor_session->setId("123");
   $inspetor_session->setDatetime(1562934682); // it's the date of that event session in unix timestamp format
 ?>
@@ -326,7 +326,7 @@ $inspetor_event = $inspetor->getInspetorEvent();
 // Calling an instance of Model
   $inspetor_category = $inspetor->getInspetorCategory();
 
-// Filling model with company data
+// Filling model with category data
   $inspetor_category->setId("123");
   $inspetor_category->setName("Cooltegory");
 ?>
