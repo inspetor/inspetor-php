@@ -215,6 +215,7 @@ $inspetor_event = $inspetor->getInspetorEvent();
   $inspetor_sale->setId("1234");
   $inspetor_sale->setAccountId("123");
   $inspetor_sale->setStatus("pending");
+  $inspetor_sale->setAnalyzedBy("inspetor");
   $inspetor_sale->setIsFraud(false);
   $inspetor_sale->setTimestamp(time());
   $inspetor_sale->setItems([$inspetor_item1, $inspetor_item2]);
@@ -240,6 +241,7 @@ $inspetor_event = $inspetor->getInspetorEvent();
 ?>
 ```
 
+**OBS:** Account, Event, Sale and Transfer models can be a little differently on update requests. Check general docs to know more about it. 
 
 
 ***Auxiliar models***:
