@@ -137,8 +137,8 @@ The last snipped was a simple example to show how you should call our library an
   $inspetor_auth = $inspetor->getInspetorAuth();
 
 // Filling model with auth data
-  $inspetor_auth->setAccountId("123");
   $inspetor_auth->setAccountEmail("test@email.com");
+  $inspetor_auth->setSucceeded(True); // True when login works
   $inspetor_auth->setTimestamp(time()); // time() returns unix timestamp
 ?>
 ```
