@@ -380,8 +380,8 @@ class InspetorClass
      public function inspetorAuthBuilder($auth_data) {
         $inspetor_auth = $this->getClient()
             ->getInspetorAuth();
-        $inspetor_auth->setAccountId($auth_data['userId']);
         $inspetor_auth->setAccountEmail($auth_data['userEmail']);
+        $inspetor_auth->setSucceeded($auth_data['succeeded']);
         $inspetor_auth->setTimestamp(time());
 
         return $inspetor_auth;
