@@ -146,7 +146,7 @@ The last snipped was a simple example to show how you should call our library an
 ```
 <?php
 // Calling an instance of Model
-  $inspetor_account = $inspetor->getInspetorAuth();
+  $inspetor_account = $inspetor->getInspetorAccount();
 
 // Filling model with company data
   $inspetor_account->setId("123");
