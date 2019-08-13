@@ -2,6 +2,8 @@
 
 namespace Inspetor;
 
+use Inspetor\SnowplowManager;
+
 use Inspetor\Exception\TrackerException;
 
 use Inspetor\Model\InspetorAccount;
@@ -12,10 +14,6 @@ use Inspetor\Model\InspetorSale;
 use Inspetor\Model\InspetorTransfer;
 
 use JsonSerializable;
-use Snowplow\Tracker\Tracker;
-use Snowplow\Tracker\Subject;
-use Snowplow\Tracker\Emitters\SyncEmitter;
-
 
 class InspetorResource implements InspetorResourceService {
     /**
@@ -27,16 +25,6 @@ class InspetorResource implements InspetorResourceService {
      * @var array
      */
     private $company_config;
-
-    /**
-     * @var Snowplow\Tracker\Emitters\SyncEmitter;
-     */
-    private $emitter;
-
-    /**
-     * @var Snowplow\Tracker\Subject;
-     */
-    private $subject;
 
     /**
      * @var Snowplow\Tracker\Tracker;
@@ -51,8 +39,9 @@ class InspetorResource implements InspetorResourceService {
         $this->company_config = $config;
         $this->default_config = include('config.php');
         $this->default_config = $this->default_config['inspetor_config'];
-
-        $this->verifyTracker();
+        
+        $snowplow_manager = new SnowplowManager($config);
+        $this->tracker = $snowplow_manager->getTracker();
     }
 
     /**
@@ -63,7 +52,8 @@ class InspetorResource implements InspetorResourceService {
             return true;
         }
 
-        $this->setupTracker();
+        $snowplow_manager = new SnowplowManager($this->config);
+        $this->tracker = $snowplow_manager->getTracker();
     }
 
     /**
@@ -268,68 +258,6 @@ class InspetorResource implements InspetorResourceService {
         $this->verifyTracker();
         $this->tracker->flushEmitters();
         return;
-    }
-
-    /**
-     * @param array  $config Config from main application
-     * @return array
-     */
-    private function setupTracker() {
-        $company_config = $this->setupConfig($this->company_config);
-
-        $this->emitter = new SyncEmitter(
-            $company_config['collectorHost'],
-            $company_config['protocol'],
-            $company_config['emitMethod'],
-            $company_config['bufferSize'],
-            $company_config['debugMode']
-        );
-        $this->subject = new Subject();
-        $this->tracker = new Tracker(
-            $this->emitter,
-            $this->subject,
-            $company_config['trackerName'],
-            $company_config['appId'],
-            $company_config['encode64']
-        );
-    }
-
-    /**
-     * @param array  $config Config from main application
-     * @return array
-     * @throws TrackerException
-     */
-    private function setupConfig($config) {
-        if (!($config['trackerName']) || !($config['appId'])) {
-            throw new TrackerException(9001);
-        }
-
-        $keys = [
-            'collectorHost',
-            'protocol',
-            'emitMethod',
-            'bufferSize',
-            'debugMode',
-            'encode64'
-        ];
-
-        foreach ($keys as $item) {
-            $config = $config + array($item => $this->default_config[$item]);
-        }
-
-        if(array_key_exists('devEnv', $config)) {
-            if ($config['devEnv'] == true) {
-                $config['collectorHost'] = $this->default_config['collectorHostDev'];
-            }
-        }
-
-        if(array_key_exists('inspetorEnv', $config)) {
-            if ($config['inspetorEnv'] == true) {
-                $config['collectorHost'] = 'test';
-            }
-        }
-
-        return $config;
     }
 
     /**
