@@ -1,12 +1,12 @@
 {
     "name": "inspetor/inspetor-php",
-    "description": "Composer for Antifraud Inspetor PHP library installation.",
+    "description": "Inspetor Antifraud PHP library",
     "type": "library",
     "license": "MIT",
     "authors": [
         {
-            "name": "Theo Sato",
-            "email": "theo@useinspetor.com"
+            "name": "Inspetor Dev Team",
+            "email": "dev@useinspetor.com"
         }
     ],
     "minimum-stability": "dev",
