@@ -29,7 +29,7 @@ Now you're almost able to call our beautiful library inside your code. But, firs
 'inspetor_config' => [
   'trackerName' => cool.name (e.g. company.api),
   'appId'       => unique.number (e.g. 30cdfed3-9f7f-4aaa-b9f1-033c4dbfef58)
-  'devEnv'      => false 
+  'devEnv'      => false
 ]
 ```
 
@@ -138,7 +138,7 @@ The last snipped was a simple example to show how you should call our library an
 
 // Filling model with auth data
   $inspetor_auth->setAccountEmail("test@email.com");
-  $inspetor_auth->setSucceeded(True); // True when login works
+  $inspetor_auth->setAccountId("123"); // Account id when login works
   $inspetor_auth->setTimestamp(time()); // time() returns unix timestamp
 ?>
 ```
@@ -241,7 +241,7 @@ $inspetor_event = $inspetor->getInspetorEvent();
 ?>
 ```
 
-**OBS:** Account, Event, Sale and Transfer models can be a little differently on update requests. Check general docs to know more about it. 
+**OBS:** Account, Event, Sale and Transfer models can be a little differently on update requests. Check general docs to know more about it.
 
 
 ***Auxiliar models***:
@@ -380,8 +380,8 @@ class InspetorClass
      public function inspetorAuthBuilder($auth_data) {
         $inspetor_auth = $this->getClient()
             ->getInspetorAuth();
-        $inspetor_auth->setAccountEmail($auth_data['userEmail']);
-        $inspetor_auth->setSucceeded($auth_data['succeeded']);
+        $inspetor_auth->setAccountEmail($auth_data['account_email']);
+        $inspetor_auth->setAccountId($auth_data['account_id']);
         $inspetor_auth->setTimestamp(time());
 
         return $inspetor_auth;

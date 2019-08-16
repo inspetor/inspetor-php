@@ -12,7 +12,7 @@ class InspetorAuthTest extends TestCase {
         $auth = new InspetorAuth();
         $auth->setAccountEmail("123");
         $auth->setTimestamp(time());
-        $auth->setSucceeded(true);
+        $auth->setAccountId("123");
         return $auth;
     }
 
@@ -39,16 +39,6 @@ class InspetorAuthTest extends TestCase {
         $this->setExpectedException(InspetorAuthException::class);
 
         $auth->isValid();
-    }
-
-    public function testIfIsNotValidWhenSucceededIsNull() {
-        $auth = $this->getDefaultAuth();
-        $auth->setSucceeded(null);
-
-        $this->expectExceptionCode(200);
-        $this->setExpectedException(InspetorAuthException::class);
-
-        $auth->isValidLogin();
     }
 
 }
