@@ -39,7 +39,7 @@ class InspetorResource implements InspetorResourceService {
         $this->company_config = $config;
         $this->default_config = include('config.php');
         $this->default_config = $this->default_config['inspetor_config'];
-        
+
         $snowplow_manager = new SnowplowManager($config);
         $this->tracker = $snowplow_manager->getTracker();
     }
@@ -203,10 +203,6 @@ class InspetorResource implements InspetorResourceService {
 
         if (!in_array($action, $valid_actions)) {
             throw new TrackerException(9002);
-        }
-
-        if ($action == InspetorAuth::ACCOUNT_LOGIN_ACTION) {
-            $data->isValid();
         }
 
         $data->isValid();

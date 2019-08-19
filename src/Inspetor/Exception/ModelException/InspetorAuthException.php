@@ -26,8 +26,7 @@ class InspetorAuthException extends ExceptionAbstract {
      */
     protected static $messages = array(
         1 => "account_email is a required property. It can't be null.",
-        2 => "timestamp is a required property. It can't be null.",
-        3 => "succeeded is a required property in login requests. It should be a boolean."
+        2 => "timestamp is a required property. It can't be null."
     );
 
     /**

@@ -49,34 +49,15 @@ class InspetorAuth extends InspetorAbstractModel implements JsonSerializable {
     private $timestamp;
 
     /**
-     * If the attemp to login was succeeded or not
+     * If the attemp to login succeeded, it should have an account_id
      *
      * @var boolean
      */
-    private $succeeded;
+    private $account_id;
 
     /**
      * ISVALID
     */
-
-    /**
-     * Validate Auth instance
-     *
-     * @return void
-     */
-    public function isValidLogin() {
-        if (!$this->account_email) {
-            throw new InspetorAuthException(7001);
-        }
-
-        if (!$this->timestamp) {
-            throw new InspetorAuthException(7002);
-        }
-
-        if (!$this->succeeded) {
-            throw new InspetorAuthException(7003);
-        }
-    }
 
     /**
      * Validate Auth instance
@@ -142,23 +123,23 @@ class InspetorAuth extends InspetorAbstractModel implements JsonSerializable {
     }
 
     /**
-	 * Get if the attemp to login was succeeded or not
+	 * Return account id if login was successful, empty string if not.
 	 *
 	 * @return  string
 	 */
-	public function getSucceeded() {
-		return $this->succeeded;
+	public function getAccountId() {
+		return $this->account_id;
     }
 
 	/**
-	 * Set if the attemp to login was succeeded or not
+	 * Set if the attemp to login was account_id or not
 	 *
-	 * @param   boolean  $succeeded  If the attemp to login was succeeded or not
+	 * @param   string  $account_id if login was successful, pass id
 	 *
 	 * @return  self
 	 */
-	public function setSucceeded($succeeded) {
-        $this->succeeded = $succeeded;
+	public function setAccountId($account_id = null) {
+        $this->account_id = $account_id;
 		return $this;
 	}
 
@@ -174,7 +155,7 @@ class InspetorAuth extends InspetorAbstractModel implements JsonSerializable {
         $array = [
             "auth_account_email" => $this->encodeData($this->getAccountEmail()),
             "auth_timestamp"     => $this->encodeData($this->getTimestamp()),
-            "auth_succeeded"     => $this->encodeData($this->getSucceeded()),
+            "auth_account_id"     => $this->encodeData($this->getAccountId()),
         ];
 
         return $array;
