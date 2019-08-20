@@ -5,6 +5,7 @@ namespace Inspetor\Test\Model;
 use Inspetor\Model\InspetorAccount;
 use Inspetor\Model\InspetorAddress;
 use Inspetor\Exception\ModelException\InspetorAccountException;
+use Inspetor\Exception\ModelException\InspetorGeneralException;
 use PHPUnit\Framework\TestCase;
 
 class InspetorAccountTest extends TestCase {
@@ -14,8 +15,8 @@ class InspetorAccountTest extends TestCase {
         $account->setId("123");
         $account->setName("Test Name");
         $account->setEmail("test@email.com");
-        $account->setDocument("12312312312");
-        $account->setPhoneNumber("112345678");
+        $account->setDocument("123.123.123/12");
+        $account->setPhoneNumber("+5512112345678");
         $account->setAddress($this->getDefaultAddress());
         $account->setTimestamp(time());
         return $account;
@@ -59,14 +60,34 @@ class InspetorAccountTest extends TestCase {
         $account->isValid();
     }
 
-    public function testIfPassingNullAsTSThrowsException() {
+    public function testIfNotValidWhenDocumentIsNull() {
         $account = $this->getDefaultAccount();
+        $account->setDocument(null);
 
-        //$this->expectExceptionCode(200);
-        //$this->setExpectedException(GeneralException::class);
-        //$this->expectExceptionMessage("The timestamp should be an integer.");
+        $this->expectExceptionCode(200);
+        $this->setExpectedException(InspetorAccountException::class);
 
+        $account->isValid();
+    }
+
+    public function testIfNotValidWhenPhoneNumberIsNull() {
+        $account = $this->getDefaultAccount();
+        $account->setPhoneNumber(null);
+
+        $this->expectExceptionCode(200);
+        $this->setExpectedException(InspetorAccountException::class);
+
+        $account->isValid();
+    }
+
+    public function testIfNotValidWhenTimestampIsNull() {
+        $account = $this->getDefaultAccount();
         $account->setTimestamp(null);
+
+        $this->expectExceptionCode(200);
+        $this->setExpectedException(InspetorAccountException::class);
+
+        $account->isValid();
     }
 
 }

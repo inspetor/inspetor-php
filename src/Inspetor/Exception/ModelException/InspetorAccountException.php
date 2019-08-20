@@ -28,6 +28,8 @@ class InspetorAccountException extends ExceptionAbstract {
         1 => "id is a required property. It can't be null.",
         2 => "email is a required property. It can't be null on creation.",
         3 => "timestamp is a required property. It can't be null.",
+        4 => "document is a required property. It can't be null on creation.",
+        5 => "phone_number s a required property. It can't be null on creation.",
     );
 
     /**

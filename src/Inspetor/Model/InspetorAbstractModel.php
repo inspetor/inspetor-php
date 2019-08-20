@@ -94,4 +94,17 @@ class InspetorAbstractModel {
 
         return $formatted;
     }
+
+    /**
+     * Formatting string to pass only numbers
+     *
+     * @param string $data
+     * @return string
+     */
+    protected function onlyNumbersFormat($data) {
+        if ($data) {
+            return preg_replace('/^[0-9]*$/', '', $data);
+        }
+        return $data;
+    }
 }
