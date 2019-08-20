@@ -101,6 +101,10 @@ class InspetorAccount extends InspetorAbstractModel implements JsonSerializable 
         if (!$this->phone_number) {
             throw new InspetorAccountException(7005);
         }
+
+        if (!$this->name) {
+            throw new InspetorAccountException(7006);
+        }
     }
 
     /**

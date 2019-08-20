@@ -80,6 +80,16 @@ class InspetorAccountTest extends TestCase {
         $account->isValid();
     }
 
+    public function testIfNotValidWhenNameIsNull() {
+        $account = $this->getDefaultAccount();
+        $account->setName(null);
+
+        $this->expectExceptionCode(200);
+        $this->setExpectedException(InspetorAccountException::class);
+
+        $account->isValid();
+    }
+
     public function testIfNotValidWhenTimestampIsNull() {
         $account = $this->getDefaultAccount();
         $account->setTimestamp(null);
