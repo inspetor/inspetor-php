@@ -72,6 +72,11 @@ class InspetorAccount extends InspetorAbstractModel implements JsonSerializable 
     private $timestamp;
 
     /**
+     * @param string $timestamp
+     */
+    private $password_hash;
+
+    /**
      * Validate Account instance
      *
      * @return void
@@ -87,6 +92,14 @@ class InspetorAccount extends InspetorAbstractModel implements JsonSerializable 
 
         if (!$this->timestamp) {
             throw new InspetorAccountException(7003);
+        }
+
+        if (!$this->document) {
+            throw new InspetorAccountException(7004);
+        }
+
+        if (!$this->phone_number) {
+            throw new InspetorAccountException(7005);
         }
     }
 
@@ -262,6 +275,27 @@ class InspetorAccount extends InspetorAbstractModel implements JsonSerializable 
     }
 
     /**
+     * Get the password_hash
+     *
+     * @return string
+     */
+    public function getPasswordHash() {
+        return $this->password_hash;
+    }
+
+    /**
+     * Set the value of password_hash
+     *
+     * @param string  $password_hash
+     *
+     * @return self
+     */
+    public function setPasswordHash($password_hash) {
+        $this->password_hash = $password_hash;
+        return $this;
+    }
+
+    /**
      * JSONSERIALIZE
     */
 
@@ -275,10 +309,11 @@ class InspetorAccount extends InspetorAbstractModel implements JsonSerializable 
             "account_id"                 => $this->encodeData($this->getId()),
             "account_name"               => $this->encodeData($this->getName()),
             "account_email"              => $this->encodeData($this->getEmail()),
-            "account_document"           => $this->encodeData($this->getDocument()),
+            "account_document"           => $this->encodeData($this->onlyNumbersFormat($this->getDocument())),
             "account_address"            => $this->encodeObject($this->getAddress()),
             "account_timestamp"          => $this->encodeData($this->getTimestamp()),
-            "account_phone_number"       => $this->encodeData($this->getPhoneNumber())
+            "account_phone_number"       => $this->encodeData($this->onlyNumbersFormat($this->getPhoneNumber())),
+            "account_password_hash"      => $this->encodeData($this->getPasswordHash()),
         ];
 
         return $array;
