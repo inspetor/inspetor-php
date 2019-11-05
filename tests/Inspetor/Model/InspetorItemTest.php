@@ -12,7 +12,7 @@ class InspetorItemTest extends TestCase {
         $item = new InspetorItem();
         $item->setId("123");
         $item->setEventId("123");
-        $item->setSessionId("123");
+        $item->setSessionIds(["123"]);
         $item->setPrice(10.00);
         $item->setSeatingOption("Seating Option Test");
         $item->setQuantity("123");
@@ -44,9 +44,9 @@ class InspetorItemTest extends TestCase {
         $item->isValid();
     }
 
-    public function testIfIsNotValidWhenSessionIdIsNull() {
+    public function testIfIsNotValidWhenSessionIdsIsNull() {
         $item = $this->getDefaultItem();
-        $item->setSessionId(null);
+        $item->setSessionIds(null);
 
         $this->expectExceptionCode(200);
         $this->setExpectedException(InspetorItemException::class);
