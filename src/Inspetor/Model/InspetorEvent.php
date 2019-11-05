@@ -138,7 +138,7 @@ class InspetorEvent extends InspetorAbstractModel implements JsonSerializable {
             throw new InspetorEventException(7004);
 		}
 
-		if (!$this->admins_id || empty($this->admins_id)) {
+		if (!$this->admins_id || !is_array($this->admins_id) || empty($this->admins_id)) {
             throw new InspetorEventException(7012);
 		}
 
@@ -152,7 +152,7 @@ class InspetorEvent extends InspetorAbstractModel implements JsonSerializable {
 			}
 		}
 
-		if (!$this->sessions || empty($this->sessions)) {
+		if (!$this->sessions || !is_array($this->sessions) || empty($this->sessions)) {
             throw new InspetorEventException(7006);
 		}
 

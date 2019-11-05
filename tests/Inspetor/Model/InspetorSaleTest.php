@@ -29,7 +29,7 @@ class InspetorSaleTest extends TestCase {
         $item = new InspetorItem();
         $item->setId("123");
         $item->setEventId("123");
-        $item->setSessionIds("123");
+        $item->setSessionIds(["123"]);
         $item->setPrice("10");
         $item->setSeatingOption("Seating Option Test");
         $item->setQuantity("123");

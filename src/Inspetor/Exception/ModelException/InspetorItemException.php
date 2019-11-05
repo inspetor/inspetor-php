@@ -27,7 +27,7 @@ class InspetorItemException extends ExceptionAbstract {
     protected static $messages = array(
         1 => "id is a required property. It can't be null.",
         2 => "event_id is a required property. It can't be null.",
-        3 => "session_ids is a required property. It can't be null.",
+        3 => "session_ids must be a non-empty array of session IDs.",
         4 => "price is a required property. It can't be null.",
         5 => "price is not valid. It must be a double value equals or greater than zero.",
         6 => "quantity is a required property. It must be an integer greater than zero."

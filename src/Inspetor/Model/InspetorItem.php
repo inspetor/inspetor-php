@@ -78,7 +78,7 @@ class InspetorItem extends InspetorAbstractModel implements JsonSerializable {
             throw new InspetorItemException(7002);
         }
 
-		if (!$this->session_ids) {
+		if (!$this->session_ids || !is_array($this->session_ids) || empty($this->session_ids)) {
             throw new InspetorItemException(7003);
         }
 
@@ -248,7 +248,7 @@ class InspetorItem extends InspetorAbstractModel implements JsonSerializable {
         $array = [
             "item_id"             => $this->encodeData($this->getId()),
             "item_event_id"       => $this->encodeData($this->getEventId()),
-            "item_session_ids"     => $this->encodeData($this->getSessionIds()),
+            "item_session_ids"    => $this->encodeArray($this->getSessionIds(), false),
             "item_price"          => $this->encodeData($this->getPrice()),
 			"item_seating_option" => $this->encodeData($this->getSeatingOption()),
 			"item_quantity"       => $this->encodeData($this->getQuantity())
