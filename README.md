@@ -285,7 +285,7 @@ $inspetor_event = $inspetor->getInspetorEvent();
 // Filling model with item data
   $inspetor_item->setId("9000");
   $inspetor_item->setEventId("8000");
-  $inspetor_item->setSessionIds("124");
+  $inspetor_item->setSessionId("124");
   $inspetor_item->setPrice("50.00");
   $inspetor_item->setSeatingOption("PISTA");
   $inspetor_item->setQuantity("2");
