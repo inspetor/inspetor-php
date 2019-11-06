@@ -4,7 +4,7 @@
 </p>
 
 ## Description
-Inspetor is an product developed to help your company to avoid fraudulent transactions. This repository contains the PHP SDK for you to integrate into your company's PHP services, which will allow Inspetor to analyze user patterns and prevent fraudulent transactions. This README file, along with our [generalized integration documentation](https://inspetor.github.io/docs-backend) are here to help you to integrate the Inspetor PHP library into your product with few easy steps.
+Inspetor is a product developed to help your company to avoid fraudulent transactions. This repository contains the PHP SDK for you to integrate into your company's PHP services, which will allow Inspetor to analyze user patterns and prevent fraudulent transactions. This README file, along with our [generalized integration documentation](https://inspetor.github.io/docs-backend) are here to help you to integrate the Inspetor PHP library into your product with few easy steps.
 
 ## Setup Guide
 This is the step-by-step Inspetor integration:
@@ -58,7 +58,7 @@ class Inspetor
 
 Detailed method information and language-specific examples are all available in the [Inspetor integration documentation](https://inspetor.github.io/docs-backend). There you will find definitions, examples, and references for fundamental Inspetor entities. But just to get you started, we'll provide a practical example for interacting with our SDK below.
 
-Let's imagine that you want to put a tracker in your *"create transaction"* flow to send analytic information to Inspetor at sale creationg time. As you may have guessed (if you've read the docs), you'll be calling the `inspetorSaleCreation` method.
+Let's imagine that you want to put a tracker in your *"create transaction"* flow to send analytic information to Inspetor at sale creation time. As you may have guessed (if you've read the docs), you'll be calling the `inspetorSaleCreation` method.
 
 Naturally, the `inspetorSaleCreation` method requires certain characteristics of the sale creation to be send to Inspetor for analysis. Those attributes are captured in a **model** (specifically, the [InspetorSale](https://inspetor.github.io/docs-backend/#inspetorsale) model). You can find more general information on Inspetor's concept of **models** [here](https://inspetor.github.io/docs-backend/#models).
 
