@@ -32,6 +32,7 @@ Integration tests:
 ```
 ./vendor/bin/phpunit --configuration integration-test.xml
 ```
+Following integration tests, you should expect to see your dev-generated data appear in `atomic.actions` on the Inspetor Staging RDS instance.
 
 ### Publishing
 (to be written)

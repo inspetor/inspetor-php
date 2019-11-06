@@ -25,7 +25,7 @@ class InspetorGeneralException extends ExceptionAbstract {
      * @var array
      */
     protected static $messages = array(
-        1 => "The timestamp should be an integer.",
+        1 => "timestamp must be an integer.",
     );
 
     /**

@@ -25,11 +25,11 @@ class InspetorAddressException extends ExceptionAbstract {
      * @var array
      */
     protected static $messages = array(
-        1 => "street is a required property. It can't be null.",
-        2 => "zip_code is a required property. It can't be null.",
-        3 => "city is a required property. It can't be null.",
-        4 => "state is a required property. It can't be null.",
-        5 => "country is a required property. It can't be null.",
+        1 => "street is a required property. It cannot be null.",
+        2 => "zip_code is a required property. It cannot be null.",
+        3 => "city is a required property. It cannot be null.",
+        4 => "state is a required property. It cannot be null.",
+        5 => "country is a required property. It cannot be null.",
     );
 
     /**

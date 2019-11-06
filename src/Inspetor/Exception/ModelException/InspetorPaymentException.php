@@ -25,11 +25,11 @@ class InspetorPaymentException extends ExceptionAbstract {
      * @var array
      */
     protected static $messages = array(
-        1 => "id is a required property. It can't be null.",
-        2 => "method is a required property. It can't be null.",
-        3 => "installments is a required property. It should be an integer greater than zero.",
-        4 => "This payment method is not a valid one.",
-        5 => "Credit card can't be null when method is credit_card."
+        1 => "id is a required property. It cannot be null.",
+        2 => "method is a required property. It cannot be null.",
+        3 => "installments is a required property. It must be an integer greater than zero.",
+        4 => "payment method invalid.",
+        5 => "Credit card cannot be null when method is credit_card."
     );
 
     /**

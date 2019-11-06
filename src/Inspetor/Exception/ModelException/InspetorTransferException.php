@@ -25,11 +25,11 @@ class InspetorTransferException extends ExceptionAbstract {
      * @var array
      */
     protected static $messages = array(
-        1 => "id is a required property. It can't be null.",
-        2 => "timestamp is a required property. It can't be null.",
-        3 => "item_id is a required property. It can't be null on creation.",
-        4 => "sender_account_id is a required property. It can't be null on creation.",
-        5 => "receiver_email is a required property. It can't be null on creation.",
+        1 => "id is a required property. It cannot be null.",
+        2 => "timestamp is a required property. It cannot be null.",
+        3 => "item_id is a required property. It cannot be null on creation.",
+        4 => "sender_account_id is a required property. It cannot be null on creation.",
+        5 => "receiver_email is a required property. It cannot be null on creation.",
         6 => "That's an invalid status."
     );
 

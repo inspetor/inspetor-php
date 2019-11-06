@@ -25,19 +25,19 @@ class InspetorEventException extends ExceptionAbstract {
      * @var array
      */
     protected static $messages = array(
-        1  => "id is a required property. It can't be null.",
-        2  => "name is a required property. It can't be null on creation.",
-        3  => "timestamp is a required property. It can't be null.",
-        4  => "creator_id is a required property. It can't be null on creation.",
-        5  => "address is a required property when the event has physical place.  It can't be null on creation.",
+        1  => "id is a required property. It cannot be null.",
+        2  => "name is a required property. It cannot be null on creation.",
+        3  => "timestamp is a required property. It cannot be null.",
+        4  => "creator_id is a required property. It cannot be null on creation.",
+        5  => "address is a required property when the event has physical place.  It cannot be null on creation.",
         6  => "sessions is a required property. It must be an array of one or more sessions.",
-        7  => "seating_options should be null or an array of strings.",
-        8  => "categories should be null or an array of strings.",
-        9  => "The status is not a valid one.",
+        7  => "seating_options must be null or an array of strings.",
+        8  => "categories must be null or an array of strings.",
+        9  => "status is invalid.",
         10 => "sessions must be an array of one or more sessions.",
         11 => "id and timestamp are required properties of a session.",
-        12 => "admins_id should be an array of one or more users.",
-        13 => "is_physical should be a boolean. It's true by default."
+        12 => "admins_id must be an array of one or more users.",
+        13 => "is_physical must be a boolean. It's true by default."
     );
 
     /**
