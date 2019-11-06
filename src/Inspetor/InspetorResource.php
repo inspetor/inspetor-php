@@ -266,7 +266,7 @@ class InspetorResource implements InspetorResourceService {
 
     /**
      * @param string $schema  Iglu identifier of custom event schema
-     * @param object $data    Should implement JsonSerializable
+     * @param object $data    Must implement JsonSerializable
      * @param string $context Iglu identifier of custom event context
      * @param string $action  Define context function
      */

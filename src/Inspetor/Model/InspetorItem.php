@@ -41,9 +41,9 @@ class InspetorItem extends InspetorAbstractModel implements JsonSerializable {
 	private $event_id;
 
     /**
-	 * @param string
+	 * @param array
 	 */
-	private $session_id;
+	private $session_ids;
 
     /**
 	 * @param double
@@ -78,7 +78,7 @@ class InspetorItem extends InspetorAbstractModel implements JsonSerializable {
             throw new InspetorItemException(7002);
         }
 
-		if (!$this->session_id) {
+		if (!$this->session_ids || !is_array($this->session_ids) || empty($this->session_ids)) {
             throw new InspetorItemException(7003);
         }
 
@@ -139,24 +139,24 @@ class InspetorItem extends InspetorAbstractModel implements JsonSerializable {
 	}
 
 	/**
-	 * Get the value of session_id
+	 * Get the value of session_ids
 	 *
 	 *
 	 * @return string
 	 */
-	public function getSessionId() {
-		return $this->session_id;
+	public function getSessionIds() {
+		return $this->session_ids;
     }
 
 	/**
-	 * Set the value of session_id
+	 * Set the value of session_ids
 	 *
-	 * @param string  $session_id
+	 * @param array  $session_ids
 	 *
 	 * @return self
 	 */
-	public function setSessionId($session_id) {
-        $this->session_id = $session_id;
+	public function setSessionIds($session_ids) {
+        $this->session_ids = $session_ids;
 		return $this;
 	}
 
@@ -248,7 +248,7 @@ class InspetorItem extends InspetorAbstractModel implements JsonSerializable {
         $array = [
             "item_id"             => $this->encodeData($this->getId()),
             "item_event_id"       => $this->encodeData($this->getEventId()),
-            "item_session_id"     => $this->encodeData($this->getSessionId()),
+            "item_session_ids"    => $this->encodeArray($this->getSessionIds(), false),
             "item_price"          => $this->encodeData($this->getPrice()),
 			"item_seating_option" => $this->encodeData($this->getSeatingOption()),
 			"item_quantity"       => $this->encodeData($this->getQuantity())

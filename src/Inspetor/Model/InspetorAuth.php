@@ -49,7 +49,7 @@ class InspetorAuth extends InspetorAbstractModel implements JsonSerializable {
     private $timestamp;
 
     /**
-     * If the attemp to login succeeded, it should have an account_id
+     * If the attempt to login succeeded, it must have an associated account_id
      *
      * @var boolean
      */

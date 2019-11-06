@@ -25,8 +25,8 @@ class InspetorSessionException extends ExceptionAbstract {
      * @var array
      */
     protected static $messages = array(
-        1 => "id is a required property. It can't be null.",
-        2 => "datetime is a required property. It can't be null."
+        1 => "id is a required property. It cannot be null.",
+        2 => "datetime is a required property. It cannot be null."
     );
 
     /**

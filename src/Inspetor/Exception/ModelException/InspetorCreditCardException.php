@@ -25,11 +25,11 @@ class InspetorCreditCardException extends ExceptionAbstract {
      * @var array
      */
     protected static $messages = array(
-        1 => "first_six_digits is a required property. It can't be null.",
-        2 => "last_four_digits is a required property. It can't be null.",
-        3 => "holder_name is a required property. It can't be null.",
-        4 => "holder_cpf is a required property. It can't be null.",
-        5 => "billing_address is a required property. It can't be null."
+        1 => "first_six_digits is a required property. It cannot be null.",
+        2 => "last_four_digits is a required property. It cannot be null.",
+        3 => "holder_name is a required property. It cannot be null.",
+        4 => "holder_cpf is a required property. It cannot be null.",
+        5 => "billing_address is a required property. It cannot be null."
     );
 
     /**
